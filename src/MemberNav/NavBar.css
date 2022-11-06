@@ -1,0 +1,61 @@
+nav.memberNav{
+  height: 50px;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  /* position: relative; */
+  justify-content: space-between;
+}
+.menubtn{
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.menubtn_bar{
+  width: 30px;
+  height: 2px;
+  position: absolute;
+  background-color: #000;
+  transform-origin: 0%;
+  transition: .8s;
+}
+.menubtn_bar_01{
+  top: 4px;
+}
+.menubtn_bar_02{
+  top: 14px;
+}
+.menubtn_bar_03{
+  bottom: 4px;
+}
+.menubtn_bar_01.changed{
+  transform:rotateZ(45deg);
+  width:28px;
+}
+.menubtn_bar_02.changed{
+  opacity:0;
+}
+.menubtn_bar_03.changed{
+  transform:rotateZ(-45deg);
+  width:28px;
+}
+.logCheck{
+  background-color: #ccc;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.cartButton{
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  padding: 3px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 24px;
+  width: 100px;
+  border-radius: 20px;
+  font-weight: 700;
+}
