@@ -1,0 +1,9 @@
+nav.deliverNav{
+  height: 50px;
+  background-color: #a5f500;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  /* position: relative; */
+  justify-content: space-between;
+}

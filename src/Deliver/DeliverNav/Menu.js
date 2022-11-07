@@ -5,25 +5,20 @@ function Menu({ setToggle, toggle }) {
 
   const navi = useNavigate();
   const menuList = [
-    { text: '回首頁', link: '/' },
-    { text: '找店家', link: '/Shopping' },
-    { text: '店家內商品列表', link: '/StoreDetail' },
-    { text: '結帳頁', link: '/Pay' },
-    { text: '台北市', link: '/City/Taipei' },
-    // { text: '附近美食', link: '/' },
-    // { text: '找餐點', link: '/' },
-    { text: '優惠券', link: '/Coupon' },
-    { text: '會員中心', link: '/Member' },
-    { text: '會員登入', link: '/MemberLogin' },
-    { text: '會員註冊', link: '/MemberRegister' },
-    { text: '測試購物車頁', link: '/CartTemp' },
-    { text: '店家首頁', link: '/Store' },
     { text: '外送員首頁', link: '/Deliver' },
+    { text: '外送員資料頁', link: '/Deliver/DeliverDatas' },
+    { text: '外送員登入', link: '/Deliver/DeliverLogin' },
+    { text: '外送員註冊', link: '/Deliver/DeliverRegister' },
+    { text: '外送員接單', link: '/Deliver/DeliverConfirmOrder' },
+    { text: '外送員訂單', link: '/Deliver/DeliverOrder' },
+    { text: '外送員即時通訊 ', link: '/Deliver/DeliverMessager' },
+    { text: '一般首頁', link: '/' },
+    { text: '店家首頁', link: '/Store' },
     { text: '管理者首頁', link: '/Admin' },
   ];
   return (
     <>
-      <div className="menu">
+      <div className="deliverMenu">
         {menuList.map((value, index) => {
           return (
             <p

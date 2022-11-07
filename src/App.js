@@ -48,6 +48,21 @@ import StoreOldOrder from './Store/StoreOldOrder';
 //店家銷售分析
 import StoreSellAnalyze from './Store/StoreSellAnalyze';
 //===============================================分隔線================================================
+//外送員
+import DeliverLayout from './Deliver';
+//外送員登入頁
+import DeliverLogin from './Deliver/DeliverLogin';
+//外送員註冊
+import DeliverRegister from './Deliver/DeliverRegister';
+//外送員確認訂單
+import DeliverConfirmOrder from './Deliver/DeliverConfirmOrder';
+//外送員訂單
+import DeliverOrder from './Deliver/DeliverOrder';
+//外送員資料頁
+import DeliverDatas from './Deliver/DeliverDatas';
+//外送員即時通訊
+import DeliverMessager from './Deliver/DeliverMessager';
+//===============================================分隔線================================================
 //管理者首頁
 import Admin from './Admin';
 //管理者首頁內容
@@ -114,29 +129,29 @@ function App() {
           </Route>
 
           {/* 外送員  */}
-          {/* <Route path="/Deliver" element={<DeliverLayout />}> */}
-          {/* 外送員登入 */}
-          {/* ~/Deliver/DeliverLogin */}
-          {/* <Route path="DeliverLogin" element={<DeliverLogin />} /> */}
-          {/* 外送員註冊 */}
-          {/* ~/Deliver/DeliverRegister */}
-          {/* <Route path="DeliverRegister" element={<DeliverRegister />} /> */}
-          {/* 外送員資料頁/編輯 */}
-          {/* ~/Deliver/DeliverDatas */}
-          {/* <Route path="DeliverDatas" element={<DeliverDatas />} /> */}
-          {/* 外送員接單 */}
-          {/* ~/Deliver/DeliverConfirmOrder */}
-          {/* <Route
+          <Route path="/Deliver" element={<DeliverLayout />}>
+            {/* 外送員登入 */}
+            {/* ~/Deliver/DeliverLogin */}
+            <Route path="DeliverLogin" element={<DeliverLogin />} />
+            {/* 外送員註冊 */}
+            {/* ~/Deliver/DeliverRegister */}
+            <Route path="DeliverRegister" element={<DeliverRegister />} />
+            {/* 外送員資料頁/編輯 */}
+            {/* ~/Deliver/DeliverDatas */}
+            <Route path="DeliverDatas" element={<DeliverDatas />} />
+            {/* 外送員接單 */}
+            {/* ~/Deliver/DeliverConfirmOrder */}
+            <Route
               path="DeliverConfirmOrder"
               element={<DeliverConfirmOrder />}
-            /> */}
-          {/* 外送員訂單 */}
-          {/* ~/Deliver/DeliverOrder */}
-          {/* <Route path="DeliverOrder" element={<DeliverOrder />} /> */}
-          {/* 外送員即時通訊 */}
-          {/* ~/Deliver/DeliverMessager */}
-          {/* <Route path="DeliverMessager" element={<DeliverMessager />} /> */}
-          {/* </Route> */}
+            />
+            {/* 外送員訂單 */}
+            {/* ~/Deliver/DeliverOrder */}
+            <Route path="DeliverOrder" element={<DeliverOrder />} />
+            {/* 外送員即時通訊 */}
+            {/* ~/Deliver/DeliverMessager */}
+            <Route path="DeliverMessager" element={<DeliverMessager />} />
+          </Route>
 
           {/* 管理者  */}
           <Route path="/Admin" element={<Admin />}>

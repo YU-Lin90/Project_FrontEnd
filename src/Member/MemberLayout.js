@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 import './MemberLayout.css';
 function MemberLayout() {
+  const location = useLocation().pathname;
   //TODO 頁面連結顏色
   const [pageIndex, setPageIndex] = useState(0);
   const navi = useNavigate();
@@ -22,7 +23,9 @@ function MemberLayout() {
           {menuList.map((value, index) => {
             return (
               <p
-                className="pointer"
+                className={`pointer  ${
+                  value.link === location ? 'active' : ''
+                }`}
                 key={index}
                 onClick={() => {
                   navi(value.link);

@@ -1,4 +1,4 @@
-.menu{
+.deliverMenu{
   min-height: 300px;
   border: 1px #eee solid;
   display: flex;
@@ -9,7 +9,7 @@
   align-items: center;
   border-radius: 5px;
   position: absolute;
-  background-color:orange ;
+  background-color:#a5f500;
   z-index: 2;
   color: #000;
   font-weight: 700;
@@ -19,9 +19,9 @@
   opacity: 1;
   display: flex;
 }
-.menu>p{
+.deliverMenu>p{
   cursor: pointer;
 }
-.menu>.active{
+.deliverMenu>.active{
   color: #55f;
 }
