@@ -25,7 +25,7 @@ function MemberPoint() {
   // getData()
   return (
     <>
-      <table>
+      <table className="memberPointTable">
         <thead>
           <tr key={0}>
             <th className="points">異動點數</th>

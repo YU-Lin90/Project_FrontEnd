@@ -1,11 +1,8 @@
-import { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 import './MemberLayout.css';
 function MemberLayout() {
   const location = useLocation().pathname;
-  //TODO 頁面連結顏色
-  const [pageIndex, setPageIndex] = useState(0);
   const navi = useNavigate();
   const menuList = [
     { text: '基本資料', link: '/Member', index: 0 },

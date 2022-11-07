@@ -2,22 +2,36 @@
   width: 100%;
   display: flex;
   min-height:calc(100vh - 50px);
+  flex-direction: column;
 }
 .memberCenterList{
-  width: 30%;
-  min-height:calc( 100vh - 50px);
-  border-right: 1px red solid;
+  border-bottom: 1px red solid;
   background-color: #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   gap: 30px;
+  min-height: 50px;
 }
 .memberCenterContent{
-    width: 70%;
+  padding: 20px;
+  background-color: #eee;
+}
+@media screen and (min-width:768px) {
+  .memberCenter{
+    flex-direction: row;
+  }
+  .memberCenterList{
+    width: 30%;
     min-height:calc( 100vh - 50px);
-    background-color: #eee;
+    border-right: 1px red solid;
+    background-color: #ccc;
+    flex-direction: column;
+  }
+  .memberCenterContent{
+      width: 70%;
+      min-height:calc( 100vh - 50px);
+  }
 }
 .memberCenterList>.active{
   color: #ffa500;

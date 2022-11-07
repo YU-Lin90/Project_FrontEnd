@@ -52,6 +52,7 @@
   border-left: 3px red solid;
   border-right: 3px red solid;
   min-height: calc(100vh - 50px);
+  /* padding-top: 10px; */
 }
 .deliverContainer{
   max-width: 768px;

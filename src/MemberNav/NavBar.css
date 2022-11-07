@@ -12,6 +12,7 @@ nav.memberNav{
   height: 30px;
   position: relative;
   cursor: pointer;
+  z-index: 10;
 }
 .menubtn_bar{
   width: 30px;
@@ -58,4 +59,7 @@ nav.memberNav{
   width: 100px;
   border-radius: 20px;
   font-weight: 700;
+}
+.navLogo{
+  fill: #f5f500;
 }
