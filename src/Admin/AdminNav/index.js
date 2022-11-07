@@ -2,38 +2,38 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import './NavBar.css';
-import StoreMenu from './StoreMenu';
+import AdminMenu from './AdminMenu';
 // import { Link } from 'react-router-dom';
 const siteName = window.location.hostname;
 
 //獲得會員名
 function getName(setStoreName) {
-  const settedName = localStorage.getItem('StoreName');
+  const settedName = localStorage.getItem('AdminName');
   if (!!settedName) {
     setStoreName(settedName);
   }
 }
-function StoreNav() {
+function AdminNav() {
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
   const navi = useNavigate();
 
-  const { authStore, setAuthStore } = useAuth();
+  const { authAdmin, setAuthAdmin } = useAuth();
   //登入的會員名
   const [storeName, setStoreName] = useState('');
   //確認登入資訊
   function fetchLoginCheck(setfunc) {
-    fetch(`http://${siteName}:3001/LoginCheck/Store`, {
+    fetch(`http://${siteName}:3001/LoginCheck/Admin`, {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Store'),
+        Authorization: 'Bearer ' + localStorage.getItem('Admin'),
       },
     })
       .then((r) => r.json())
       .then((res) => {
-        console.log({ res });
+        // console.log({ res });
         if (res === 1) {
           setfunc(true);
         } else {
@@ -45,15 +45,15 @@ function StoreNav() {
   }
 
   useEffect(() => {
-    fetchLoginCheck(setAuthStore);
+    fetchLoginCheck(setAuthAdmin);
   });
 
   useEffect(() => {
     getName(setStoreName);
-  }, [authStore]);
+  }, [authAdmin]);
   return (
     <>
-      <nav className="storeNav">
+      <nav className="adminNav">
         <div
           // 目錄按鈕(三橫線)
           onClick={() => {
@@ -72,27 +72,27 @@ function StoreNav() {
           ></div>
         </div>
         {/* 名稱顯示 暫放 */}
-        <p>店家名稱:{storeName}</p>
+        <p>名稱:{storeName}</p>
         <p
           className="logCheck"
           onClick={
-            authStore
+            authAdmin
               ? () => {
-                  localStorage.removeItem('Store');
-                  localStorage.removeItem('StoreName');
+                  localStorage.removeItem('Admin');
+                  localStorage.removeItem('AdminName');
                   setStoreName('');
-                  setAuthStore(!authStore);
+                  setAuthAdmin(!authAdmin);
                 }
               : () => {
                   navi('/Store/StoreLogin');
                 }
           }
         >
-          {authStore ? '登出' : '登入'}
+          {authAdmin ? '登出' : '登入'}
         </p>
       </nav>
-      {toggle ? <StoreMenu setToggle={setToggle} toggle={toggle} /> : <></>}
+      {toggle ? <AdminMenu setToggle={setToggle} toggle={toggle} /> : <></>}
     </>
   );
 }
-export default StoreNav;
+export default AdminNav;

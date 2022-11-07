@@ -5,7 +5,7 @@ function Store() {
   return (
     <>
       <StoreNav />
-      <Outlet />
+      <div className="container">{<Outlet />}</div>
     </>
   );
 }

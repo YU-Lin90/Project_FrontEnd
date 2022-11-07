@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [authStore, setAuthStore] = useState(false);
   const [authDeliver, setAuthDeliver] = useState(false);
   const [authAdmin, setAuthAdmin] = useState(false);
+
   return (
     <AuthContext.Provider
       value={{

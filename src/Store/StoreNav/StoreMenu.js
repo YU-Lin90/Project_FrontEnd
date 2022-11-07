@@ -1,22 +1,16 @@
 import './Menu.css';
 import { useNavigate } from 'react-router-dom';
-function Menu({ setToggle, toggle }) {
+function StoreMenu({ setToggle, toggle }) {
   const navi = useNavigate();
   const menuList = [
-    { text: '回首頁', link: '/' },
-    { text: '找店家', link: '/' },
-    { text: '附近美食', link: '/' },
-    { text: '找餐點', link: '/' },
-    { text: '優惠券', link: '/' },
-    { text: '會員中心', link: '/Member' },
-    { text: '測試購物車頁', link: '/CartTemp' },
     { text: '店家首頁', link: '/Store' },
+    { text: '會員首頁', link: '/' },
     { text: '外送員首頁', link: '/Deliver' },
     { text: '管理者首頁', link: '/Admin' },
   ];
   return (
     <>
-      <div className="menu">
+      <div className="storeMenu">
         {menuList.map((value, index) => {
           return (
             <p
@@ -35,4 +29,4 @@ function Menu({ setToggle, toggle }) {
     // onBlur={setToggle(!toggle)}
   );
 }
-export default Menu;
+export default StoreMenu;

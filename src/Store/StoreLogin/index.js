@@ -40,6 +40,7 @@ function StoreLogin() {
             if (res.adminToken) {
               //登入管理者導向不同
               localStorage.setItem('Admin', res.adminToken);
+              localStorage.setItem(`AdminName`, '管理者');
               setAuthStore(true);
               setAuthAdmin(true);
               navi('/Admin');

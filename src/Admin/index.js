@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import MemberNav from './MemberNav';
+import AdminNav from './AdminNav';
 //這邊要放會員NAVBAR
-function IndexPage() {
+function Admin() {
   return (
     <>
-      <MemberNav />
+      <AdminNav />
       <div className="container">{<Outlet />}</div>
     </>
   );
 }
-export default IndexPage;
+export default Admin;

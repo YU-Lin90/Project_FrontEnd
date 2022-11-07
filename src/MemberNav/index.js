@@ -19,7 +19,7 @@ function fetchLoginCheck(setfunc) {
   })
     .then((r) => r.json())
     .then((res) => {
-      console.log({ res });
+      // console.log({ res });
       if (res === 1) {
         setfunc(true);
       } else {
@@ -78,10 +78,6 @@ function MemberNav() {
           <div
             className={`menubtn_bar menubtn_bar_03 ${toggle ? 'changed' : ''}`}
           ></div>
-        </div>
-
-        <div>
-          <a href="/Test/CartStorage.html">購物車測試用</a>
         </div>
 
         {/* 名稱顯示 暫放 */}

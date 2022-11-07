@@ -3,22 +3,39 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './Context/AuthProvider';
 import './reset.css';
 import './CssTemplate.css';
-//首頁 含Nav
+//一般首頁
 import IndexPage from './IndexPage';
 //首頁內容
 import Home from './Home';
 //會員登入
 import MemberLogin from './Member/MemberLogin';
+//會員中心
+import MemberLayout from './Member/MemberLayout';
+//會員中心內容 會員資料
+import MemberDatas from './Member/MemberDatas';
+//會員中心 紅利點數
+import MemberPoint from './Member/MemberPoint';
+//會員中心 訂單紀錄
+import MemberOrder from './Member/MemberOrder';
+//會員中心 優惠券
+import MemberCoupon from './Member/MemberCoupon';
+
 //購物車加減 臨時頁
 import CartTemp from './Temp/CartTemp';
 //店家首頁
 import Store from './Store';
 //店家首頁內容
 import StoreHome from './Store/StoreHome';
-
 //店家登入
 import StoreLogin from './Store/StoreLogin';
+//管理者首頁
+import Admin from './Admin';
+//管理者首頁內容
+import AdminHome from './Admin/AdminHome';
 
+import EditCoupon from './Admin/EditCoupon';
+
+//404
 import NoFound from './NoFound';
 function App() {
   return (
@@ -86,23 +103,23 @@ function App() {
           {/* </Route> */}
 
           {/* 管理者  */}
-          {/* <Route path="/Admin" element={<AdminLayout />}> */}
-          {/* 管理者基礎頁 各種連結 */}
-          {/* ~/Admin */}
-          {/* <Route index element={<AdminLinks />} /> */}
-          {/* 會員管理 */}
-          {/* ~/Admin/EditMemberData */}
-          {/* <Route path="EditMemberData" element={<EditMemberData />} /> */}
-          {/* 店家管理 */}
-          {/* ~/Admin/EditStoreData */}
-          {/* <Route path="EditStoreData" element={<EditStoreData />} /> */}
-          {/* 優惠券管理 */}
-          {/* ~/Admin/EditCoupon */}
-          {/* <Route path="EditCoupon" element={<EditCoupon />} /> */}
-          {/* 客服 */}
-          {/* ~/Admin/Service */}
-          {/* <Route path="Service" element={<Service />} /> */}
-          {/* </Route> */}
+          <Route path="/Admin" element={<Admin />}>
+            {/* 管理者基礎頁 */}
+            {/* ~/Admin */}
+            <Route index element={<AdminHome />} />
+            {/* 會員管理 */}
+            {/* ~/Admin/EditMemberData */}
+            {/* <Route path="EditMemberData" element={<EditMemberData />} /> */}
+            {/* 店家管理 */}
+            {/* ~/Admin/EditStoreData */}
+            {/* <Route path="EditStoreData" element={<EditStoreData />} /> */}
+            {/* 優惠券管理 */}
+            {/* ~/Admin/EditCoupon */}
+            <Route path="EditCoupon" element={<EditCoupon />} />
+            {/* 客服 */}
+            {/* ~/Admin/Service */}
+            {/* <Route path="Service" element={<Service />} /> */}
+          </Route>
 
           {/* 會員/購物首頁 要放會員Navbar */}
           <Route path="/" element={<IndexPage />}>
@@ -131,10 +148,10 @@ function App() {
             <Route path="CartTemp" element={<CartTemp />} />
             {/* ===============================================分隔線================================================ */}
             {/* 會員中心 */}
-            <Route path="Member">
+            <Route path="Member" element={<MemberLayout />}>
               {/* 會員資料頁/編輯 */}
               {/* ~/Member */}
-              {/* <Route index element={<MemberDatas />} /> */}
+              <Route index element={<MemberDatas />} />
               {/* 會員登入 */}
               {/* ~/Member/MemberLogin */}
               <Route path="MemberLogin" element={<MemberLogin />} />
@@ -143,13 +160,13 @@ function App() {
               {/* <Route path="MemberRegister" element={<MemberRegister />} /> */}
               {/* 會員訂單紀錄 */}
               {/* ~/Member/MemberOrder */}
-              {/* <Route path="MemberOrder" element={<MemberOrder />} /> */}
+              <Route path="MemberOrder" element={<MemberOrder />} />
               {/* 會員優惠券 */}
               {/* ~/Member/MemberCoupon */}
-              {/* <Route path="MemberCoupon" element={<MemberCoupon />} /> */}
+              <Route path="MemberCoupon" element={<MemberCoupon />} />
               {/* 會員紅利明細 */}
               {/* ~/Member/MemberPoint */}
-              {/* <Route path="MemberPoint" element={<MemberPoint />} /> */}
+              <Route path="MemberPoint" element={<MemberPoint />} />
               {/* 會員最愛列表 */}
               {/* ~/Member/FavoriteStore */}
               {/* <Route path="FavoriteStore" element={<FavoriteStore />} /> */}

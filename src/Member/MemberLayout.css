@@ -1,0 +1,21 @@
+.memberCenter{
+  width: 100%;
+  display: flex;
+  min-height:calc(100vh - 50px);
+}
+.memberCenterList{
+  width: 30%;
+  min-height:calc( 100vh - 50px);
+  border-right: 1px red solid;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+.memberCenterContent{
+    width: 70%;
+    min-height:calc( 100vh - 50px);
+    background-color: #eee;
+}

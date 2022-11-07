@@ -35,3 +35,21 @@
 .po-a{position:absolute;}.po-r{position:relative;}.po-s{position:sticky;}.po-f{position:fixed;}
 /* Gap */
 .gap5{gap:5px;}.gap10{gap:10px;}
+
+
+
+/* cursor */
+.pointer{cursor:pointer;}
+
+
+
+
+
+
+.container{
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 3px red solid;
+  border-right: 3px red solid;
+  min-height: calc(100vh - 50px);
+}
