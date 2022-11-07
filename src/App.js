@@ -3,8 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './Context/AuthProvider';
 import './reset.css';
 import './CssTemplate.css';
+//===============================================分隔線================================================
 //一般首頁
 import IndexPage from './IndexPage';
+//404
+import NoFound from './NoFound';
 //首頁內容
 import Home from './Home';
 //會員登入
@@ -19,24 +22,58 @@ import MemberPoint from './Member/MemberPoint';
 import MemberOrder from './Member/MemberOrder';
 //會員中心 優惠券
 import MemberCoupon from './Member/MemberCoupon';
-
-//購物車加減 臨時頁
-import CartTemp from './Temp/CartTemp';
+//會員註冊
+import MemberRegister from './Member/MemberRegister';
+//會員最愛列表
+import FavoriteStore from './Member/FavoriteStore';
+//===============================================分隔線================================================
 //店家首頁
 import Store from './Store';
 //店家首頁內容
 import StoreHome from './Store/StoreHome';
+//店家現在訂單
+import StoreOrder from './Store/StoreOrder';
 //店家登入
 import StoreLogin from './Store/StoreLogin';
+//店家資料
+import StoreDatas from './Store/StoreDatas';
+//店家商品管理
+import StoreProductEdit from './Store/StoreProductEdit';
+//店家分類管理
+import StoreTypeEdit from './Store/StoreTypeEdit';
+//店家註冊
+import StoreRegister from './Store/StoreRegister';
+//店家歷史訂單
+import StoreOldOrder from './Store/StoreOldOrder';
+//店家銷售分析
+import StoreSellAnalyze from './Store/StoreSellAnalyze';
+//===============================================分隔線================================================
 //管理者首頁
 import Admin from './Admin';
 //管理者首頁內容
 import AdminHome from './Admin/AdminHome';
-
+//優惠券管理
 import EditCoupon from './Admin/EditCoupon';
-
-//404
-import NoFound from './NoFound';
+//管理者會員資料管理
+import EditMemberData from './Admin/EditMemberData';
+//管理者店家資料管理
+import EditStoreData from './Admin/EditStoreData';
+//管理者外送員資料管理
+import EditDeliverData from './Admin/EditDeliverData';
+//===============================================分隔線================================================
+//購物流程--店家列表
+import Shopping from './Shopping/Shopping';
+//購物車加減 臨時頁
+import CartTemp from './Temp/CartTemp';
+//優惠券
+import Coupon from './Shopping/Coupon';
+//店家內商品列表
+import StoreDetail from './Shopping/StoreDetail';
+//結帳頁
+import Pay from './Shopping/Pay';
+//台北市預留頁
+import Taipei from './Shopping/Taipei';
+//===============================================分隔線================================================
 function App() {
   return (
     //登入檢查狀態 全域狀態
@@ -49,32 +86,31 @@ function App() {
           <Route path="/Store" element={<Store />}>
             {/* 店家基礎頁 */}
             {/* ~/Store/ */}
-            <Route index element={<StoreHome />} />
+            <Route element={<StoreHome />} />
             {/* 店家登入 */}
             {/* ~/Store/StoreLogin */}
             <Route path="StoreLogin" element={<StoreLogin />} />
             {/* 店家現在訂單 */}
             {/* ~/Store */}
-            {/* <Route  element={<StoreOrder />} /> */}
+            <Route index element={<StoreOrder />} />
             {/* 店家資料頁/編輯 */}
             {/* ~/Store/StoreDatas */}
-            {/* <Route path="StoreDatas" element={<StoreDatas />} /> */}
+            <Route path="StoreDatas" element={<StoreDatas />} />
             {/* 店家商品分類管理 */}
             {/* ~/Store/StoreTypeEdit */}
-            {/* <Route path="StoreTypeEdit" element={<StoreTypeEdit />} /> */}
+            <Route path="StoreTypeEdit" element={<StoreTypeEdit />} />
             {/* 店家商品管理 */}
             {/* ~/Store/StoreProductEdit */}
-            {/* <Route path="StoreProductEdit" element={<StoreOldOrder />} /> */}
-
+            <Route path="StoreProductEdit" element={<StoreProductEdit />} />
             {/* 店家註冊 */}
             {/* ~/Store/StoreRegister */}
-            {/* <Route path="StoreRegister" element={<StoreRegister />} /> */}
+            <Route path="StoreRegister" element={<StoreRegister />} />
             {/* 店家歷史訂單 */}
             {/* ~/Store/StoreOldOrder */}
-            {/* <Route path="StoreOldOrder" element={<StoreOldOrder />} /> */}
+            <Route path="StoreOldOrder" element={<StoreOldOrder />} />
             {/* 店家銷售分析 */}
             {/* ~/Store/StoreSellAnalyze */}
-            {/* <Route path="StoreSellAnalyze" element={<StoreSellAnalyze />} /> */}
+            <Route path="StoreSellAnalyze" element={<StoreSellAnalyze />} />
           </Route>
 
           {/* 外送員  */}
@@ -109,10 +145,13 @@ function App() {
             <Route index element={<AdminHome />} />
             {/* 會員管理 */}
             {/* ~/Admin/EditMemberData */}
-            {/* <Route path="EditMemberData" element={<EditMemberData />} /> */}
+            <Route path="EditMemberData" element={<EditMemberData />} />
             {/* 店家管理 */}
             {/* ~/Admin/EditStoreData */}
-            {/* <Route path="EditStoreData" element={<EditStoreData />} /> */}
+            <Route path="EditStoreData" element={<EditStoreData />} />
+            {/* 外送管理 */}
+            {/* ~/Admin/EditDeliverData */}
+            <Route path="EditDeliverData" element={<EditDeliverData />} />
             {/* 優惠券管理 */}
             {/* ~/Admin/EditCoupon */}
             <Route path="EditCoupon" element={<EditCoupon />} />
@@ -130,34 +169,34 @@ function App() {
             {/* 購物流程 */}
             {/* 店家列表 QueryString用於篩選 */}
             {/* ~/Shopping */}
-            {/* <Route path="Shopping" element={<Shopping />} /> */}
+            <Route path="Shopping" element={<Shopping />} />
             {/* 店家內商品列表 商品選取用卡片式 不用連結 */}
             {/* ~/StoreDetail */}
-            {/* <Route path="StoreDetail" element={<StoreDetail />} /> */}
+            <Route path="StoreDetail" element={<StoreDetail />} />
             {/* 結帳頁 */}
             {/* ~/Pay */}
-            {/* <Route path="Pay" element={<Pay />} /> */}
+            <Route path="Pay" element={<Pay />} />
             {/* 優惠券 */}
             {/* ~/Coupon */}
-            {/* <Route path="Coupon" element={<Coupon />} /> */}
+            <Route path="Coupon" element={<Coupon />} />
             {/* 台北市 展示用 其他城市不用做 */}
             {/* ~/City/Taipei */}
-            {/* <Route path="/City/Taipei" element={<Taipei />} /> */}
+            <Route path="/City/Taipei" element={<Taipei />} />
             {/* 測試用購物車頁 */}
             {/* ~/CartTemp */}
             <Route path="CartTemp" element={<CartTemp />} />
             {/* ===============================================分隔線================================================ */}
+            {/* 會員註冊 */}
+            {/* ~/MemberRegister */}
+            <Route path="MemberRegister" element={<MemberRegister />} />
+            {/* 會員登入 */}
+            {/* ~/MemberLogin */}
+            <Route path="MemberLogin" element={<MemberLogin />} />
             {/* 會員中心 */}
             <Route path="Member" element={<MemberLayout />}>
               {/* 會員資料頁/編輯 */}
               {/* ~/Member */}
               <Route index element={<MemberDatas />} />
-              {/* 會員登入 */}
-              {/* ~/Member/MemberLogin */}
-              <Route path="MemberLogin" element={<MemberLogin />} />
-              {/* 會員註冊 */}
-              {/* ~/Member/MemberRegister */}
-              {/* <Route path="MemberRegister" element={<MemberRegister />} /> */}
               {/* 會員訂單紀錄 */}
               {/* ~/Member/MemberOrder */}
               <Route path="MemberOrder" element={<MemberOrder />} />
@@ -169,7 +208,7 @@ function App() {
               <Route path="MemberPoint" element={<MemberPoint />} />
               {/* 會員最愛列表 */}
               {/* ~/Member/FavoriteStore */}
-              {/* <Route path="FavoriteStore" element={<FavoriteStore />} /> */}
+              <Route path="FavoriteStore" element={<FavoriteStore />} />
             </Route>
           </Route>
 

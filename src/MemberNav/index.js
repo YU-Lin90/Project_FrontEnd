@@ -106,7 +106,7 @@ function MemberNav() {
                   setAuthMember(!authMember);
                 }
               : () => {
-                  navi('/Member/MemberLogin ');
+                  navi('/MemberLogin ');
                   // setDisplayIndex(0);
                 }
           }
