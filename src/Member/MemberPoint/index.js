@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
 import './Member_Point.css';
+
 const siteName = window.location.hostname;
 function MemberPoint() {
-  const [productData, setproductData] = useState([]);
+  const [productData, setproductData] = useState([
+    {
+      coupon_sid: 0,
+      point_amount: 0,
+      point_change_time: null,
+      point_change_method: 0,
+      coupon_name: '',
+    },
+  ]);
   function getData() {
     fetch(`http://${siteName}:3001/MemberPointApi`, {
       method: 'GET',
@@ -21,6 +30,7 @@ function MemberPoint() {
   }
   useEffect(() => {
     getData();
+    // LoginCheck(1, '/', null, getData);
   }, []);
   // getData()
   return (
