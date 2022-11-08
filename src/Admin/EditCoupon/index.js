@@ -54,14 +54,17 @@ function EditCoupon() {
     fetchLoginCheck(setCouponData);
   }, [editEnd, addEnd]);
   return (
-    <>
-      <button
-        onClick={() => {
-          setAdd(true);
-        }}
-      >
-        新增
-      </button>
+    <div className="flexSetCenter fd-c">
+      <div>
+        <button
+          onClick={() => {
+            setAdd(true);
+          }}
+        >
+          新增
+        </button>
+      </div>
+
       <table className="setCenter">
         <thead>
           <tr>
@@ -141,7 +144,7 @@ function EditCoupon() {
         <></>
       )}
       {add ? <AdminCouponAdd setAddEnd={setAddEnd} setAdd={setAdd} /> : <></>}
-    </>
+    </div>
   );
 }
 export default EditCoupon;

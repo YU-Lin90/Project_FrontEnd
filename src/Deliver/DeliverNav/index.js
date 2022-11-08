@@ -83,7 +83,7 @@ function DeliverNav() {
                   setAuthDeliver(!authDeliver);
                 }
               : () => {
-                  navi('/DeliverLogin ');
+                  navi('/Deliver/DeliverLogin ');
                   // setDisplayIndex(0);
                 }
           }

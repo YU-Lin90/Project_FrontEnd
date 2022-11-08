@@ -1,8 +1,15 @@
-
+import './home.css';
+import Jumbotron from './Jumbotron';
+import Citys from './Citys';
+import Random from './Random';
+import FoodTypes from './FoodTypes';
 function Home() {
   return (
     <>
-      <h3>1234Home Page</h3>
+      <Jumbotron />
+      <Random />
+      <Citys />
+      <FoodTypes />
     </>
   );
 }

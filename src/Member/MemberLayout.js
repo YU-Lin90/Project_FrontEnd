@@ -9,7 +9,8 @@ function MemberLayout() {
     { text: '訂單紀錄', link: '/Member/MemberOrder', index: 1 },
     { text: '優惠券', link: '/Member/MemberCoupon', index: 2 },
     { text: '紅利明細', link: '/Member/MemberPoint', index: 3 },
-    { text: '最愛店家', link: '/Member/FavoriteStore', index: 3 },
+    { text: '最愛店家', link: '/Member/FavoriteStore', index: 4 },
+    { text: '位置管理', link: '/Member/MemberLocation', index: 5 },
   ];
 
   return (

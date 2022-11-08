@@ -5,7 +5,6 @@ function Menu({ setToggle, toggle }) {
 
   const navi = useNavigate();
   const menuList = [
-    { text: '回首頁', link: '/' },
     { text: '找店家', link: '/Shopping' },
     { text: '店家內商品列表', link: '/StoreDetail' },
     { text: '結帳頁', link: '/Pay' },
@@ -27,9 +26,6 @@ function Menu({ setToggle, toggle }) {
         {menuList.map((value, index) => {
           return (
             <p
-              className={
-                '/' + location.split('/')[1] === value.link ? 'active' : ''
-              }
               key={index}
               onClick={() => {
                 navi(value.link);

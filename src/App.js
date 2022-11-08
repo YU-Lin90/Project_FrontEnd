@@ -26,6 +26,8 @@ import MemberCoupon from './Member/MemberCoupon';
 import MemberRegister from './Member/MemberRegister';
 //會員最愛列表
 import FavoriteStore from './Member/FavoriteStore';
+//會員位置記錄管理
+import MemberLocation from './Member/MemberLocation';
 //===============================================分隔線================================================
 //店家首頁
 import Store from './Store';
@@ -224,6 +226,9 @@ function App() {
               {/* 會員最愛列表 */}
               {/* ~/Member/FavoriteStore */}
               <Route path="FavoriteStore" element={<FavoriteStore />} />
+              {/* 會員最愛列表 */}
+              {/* ~/Member/MemberLocation */}
+              <Route path="MemberLocation" element={<MemberLocation />} />
             </Route>
           </Route>
 
