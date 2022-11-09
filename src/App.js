@@ -77,6 +77,8 @@ import EditMemberData from './Admin/EditMemberData';
 import EditStoreData from './Admin/EditStoreData';
 //管理者外送員資料管理
 import EditDeliverData from './Admin/EditDeliverData';
+//管理者客服
+import AdminService from './Admin/AdminService';
 //===============================================分隔線================================================
 //購物流程--店家列表
 import Shopping from './Shopping/Shopping';
@@ -173,8 +175,8 @@ function App() {
             {/* ~/Admin/EditCoupon */}
             <Route path="EditCoupon" element={<EditCoupon />} />
             {/* 客服 */}
-            {/* ~/Admin/Service */}
-            {/* <Route path="Service" element={<Service />} /> */}
+            {/* ~/Admin/AdminService */}
+            <Route path="AdminService" element={<AdminService />} />
           </Route>
 
           {/* 會員/購物首頁 要放會員Navbar */}

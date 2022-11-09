@@ -7,6 +7,7 @@ function AdminMenu({ setToggle, toggle }) {
     { text: '管理會員', link: '/Admin/EditMemberData' },
     { text: '管理店家', link: '/Admin/EditStoreData' },
     { text: '管理外送員', link: '/Admin/EditDeliverData' },
+    { text: '客服系統', link: '/Admin/AdminService' },
     { text: '管理者首頁', link: '/Admin' },
     { text: '店家首頁', link: '/Store' },
     { text: '會員首頁', link: '/' },
