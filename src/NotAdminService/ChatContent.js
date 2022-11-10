@@ -43,7 +43,6 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   useEffect(() => {
     addNewContent(newContent);
   }, [newContent]);
-  // adminChatSetLeft adminChatSetRight
   return (
     <>
       <div className="flexSetCenter chatContent">
@@ -67,36 +66,3 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   );
 }
 export default ChatContent;
-
-/*
-ws
-post_content
-post_time
-post_sid
-post_side
-sid
-{
-  "msg": "123",
-  "name": "管理者",
-  "post_side": 4,
-  "post_sid": 101,
-  "receive_side": 1,
-  "receive_sid": 28,
-  "sid": 64,
-  "time": "2022-11-09 22:10:23",
-  "self": true
-}
-
-DB
-{
-  "sid": 51,
-  "post_sid": 101,
-  "post_side": 4,
-  "receive_sid": 28,
-  "receive_side": 1,
-  "post_content": "j",
-  "post_time": "2022-11-09 21:24:14",
-  "order_sid": null,
-  "name": null
-}
-*/

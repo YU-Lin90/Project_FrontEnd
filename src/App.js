@@ -10,6 +10,11 @@ import IndexPage from './IndexPage';
 import NoFound from './NoFound';
 //首頁內容
 import Home from './Home';
+//===============================================分隔線================================================
+//可通用元件
+//客服
+import NotAdminService from './NotAdminService';
+//===============================================分隔線================================================
 //會員登入
 import MemberLogin from './Member/MemberLogin';
 //會員中心
@@ -28,8 +33,7 @@ import MemberRegister from './Member/MemberRegister';
 import FavoriteStore from './Member/FavoriteStore';
 //會員位置記錄管理
 import MemberLocation from './Member/MemberLocation';
-//會員客服
-import NotAdminService from './NotAdminService';
+
 //===============================================分隔線================================================
 //店家首頁
 import Store from './Store';

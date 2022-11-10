@@ -7,16 +7,16 @@ function Jumbotron() {
           <div className="pa_frame h100p">
             <div className="card_plate">
               <div className="imgFR">
-                <img src={` http://${siteName}:3001/images/006.jpg`} alt="" />
+                <img src={` http://${siteName}:3001/images/HP001.jpg`} alt="" />
               </div>
               <div className="imgFR">
-                <img src={` http://${siteName}:3001/images/010.jpg`} alt="" />
+                <img src={` http://${siteName}:3001/images/HP002.jpg`} alt="" />
               </div>
               <div className="imgFR">
-                <img src={` http://${siteName}:3001/images/019.jpg`} alt="" />
+                <img src={` http://${siteName}:3001/images/HP003.jpg`} alt="" />
               </div>
               <div className="imgFR">
-                <img src={` http://${siteName}:3001/images/006.jpg`} alt="" />
+                <img src={` http://${siteName}:3001/images/HP001.jpg`} alt="" />
               </div>
             </div>
           </div>

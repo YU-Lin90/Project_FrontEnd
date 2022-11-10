@@ -1,4 +1,4 @@
 function Random() {
-  return <div>隨機</div>;
+  return <div style={{ height: '600px' }}>隨機</div>;
 }
 export default Random;

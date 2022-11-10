@@ -4,8 +4,10 @@ nav.memberNav{
   display: flex;
   align-items: center;
   padding: 20px;
-  /* position: relative; */
+  position: sticky;
+  top: 0;
   justify-content: space-between;
+  z-index: 2;
 }
 .menubtn{
   width: 30px;

@@ -1,4 +1,5 @@
 //WS第一層
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import WScontent from './WScontent';
 const siteName = window.location.hostname;
@@ -9,9 +10,15 @@ function WebsocketLink() {
   const navi = useNavigate();
   const socket = new WebSocket(`ws://${siteName}:3001`);
 
+  useEffect(() => {
+    return () => {
+      socket.close();
+      console.log('end');
+    };
+  }, []);
   function sendToken() {
     if (!tokenString) {
-      navi('/StoreLogin')
+      navi('/StoreLogin');
     }
     socket.send(JSON.stringify({ token: tokenString }));
   }

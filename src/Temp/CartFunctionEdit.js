@@ -1,3 +1,4 @@
+//購物車函式
 //+
 function addCart(
   shopSid, // 店家SID
@@ -5,7 +6,8 @@ function addCart(
   productName, //產品名稱
   price, //產品價格
   cuttedPrice, //產品特價後價格
-  imageUrl //產品圖片連結
+  imageUrl, //產品圖片連結
+  details //其他資訊(選擇等等)
 ) {
   let localCart = JSON.parse(localStorage.getItem('cart'));
   if (!localCart) {
@@ -35,6 +37,7 @@ function addCart(
     localCart.cartList[shopSid].list[productSid].price = price;
     localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
     localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
+    localCart.cartList[shopSid].list[productSid].details = details;
   }
 
   localCart.cartList[shopSid].shopTotal++;

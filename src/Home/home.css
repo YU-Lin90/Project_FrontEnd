@@ -5,11 +5,11 @@
           width: 100%;
           overflow: hidden;
           height: 100%;
-          box-shadow: 10px 10px 15px var(--mainColor),
+          /* box-shadow: 10px 10px 15px var(--mainColor),
               -10px -10px 15px var(--mainColor),
               10px -10px 15px var(--mainColor),
-              -10px 10px 15px var(--mainColor);
-          border-radius: 10px;
+              -10px 10px 15px var(--mainColor); */
+          /* border-radius: 10px; */
       }
 
       /* 廣告牆內框 */

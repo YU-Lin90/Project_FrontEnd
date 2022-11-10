@@ -1,14 +1,20 @@
 //會員 WS 第一層 開啟WS 只對管理者發言
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import ChatBox from './ChatBox';
 const siteName = window.location.hostname;
 
 function MemberService({ sideName }) {
   const tokenString = localStorage.getItem(sideName);
-
   const navi = useNavigate();
   const socket = new WebSocket(`ws://${siteName}:3001`);
-
+  useEffect(() => {
+    return () => {
+      socket.close();
+      console.log('end');
+    };
+  }, []);
   function sendToken() {
     if (!tokenString) {
       alert('沒登入');

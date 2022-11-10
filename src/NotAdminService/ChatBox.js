@@ -6,29 +6,13 @@ function ChatBox({ socket, sideName }) {
   const [newContent, setNewContent] = useState({ newMsg: false, content: {} });
   const sid = 101,
     side = 4;
-
-  //回傳的資料
-  //let sendData = { "msg": content, "name": map.get(ws).name, "post_side": postSide, "post_sid": postSid, "receive_side": receiveSide, "receive_sid": receiveSid, "time": timeNow /*[,"read",true已讀]*/};
-
-  /*{
-    "msg": "1",
-    "name": "管理者",
-    "post_side": 4,
-    "post_sid": 101,
-    "receive_side": 1,
-    "receive_sid": 5,
-    "time": "2022-11-09 22:00:50",
-    "self": true
-  }*/
-
   function receiveMessage(e) {
-    const datas = JSON.parse(e.data);
+    // const datas = JSON.parse(e.data);
     setNewContent({ newMsg: true, content: e.data });
-    console.log(datas);
+    // console.log(datas);
   }
 
   useEffect(() => {
-    // this.scrollIntoView({ behavior: 'auto' });
     socket.addEventListener('message', receiveMessage);
     console.log('openListener');
     return () => {

@@ -46,7 +46,14 @@
 
 /* cursor */
 .pointer{cursor:pointer;}
-
+:root {
+  /* 主色 */
+  /* var(--mainColor) */
+  --mainColor: #FFA500;
+  /* 主色互補色 */
+  /* var(--mainComplementary) */
+  --mainComplementary: #005aff;
+}
 
 
 
