@@ -12,6 +12,7 @@ function Menu({ setToggle, toggle }) {
     { text: '外送員接單', link: '/Deliver/DeliverConfirmOrder' },
     { text: '外送員訂單', link: '/Deliver/DeliverOrder' },
     { text: '外送員即時通訊 ', link: '/Deliver/DeliverMessager' },
+    { text: '外送員客服', link: '/Deliver/DeliverService' },
     { text: '一般首頁', link: '/' },
     { text: '店家首頁', link: '/Store' },
     { text: '管理者首頁', link: '/Admin' },

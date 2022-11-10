@@ -11,6 +11,7 @@ function StoreMenu({ setToggle, toggle }) {
     { text: '店家註冊', link: '/Store/StoreRegister' },
     { text: '店家歷史訂單', link: '/Store/StoreOldOrder' },
     { text: '店家銷售分析', link: '/Store/StoreSellAnalyze' },
+    { text: '店家客服', link: '/Store/StoreService' },
     { text: '會員首頁', link: '/' },
     { text: '外送員首頁', link: '/Deliver' },
     { text: '管理者首頁', link: '/Admin' },

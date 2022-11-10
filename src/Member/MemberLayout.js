@@ -11,6 +11,7 @@ function MemberLayout() {
     { text: '紅利明細', link: '/Member/MemberPoint', index: 3 },
     { text: '最愛店家', link: '/Member/FavoriteStore', index: 4 },
     { text: '位置管理', link: '/Member/MemberLocation', index: 5 },
+    { text: '客服中心', link: '/Member/MemberService', index: 6 },
   ];
 
   return (

@@ -28,6 +28,8 @@ import MemberRegister from './Member/MemberRegister';
 import FavoriteStore from './Member/FavoriteStore';
 //會員位置記錄管理
 import MemberLocation from './Member/MemberLocation';
+//會員客服
+import NotAdminService from './NotAdminService';
 //===============================================分隔線================================================
 //店家首頁
 import Store from './Store';
@@ -130,6 +132,12 @@ function App() {
             {/* 店家銷售分析 */}
             {/* ~/Store/StoreSellAnalyze */}
             <Route path="StoreSellAnalyze" element={<StoreSellAnalyze />} />
+            {/* 店家客服 */}
+            {/* ~/Store/StoreService */}
+            <Route
+              path="StoreService"
+              element={<NotAdminService sideName={'Store'} />}
+            />
           </Route>
 
           {/* 外送員  */}
@@ -155,6 +163,12 @@ function App() {
             {/* 外送員即時通訊 */}
             {/* ~/Deliver/DeliverMessager */}
             <Route path="DeliverMessager" element={<DeliverMessager />} />
+            {/* 外送員客服 */}
+            {/* ~/Deliver/DeliverService */}
+            <Route
+              path="DeliverService"
+              element={<NotAdminService sideName={'Deliver'} />}
+            />
           </Route>
 
           {/* 管理者  */}
@@ -231,6 +245,12 @@ function App() {
               {/* 會員最愛列表 */}
               {/* ~/Member/MemberLocation */}
               <Route path="MemberLocation" element={<MemberLocation />} />
+              {/* 會員客服 */}
+              {/* ~/Member/MemberService */}
+              <Route
+                path="MemberService"
+                element={<NotAdminService sideName={'Member'} />}
+              />
             </Route>
           </Route>
 

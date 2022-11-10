@@ -1,13 +1,12 @@
-//WS第五層 只有詳細對話內容
+//會員WS第三層 只有詳細對話內容 只對管理者發言
 import { useEffect, useState } from 'react';
 const siteName = window.location.hostname;
-const tokenString = localStorage.getItem('Admin');
 
-function ChatContent({ chattingPerson, newContent, setNewContent }) {
+function ChatContent({ newContent, setNewContent, sideName }) {
+  const tokenString = localStorage.getItem(sideName);
   //打開後對話內容
   const [contents, setContents] = useState([]);
-  const { sid, side } = chattingPerson;
-  const postData = JSON.stringify({ getSid: sid, getSide: side });
+  const postData = JSON.stringify({ getSid: 101, getSide: 4 });
   //{ newMsg: false, content: {} }
   function addNewContent(newContent) {
     // console.log('進入');
@@ -20,7 +19,8 @@ function ChatContent({ chattingPerson, newContent, setNewContent }) {
   }
 
   function getChatDetail() {
-    fetch(`http://${siteName}:3001/AdminService/Choosed`, {
+    //TODO 這裡路徑要改
+    fetch(`http://${siteName}:3001/${sideName}/ChatServiceToAdmin`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -52,7 +52,7 @@ function ChatContent({ chattingPerson, newContent, setNewContent }) {
             <div
               key={value.sid}
               className={`chatBlocks ${
-                value.post_sid === sid && value.post_side === side
+                value.post_sid === 101 && value.post_side === 4
                   ? 'ChatSetLeft'
                   : 'ChatSetRight'
               }`}

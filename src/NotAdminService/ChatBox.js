@@ -1,16 +1,11 @@
-//WS 第四層 有輸入框的頁面
+//會員 WS 第二層 有輸入框的頁面 只對管理者發言
 import { useEffect, useState } from 'react';
 import ChatContent from './ChatContent';
-
-function ChattingBox({
-  setChattingPerson,
-  setChatting,
-  chattingPerson,
-  socket,
-}) {
+function ChatBox({ socket, sideName }) {
   const [inputContent, setInputContent] = useState('');
   const [newContent, setNewContent] = useState({ newMsg: false, content: {} });
-  const { sid, side } = chattingPerson;
+  const sid = 101,
+    side = 4;
 
   //回傳的資料
   //let sendData = { "msg": content, "name": map.get(ws).name, "post_side": postSide, "post_sid": postSid, "receive_side": receiveSide, "receive_sid": receiveSid, "time": timeNow /*[,"read",true已讀]*/};
@@ -52,21 +47,13 @@ function ChattingBox({
   }
   return (
     <>
-      <div className="chattingBox">
+      <div className="notAdminChattingBox">
         <ChatContent
-          chattingPerson={chattingPerson}
           newContent={newContent}
           setNewContent={setNewContent}
+          sideName={sideName}
         />
-        <div className="chatInputFrame">
-          <div
-            className="pointer"
-            onClick={() => {
-              setChatting(false);
-            }}
-          >
-            X
-          </div>
+        <div className="notAdminChatInputFrame">
           <input
             autoFocus
             value={inputContent}
@@ -91,13 +78,7 @@ function ChattingBox({
           </button>
         </div>
       </div>
-      <div
-        className="grayBack"
-        onClick={() => {
-          setChatting(false);
-        }}
-      ></div>
     </>
   );
 }
-export default ChattingBox;
+export default ChatBox;
