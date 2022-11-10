@@ -7,12 +7,12 @@
   gap: 10px;
   justify-content: space-evenly;
   align-items: center;
-  position: absolute;
+  position: fixed;
   background-color: orange;
   z-index: 2;
   color: #000;
   font-weight: 700;
-  top: 0;
+  top: 50px;
   left: 0;
 }
 @media screen and (min-width:768px) {
@@ -23,7 +23,7 @@
     width: fit-content;
     height: fit-content;
     padding: 5px;
-    top: initial;
+    /* top: 50px; */
     left: initial;
   }
 }

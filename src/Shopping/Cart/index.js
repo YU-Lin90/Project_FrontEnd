@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import '../Cart.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Context/AuthProvider';
 
 function Cart({ setShowCart, setShowChooseShop }) {
+  const { cartTotal, setCartTotal } = useAuth();
   const navi = useNavigate();
   //===============================================分隔線================================================
   //購物車API
@@ -35,6 +37,7 @@ function Cart({ setShowCart, setShowChooseShop }) {
         countCartTotal += localCart.cartList[element].shopTotal;
       }
     }
+    setCartTotal(countCartTotal)
     //放回去
     localCart.cartTotal = countCartTotal;
     localStorage.setItem('cart', JSON.stringify(localCart));
@@ -69,6 +72,7 @@ function Cart({ setShowCart, setShowChooseShop }) {
         countCartTotal += localCart.cartList[element].shopTotal;
       }
     }
+    setCartTotal(countCartTotal)
     //如果歸零直接刪除
     if (countCartTotal === 0) {
       localStorage.removeItem('cart');

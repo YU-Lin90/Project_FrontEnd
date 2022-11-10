@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [authStore, setAuthStore] = useState(false);
   const [authDeliver, setAuthDeliver] = useState(false);
   const [authAdmin, setAuthAdmin] = useState(false);
+  const [cartTotal, setCartTotal] = useState(0);
 
   return (
     <AuthContext.Provider
@@ -19,6 +20,8 @@ export const AuthProvider = ({ children }) => {
         setAuthDeliver,
         authAdmin,
         setAuthAdmin,
+        cartTotal,
+        setCartTotal,
       }}
     >
       {children}

@@ -18,7 +18,7 @@ function WebsocketLink() {
   }, []);
   function sendToken() {
     if (!tokenString) {
-      navi('/StoreLogin');
+      navi('/Store/StoreLogin');
     }
     socket.send(JSON.stringify({ token: tokenString }));
   }

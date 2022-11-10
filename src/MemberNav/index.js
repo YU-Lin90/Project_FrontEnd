@@ -40,7 +40,7 @@ function MemberNav() {
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
 
-  const { authMember, setAuthMember } = useAuth();
+  const { authMember, setAuthMember, cartTotal, setCartTotal } = useAuth();
   //登入的會員名
   const [memberName, setMemberName] = useState('');
 
@@ -51,7 +51,17 @@ function MemberNav() {
   //購物車商品列表頁面(已經選擇店家)
   const [showCart, setShowCart] = useState(false);
 
+  //購物車檢查
+  function checkCartAmount() {
+    let localCart = JSON.parse(localStorage.getItem('cart'));
+    if (!localCart || !localCart.cartTotal) {
+      return;
+    }
+    setCartTotal(localCart.cartTotal);
+  }
+
   useEffect(() => {
+    checkCartAmount();
     fetchLoginCheck(setAuthMember);
   }, []);
 
@@ -150,7 +160,7 @@ function MemberNav() {
               }
             }}
           >
-            購物車
+            購物車{cartTotal}
           </p>
           <p
             className="logCheck"
