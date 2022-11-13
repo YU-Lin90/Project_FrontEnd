@@ -1,6 +1,6 @@
 nav.memberNav{
   height: 50px;
-  background-color: orange;
+  background-color: var(--mainColor);
   display: flex;
   align-items: center;
   padding: 20px;

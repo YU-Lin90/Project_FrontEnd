@@ -30,39 +30,39 @@ function ChatBox({ socket, sideName }) {
     socket.send(JSON.stringify(sendString));
   }
   return (
-    <>
+    <div className="w100p">
       <div className="notAdminChattingBox">
         <ChatContent
           newContent={newContent}
           setNewContent={setNewContent}
           sideName={sideName}
         />
-        <div className="notAdminChatInputFrame">
-          <input
-            autoFocus
-            value={inputContent}
-            onChange={(e) => {
-              setInputContent(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && inputContent !== '') {
-                // console.log('enter');
-                sendData(inputContent, side, sid);
-                setInputContent('');
-              }
-            }}
-          />
-          <button
-            onClick={() => {
+      </div>
+      <div className="notAdminChatInputFrame">
+        <input
+          autoFocus
+          value={inputContent}
+          onChange={(e) => {
+            setInputContent(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && inputContent !== '') {
+              // console.log('enter');
               sendData(inputContent, side, sid);
               setInputContent('');
-            }}
-          >
-            send
-          </button>
-        </div>
+            }
+          }}
+        />
+        <button
+          onClick={() => {
+            sendData(inputContent, side, sid);
+            setInputContent('');
+          }}
+        >
+          send
+        </button>
       </div>
-    </>
+    </div>
   );
 }
 export default ChatBox;

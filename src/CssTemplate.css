@@ -53,6 +53,8 @@
   /* 主色互補色 */
   /* var(--mainComplementary) */
   --mainComplementary: #005aff;
+  /* var(--subColor) */
+  --subColor: #F5F500;
 }
 
 

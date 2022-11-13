@@ -5,8 +5,8 @@
   flex-direction: column;
 }
 .memberCenterList{
-  border-bottom: 1px red solid;
-  background-color: #ccc;
+  border-right: 1px #222 solid;
+  /* background-color: #ccc; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,8 +24,8 @@
   .memberCenterList{
     width: 30%;
     min-height:calc( 100vh - 50px);
-    border-right: 1px red solid;
-    background-color: #ccc;
+
+    /* background-color: #ccc; */
     flex-direction: column;
   }
   .memberCenterContent{
@@ -34,5 +34,5 @@
   }
 }
 .memberCenterList>.active{
-  color: #ffa500;
+  color: var(--mainColor);
 }

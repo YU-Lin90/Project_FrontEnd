@@ -9,7 +9,7 @@
   align-items: center;
   border-radius: 5px;
   position: absolute;
-  background-color:#fff500;
+  background-color: var(--subColor);
   z-index: 2;
   color: #000;
   font-weight: 700;
