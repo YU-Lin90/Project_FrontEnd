@@ -2,6 +2,7 @@
 //+
 function addCart(
   shopSid, // 店家SID
+  shopName, //店家名稱
   productSid, //產品SID
   productName, //產品名稱
   price, //產品價格
@@ -19,6 +20,7 @@ function addCart(
   if (!localCart.cartList[shopSid]) {
     localCart.cartList[shopSid] = {};
     localCart.cartList[shopSid].shopTotal = 0;
+    localCart.cartList[shopSid].shopName = shopName;
   }
   if (!localCart.cartList[shopSid].list) {
     localCart.cartList[shopSid].list = {};

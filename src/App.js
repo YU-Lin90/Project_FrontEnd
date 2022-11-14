@@ -98,6 +98,10 @@ import StoreDetail from './Shopping/StoreDetail';
 import Pay from './Shopping/Pay';
 //台北市預留頁
 import Taipei from './Shopping/Taipei';
+//LinePay
+import LinePay from './Shopping/LinePay';
+//LinePay 結帳完成頁
+import PayConfirmed from './Shopping/LinePay/PayConfirmed';
 //===============================================分隔線================================================
 function App() {
   return (
@@ -222,6 +226,13 @@ function App() {
             {/* 測試用購物車頁 */}
             {/* ~/CartTemp */}
             <Route path="CartTemp" element={<CartTemp />} />
+            {/* LinePay 測試頁 */}
+            {/* ~/LinePay */}
+            <Route path="LinePay" element={<LinePay />} />
+            {/* LinePay 結帳完成頁 */}
+            {/* ~/PayConfirmed */}
+            <Route path="PayConfirmed" element={<PayConfirmed />} />
+
             {/* ===============================================分隔線================================================ */}
             {/* 會員註冊 */}
             {/* ~/MemberRegister */}

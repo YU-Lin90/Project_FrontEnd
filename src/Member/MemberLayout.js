@@ -5,12 +5,12 @@ function MemberLayout() {
   const location = useLocation().pathname;
   const navi = useNavigate();
   const menuList = [
-    { text: '基本資料', link: '/Member', index: 0 },
-    { text: '訂單紀錄', link: '/Member/MemberOrder', index: 1 },
-    { text: '優惠券', link: '/Member/MemberCoupon', index: 2 },
+    { text: '會員資料', link: '/Member', index: 0 },
+    // { text: '現在訂單', link: '/Member', index: 1 },
+    { text: '歷史訂單', link: '/Member/MemberOrder', index: 2 },
     { text: '紅利明細', link: '/Member/MemberPoint', index: 3 },
     { text: '最愛店家', link: '/Member/FavoriteStore', index: 4 },
-    { text: '位置管理', link: '/Member/MemberLocation', index: 5 },
+    { text: '優惠券', link: '/Member/MemberCoupon', index: 5 },
     { text: '客服中心', link: '/Member/MemberService', index: 6 },
   ];
 

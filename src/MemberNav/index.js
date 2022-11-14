@@ -5,6 +5,7 @@ import './NavBar.css';
 import Menu from './Menu';
 import ChooseCart from '../Shopping/ChooseCart';
 import Cart from '../Shopping/Cart';
+import MemberCenter from './MemberCenter';
 const siteName = window.location.hostname;
 //確認登入資訊
 function fetchLoginCheck(setfunc) {
@@ -44,12 +45,22 @@ function MemberNav() {
   //登入的會員名
   const [memberName, setMemberName] = useState('');
 
-  //TODO 之後購物車按鈕要獨立出去成為一個元件 不然這邊太擠
+  //TODO 之後購物車按鈕要獨立出去成為一個元件 不然這邊太擠?
   //選擇店家頁面
   const [showChooseShop, setShowChooseShop] = useState(false);
 
+  //會員中心頁面
+  const [openMemberCenter, setOpenMemberCenter] = useState(false);
+
   //購物車商品列表頁面(已經選擇店家)
   const [showCart, setShowCart] = useState(false);
+
+  //連結
+  const navList = [
+    { text: '找店家', link: '/Shopping' },
+    { text: '附近美食', link: '/' },
+    { text: '優惠券', link: '/Coupon' },
+  ];
 
   //購物車檢查
   function checkCartAmount() {
@@ -71,9 +82,9 @@ function MemberNav() {
   return (
     <>
       <nav className="memberNav">
+        {/* 目錄按鈕(三橫線) */}
         <div className="disf ai-c jc-c pad5 gap10">
           <div
-            // 目錄按鈕(三橫線)
             onClick={() => {
               setToggle(!toggle);
             }}
@@ -144,13 +155,22 @@ function MemberNav() {
             </Link>
           </div>
         </div>
-
+        {/* 連結 */}
+        <div className="navLinks">
+          {navList.map((v) => {
+            return (
+              <p>
+                <Link to={v.link}>{v.text}</Link>
+              </p>
+            );
+          })}
+        </div>
         {/* 名稱顯示 暫放 */}
-        <p>會員名稱:{memberName}</p>
-
+        <p>送到:台北市復興南路</p>
+        {/* 購物車按鈕 */}
         <div className="disf gap10">
-          <p
-            className="cartButton"
+          <div
+            className="po-r pointer"
             onClick={() => {
               if (showCart) {
                 setShowCart(false);
@@ -160,8 +180,21 @@ function MemberNav() {
               }
             }}
           >
-            購物車{cartTotal}
-          </p>
+            <p className="cartButton">
+              <i className="fa-solid fa-cart-shopping"></i>
+            </p>
+            <p className="navCartTotal">{cartTotal}</p>
+          </div>
+          {/* 會員中心按鈕 */}
+          <div
+            className="cartButton navUser"
+            onClick={() => {
+              setOpenMemberCenter((v) => !v);
+            }}
+          >
+            <i class="fa-solid fa-user"></i>
+          </div>
+          {/* 登入登出按鈕 */}
           <p
             className="logCheck"
             onClick={
@@ -182,7 +215,9 @@ function MemberNav() {
           </p>
         </div>
       </nav>
+      {/* 目錄切換 */}
       {toggle ? <Menu setToggle={setToggle} toggle={toggle} /> : <></>}
+      {/* 選擇店家切換 */}
       {showChooseShop ? (
         <ChooseCart
           setShowCart={setShowCart}
@@ -191,8 +226,15 @@ function MemberNav() {
       ) : (
         <></>
       )}
+      {/* 購物車切換 */}
       {showCart ? (
         <Cart setShowCart={setShowCart} setShowChooseShop={setShowChooseShop} />
+      ) : (
+        <></>
+      )}
+      {/* 會員中心切換 */}
+      {openMemberCenter ? (
+        <MemberCenter setOpenMemberCenter={setOpenMemberCenter} />
       ) : (
         <></>
       )}

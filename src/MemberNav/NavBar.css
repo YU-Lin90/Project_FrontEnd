@@ -1,5 +1,5 @@
-nav.memberNav{
-  height: 50px;
+nav.memberNav {
+  height: 80px;
   background-color: var(--mainColor);
   display: flex;
   align-items: center;
@@ -9,14 +9,23 @@ nav.memberNav{
   justify-content: space-between;
   z-index: 2;
 }
-.menubtn{
+
+.menubtn {
   width: 30px;
   height: 30px;
   position: relative;
   cursor: pointer;
   z-index: 10;
 }
-.menubtn_bar{
+
+@media screen and (min-width:768px) {
+  /* TODO: 正式使用要再啟用 開發階段先關掉 */
+  /* .menubtn {
+    display: none;
+  } */
+}
+
+.menubtn_bar {
   width: 30px;
   height: 2px;
   position: absolute;
@@ -24,44 +33,94 @@ nav.memberNav{
   transform-origin: 0%;
   transition: .8s;
 }
-.menubtn_bar_01{
+
+.menubtn_bar_01 {
   top: 4px;
 }
-.menubtn_bar_02{
+
+.menubtn_bar_02 {
   top: 14px;
 }
-.menubtn_bar_03{
+
+.menubtn_bar_03 {
   bottom: 4px;
 }
-.menubtn_bar_01.changed{
-  transform:rotateZ(45deg);
-  width:28px;
+
+.menubtn_bar_01.changed {
+  transform: rotateZ(45deg);
+  width: 28px;
 }
-.menubtn_bar_02.changed{
-  opacity:0;
+
+.menubtn_bar_02.changed {
+  opacity: 0;
 }
-.menubtn_bar_03.changed{
-  transform:rotateZ(-45deg);
-  width:28px;
+
+.menubtn_bar_03.changed {
+  transform: rotateZ(-45deg);
+  width: 28px;
 }
-.logCheck{
+
+.logCheck {
   background-color: #ccc;
   padding: 5px;
   border-radius: 10px;
   cursor: pointer;
 }
-.cartButton{
+
+.cartButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  /* width: 50px; */
+  border-radius: 50%;
   cursor: pointer;
   background-color: #000;
-  color: #fff;
-  padding: 3px;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 24px;
-  width: 100px;
-  border-radius: 20px;
+  aspect-ratio: 1;
+  color: #FFF;
+  padding: 10px;
+  /* width: 100px; */
+  /* border-radius: 20px; */
   font-weight: 700;
+  font-size: 24px;
 }
-.navLogo{
-  fill: #f5f500;
+
+.navLogo {
+  fill: var(--subColor);
+}
+
+.navCartTotal {
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: red;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  height: fit-content;
+  bottom: 0;
+  right: 0;
+}
+
+.navLinks {
+  display: none;
+}
+
+@media screen and (min-width:768px) {
+  .navLinks {
+    display: flex;
+    color: var(--subColor);
+    gap: 20px;
+  }
+}
+
+.navLinks>p {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.cartButton.navUser {
+  background-color: transparent;
+  color: #000;
 }
