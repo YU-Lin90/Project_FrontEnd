@@ -1,0 +1,38 @@
+.storeCenter{
+  width: 100%;
+  display: flex;
+  min-height:calc(100vh - 50px);
+  flex-direction: column;
+}
+.storeCenterList{
+  border-right: 1px #222 solid;
+  /* background-color: #ccc; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  min-height: 50px;
+}
+.storeContent{
+  padding: 20px;
+  background-color: #eee;
+}
+@media screen and (min-width:768px) {
+  .storeCenter{
+    flex-direction: row;
+  }
+  .storeCenterList{
+    width: 30%;
+    min-height:calc( 100vh - 50px);
+
+    /* background-color: #ccc; */
+    flex-direction: column;
+  }
+  .storeContent{
+      width: 70%;
+      min-height:calc( 100vh - 50px);
+  }
+}
+.storeCenterList>.active{
+  color: var(--mainColor);
+}

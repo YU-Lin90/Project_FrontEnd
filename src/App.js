@@ -55,6 +55,8 @@ import StoreRegister from './Store/StoreRegister';
 import StoreOldOrder from './Store/StoreOldOrder';
 //店家銷售分析
 import StoreSellAnalyze from './Store/StoreSellAnalyze';
+
+import StoreLayout from './Store/StoreLayout';
 //===============================================分隔線================================================
 //外送員
 import DeliverLayout from './Deliver';
@@ -115,7 +117,7 @@ function App() {
           <Route path="/Store" element={<Store />}>
             {/* 店家基礎頁 */}
             {/* ~/Store/ */}
-            <Route element={<StoreHome />} />
+            {/* <Route index element={<StoreLayout />} /> */}
             {/* 店家登入 */}
             {/* ~/Store/StoreLogin */}
             <Route path="StoreLogin" element={<StoreLogin />} />

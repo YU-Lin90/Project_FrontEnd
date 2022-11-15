@@ -6,81 +6,69 @@ import { useAuth } from '../../Context/AuthProvider';
 function Cart({ setShowCart, setShowChooseShop }) {
   const { cartTotal, setCartTotal } = useAuth();
   const navi = useNavigate();
+  const selectOptions = new Array(31).fill(1);
   //===============================================分隔線================================================
-  //購物車API
-  //+
-  function addCart(shopSid, productSid) {
+  //購物車下拉式API 已經有資料
+  function editCartBySelect(shopSid, productSid, amount) {
     let localCart = JSON.parse(localStorage.getItem('cart'));
-    if (!localCart) {
-      localCart = {};
-    }
-    if (!localCart.cartList) {
-      localCart.cartList = {};
-    }
-    if (!localCart.cartList[shopSid]) {
-      localCart.cartList[shopSid] = {};
-      localCart.cartList[shopSid].shopTotal = 0;
-    }
-    if (!localCart.cartList[shopSid].list) {
-      localCart.cartList[shopSid].list = {};
-    }
-    //本來就有就+1 沒有就設定成1
-    localCart.cartList[shopSid].list[productSid]
-      ? localCart.cartList[shopSid].list[productSid]++
-      : (localCart.cartList[shopSid].list[productSid] = 1);
-    localCart.cartList[shopSid].shopTotal++;
-
-    //總數重新計算
-    let countCartTotal = 0;
-    for (let element in localCart.cartList) {
-      if (element) {
-        countCartTotal += localCart.cartList[element].shopTotal;
-      }
-    }
-    setCartTotal(countCartTotal)
-    //放回去
-    localCart.cartTotal = countCartTotal;
-    localStorage.setItem('cart', JSON.stringify(localCart));
-  }
-  //-
-  function reduceCart(shopSid, productSid) {
-    let localCart = JSON.parse(localStorage.getItem('cart'));
-    if (
-      !localCart ||
-      !localCart.cartList ||
-      !localCart.cartList[shopSid] ||
-      !localCart.cartList[shopSid].list ||
-      !localCart.cartList[shopSid].list[productSid]
-    ) {
-      return;
-    }
-    //判斷現在幾個
-    if (localCart.cartList[shopSid].list[productSid] > 1) {
-      localCart.cartList[shopSid].list[productSid]--;
-    } else if (localCart.cartList[shopSid].list[productSid] === 1) {
+    //選擇不是0就設定數量
+    if (amount > 0) {
+      localCart.cartList[shopSid].list[productSid].amount = amount;
+    } else {
       delete localCart.cartList[shopSid].list[productSid];
     }
-    //如果是最後一個則清除 不然只-1
-    localCart.cartList[shopSid].shopTotal === 1
-      ? delete localCart.cartList[shopSid]
-      : localCart.cartList[shopSid].shopTotal--;
+
+    //店家總金額
+    let shopPriceTotal = 0;
+    let shopAmountTotal = 0;
+    for (let element in localCart.cartList[shopSid].list) {
+      if (element) {
+        shopAmountTotal += Number(
+          localCart.cartList[shopSid].list[element].amount
+        );
+        const dividedProduct = localCart.cartList[shopSid].list[element];
+        // console.log(shopPriceTotal);
+        // console.log(localCart.cartList[shopSid].list[element]);
+        shopPriceTotal +=
+          Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+      }
+    }
+
+    setTotalPrice(shopPriceTotal);
+
+    localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
+    localCart.cartList[shopSid].shopTotal = shopAmountTotal;
 
     //總數重新計算
     let countCartTotal = 0;
+
     for (let element in localCart.cartList) {
       if (element) {
         countCartTotal += localCart.cartList[element].shopTotal;
       }
     }
-    setCartTotal(countCartTotal)
+    setCartTotal(countCartTotal);
     //如果歸零直接刪除
     if (countCartTotal === 0) {
       localStorage.removeItem('cart');
     } else {
       localCart.cartTotal = countCartTotal;
+      // localStorage.removeItem("cart");
       localStorage.setItem('cart', JSON.stringify(localCart));
     }
+    console.log(localCart);
+    if (shopPriceTotal === 0) {
+      setShowChooseShop(true);
+      setShowCart(false);
+      delete localCart.cartList[shopSid];
+    }
+    if (countCartTotal === 0) {
+      setShowChooseShop(false);
+      setShowCart(false);
+    }
+    setProducts(localCart.cartList[shopSid].list);
   }
+
   //===============================================分隔線================================================
   //產品資料
   const [prouducts, setProducts] = useState({});
@@ -112,63 +100,121 @@ function Cart({ setShowCart, setShowChooseShop }) {
   useEffect(() => {
     //一開始先抓購物車裡面的資料出來顯示
     //現在沒有店名先用SID代替
-    setShopName(getShopData('sid'));
+    setShopName(getShopData().shopName);
     setShopSid(getShopData('sid'));
     setProducts(getShopData().list);
-    setTotalPrice(getShopData().shopTotal);
+    setTotalPrice(getShopData().shopPriceTotal);
   }, []);
 
   // console.log(prouducts)
   return (
-    <div className="cart">
-      <h2
-        onClick={() => {
-          setShowCart(false);
-          setShowChooseShop(true);
-        }}
-      >
-        返回選取店家
-      </h2>
-      <h3>店名{shopName}</h3>
+    <div className="chooseCart">
+      <div className="w100p disf jc-sb ">
+        <i
+          onClick={() => {
+            setShowCart(false);
+            setShowChooseShop(true);
+          }}
+          className="fa-solid fa-circle-chevron-left cartX pointer"
+        ></i>
+        <i
+          onClick={() => {
+            setShowCart(false);
+            setShowChooseShop(false);
+          }}
+          className="fa-solid fa-circle-xmark pointer cartX"
+        ></i>
+      </div>
+      <h3 className="chooseCartH3">{shopName}</h3>
       <div>
         {Object.keys(prouducts).map((key, index) => {
+          const cutBefore = prouducts[key].price * prouducts[key].amount;
+          const cutAfter = prouducts[key].cuttedPrice * prouducts[key].amount;
+
           return (
-            <div key={key} className="cartList">
-              <p>商品SID:{key}</p>
-              <button
-                onClick={() => {
-                  addCart(shopSid, key);
-                  setProducts(getShopData().list);
-                  setTotalPrice(getShopData().shopTotal);
-                }}
-              >
-                +
-              </button>
-              <p>數量:{prouducts[key]}</p>
-              <button
-                onClick={() => {
-                  reduceCart(shopSid, key);
-                  setProducts(getShopData().list);
-                  setTotalPrice(getShopData().shopTotal);
-                  emptyCheck(totalPrice - 1);
-                  // TODO 這裡要加入判斷式 如果變0要提醒並關掉這頁
-                }}
-              >
-                -
-              </button>
+            <div
+              onClick={(e) => {
+                console.log(e.target.name);
+                if (!e.target.name) {
+                  console.log(123);
+                }
+              }}
+              key={key}
+              className="cartShopList"
+            >
+              <div>
+                {/* prouducts[key].amount數量 */}
+                {/* prouducts[key].name */}
+                {/* prouducts[key].cuttedPrice */}
+                {/* prouducts[key].details */}
+                <select
+                  name="selects"
+                  value={prouducts[key].amount}
+                  onChange={(e) => {
+                    editCartBySelect(shopSid, key, e.target.value);
+                    console.log(e.target.value);
+                  }}
+                >
+                  {selectOptions.map((v, i) => {
+                    return (
+                      <option key={i} value={i}>
+                        {i === 0 ? '清除' : i}
+                      </option>
+                    );
+                  })}
+                </select>
+
+                {/* <i
+                    onClick={() => {
+                      addCart(shopSid, key);
+                      setProducts(getShopData().list);
+                      setTotalPrice(getShopData().shopTotal);
+                    }}
+                    className="fa-solid fa-circle-plus"
+                  ></i>
+                </div>
+                <p>數量:{prouducts[key]}</p>
+                <div>
+                  <i
+                    onClick={() => {
+                      reduceCart(shopSid, key);
+                      setProducts(getShopData().list);
+                      setTotalPrice(getShopData().shopTotal);
+                      emptyCheck(totalPrice - 1);
+                      // TODO 這裡要加入判斷式 如果變0要提醒並關掉這頁
+                    }}
+                    className="fa-solid fa-circle-minus"
+                  ></i> */}
+              </div>
+
+              <p>{prouducts[key].name}</p>
+              {/* 價格 */}
+              <div>
+                <p className="chooseCartPrice">
+                  {prouducts[key].cuttedPrice * prouducts[key].amount}
+                </p>
+                {/* 折價前後是否相等 */}
+                {cutBefore === cutAfter ? (
+                  <></>
+                ) : (
+                  <p className="chooseCartPrice cuttedPrice">
+                    {prouducts[key].price * prouducts[key].amount}
+                  </p>
+                )}
+              </div>
             </div>
           );
         })}
       </div>
-      <h3>總數:{totalPrice}</h3>
       <div
+        className="goPayButoon"
         onClick={() => {
           navi('/Pay');
           setShowCart(false);
           setShowChooseShop(false);
         }}
       >
-        前往結帳
+        前往結帳．${totalPrice}
       </div>
     </div>
   );

@@ -157,9 +157,9 @@ function MemberNav() {
         </div>
         {/* 連結 */}
         <div className="navLinks">
-          {navList.map((v) => {
+          {navList.map((v, i) => {
             return (
-              <p>
+              <p key={i}>
                 <Link to={v.link}>{v.text}</Link>
               </p>
             );
@@ -192,7 +192,7 @@ function MemberNav() {
               setOpenMemberCenter((v) => !v);
             }}
           >
-            <i class="fa-solid fa-user"></i>
+            <i className="fa-solid fa-user"></i>
           </div>
           {/* 登入登出按鈕 */}
           <p

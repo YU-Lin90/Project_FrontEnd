@@ -1,9 +1,8 @@
-//購物車函式
 //+
 function addCart(
   shopSid, // 店家SID
-  shopName, //店家名稱
   productSid, //產品SID
+  shopName, //店家名稱
   productName, //產品名稱
   price, //產品價格
   cuttedPrice, //產品特價後價格
@@ -44,6 +43,19 @@ function addCart(
 
   localCart.cartList[shopSid].shopTotal++;
 
+  //店家總金額
+  let shopPriceTotal = 0;
+  for (let element in localCart.cartList[shopSid].list) {
+    if (element) {
+      const dividedProduct = localCart.cartList[shopSid].list[element];
+      // console.log(shopPriceTotal);
+      console.log(localCart.cartList[shopSid].list[element]);
+      shopPriceTotal +=
+        Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+    }
+  }
+  localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
+
   //總數重新計算
   let countCartTotal = 0;
   for (let element in localCart.cartList) {
@@ -81,6 +93,18 @@ function reduceCart(shopSid, productSid) {
     ? delete localCart.cartList[shopSid]
     : localCart.cartList[shopSid].shopTotal--;
 
+  //店家總金額
+  let shopPriceTotal = 0;
+  for (let element in localCart.cartList[shopSid].list) {
+    if (element) {
+      const dividedProduct = localCart.cartList[shopSid].list[element];
+      // console.log(shopPriceTotal);
+      console.log(localCart.cartList[shopSid].list[element]);
+      shopPriceTotal +=
+        Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+    }
+  }
+  localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
   //總數重新計算
   let countCartTotal = 0;
   for (let element in localCart.cartList) {

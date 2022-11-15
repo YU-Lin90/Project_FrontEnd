@@ -1,24 +1,31 @@
 .chooseCart {
   position: absolute;
   width: 100%;
-  border: 3px red solid;
-  background-color: #eee;
+  /* border: 3px red solid; */
+  background-color: #fff;
   min-height: 300px;
-  padding: 5px;
+  padding: 20px;
   padding-top: 10px;
   right: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  /* gap: 20px; */
   position: fixed;
+  border: #eee5 1px solid
 }
-.chooseCartH3{
-  font-size: 28px;
+
+.chooseCartH3 {
+  font-size: 36px;
+  font-weight: 600;
+  /* text-align:start; */
   text-align: center;
   width: 100%;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
-.chooseCartName{
+
+.chooseCartName {
   font-weight: 700;
 }
 
@@ -28,7 +35,7 @@
   padding: 10px;
   cursor: pointer;
   border-bottom: 2px red solid;
-  
+
 }
 
 .cart {
@@ -47,9 +54,12 @@
 
 @media screen and (min-width:768px) {
   .chooseCart {
-    width: 500px;
+    width: fit-content;
+    min-width: 360px;
     min-height: 400px;
     top: 80px;
+    right: 5%;
+    box-shadow: 5px 5px 5px #bbbb;
   }
 
   .cart {
@@ -63,11 +73,73 @@
 .cartShopList {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 25px;
+  padding-top: 30px;
   cursor: pointer;
-  border-bottom: 2px red solid;
+  border-bottom: 2px #999 solid;
+  align-items: center;
 }
 
 .cartShopList:hover {
-  background-color: #fff;
+  background-color: #EFE587;
+}
+
+.cartX {
+  position: relative;
+  font-size: 36px;
+  color: #222;
+  /* display: inline-block; */
+  right: 0;
+  /* align-self: end; */
+}
+
+.chooseCartPrice {
+  color: #987426;
+  font-weight: 600;
+}
+
+.chooseCartPrice::before {
+  content: '$';
+}
+
+.setCartButtons {
+  font-size: 24px;
+}
+
+.append1s {
+  opacity: 0;
+  animation: showAfter .5s forwards;
+}
+
+@keyframes showAfter {
+  100% {
+    opacity: 1;
+  }
+}
+
+.cuttedPrice {
+  text-decoration: line-through;
+  color: black;
+}
+
+.goPayButoon {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #000;
+  color: #eee;
+  height: 36px;
+  font-size: 18px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 36px;
+  cursor: pointer;
+}
+
+.goPayButoon:hover {
+  background-color: #333;
+}
+
+.emptyCart {
+  color: var(--mainColor);
+  font-size: 180px;
 }
