@@ -1,26 +1,61 @@
-.orderOptions{
+.orderOptions {
   border-bottom: 3px #222 solid;
   display: flex;
   justify-content: space-between;
   font-size: 24px;
 }
-.storeOrderSwith{
+
+.storeOrderSwith {
   padding: 3px;
 }
-.storeOrderSwith.active{
+
+.storeOrderSwith.active {
   border-bottom: 5px solid #000;
   font-weight: 700;
 }
-.storeTimes{
+
+.storeTimes {
   display: flex;
   gap: 10px;
 
 }
-.storeTimes>span{
+
+.storeTimes>span {
   cursor: pointer;
 }
-/* 卡片最外層 */
-.orderDetailsCard{
-  background-color: #fff;
+
+.orderDetailsCardCol {
+  width: 50%;
+}
+
+@media screen and (min-width:768px) {
+
+  .orderDetailsCardCol {
+    width: 25%;
+  }
+
+}
+
+/* 卡片最外層  */
+.orderDetailsCard {
+  /* background-color: #fff; */
+
   cursor: pointer;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* gap: 10px; */
+  min-height:200px;
+  justify-content:space-evenly;
+}
+/* 卡片背景色 */
+.orderDetailsCard.color0{
+  background: linear-gradient(to bottom, #fff 70%, var(--subColor) 100%);
+}
+.orderDetailsCard.color1{
+  background: linear-gradient(to bottom, #fff 70%, var(--mainColor) 100%);
+}
+.orderDetailsCard.color2{
+  background: linear-gradient(to bottom, #fff 70%, #c22 100%);
 }

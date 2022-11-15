@@ -1,34 +1,25 @@
 //訂單第二層
-import { useEffect, useState } from 'react';
 import OrderDetailsCard from '../OrderDetailsCard';
-const siteName = window.location.hostname;
-function StoreOrderDetails({ fetchName = 'checkDisConfirm', page }) {
-  const [showDatas, setShowDatas] = useState([]);
-  function getData() {
-    fetch(`http://${siteName}:3001/StoreOrders/${fetchName}`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Store'),
-      },
-    })
-      .then((r) => r.json())
-      .then((res) => {
-        console.log({ res });
-        setShowDatas(res);
-      });
-  }
-  useEffect(() => {
-    getData();
-  }, []);
+function StoreOrderDetails({ page, datas, setOpenDetail }) {
   return (
-    <div className="w100p disf fw-w ">
-      {/* {fetchName} */}
-      {showDatas.map((v, i) => {
-        return <OrderDetailsCard page={page} datas={v} key={v.sid} />;
-      })}
-    </div>
+    <>
+      {datas.length > 0 ? (
+        <div className="w100p disf fw-w ">
+          {datas.map((v, i) => {
+            return (
+              <OrderDetailsCard
+                setOpenDetail={setOpenDetail}
+                page={page}
+                datas={v}
+                key={v.sid}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 export default StoreOrderDetails;

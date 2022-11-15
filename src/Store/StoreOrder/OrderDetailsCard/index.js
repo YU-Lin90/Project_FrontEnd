@@ -1,30 +1,41 @@
 //訂單第三層 卡片
 
+import { useState } from 'react';
 import '../StoreOrder.css';
 
-/* {
-  "sid": 1,
-  "member_sid": 1,
-  "shop_sid": 89,
-  "store_order_sid": null,
-  "shop_memo": "不要香菜",
-  "order_time": "2022-11-15 16:01:44",
-  "order_total": 2000,
-  "sale": 2000,
-  "paid": 1,
-  "pay_method": 0,
-  "cook_time": 40,
-  "name": "ゆう"
-}*/
-
-function OrderDetailsCard({ datas, page }) {
+function OrderDetailsCard({ datas, page, setOpenDetail }) {
   return (
-    <div className="w25p padH5">
-      <div className="orderDetailsCard">
-        <div>客戶名稱：{datas.name}</div>
+    <div className="orderDetailsCardCol padH5">
+      <div className={`orderDetailsCard color${page}`}>
+        <div className="fw6">客戶名稱：{datas.name}</div>
         <div>訂單編號：{datas.orderNumber}</div>
-        <div>下單時間：{datas.order_time}</div>
-        <div>等待時間：{datas.cook_time}</div>
+        {/* 未確認訂單 */}
+        {page === 0 ? (
+          <>
+            <div>商品總數：{datas.total_amount}</div>
+            <div>下單時間：{datas.order_time}</div>
+          </>
+        ) : (
+          <></>
+        )}
+        {/* 已接受訂單 */}
+        {page === 1 ? (
+          <>
+            <div>商品總數：{datas.total_amount}</div>
+            <div>接單時間：{datas.shop_accept_time}</div>
+          </>
+        ) : (
+          <></>
+        )}
+        {/* 未取餐訂單 */}
+        {page === 2 ? (
+          <>
+            <div>完成時間：{datas.shop_complete_time}</div>
+            <div>外送員：{datas.deliver_name || '未接單'}</div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
