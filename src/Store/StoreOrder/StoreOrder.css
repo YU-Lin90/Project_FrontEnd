@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .storeOrderSwith {
@@ -46,16 +47,82 @@
   flex-direction: column;
   width: 100%;
   /* gap: 10px; */
-  min-height:200px;
-  justify-content:space-evenly;
+  min-height: 200px;
+  justify-content: space-evenly;
+  margin: 5px;
+  /* margin-top: 10px; */
 }
+
 /* 卡片背景色 */
-.orderDetailsCard.color0{
+.orderDetailsCard.color0 {
   background: linear-gradient(to bottom, #fff 70%, var(--subColor) 100%);
 }
-.orderDetailsCard.color1{
+
+.orderDetailsCard.color1 {
   background: linear-gradient(to bottom, #fff 70%, var(--mainColor) 100%);
 }
-.orderDetailsCard.color2{
+
+.orderDetailsCard.color2 {
   background: linear-gradient(to bottom, #fff 70%, #c22 100%);
+}
+
+@media screen and (min-width:768px) {
+  /* .storeConfirmOrder{
+   max-width: 60%; 
+  } */
+
+}
+
+/* 確認訂單燈窗內容 */
+.storeConfirmOrder {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+  /* padding: 20px; */
+  /* gap: 10px; */
+  background-color: #fff;
+  padding-top: 20px;
+}
+
+.storeConfirmOrder>p {
+  border-bottom: 3px #ccc solid;
+  vertical-align: middle;
+  font-size: 18px;
+  line-height: 24px;
+}
+.storeConfirmOrder>*{
+  vertical-align: middle;
+  padding: 15px;
+}
+
+/* .storeConfirmOrder p:nth-child(2n+1){
+  background-color: #aaa;
+} */
+/* 確認訂單燈窗內 顧客姓名+X鈕 */
+.storeConfirmOrderNames {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.storeOrderProductsContents {
+  border-bottom: 3px #ccc solid;
+}
+.productDetails{
+  background-color: #FEEEEE;
+}
+.shopMemos{
+  background-color: #ddd; 
+
+}
+.storeConfirmOrderButton{
+  text-align: center;
+  background-color: #3893E8;
+  width: 100%;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
 }

@@ -2,52 +2,26 @@
 import { useEffect, useState } from 'react';
 import './StoreOrder.css';
 import StoreOrderDetails from './StoreOrderDetails';
+import StoreOrderConfirm from './StoreOrderConfirm';
 const siteName = window.location.hostname;
 const fetchList = ['checkDisConfirm', 'checkConfirmed', 'checkCompleted'];
 
 function StoreOrder() {
+  //現在顯示哪種內容
   const [page, setPage] = useState(0);
+  //顯示的訂單內容
   const [datas, setDatas] = useState([]);
+  //開啟確認訂單/完成訂單燈箱
   const [openDetail, setOpenDetail] = useState(false);
+  //選定的訂單SID
+  const [choosedOrderSid, setChoosedOrderSid] = useState(0);
   const options = [
     { name: '未確認', index: 0 },
     { name: '已接受', index: 1 },
     { name: '未取餐', index: 2 },
   ];
-  //接單API 之後往下放
-  function setOrder(orderSid, member_sid) {
-    const postData = JSON.stringify({ sid: orderSid, member_sid: member_sid });
-    fetch(`http://${siteName}:3001/StoreConfirmOrders/confirm`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Store'),
-      },
-      body: postData,
-    })
-      .then((r) => r.json())
-      .then((res) => {
-        console.log({ res });
-      });
-  }
-  function completeOrder(storeOrderSid) {
-    const postData = JSON.stringify({ storeOrderSid: storeOrderSid });
-    fetch(`http://${siteName}:3001/StoreConfirmOrders/CompleteOrder`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Store'),
-      },
-      body: postData,
-    })
-      .then((r) => r.json())
-      .then((res) => {
-        console.log({ res });
-      });
-  }
 
+  //獲得訂單資訊
   function getData() {
     fetch(`http://${siteName}:3001/StoreOrders/${fetchList[page]}`, {
       method: 'POST',
@@ -64,20 +38,6 @@ function StoreOrder() {
         // setShowDatas(res);
       });
   }
-  // function getData() {
-  //   fetch(`http://${siteName}:3001/StoreOrders/checkDisConfirm`, {
-  //     method: 'POST',
-  //     mode: 'cors',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: 'Bearer ' + localStorage.getItem('Store'),
-  //     },
-  //   })
-  //     .then((r) => r.json())
-  //     .then((res) => {
-  //       console.log({ res });
-  //     });
-  // }
   useEffect(() => {
     getData();
   }, [page]);
@@ -106,8 +66,8 @@ function StoreOrder() {
         <div className="storeTimes">
           <span
             onClick={() => {
-              // setOrder(1, 1);
-              completeOrder(3);
+              // setOrder(2, 1);
+              // completeOrder(2);
             }}
           >
             <i className="fa-regular fa-circle-check"></i>今日完成
@@ -121,8 +81,17 @@ function StoreOrder() {
         setOpenDetail={setOpenDetail}
         datas={datas}
         page={page}
+        setChoosedOrderSid={setChoosedOrderSid}
         // fetchName={fetchList[page]}
       />
+      {openDetail ? (
+        <StoreOrderConfirm
+          setOpenDetail={setOpenDetail}
+          page={page}
+          choosedOrderSid={choosedOrderSid}
+          setPage={setPage}
+        />
+      ) : null}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 //訂單第二層
 import OrderDetailsCard from '../OrderDetailsCard';
-function StoreOrderDetails({ page, datas, setOpenDetail }) {
+function StoreOrderDetails({ page, datas, setOpenDetail, setChoosedOrderSid }) {
   return (
     <>
       {datas.length > 0 ? (
@@ -8,6 +8,7 @@ function StoreOrderDetails({ page, datas, setOpenDetail }) {
           {datas.map((v, i) => {
             return (
               <OrderDetailsCard
+                setChoosedOrderSid={setChoosedOrderSid}
                 setOpenDetail={setOpenDetail}
                 page={page}
                 datas={v}

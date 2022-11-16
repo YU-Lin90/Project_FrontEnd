@@ -3,10 +3,16 @@
 import { useState } from 'react';
 import '../StoreOrder.css';
 
-function OrderDetailsCard({ datas, page, setOpenDetail }) {
+function OrderDetailsCard({ datas, page, setOpenDetail, setChoosedOrderSid }) {
   return (
     <div className="orderDetailsCardCol padH5">
-      <div className={`orderDetailsCard color${page}`}>
+      <div
+        className={`orderDetailsCard color${page}`}
+        onClick={() => {
+          setChoosedOrderSid(() => datas.sid);
+          setOpenDetail(() => true);
+        }}
+      >
         <div className="fw6">客戶名稱：{datas.name}</div>
         <div>訂單編號：{datas.orderNumber}</div>
         {/* 未確認訂單 */}
