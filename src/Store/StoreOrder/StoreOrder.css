@@ -4,6 +4,10 @@
   justify-content: space-between;
   font-size: 24px;
   margin-bottom: 10px;
+  position: sticky;
+  top: 80px;
+  background-color: #eee;
+  padding: 10px;
 }
 
 .storeOrderSwith {
@@ -125,4 +129,11 @@
   cursor: pointer;
   color: #fff;
   font-weight: 600;
+}
+.setTimeButton{
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 24px;
 }

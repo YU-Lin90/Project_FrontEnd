@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import './StoreOrder.css';
 import StoreOrderDetails from './StoreOrderDetails';
 import StoreOrderConfirm from './StoreOrderConfirm';
+import StoreSetWaitTime from './StoreSetWaitTime';
 const siteName = window.location.hostname;
 const fetchList = ['checkDisConfirm', 'checkConfirmed', 'checkCompleted'];
 
@@ -15,11 +16,22 @@ function StoreOrder() {
   const [openDetail, setOpenDetail] = useState(false);
   //選定的訂單SID
   const [choosedOrderSid, setChoosedOrderSid] = useState(0);
+  //設定等待時間
+  const [chageTime, setChangeTime] = useState(false);
   const options = [
     { name: '未確認', index: 0 },
     { name: '已接受', index: 1 },
     { name: '未取餐', index: 2 },
   ];
+
+  const scrollTop = (value) => {
+    if (value !== page) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto',
+      });
+    }
+  };
 
   //獲得訂單資訊
   function getData() {
@@ -52,6 +64,7 @@ function StoreOrder() {
               <div
                 key={v.index}
                 onClick={() => {
+                  scrollTop(v.index);
                   setPage(v.index);
                 }}
                 className={`pointer storeOrderSwith ${
@@ -72,7 +85,11 @@ function StoreOrder() {
           >
             <i className="fa-regular fa-circle-check"></i>今日完成
           </span>
-          <span>
+          <span
+            onClick={() => {
+              setChangeTime(true);
+            }}
+          >
             <i className="fa-regular fa-clock"></i>設定等待時間
           </span>
         </div>
@@ -92,6 +109,7 @@ function StoreOrder() {
           setPage={setPage}
         />
       ) : null}
+      {chageTime ? <StoreSetWaitTime setChangeTime={setChangeTime} /> : null}
     </div>
   );
 }
