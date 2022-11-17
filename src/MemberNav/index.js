@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthProvider';
+import { useCart } from '../Context/CartProvider';
 import { useNavigate, Link } from 'react-router-dom';
 import './NavBar.css';
 import Menu from './Menu';
@@ -41,7 +42,10 @@ function MemberNav() {
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
 
-  const { authMember, setAuthMember, cartTotal, setCartTotal } = useAuth();
+  const { authMember, setAuthMember } = useAuth();
+
+  const { cartTotal, setCartTotal } = useCart();
+
   //登入的會員名
   const [memberName, setMemberName] = useState('');
 

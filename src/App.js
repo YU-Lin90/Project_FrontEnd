@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './Context/AuthProvider';
+import ContextProviders from './Context/ContextProvider';
 import './reset.css';
 import './CssTemplate.css';
 //===============================================分隔線================================================
@@ -108,7 +109,7 @@ import PayConfirmed from './Shopping/LinePay/PayConfirmed';
 function App() {
   return (
     //登入檢查狀態 全域狀態
-    <AuthProvider>
+    <ContextProviders>
       {/* 路由設定 */}
       <BrowserRouter>
         <Routes>
@@ -275,7 +276,7 @@ function App() {
           <Route path="*" element={<NoFound />} />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    </ContextProviders>
   );
 }
 
