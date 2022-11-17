@@ -1,7 +1,12 @@
+//購物車選擇店家頁面
 import { useEffect, useState } from 'react';
+import { useCart } from '../../Context/CartProvider';
+
 import '../Cart.css';
 
 function ChooseCart({ setShowChooseShop, setShowCart }) {
+  const { chooseedPayShop, setChooseedPayShop, setChooseedPayShopContents } =
+    useCart();
   const [cart, setCart] = useState(false);
   const [shoplist, setShopList] = useState({});
   //選擇店家到下一步
@@ -9,6 +14,8 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
     const cartData = JSON.parse(localStorage.getItem('cart'));
     cartData.choosedSid = shopSid;
     localStorage.setItem('cart', JSON.stringify(cartData));
+    setChooseedPayShopContents(cartData.cartList[shopSid]);
+    setChooseedPayShop(shopSid);
     setShowChooseShop(false);
     setShowCart(true);
   };
@@ -56,6 +63,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
             return (
               <div
                 onClick={() => {
+                  setChooseedPayShop(Number(keyName));
                   setChoosedShop(keyName);
                 }}
                 className="cartShopList"

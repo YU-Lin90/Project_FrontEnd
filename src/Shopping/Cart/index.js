@@ -1,4 +1,4 @@
-//購物車頁
+//購物車頁面
 import { useEffect, useState } from 'react';
 import '../Cart.css';
 import { useNavigate } from 'react-router-dom';
