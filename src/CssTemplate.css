@@ -45,7 +45,8 @@
 .fw1{font-weight:100;}.fw2{font-weight:200;}.fw3{font-weight:300;}.fw4{font-weight:400;}.fw5{font-weight:500;}.fw6{font-weight:600;}.fw7{font-weight:700;}.fw8{font-weight:800;}.fw9{font-weight:800;}
 /* Font-Size */
 .fs16{font-size:16px;}.fs24{font-size:24px;}.fs36{font-size:36px;}.fs48{font-size:48px;}
-
+/* Line-Height */
+.lh16{line-height:16px;}.lh24{line-height:24px;}.lh36{line-height:36px;}.lh48{line-height:48px;}.lh60{line-height:60px;}
 
 
 /* cursor */
@@ -139,4 +140,7 @@
 }
 .bgcBlue{
   background-color: #3893E8;
+}
+.bgcGray{
+  background-color: #eee;
 }

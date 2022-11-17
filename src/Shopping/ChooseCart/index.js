@@ -41,7 +41,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
   //有購物車
   const setShops = () => {
     return (
-      <>
+      <div className="cartFrame">
         <div className="chooseCart">
           <div className="w100p disf fd-rr">
             <i
@@ -76,7 +76,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
             );
           })}
         </div>
-      </>
+      </div>
     );
   };
 

@@ -1,3 +1,4 @@
+//購物車頁
 import { useEffect, useState } from 'react';
 import '../Cart.css';
 import { useNavigate } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useAuth } from '../../Context/AuthProvider';
 
 function Cart({ setShowCart, setShowChooseShop }) {
   const { cartTotal, setCartTotal } = useAuth();
+
   const navi = useNavigate();
   const selectOptions = new Array(31).fill(1);
   //===============================================分隔線================================================
@@ -78,6 +80,8 @@ function Cart({ setShowCart, setShowChooseShop }) {
   const [shopSid, setShopSid] = useState('');
   //總金額 現在先用總數代替
   const [totalPrice, setTotalPrice] = useState(0);
+  //備註
+  const [memos, setMemos] = useState(false);
 
   function emptyCheck(totalPrice) {
     if (!totalPrice) {
@@ -108,63 +112,64 @@ function Cart({ setShowCart, setShowChooseShop }) {
 
   // console.log(prouducts)
   return (
-    <div className="chooseCart">
-      <div className="w100p disf jc-sb ">
-        <i
-          onClick={() => {
-            setShowCart(false);
-            setShowChooseShop(true);
-          }}
-          className="fa-solid fa-circle-chevron-left cartX pointer"
-        ></i>
-        <i
-          onClick={() => {
-            setShowCart(false);
-            setShowChooseShop(false);
-          }}
-          className="fa-solid fa-circle-xmark pointer cartX"
-        ></i>
-      </div>
-      <h3 className="chooseCartH3">{shopName}</h3>
-      <div>
-        {Object.keys(prouducts).map((key, index) => {
-          const cutBefore = prouducts[key].price * prouducts[key].amount;
-          const cutAfter = prouducts[key].cuttedPrice * prouducts[key].amount;
+    <div className="cartFrame">
+      <div className="chooseCart">
+        <div className="w100p disf jc-sb ">
+          <i
+            onClick={() => {
+              setShowCart(false);
+              setShowChooseShop(true);
+            }}
+            className="fa-solid fa-circle-chevron-left cartX pointer"
+          ></i>
+          <i
+            onClick={() => {
+              setShowCart(false);
+              setShowChooseShop(false);
+            }}
+            className="fa-solid fa-circle-xmark pointer cartX"
+          ></i>
+        </div>
+        <h3 className="chooseCartH3">{shopName}</h3>
+        <div>
+          {Object.keys(prouducts).map((key, index) => {
+            const cutBefore = prouducts[key].price * prouducts[key].amount;
+            const cutAfter = prouducts[key].cuttedPrice * prouducts[key].amount;
 
-          return (
-            <div
-              onClick={(e) => {
-                console.log(e.target.name);
-                if (!e.target.name) {
-                  console.log(123);
-                }
-              }}
-              key={key}
-              className="cartShopList"
-            >
-              <div>
-                {/* prouducts[key].amount數量 */}
-                {/* prouducts[key].name */}
-                {/* prouducts[key].cuttedPrice */}
-                {/* prouducts[key].details */}
-                <select
-                  name="selects"
-                  value={prouducts[key].amount}
-                  onChange={(e) => {
-                    editCartBySelect(shopSid, key, e.target.value);
-                    console.log(e.target.value);
-                  }}
-                >
-                  {selectOptions.map((v, i) => {
-                    return (
-                      <option key={i} value={i}>
-                        {i === 0 ? '清除' : i}
-                      </option>
-                    );
-                  })}
-                </select>
+            return (
+              <div
+                onClick={(e) => {
+                  console.log(e.target.name);
+                  if (!e.target.name) {
+                    console.log(123);
+                  }
+                }}
+                key={key}
+                className="cartShopList"
+              >
+                <div>
+                  {/* prouducts[key].amount數量 */}
+                  {/* prouducts[key].name */}
+                  {/* prouducts[key].cuttedPrice */}
+                  {/* prouducts[key].details */}
+                  <select
+                    name="selects"
+                    value={prouducts[key].amount}
+                    onChange={(e) => {
+                      editCartBySelect(shopSid, key, e.target.value);
+                      console.log(e.target.value);
+                    }}
+                  >
+                    {selectOptions.map((v, i) => {
+                      return (
+                        <option key={i} value={i}>
+                          {i === 0 ? '清除' : i}
+                        </option>
+                      );
+                    })}
+                  </select>
 
-                {/* <i
+                  {/* <i
                     onClick={() => {
                       addCart(shopSid, key);
                       setProducts(getShopData().list);
@@ -185,36 +190,50 @@ function Cart({ setShowCart, setShowChooseShop }) {
                     }}
                     className="fa-solid fa-circle-minus"
                   ></i> */}
-              </div>
+                </div>
 
-              <p>{prouducts[key].name}</p>
-              {/* 價格 */}
-              <div>
-                <p className="chooseCartPrice">
-                  {prouducts[key].cuttedPrice * prouducts[key].amount}
-                </p>
-                {/* 折價前後是否相等 */}
-                {cutBefore === cutAfter ? (
-                  <></>
-                ) : (
-                  <p className="chooseCartPrice cuttedPrice">
-                    {prouducts[key].price * prouducts[key].amount}
+                <p>{prouducts[key].name}</p>
+                {/* 價格 */}
+                <div>
+                  <p className="chooseCartPrice">
+                    {prouducts[key].cuttedPrice * prouducts[key].amount}
                   </p>
-                )}
+                  {/* 折價前後是否相等 */}
+                  {cutBefore === cutAfter ? (
+                    <></>
+                  ) : (
+                    <p className="chooseCartPrice cuttedPrice">
+                      {prouducts[key].price * prouducts[key].amount}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-      <div
-        className="goPayButoon"
-        onClick={() => {
-          navi('/Pay');
-          setShowCart(false);
-          setShowChooseShop(false);
-        }}
-      >
-        前往結帳．${totalPrice}
+            );
+          })}
+        </div>
+        <div
+          onClick={() => {}}
+          className="bgcGray pointer ai-c disf jc-sb padH20 padV20"
+        >
+          <p>
+            <span className="fw7 fs24">新增訂單備註</span>
+            <br />
+            <span className="lh36"> 餐具、特殊指示等</span>
+          </p>
+          <p>
+            <i className="fs36 fa-solid fa-plus"></i>
+          </p>
+        </div>
+        <div
+          className="goPayButoon"
+          onClick={() => {
+            navi('/Pay');
+            setShowCart(false);
+            setShowChooseShop(false);
+          }}
+        >
+          前往結帳．${totalPrice}
+        </div>
       </div>
     </div>
   );

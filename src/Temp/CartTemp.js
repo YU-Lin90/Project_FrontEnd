@@ -304,6 +304,24 @@ function CartTemp() {
           (1,10)-
         </button>
       </div>
+
+      <div>
+        {' '}
+        <button
+          onClick={() => {
+            addCart(1, 11, '一號店', '十一號產品', 40, 40, '', {});
+          }}
+        >
+          (1,11)+
+        </button>
+        <button
+          onClick={() => {
+            reduceCart(1, 11);
+          }}
+        >
+          (1,11)-
+        </button>
+      </div>
     </div>
   );
 }
