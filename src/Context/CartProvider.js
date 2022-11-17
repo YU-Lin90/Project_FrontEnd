@@ -15,8 +15,10 @@ export const CartProvider = ({ children }) => {
   const [chooseedPayShop, setChooseedPayShop] = useState(0);
   //選擇前往結帳的商店內容
   const [chooseedPayShopContents, setChooseedPayShopContents] = useState({});
-
-  // const [setAddr]
+  //送達地址
+  const [sendAddress, setSendAddress] = useState(
+    '106台北市大安区復興南路一段390號2樓'
+  );
 
   return (
     <CartContext.Provider
@@ -29,6 +31,8 @@ export const CartProvider = ({ children }) => {
         setChooseedPayShop,
         chooseedPayShopContents,
         setChooseedPayShopContents,
+        sendAddress,
+        setSendAddress,
       }}
     >
       {children}

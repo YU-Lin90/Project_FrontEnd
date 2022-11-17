@@ -1,4 +1,8 @@
 function DeliveDetail() {
-  return <>送餐詳情</>;
+  return (
+    <>
+      <div>送餐詳情</div>
+    </>
+  );
 }
 export default DeliveDetail;

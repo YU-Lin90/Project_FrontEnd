@@ -1,7 +1,7 @@
 function ProfileData() {
   return (
     <>
-        個人資料
+      <div>個人資料</div>
     </>
   );
 }

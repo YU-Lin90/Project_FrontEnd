@@ -22,7 +22,7 @@
 /* Flex Wrap */
 .fw-w{flex-wrap:wrap;}.fw-wr{flex-wrap:wrap-reverse;}.fw-nw{flex-wrap:nowrap;}
 /* Text-Align */
-.ta-c{text-align:center;}.ta-j{text-align:justify;}
+.ta-c{text-align:center;}.ta-j{text-align:justify;}.ta-e{text-align:end;}
 /* Vertual-Align */
 .va-m{vertical-align:middle;}
 /* Padding */
@@ -40,14 +40,17 @@
 /* Position */
 .po-a{position:absolute;}.po-r{position:relative;}.po-s{position:sticky;}.po-f{position:fixed;}
 /* Gap */
-.gap5{gap:5px;}.gap10{gap:10px;}
+.gap5{gap:5px;}.gap10{gap:10px;}.gap15{gap:15px;}.gap20{gap:20px;}
 /* Font-Weight */
 .fw1{font-weight:100;}.fw2{font-weight:200;}.fw3{font-weight:300;}.fw4{font-weight:400;}.fw5{font-weight:500;}.fw6{font-weight:600;}.fw7{font-weight:700;}.fw8{font-weight:800;}.fw9{font-weight:800;}
 /* Font-Size */
 .fs16{font-size:16px;}.fs24{font-size:24px;}.fs36{font-size:36px;}.fs48{font-size:48px;}
 /* Line-Height */
 .lh16{line-height:16px;}.lh24{line-height:24px;}.lh36{line-height:36px;}.lh48{line-height:48px;}.lh60{line-height:60px;}
-
+/* Border */
+.borderBotGray5{border-bottom: 5px solid #ccc;}.borderBotGray3{border-bottom: 3px solid #ccc;}
+/* 四方固定 */
+.setTop0{top:0;}.setBottom0{bottom:0;}.setRight0{right:0;}.setLeft0{left:0;}
 
 /* cursor */
 .pointer{cursor:pointer;}
@@ -60,9 +63,16 @@
   --mainComplementary: #005aff;
   /* var(--subColor) */
   --subColor: #F5F500;
+
+  --navHeight:80px;
+
+  --vh100NoNavHeight:calc(100vh - var(--navHeight))
 }
-
-
+.vhNoNav{
+  height: var(--vh100NoNavHeight);
+}
+/* 上方固定 +NAV高度 */
+.topUnderNav{top:var(--navHeight);}
 
 
 /* 框架內容 最後邊框要拿掉 */

@@ -1,5 +1,5 @@
-import {AuthProvider} from "./AuthProvider";
-import {CartProvider} from "./CartProvider";
+import { AuthProvider } from './AuthProvider';
+import { CartProvider } from './CartProvider';
 
 export default function ContextProviders({ children }) {
   return (

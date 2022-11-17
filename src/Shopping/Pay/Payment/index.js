@@ -1,4 +1,8 @@
 function Payment() {
-  return <>付款方式</>;
+  return (
+    <>
+      <div>付款方式</div>
+    </>
+  );
 }
 export default Payment;

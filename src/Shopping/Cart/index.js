@@ -112,7 +112,7 @@ function Cart({ setShowCart, setShowChooseShop }) {
 
   // console.log(prouducts)
   return (
-    <div className="cartFrame">
+    <div className="cartFrame ">
       <div className="chooseCart">
         <div className="w100p disf jc-sb ">
           <i

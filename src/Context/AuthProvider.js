@@ -3,11 +3,14 @@ import React, { useState, useContext, createContext } from 'react';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  //會員登入狀態
   const [authMember, setAuthMember] = useState(false);
+  //店家登入狀態
   const [authStore, setAuthStore] = useState(false);
+  //外送員登入狀態
   const [authDeliver, setAuthDeliver] = useState(false);
+  //管理者登入狀態
   const [authAdmin, setAuthAdmin] = useState(false);
-  const [cartTotal, setCartTotal] = useState(0);
 
   return (
     <AuthContext.Provider
@@ -20,8 +23,6 @@ export const AuthProvider = ({ children }) => {
         setAuthDeliver,
         authAdmin,
         setAuthAdmin,
-        cartTotal,
-        setCartTotal,
       }}
     >
       {children}

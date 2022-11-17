@@ -176,6 +176,9 @@ function MemberNav() {
           <div
             className="po-r pointer"
             onClick={() => {
+              if (window.location.pathname === '/Pay') {
+                return;
+              }
               if (showCart) {
                 setShowCart(false);
               } else {

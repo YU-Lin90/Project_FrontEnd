@@ -1,8 +1,7 @@
 import './Menu.css';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 function Menu({ setToggle, toggle }) {
-  const location = useLocation().pathname;
-
   const navi = useNavigate();
   const menuList = [
     { text: 'LinePay', link: '/LinePay' },
@@ -21,9 +20,25 @@ function Menu({ setToggle, toggle }) {
     { text: '外送員首頁', link: '/Deliver' },
     { text: '管理者首頁', link: '/Admin' },
   ];
+
+  const checkClose = (e) => {
+    if (e.target.id !== 'idForCheck01') {
+      setToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.addEventListener('click', checkClose);
+    }, 1);
+
+    return () => {
+      window.removeEventListener('click', checkClose);
+    };
+  }, []);
   return (
     <>
-      <div className="menu">
+      <div className="menu" id="idForCheck01">
         {menuList.map((value, index) => {
           return (
             <p
