@@ -9,13 +9,14 @@ function OrederDetailForPay() {
   const [productList, setProductList] = useState({});
   const { couponCutAmount, deliverFee } = usePay();
   useEffect(() => {
-    console.log(chooseedPayShopContents);
+    // console.log(chooseedPayShopContents);
     setProductList(chooseedPayShopContents.list);
   }, []);
   return (
     <div className="vhNoNav topUnderNav w30p po-s flexSetCenter">
       <div className="disf jc-c fd-c ai-c w80p gap20">
         <p className="fs36 fw6 ta-c marb15">你的訂單</p>
+        {/* TODO:繼續加購商品 */}
         <div className="w100p borderBotGray3 padV5">
           {/* 在這之間MAP--商品明細 */}
           {/* {
@@ -47,19 +48,17 @@ function OrederDetailForPay() {
           {Object.keys(productList).map((sid, index) => {
             const divideProduct = productList[sid];
             return (
-              <>
-                <div className="disf jc-sb w100p marb15">
-                  <p className="w70p disf ">
-                    <span className="fontMainColor w20p fw5">
-                      {divideProduct.amount}x
-                    </span>
-                    <span>{divideProduct.name}</span>
-                  </p>
-                  <p className="w30p ta-e">
-                    NT${divideProduct.amount * divideProduct.cuttedPrice}
-                  </p>
-                </div>
-              </>
+              <div key={sid} className="disf jc-sb w100p marb15">
+                <p className="w70p disf ">
+                  <span className="fontMainColor w20p fw5">
+                    {divideProduct.amount}x
+                  </span>
+                  <span>{divideProduct.name}</span>
+                </p>
+                <p className="w30p ta-e">
+                  NT${divideProduct.amount * divideProduct.cuttedPrice}
+                </p>
+              </div>
             );
           })}
 

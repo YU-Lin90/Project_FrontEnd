@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom/dist';
 import { v4 as uuidv4 } from 'uuid';
@@ -158,16 +157,16 @@ function LinePay(props) {
   // );
   //===============================================分隔線================================================
   //按下去的函式
+
+  // https://developers.line.biz/en/docs/line-login/
+  // productName: 'demo',
+  // amount: 1,
+  // currency: 'TWD',
+  // orderId: uuidv4(),
+  // const newOrderId = uuidv4()
+
+  // setOrderId(newOrderId)
   const handleLinePay = () => {
-    // https://developers.line.biz/en/docs/line-login/
-    // productName: 'demo',
-    // amount: 1,
-    // currency: 'TWD',
-    // orderId: uuidv4(),
-    // const newOrderId = uuidv4()
-
-    // setOrderId(newOrderId)
-
     const params = new URLSearchParams({
       //產品名稱 之後可能改成店名?
       productName: productName,
@@ -181,7 +180,7 @@ function LinePay(props) {
     // console.log(params.toString())
 
     //1. open a new window for line login
-    const url = `http://${siteName}:3001/LinePay/reserve/?` + params.toString();
+    const url = `http://${siteName}:3001/oldLinePay/reserve/?` + params.toString();
 
     newWindow.current = PopupCenter(url, 'LinelogInPopup', 400, 600);
 

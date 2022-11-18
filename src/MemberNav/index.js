@@ -44,7 +44,7 @@ function MemberNav() {
 
   const { authMember, setAuthMember } = useAuth();
 
-  const { cartTotal, setCartTotal,sendAddress,setSendAddress } = useCart();
+  const { cartTotal, setCartTotal, sendAddress, setSendAddress } = useCart();
 
   //登入的會員名
   const [memberName, setMemberName] = useState('');
@@ -173,25 +173,27 @@ function MemberNav() {
         <p>送到:{sendAddress}</p>
         {/* 購物車按鈕 */}
         <div className="disf gap10">
-          <div
-            className="po-r pointer"
-            onClick={() => {
-              if (window.location.pathname === '/Pay') {
-                return;
-              }
-              if (showCart) {
-                setShowCart(false);
-              } else {
-                // (T/F) 切換 設定方式
-                setShowChooseShop((v) => !v);
-              }
-            }}
-          >
-            <p className="cartButton">
-              <i className="fa-solid fa-cart-shopping"></i>
-            </p>
-            <p className="navCartTotal">{cartTotal}</p>
-          </div>
+          {window.location.pathname === '/Pay' ? (
+            <></>
+          ) : (
+            <div
+              className="po-r pointer"
+              onClick={() => {
+                if (showCart) {
+                  setShowCart(false);
+                } else {
+                  // (T/F) 切換 設定方式
+                  setShowChooseShop((v) => !v);
+                }
+              }}
+            >
+              <p className="cartButton">
+                <i className="fa-solid fa-cart-shopping"></i>
+              </p>
+              <p className="navCartTotal">{cartTotal}</p>
+            </div>
+          )}
+
           {/* 會員中心按鈕 */}
           <div
             className="cartButton navUser"

@@ -3,13 +3,98 @@ import { usePay } from '../../../Context/PayPageContext';
 import { useCart } from '../../../Context/CartProvider';
 
 import PayTitleBlock from '../PayTitleBlock';
+import { useState } from 'react';
 function DeliveDetail() {
-  const { sendAddress } = useCart();
+  const { sendAddress, setSendAddress } = useCart();
+  //備註設定
+  const { deliverMemo, setDeliverMemo, storeMemo, setStoreMemo } = usePay();
+
+  const [editAddress, setEditAddress] = useState(false);
+
+  const [editShopMemo, setEditShopMemo] = useState(false);
+
+  const [editDeliverMemo, setEditDeliverMemo] = useState(false);
+
   return (
     <>
       <div className="payDetailBox">
         <PayTitleBlock number={1} titleString={'送餐詳情'} />
-        {sendAddress}
+        <div className="marb10 disf jc-sb ai-c">
+          <div>
+            <p className="fs24 marb10">送達地址:</p>
+            {editAddress ? (
+              <div>
+                <input
+                  value={sendAddress}
+                  onChange={(e) => {
+                    setSendAddress(e.target.value);
+                  }}
+                />
+              </div>
+            ) : (
+              <p className="fs18">{sendAddress}</p>
+            )}
+          </div>
+          <div
+            className="payPageButton"
+            onClick={() => {
+              setEditAddress((v) => !v);
+            }}
+          >
+            {editAddress ? '儲存' : '修改'}
+          </div>
+        </div>
+        <div className="marb10 disf jc-sb ai-c">
+          <div>
+            <p className="fs24 marb10">店家備註</p>
+            {editShopMemo ? (
+              <div>
+                <input
+                  value={storeMemo}
+                  onChange={(e) => {
+                    setStoreMemo(e.target.value);
+                  }}
+                />
+              </div>
+            ) : (
+              <p>{storeMemo}</p>
+            )}
+          </div>
+
+          <div
+            className="payPageButton"
+            onClick={() => {
+              setEditShopMemo((v) => !v);
+            }}
+          >
+            {editShopMemo ? '儲存' : '修改'}
+          </div>
+        </div>
+        <div className="marb10 disf jc-sb ai-c">
+          <div>
+            <p className="fs24 marb10">外送員備註</p>
+            {editDeliverMemo ? (
+              <div>
+                <input
+                  value={deliverMemo}
+                  onChange={(e) => {
+                    setDeliverMemo(e.target.value);
+                  }}
+                />
+              </div>
+            ) : (
+              <p>{deliverMemo}</p>
+            )}
+          </div>
+          <div
+            className="payPageButton"
+            onClick={() => {
+              setEditDeliverMemo((v) => !v);
+            }}
+          >
+            {editDeliverMemo ? '儲存' : '修改'}
+          </div>
+        </div>
       </div>
     </>
   );

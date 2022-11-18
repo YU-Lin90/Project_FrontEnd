@@ -1,29 +1,21 @@
-//第二段 付款方式
+//第二段 個人資料
 import { useEffect, useState } from 'react';
 import PayTitleBlock from '../PayTitleBlock';
 import { usePay } from '../../../Context/PayPageContext';
+import { useFunc } from '../../../Context/FunctionProvider';
 const siteName = window.location.hostname;
 function ProfileData() {
   const { profile, setProfile } = usePay();
 
+  const { loginCheckGetFetch } = useFunc();
+
   //修改開關
   const [edit, setEdit] = useState(false);
+  //loginCheckGetFetch('PayGetProfile','Member')
   //獲得個人資料
-  const getProfileData = () => {
-    fetch(`http://${siteName}:3001/PayGetProfile`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Member'),
-      },
-    })
-      .then((r) => r.json())
-      .then((res) => {
-        console.log(res);
-        setProfile(res);
-        // setproductData(res);
-      });
+  const getProfileData = async () => {
+    const datas = await loginCheckGetFetch('PayGetProfile', 'Member');
+    setProfile(datas);
   };
   //INPUT修改函式
   const changeValue = (e) => {
@@ -32,7 +24,9 @@ function ProfileData() {
   };
 
   useEffect(() => {
+    // getProfileData();
     getProfileData();
+    // console.log();
   }, []);
 
   //
@@ -48,10 +42,11 @@ function ProfileData() {
   return (
     <>
       <div className="payDetailBox">
-        <PayTitleBlock number={2} titleString={'個人資料'} />
-        <div className="disf fd-c jc-sb gap20">
-          <div className="fs16">
-            <p className="fw6">姓名</p>
+        <PayTitleBlock number={2} titleString={'取餐人資料'} />
+        {/* INPUT群 */}
+        <div className="disf ta-c jc-sb fw-w">
+          <div className="marb10 w33p">
+            <p className="fs24 fw6 marb10">姓名</p>
             {edit ? (
               <input
                 name="name"
@@ -65,8 +60,8 @@ function ProfileData() {
             )}
           </div>
 
-          <div className="fs16">
-            <p className="fw6">E-mail</p>
+          <div className="marb10 w33p">
+            <p className="fw6 fs24 marb10">E-mail</p>
             {edit ? (
               <input
                 name="email"
@@ -80,8 +75,8 @@ function ProfileData() {
             )}
           </div>
 
-          <div className="fs16">
-            <p className="fw6">連絡電話</p>
+          <div className="marb10 w33p ">
+            <p className="fs24 fw6 marb10">連絡電話</p>
             {edit ? (
               <input
                 name="phone"
@@ -94,14 +89,15 @@ function ProfileData() {
               <p className="padV1">{profile.phone}</p>
             )}
           </div>
-          <div
-            className="as-e payPageButton"
-            onClick={() => {
-              setEdit((v) => !v);
-            }}
-          >
-            {edit ? '儲存' : '修改'}
-          </div>
+        </div>
+        {/* 按鈕 */}
+        <div
+          className="marSetRight payPageButton"
+          onClick={() => {
+            setEdit((v) => !v);
+          }}
+        >
+          {edit ? '儲存' : '修改'}
         </div>
       </div>
     </>
