@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
   const [chooseedPayShopContents, setChooseedPayShopContents] = useState({});
   //送達地址
   const [sendAddress, setSendAddress] = useState(
-    '106台北市大安区復興南路一段390號2樓'
+    '106台北市大安區復興南路一段390號2樓'
   );
 
   return (

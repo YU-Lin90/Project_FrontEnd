@@ -44,7 +44,7 @@ function MemberNav() {
 
   const { authMember, setAuthMember } = useAuth();
 
-  const { cartTotal, setCartTotal } = useCart();
+  const { cartTotal, setCartTotal,sendAddress,setSendAddress } = useCart();
 
   //登入的會員名
   const [memberName, setMemberName] = useState('');
@@ -170,7 +170,7 @@ function MemberNav() {
           })}
         </div>
         {/* 名稱顯示 暫放 */}
-        <p>送到:台北市復興南路</p>
+        <p>送到:{sendAddress}</p>
         {/* 購物車按鈕 */}
         <div className="disf gap10">
           <div

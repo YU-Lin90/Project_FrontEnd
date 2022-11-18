@@ -1,4 +1,3 @@
-//結帳頁 全體
 import OrederDetailForPay from './OrederDetailForPay';
 import { useCart } from '../../Context/CartProvider';
 import { useEffect, useState } from 'react';
@@ -7,30 +6,32 @@ import DeliveDetail from './DeliveDetail';
 import ProfileData from './ProfileData';
 import PayCoupon from './PayCoupon';
 import Payment from './Payment';
+import { usePay } from '../../Context/PayPageContext';
 import './Pay.css';
-
+//結帳頁 全體
 function Pay() {
   const { cartTotal, setCartTotal, chooseedPayShopContents } = useCart();
+  const {} = usePay();
   //優惠券折扣金額 只傳金額
-  const [couponCutAmount, setCouponCutAmount] = useState(0);
   const navi = useNavigate();
-  useEffect(() => {
-    //沒選擇直接擋掉
-    if (!chooseedPayShopContents.shopTotal) {
-      alert('尚未選擇店家!!');
-      navi('/');
-    }
-  }, []);
+  // 製作中先關掉 做完再打開(空白選擇阻擋)
+  // useEffect(() => {
+  //   //沒選擇直接擋掉
+  //   if (!chooseedPayShopContents.shopTotal) {
+  //     alert('尚未選擇店家!!');
+  //     navi('/');
+  //   }
+  // }, []);
   return (
     <>
       <div className="disf">
-        <div className="w70p">
+        <div className="w70p flexSetCenter fd-c jc-se">
           <DeliveDetail />
           <ProfileData />
-          <PayCoupon setCouponCutAmount={setCouponCutAmount} />
+          <PayCoupon />
           <Payment />
         </div>
-        <OrederDetailForPay couponCutAmount={couponCutAmount} />
+        <OrederDetailForPay />
       </div>
     </>
   );

@@ -17,6 +17,8 @@
 .jc-sa{justify-content:space-around;}.jc-sb{justify-content:space-between;}.jc-c{justify-content:center;}.jc-bl{justify-content:baseline;}.jc-fs{justify-content:flex-start}.jc-fe{justify-content: flex-end;}.jc-se{justify-content:space-evenly;}
 /* Flex Align-Items */
 .ai-c{align-items:center;}.ai-fs{align-items:flex-start;}.ai-fe{align-items:flex-end;}.ai-s{align-items:stretch;}
+/* Flex Align-Self */
+.as-s{align-self:start;}.as-e{align-self:end;}.as-c{align-self:center;}
 /* Flex Direction */
 .fd-r{flex-direction:row;}.fd-rr{flex-direction:row-reverse;}.fd-c{flex-direction:column;}.fd-cr{flex-direction:column-reverse;}
 /* Flex Wrap */
@@ -28,13 +30,15 @@
 /* Padding */
 .pa5{padding:5px;}.pa10{padding:10px;}.pa15{padding:15px;}.pa20{padding:20px;}
 /* Padding-Vertial */
-.padV5{padding-top:5px;padding-bottom:5px;}.padV10{padding-top:10px;padding-bottom:10px;}.padV15{padding-top:15px;padding-bottom:15px;}.padV20{padding-top:20px;padding-bottom:20px;}.padVauto{padding-top:auto;padding-bottom:auto;}
+.padV1{padding-top:1px;padding-bottom:1px;}.padV2{padding-top:2px;padding-bottom:2px;}.padV3{padding-top:3px;padding-bottom:3px;}.padV4{padding-top:4px;padding-bottom:4px;}.padV5{padding-top:5px;padding-bottom:5px;}.padV10{padding-top:10px;padding-bottom:10px;}.padV15{padding-top:15px;padding-bottom:15px;}.padV20{padding-top:20px;padding-bottom:20px;}.padVauto{padding-top:auto;padding-bottom:auto;}
 /* Padding-Horizontal */
 .padH5{padding-left:5px;padding-right:5px;}.padH10{padding-left:10px;padding-right:10px;}.padH15{padding-left:15px;padding-right:15px;}.padH20{padding-left:20px;padding-right:20px;}.padHauto{padding-left:auto;padding-right:auto;}
 /* Margin-Vertial */
 .marV5{margin-top:5px;margin-bottom:5px;}.marV10{margin-top:10px;margin-bottom:10px;}.marV15{margin-top:15px;margin-bottom:15px;}.marV20{margin-top:20px;margin-bottom:20px;}.marVauto{margin-top:auto;margin-bottom:auto;}
 /* Margin-Horizontal */
 .marH5{margin-left:5px;margin-right:5px;}.marH10{margin-left:10px;margin-right:10px;}.marH15{margin-left:15px;margin-right:15px;}.marH20{margin-left:20px;margin-right:20px;}.marHauto{margin-left:auto;margin-right:auto;}
+/* Margin-Right */
+.marr5{margin-right:5px;}.marr10{margin-right:10px;}.marr15{margin-right:15px;}.marr20{margin-right:20px;}
 /* Margin-Bottom */
 .marb5{margin-bottom:5px;}.marb10{margin-bottom:10px;}.marb15{margin-bottom:15px;}.marb20{margin-bottom:20px;}
 /* Position */
@@ -51,7 +55,8 @@
 .borderBotGray5{border-bottom: 5px solid #ccc;}.borderBotGray3{border-bottom: 3px solid #ccc;}
 /* 四方固定 */
 .setTop0{top:0;}.setBottom0{bottom:0;}.setRight0{right:0;}.setLeft0{left:0;}
-
+/* Aspect-Ratio */
+.as1{aspect-ratio:1;}
 /* cursor */
 .pointer{cursor:pointer;}
 :root {

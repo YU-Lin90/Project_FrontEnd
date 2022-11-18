@@ -1,7 +1,13 @@
-function PayCoupon({ setCouponCutAmount }) {
+import { usePay } from '../../../Context/PayPageContext';
+//第三段 優惠券
+import PayTitleBlock from '../PayTitleBlock';
+function PayCoupon() {
+  const { setCouponCutAmount } = usePay();
   return (
     <>
-      <div>結帳頁優惠券</div>
+      <div className="payDetailBox">
+        <PayTitleBlock number={3} titleString={'優惠券'} />
+      </div>
     </>
   );
 }

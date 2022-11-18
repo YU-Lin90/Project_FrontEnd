@@ -1,0 +1,32 @@
+.payDetailBoxNumber{
+   aspect-ratio: 1;
+   padding: 10px;
+   color: #fff;
+   font-weight: 600;
+   
+}
+.payDetailBox{
+  box-shadow: 5px 5px 5px #bbbb;
+  width: 90%;
+  padding: 20px;
+}
+.payPageButton{
+  background-color:var(--mainColor);
+  color: #fff;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.payPageButton:hover{
+  /* background-color: var(--subColor); */
+  background-color: #f59900;
+  color: #000;
+}
+@media screen and (min-width:768px){
+  .payDetailBox{
+    width: 80%;
+    padding: 30px;
+  }
+}
