@@ -1,31 +1,27 @@
 //購物車選擇店家頁面
 import { useEffect, useState } from 'react';
 import { usePay } from '../../Context/PayPageContext';
-
 import '../Cart.css';
 
 function ChooseCart({ setShowChooseShop, setShowCart }) {
-  const { chooseedPayShop, setChooseedPayShop, setChooseedPayShopContents } =
-  usePay();
+  const { setChooseedPayShop, cartTotal, cartContents } = usePay();
+  //狀態切換
   const [cart, setCart] = useState(false);
+  //店家列表 只在這頁用
   const [shoplist, setShopList] = useState({});
   //選擇店家到下一步
   const setChoosedShop = (shopSid) => {
-    const cartData = JSON.parse(localStorage.getItem('cart'));
-    cartData.choosedSid = shopSid;
-    localStorage.setItem('cart', JSON.stringify(cartData));
-    setChooseedPayShopContents(cartData.cartList[shopSid]);
+    //設定全域狀態
     setChooseedPayShop(shopSid);
+    //以下兩個是顯示頁面的切換
     setShowChooseShop(false);
     setShowCart(true);
   };
-  //一開始先從localStorage拿購物車資料 如果沒有就顯示購物車為空
+  //一開始先拿購物車總數 如果沒有就顯示購物車為空
   useEffect(() => {
-    const cartData = localStorage.getItem('cart');
-    if (cartData) {
+    if (cartTotal > 0) {
       setCart(true);
-      // console.log(JSON.parse(cartData).cartList)
-      setShopList(JSON.parse(cartData).cartList);
+      setShopList(cartContents.cartList);
     } else {
       setCart(false);
     }
@@ -34,11 +30,21 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
   const emptyCart = () => {
     return (
       <>
-        <div className="chooseCart flexSetCenter ">
-          <div className="append1s flexSetCenter fd-c">
-            <h3 className="chooseCartH3">購物車為空</h3>
-            <div>
-              <i className="fa-solid fa-cart-shopping emptyCart"></i>
+        <div className="cartFrame">
+          <div className="chooseCart flexSetCenter ">
+            <div className="w100p disf fd-rr">
+              <i
+                onClick={() => {
+                  setShowChooseShop(false);
+                }}
+                className="fa-solid fa-circle-xmark pointer cartX"
+              ></i>
+            </div>
+            <div className="append1s flexSetCenter fd-c">
+              <h3 className="chooseCartH3">購物車為空</h3>
+              <div>
+                <i className="fa-solid fa-cart-shopping emptyCart"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -63,8 +69,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
             return (
               <div
                 onClick={() => {
-                  setChooseedPayShop(Number(keyName));
-                  setChoosedShop(keyName);
+                  setChoosedShop(Number(keyName));
                 }}
                 className="cartShopList"
                 // keyName = 商店SID

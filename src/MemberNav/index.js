@@ -44,7 +44,13 @@ function MemberNav() {
 
   const { authMember, setAuthMember } = useAuth();
 
-  const { cartTotal, setCartTotal, sendAddress, setSendAddress } = usePay();
+  const {
+    cartTotal,
+    setCartTotal,
+    sendAddress,
+    setSendAddress,
+    setCartContents,
+  } = usePay();
 
   //登入的會員名
   const [memberName, setMemberName] = useState('');
@@ -73,6 +79,7 @@ function MemberNav() {
       return;
     }
     setCartTotal(localCart.cartTotal);
+    setCartContents(localCart);
   }
 
   useEffect(() => {

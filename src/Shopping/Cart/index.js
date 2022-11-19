@@ -3,86 +3,18 @@ import { useEffect, useState } from 'react';
 import '../Cart.css';
 import { useNavigate } from 'react-router-dom';
 import { usePay } from '../../Context/PayPageContext';
-
+import { useCart } from '../../Context/CartProvider';
 function Cart({ setShowCart, setShowChooseShop }) {
-  const { cartTotal, setCartTotal } = usePay();
-
+  const { editCartBySelect } = useCart();
   const navi = useNavigate();
   const selectOptions = new Array(31).fill(1);
   //===============================================分隔線================================================
-  //購物車下拉式API 已經有資料
-  function editCartBySelect(shopSid, productSid, amount) {
-    let localCart = JSON.parse(localStorage.getItem('cart'));
-    //選擇不是0就設定數量
-    if (amount > 0) {
-      localCart.cartList[shopSid].list[productSid].amount = amount;
-    } else {
-      delete localCart.cartList[shopSid].list[productSid];
-    }
-
-    //店家總金額
-    let shopPriceTotal = 0;
-    let shopAmountTotal = 0;
-    for (let element in localCart.cartList[shopSid].list) {
-      if (element) {
-        shopAmountTotal += Number(
-          localCart.cartList[shopSid].list[element].amount
-        );
-        const dividedProduct = localCart.cartList[shopSid].list[element];
-        // console.log(shopPriceTotal);
-        // console.log(localCart.cartList[shopSid].list[element]);
-        shopPriceTotal +=
-          Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
-      }
-    }
-
-    setTotalPrice(shopPriceTotal);
-
-    localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
-    localCart.cartList[shopSid].shopTotal = shopAmountTotal;
-
-    //總數重新計算
-    let countCartTotal = 0;
-
-    for (let element in localCart.cartList) {
-      if (element) {
-        countCartTotal += localCart.cartList[element].shopTotal;
-      }
-    }
-    setCartTotal(countCartTotal);
-    //如果歸零直接刪除
-    if (countCartTotal === 0) {
-      localStorage.removeItem('cart');
-    } else {
-      localCart.cartTotal = countCartTotal;
-      // localStorage.removeItem("cart");
-      localStorage.setItem('cart', JSON.stringify(localCart));
-    }
-    console.log(localCart);
-    if (shopPriceTotal === 0) {
-      setShowChooseShop(true);
-      setShowCart(false);
-      delete localCart.cartList[shopSid];
-    }
-    if (countCartTotal === 0) {
-      setShowChooseShop(false);
-      setShowCart(false);
-    }
-    setProducts(localCart.cartList[shopSid].list);
-  }
-
-  //===============================================分隔線================================================
   //產品資料
   const [prouducts, setProducts] = useState({});
-  //店家名稱 現在沒有店名先用SID代替
-  const [shopName, setShopName] = useState('');
-  //店家名稱 現在沒有店名先用SID代替
-  const [shopSid, setShopSid] = useState('');
-  //總金額 現在先用總數代替
-  const [totalPrice, setTotalPrice] = useState(0);
-  //備註
-  const [memos, setMemos] = useState(false);
+  //購物車內容
+  const { cartContents, chooseedPayShop } = usePay();
 
+  //清空檢查
   function emptyCheck(totalPrice) {
     if (!totalPrice) {
       setShowCart(false);
@@ -90,27 +22,10 @@ function Cart({ setShowCart, setShowChooseShop }) {
     }
   }
 
-  //取得儲存的購物車資料
-  function getShopData(what) {
-    const cartData = JSON.parse(localStorage.getItem('cart'));
-    const shopSid = cartData.choosedSid;
-    if (what === 'sid') {
-      return shopSid;
-    }
-    const shopData = cartData.cartList[shopSid];
-    return shopData;
-  }
-
   useEffect(() => {
-    //一開始先抓購物車裡面的資料出來顯示
-    //現在沒有店名先用SID代替
-    setShopName(getShopData().shopName);
-    setShopSid(getShopData('sid'));
-    setProducts(getShopData().list);
-    setTotalPrice(getShopData().shopPriceTotal);
-  }, []);
-
-  // console.log(prouducts)
+    //一開始先抓全域狀態資料出來顯示
+    setProducts(cartContents.cartList[chooseedPayShop].list);
+  }, [cartContents]);
   return (
     <div className="cartFrame ">
       <div className="chooseCart">
@@ -130,7 +45,9 @@ function Cart({ setShowCart, setShowChooseShop }) {
             className="fa-solid fa-circle-xmark pointer cartX"
           ></i>
         </div>
-        <h3 className="chooseCartH3">{shopName}</h3>
+        <h3 className="chooseCartH3">
+          {cartContents.cartList[chooseedPayShop].shopName}
+        </h3>
         <div>
           {Object.keys(prouducts).map((key, index) => {
             const cutBefore = prouducts[key].price * prouducts[key].amount;
@@ -156,7 +73,14 @@ function Cart({ setShowCart, setShowChooseShop }) {
                     name="selects"
                     value={prouducts[key].amount}
                     onChange={(e) => {
-                      editCartBySelect(shopSid, key, e.target.value);
+                      //下拉式選單函式
+                      editCartBySelect(
+                        chooseedPayShop,
+                        key,
+                        e.target.value,
+                        setShowCart,
+                        setShowChooseShop
+                      );
                       console.log(e.target.value);
                     }}
                   >
@@ -168,28 +92,7 @@ function Cart({ setShowCart, setShowChooseShop }) {
                       );
                     })}
                   </select>
-
-                  {/* <i
-                    onClick={() => {
-                      addCart(shopSid, key);
-                      setProducts(getShopData().list);
-                      setTotalPrice(getShopData().shopTotal);
-                    }}
-                    className="fa-solid fa-circle-plus"
-                  ></i>
-                </div>
-                <p>數量:{prouducts[key]}</p>
-                <div>
-                  <i
-                    onClick={() => {
-                      reduceCart(shopSid, key);
-                      setProducts(getShopData().list);
-                      setTotalPrice(getShopData().shopTotal);
-                      emptyCheck(totalPrice - 1);
-                      // TODO 這裡要加入判斷式 如果變0要提醒並關掉這頁
-                    }}
-                    className="fa-solid fa-circle-minus"
-                  ></i> */}
+                  {/* TODO 這裡要加入判斷式 如果變0要提醒並關掉這頁 */}
                 </div>
 
                 <p>{prouducts[key].name}</p>
@@ -232,7 +135,7 @@ function Cart({ setShowCart, setShowChooseShop }) {
             setShowChooseShop(false);
           }}
         >
-          前往結帳．${totalPrice}
+          前往結帳．${cartContents.cartList[chooseedPayShop].shopPriceTotal}
         </div>
       </div>
     </div>

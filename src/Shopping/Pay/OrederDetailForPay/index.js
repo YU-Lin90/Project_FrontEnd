@@ -5,10 +5,10 @@ import { usePay } from '../../../Context/PayPageContext';
 function OrederDetailForPay() {
   //顯示商品列表用 只在這頁顯示
   const [productList, setProductList] = useState({});
-  const { couponCutAmount, deliverFee, chooseedPayShopContents } = usePay();
+  const { couponCutAmount, deliverFee, cartContents, chooseedPayShop } =
+    usePay();
   useEffect(() => {
-    // console.log(chooseedPayShopContents);
-    setProductList(chooseedPayShopContents.list);
+    setProductList(cartContents.cartList[chooseedPayShop].list);
   }, []);
   return (
     <div className="vhNoNav topUnderNav w30p po-s flexSetCenter">
@@ -71,7 +71,9 @@ function OrederDetailForPay() {
         <div className="w100p">
           <p className="w100p disf jc-sb marb10">
             <span>小計</span>
-            <span>NT${chooseedPayShopContents.shopPriceTotal}</span>
+            <span>
+              NT${cartContents.cartList[chooseedPayShop].shopPriceTotal}
+            </span>
           </p>
           <p className="w100p disf jc-sb marb10">
             <span>+外送服務費</span>
@@ -91,7 +93,7 @@ function OrederDetailForPay() {
           <span className="fw7">總計金額</span>
           <span>
             NT$
-            {chooseedPayShopContents.shopPriceTotal -
+            {cartContents.cartList[chooseedPayShop].shopPriceTotal -
               couponCutAmount +
               deliverFee}
           </span>
@@ -100,7 +102,9 @@ function OrederDetailForPay() {
           <span>本次消費獲得紅利(10%)</span>
           <span>
             {parseInt(
-              (chooseedPayShopContents.shopPriceTotal - couponCutAmount) / 10
+              (cartContents.cartList[chooseedPayShop].shopPriceTotal -
+                couponCutAmount) /
+                10
             )}
             點
           </span>

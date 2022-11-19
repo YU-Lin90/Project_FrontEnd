@@ -1,7 +1,10 @@
+//付款按鈕
 import { usePay } from '../../../Context/PayPageContext';
 import { useFunc } from '../../../Context/FunctionProvider';
 import { useEffect, useRef, useState } from 'react';
-import { Await, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../../Context/CartProvider';
+
 const siteName = window.location.hostname;
 //===============================================分隔線================================================
 // 開新視窗並置中的函式，facebook use it
@@ -69,11 +72,13 @@ function PayButton() {
   //結帳按鈕鎖定狀態
   const [buttonLock, setButtonLock] = useState(false);
   //通用函式
-  const { loginCheckPostFetch, loginCheckGetFetch } = useFunc();
+  const { loginCheckPostFetch } = useFunc();
   //監聽linePay狀態
   const [paid, setPaid] = useState(false);
   //新視窗
   const newWindow = useRef(null);
+  //Function
+  const { paidDeleteCartPart } = useCart();
 
   //結帳頁CONTEXT
   const {
@@ -84,9 +89,9 @@ function PayButton() {
     couponSid,
     deliverMemo,
     storeMemo,
-    payingOrderSid,
     setPayingOrderSid,
-    chooseedPayShopContents,
+    payingOrderSid,
+    cartContents,
     sendAddress,
     chooseedPayShop,
   } = usePay();
@@ -101,7 +106,7 @@ function PayButton() {
       sendAddress: sendAddress,
       couponCutAmount: couponCutAmount,
       couponSid: couponSid,
-      details: chooseedPayShopContents,
+      details: cartContents.cartList[chooseedPayShop],
       storeMemo: storeMemo,
       deliverMemo: deliverMemo,
     });
@@ -110,6 +115,9 @@ function PayButton() {
   const cashPay = async () => {
     const postData = dataCollection();
     await loginCheckPostFetch('CashPay', 'Member', postData);
+    paidDeleteCartPart(chooseedPayShop);
+    alert('下訂成功');
+    navi('/');
   };
   //LinePay
   const linePay = async () => {
@@ -123,7 +131,7 @@ function PayButton() {
     if (res.sucess) {
       setPayingOrderSid(res.orderSid);
       const totalPrice =
-        Number(chooseedPayShopContents.shopPriceTotal) -
+        Number(cartContents.cartList[chooseedPayShop].shopPriceTotal) -
         Number(couponCutAmount);
       const params = new URLSearchParams({
         productName: '隨饗',
@@ -163,10 +171,12 @@ function PayButton() {
       // alert('已付款');
       //TODO:這邊之後改成結帳完成頁(訂單成立頁)
       //這一頁之後做成元件放在訂單頁
+      paidDeleteCartPart(chooseedPayShop);
       alert('付款成功');
-      setTimeout(() => {
-        navi('/');
-      }, 3000);
+      navi('/');
+      // setTimeout(() => {
+      //
+      // }, 3000);
     }
     return;
   }, [paid]);
@@ -176,7 +186,7 @@ function PayButton() {
     console.log('-----店家ID-----');
     console.log(chooseedPayShop);
     console.log('-----購物車內容-----');
-    console.log(chooseedPayShopContents);
+    console.log(cartContents.cartList[chooseedPayShop]);
     console.log('-----外送費-----');
     console.log(deliverFee);
     console.log('-----基本資料-----');
@@ -211,7 +221,9 @@ function PayButton() {
               return;
             }
             setTimeout(() => {
+              // paidDeleteCartPart(chooseedPayShop);
               setButtonLock(false);
+              // navi('/');
             }, 2000);
           }
         }}
