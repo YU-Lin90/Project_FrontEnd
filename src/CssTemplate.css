@@ -61,6 +61,8 @@
 .setTop0{top:0;}.setBottom0{bottom:0;}.setRight0{right:0;}.setLeft0{left:0;}
 /* Aspect-Ratio */
 .as1{aspect-ratio:1;}
+/* overflow */
+.of-a{overflow:auto;}.of-h{overflow:hidden;}.of-v{overflow:visible;}
 /* cursor */
 .pointer{cursor:pointer;}
 :root {

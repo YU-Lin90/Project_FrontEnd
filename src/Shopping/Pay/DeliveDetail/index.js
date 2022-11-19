@@ -1,9 +1,10 @@
 //第一段 送餐詳情
 import { usePay } from '../../../Context/PayPageContext';
-
+import { useFunc } from '../../../Context/FunctionProvider';
 import PayTitleBlock from '../PayTitleBlock';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 function DeliveDetail() {
+  const { notLoginGetFetch } = useFunc();
   //備註設定
   const {
     deliverMemo,
@@ -12,6 +13,10 @@ function DeliveDetail() {
     setStoreMemo,
     sendAddress,
     setSendAddress,
+    waitTime,
+    setWaitTime,
+    chooseedPayShop,
+    cartContents,
   } = usePay();
 
   const [editAddress, setEditAddress] = useState(false);
@@ -20,16 +25,31 @@ function DeliveDetail() {
 
   const [editDeliverMemo, setEditDeliverMemo] = useState(false);
 
+  const checkWaitTime = async () => {
+    const time = await notLoginGetFetch(
+      `PayGetWaitTime/?sid=${chooseedPayShop}`
+    );
+    setWaitTime(time);
+  };
+  useEffect(() => {
+    // TODO:之後再打開
+    // checkWaitTime();
+  }, []);
   return (
     <>
       <div className="payDetailBox">
         <PayTitleBlock number={1} titleString={'送餐詳情'} />
+        <div className="marb10 disf jc-sb ai-c">
+          <p>店家名稱:{cartContents.cartList[chooseedPayShop].shopName}</p>
+          <p>店家現在等待時間:{waitTime}分鐘</p>
+        </div>
         <div className="marb10 disf jc-sb ai-c">
           <div>
             <p className="fs24 marb10">送達地址:</p>
             {editAddress ? (
               <div>
                 <input
+                  className="w100p"
                   value={sendAddress}
                   onChange={(e) => {
                     setSendAddress(e.target.value);
@@ -62,7 +82,7 @@ function DeliveDetail() {
                 />
               </div>
             ) : (
-              <p>{storeMemo}</p>
+              <p>{storeMemo === '' ? '無' : storeMemo}</p>
             )}
           </div>
 
@@ -88,7 +108,7 @@ function DeliveDetail() {
                 />
               </div>
             ) : (
-              <p>{deliverMemo}</p>
+              <p>{deliverMemo === '' ? '無' : deliverMemo}</p>
             )}
           </div>
           <div

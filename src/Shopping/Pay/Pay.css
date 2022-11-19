@@ -1,17 +1,20 @@
-.payDetailBoxNumber{
-   aspect-ratio: 1;
-   padding: 10px;
-   color: #fff;
-   font-weight: 600;
-   
+.payDetailBoxNumber {
+  aspect-ratio: 1;
+  padding: 10px;
+  color: #fff;
+  font-weight: 600;
+
 }
-.payDetailBox{
-  box-shadow: 5px 5px 5px #bbbb;
+
+.payDetailBox {
+  box-shadow: -5px -1px 5px #bbbb, 5px 5px 5px #bbbb;
   width: 90%;
   padding: 20px;
+  margin-bottom: 10px;
 }
-.payPageButton{
-  background-color:var(--mainColor);
+
+.payPageButton {
+  background-color: var(--mainColor);
   color: #fff;
   padding: 15px;
   font-size: 18px;
@@ -20,23 +23,61 @@
   cursor: pointer;
   width: fit-content;
 }
-.payPageButton.locked:hover{
+
+.payPageButton.locked:hover {
   background-color: var(--mainColor);
   color: #fff;
 }
-.payPageButton:hover{
+
+.payPageButton:hover {
   /* background-color: var(--subColor); */
   background-color: #f59900;
   color: #000;
 }
-@media screen and (min-width:768px){
-  .payDetailBox{
+
+.payCouponFrame {
+  width: 50%;
+}
+
+@media screen and (min-width:768px) {
+  .payDetailBox {
     width: 80%;
     padding: 30px;
   }
+
+  .payCouponFrame {
+    width: 33.33333%;
+  }
 }
 
-.payPageButton.locked{
+.payPageButton.locked {
   opacity: 0.7;
-  cursor:initial;
+  cursor: initial;
+}
+
+.payCoupons {
+  aspect-ratio: 1 / 1;
+  background-color: var(--mainColor);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 10px 20px 10px;
+  gap: 20px;
+  width: 100%;
+  height: auto;
+
+}
+
+.payCoupons.none {
+  background-color: #e59500;
+}
+
+.payCoupons.insufficient {
+  background-color: #CD8C15;
+  color: #727272;
+}
+
+.payCoupons.active {
+  outline: 3px red solid;
 }

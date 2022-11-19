@@ -9,19 +9,23 @@ import { usePay } from '../../Context/PayPageContext';
 import './Pay.css';
 //結帳頁 全體
 function Pay() {
-  const { chooseedPayShop } = usePay();
+  const { chooseedPayShop, clearPayPageState } = usePay();
+
   const navi = useNavigate();
   // 製作中先關掉 做完再打開(空白選擇阻擋)
   useEffect(() => {
     //沒選擇直接擋掉
-    if (!chooseedPayShop > 1) {
-      alert('尚未選擇店家!!');
-      navi('/');
-    }
+    // if (!chooseedPayShop > 1) {
+    //   alert('尚未選擇店家!!');
+    //   navi('/');
+    // }
+    return () => {
+      clearPayPageState();
+    };
   }, []);
   return (
     <>
-      <div className="disf">
+      <div className="disf padV20">
         <div className="w70p flexSetCenter fd-c jc-se">
           <DeliveDetail />
           <ProfileData />

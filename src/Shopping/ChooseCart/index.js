@@ -24,8 +24,10 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
       setShopList(cartContents.cartList);
     } else {
       setCart(false);
+      setShowChooseShop(false);
+      setShopList({});
     }
-  }, []);
+  }, [cartTotal]);
   //空購物車
   const emptyCart = () => {
     return (

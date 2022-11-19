@@ -31,10 +31,39 @@ export const FunctionProvider = ({ children }) => {
     const res = await r.json();
     return res;
   };
+  //沒有登入檢查的FETCH
+  const notLoginPostFetch = async (apiLink, postData) => {
+    const r = await fetch(`http://${siteName}:3001/${apiLink}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: postData,
+    });
+    const res = await r.json();
+    return res;
+  };
+  const notLoginGetFetch = async (apiLink) => {
+    const r = await fetch(`http://${siteName}:3001/${apiLink}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const res = await r.json();
+    return res;
+  };
 
   return (
     <FunctionContext.Provider
-      value={{ loginCheckPostFetch, loginCheckGetFetch }}
+      value={{
+        loginCheckPostFetch,
+        loginCheckGetFetch,
+        notLoginGetFetch,
+        notLoginPostFetch,
+      }}
     >
       {children}
     </FunctionContext.Provider>

@@ -54,8 +54,7 @@ function MemberNav() {
 
   //登入的會員名
   const [memberName, setMemberName] = useState('');
-
-  //TODO 之後購物車按鈕要獨立出去成為一個元件 不然這邊太擠?
+  
   //選擇店家頁面
   const [showChooseShop, setShowChooseShop] = useState(false);
 

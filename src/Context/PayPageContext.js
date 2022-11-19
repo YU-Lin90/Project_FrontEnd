@@ -19,7 +19,7 @@ export const PaydetailProvider = ({ children }) => {
     '106台北市大安區復興南路一段390號2樓'
   );
   //===============================================分隔線================================================
-  //結帳用
+  //結帳頁用
   //優惠券折扣金額 只傳金額
   const [couponCutAmount, setCouponCutAmount] = useState(0);
   //優惠券SID
@@ -31,11 +31,26 @@ export const PaydetailProvider = ({ children }) => {
   //付款方式 0現金 1LINEPAY
   const [payWay, setPayWay] = useState(0);
   //外送員備註
-  const [deliverMemo, setDeliverMemo] = useState('外送員備註');
+  const [deliverMemo, setDeliverMemo] = useState('');
   //店家備註
-  const [storeMemo, setStoreMemo] = useState('店家備註');
+  const [storeMemo, setStoreMemo] = useState('');
   //正在支付的訂單SID LINEPAY用
   const [payingOrderSid, setPayingOrderSid] = useState(0);
+  //選擇的店家等待時間
+  const [waitTime, setWaitTime] = useState(0);
+  //離開結帳頁的時候重設狀態
+  const clearPayPageState = () => {
+    setCouponCutAmount(0);
+    setCouponSid(0);
+    setDeliverFee(10);
+    setProfile({});
+    setPayWay(0);
+    setDeliverMemo('');
+    setStoreMemo('');
+    setPayingOrderSid(0);
+    setWaitTime(0);
+    setChooseedPayShop(0);
+  };
 
   return (
     <PayContext.Provider
@@ -64,6 +79,9 @@ export const PaydetailProvider = ({ children }) => {
         setChooseedPayShop,
         sendAddress,
         setSendAddress,
+        waitTime,
+        setWaitTime,
+        clearPayPageState,
       }}
     >
       {children}

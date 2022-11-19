@@ -132,7 +132,8 @@ function PayButton() {
       setPayingOrderSid(res.orderSid);
       const totalPrice =
         Number(cartContents.cartList[chooseedPayShop].shopPriceTotal) -
-        Number(couponCutAmount);
+        Number(couponCutAmount) +
+        Number(deliverFee);
       const params = new URLSearchParams({
         productName: '隨饗',
         amount: totalPrice,
@@ -203,6 +204,8 @@ function PayButton() {
     console.log(storeMemo);
     console.log('-----結帳方式-----');
     console.log(payWay === 0 ? '現金' : 'LinePay');
+    console.log('-----------------------------------------');
+
   };
   return (
     <>
@@ -230,6 +233,14 @@ function PayButton() {
         className={`as-e payPageButton ${buttonLock ? 'locked' : ''}`}
       >
         確認
+      </div>
+      <div
+        className="payPageButton"
+        onClick={() => {
+          showDatasInConsole();
+        }}
+      >
+        測試用按鈕 console顯示資料
       </div>
     </>
   );

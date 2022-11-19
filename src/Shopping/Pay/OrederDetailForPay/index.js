@@ -8,11 +8,12 @@ function OrederDetailForPay() {
   const { couponCutAmount, deliverFee, cartContents, chooseedPayShop } =
     usePay();
   useEffect(() => {
+    // setProductList(cartContents.cartList["89"].list);
     setProductList(cartContents.cartList[chooseedPayShop].list);
   }, []);
   return (
-    <div className="vhNoNav topUnderNav w30p po-s flexSetCenter">
-      <div className="disf jc-c fd-c ai-c w80p gap20">
+    <div className=" topUnderNav padV20 w30p flexSetCenter of-a OrederDetailForPay">
+      <div className="disf jc-c fd-c ai-c w80p gap20 padV20">
         <p className="fs36 fw6 ta-c marb15">你的訂單</p>
         {/* TODO:繼續加購商品 */}
         <div className="w100p borderBotGray3 padV5">
@@ -72,6 +73,7 @@ function OrederDetailForPay() {
           <p className="w100p disf jc-sb marb10">
             <span>小計</span>
             <span>
+              {/* NT${cartContents.cartList[89].shopPriceTotal} */}
               NT${cartContents.cartList[chooseedPayShop].shopPriceTotal}
             </span>
           </p>

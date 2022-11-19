@@ -19,7 +19,6 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   }
 
   function getChatDetail() {
-    //TODO 這裡路徑要改
     fetch(`http://${siteName}:3001/${sideName}/ChatServiceToAdmin`, {
       method: 'POST',
       mode: 'cors',
