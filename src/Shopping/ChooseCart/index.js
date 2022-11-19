@@ -1,12 +1,12 @@
 //購物車選擇店家頁面
 import { useEffect, useState } from 'react';
-import { useCart } from '../../Context/CartProvider';
+import { usePay } from '../../Context/PayPageContext';
 
 import '../Cart.css';
 
 function ChooseCart({ setShowChooseShop, setShowCart }) {
   const { chooseedPayShop, setChooseedPayShop, setChooseedPayShopContents } =
-    useCart();
+  usePay();
   const [cart, setCart] = useState(false);
   const [shoplist, setShopList] = useState({});
   //選擇店家到下一步

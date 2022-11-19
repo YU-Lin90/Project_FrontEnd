@@ -1,13 +1,18 @@
 //第一段 送餐詳情
 import { usePay } from '../../../Context/PayPageContext';
-import { useCart } from '../../../Context/CartProvider';
 
 import PayTitleBlock from '../PayTitleBlock';
 import { useState } from 'react';
 function DeliveDetail() {
-  const { sendAddress, setSendAddress } = useCart();
   //備註設定
-  const { deliverMemo, setDeliverMemo, storeMemo, setStoreMemo } = usePay();
+  const {
+    deliverMemo,
+    setDeliverMemo,
+    storeMemo,
+    setStoreMemo,
+    sendAddress,
+    setSendAddress,
+  } = usePay();
 
   const [editAddress, setEditAddress] = useState(false);
 

@@ -1,5 +1,4 @@
 import { usePay } from '../../../Context/PayPageContext';
-import { useCart } from '../../../Context/CartProvider';
 import { useFunc } from '../../../Context/FunctionProvider';
 import { useEffect, useRef, useState } from 'react';
 import { Await, useNavigate } from 'react-router-dom';
@@ -87,8 +86,11 @@ function PayButton() {
     storeMemo,
     payingOrderSid,
     setPayingOrderSid,
+    chooseedPayShopContents,
+    sendAddress,
+    chooseedPayShop,
   } = usePay();
-  const { chooseedPayShopContents, sendAddress, chooseedPayShop } = useCart();
+
   //回傳要傳的資料 避免重複寫
   const dataCollection = () => {
     return JSON.stringify({

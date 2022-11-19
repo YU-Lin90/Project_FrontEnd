@@ -1,5 +1,4 @@
 import OrederDetailForPay from './OrederDetailForPay';
-import { useCart } from '../../Context/CartProvider';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveDetail from './DeliveDetail';
@@ -10,7 +9,7 @@ import { usePay } from '../../Context/PayPageContext';
 import './Pay.css';
 //結帳頁 全體
 function Pay() {
-  const { cartTotal, setCartTotal, chooseedPayShopContents } = useCart();
+  const { cartTotal, setCartTotal, chooseedPayShopContents } = usePay();
   // const {} = usePay();
   //優惠券折扣金額 只傳金額
   const navi = useNavigate();

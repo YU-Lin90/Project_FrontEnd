@@ -1,13 +1,11 @@
 //結帳頁--訂單細節(右半邊)
 import { useEffect, useState } from 'react';
-import { useCart } from '../../../Context/CartProvider';
 import { usePay } from '../../../Context/PayPageContext';
 
 function OrederDetailForPay() {
-  const { chooseedPayShopContents } = useCart();
   //顯示商品列表用 只在這頁顯示
   const [productList, setProductList] = useState({});
-  const { couponCutAmount, deliverFee } = usePay();
+  const { couponCutAmount, deliverFee, chooseedPayShopContents } = usePay();
   useEffect(() => {
     // console.log(chooseedPayShopContents);
     setProductList(chooseedPayShopContents.list);

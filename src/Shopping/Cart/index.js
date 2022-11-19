@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import '../Cart.css';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../Context/CartProvider';
+import { usePay } from '../../Context/PayPageContext';
 
 function Cart({ setShowCart, setShowChooseShop }) {
-  const { cartTotal, setCartTotal } = useCart();
+  const { cartTotal, setCartTotal } = usePay();
 
   const navi = useNavigate();
   const selectOptions = new Array(31).fill(1);
