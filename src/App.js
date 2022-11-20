@@ -24,7 +24,7 @@ import MemberLayout from './Member/MemberLayout';
 import MemberDatas from './Member/MemberDatas';
 //會員中心 紅利點數
 import MemberPoint from './Member/MemberPoint';
-//會員中心 訂單紀錄
+//會員中心 現在訂單
 import MemberOrder from './Member/MemberOrder';
 //會員中心 優惠券
 import MemberCoupon from './Member/MemberCoupon';
@@ -34,7 +34,8 @@ import MemberRegister from './Member/MemberRegister';
 import FavoriteStore from './Member/FavoriteStore';
 //會員位置記錄管理
 import MemberLocation from './Member/MemberLocation';
-
+//會員歷史訂單
+import MemberOldOrder from './Member/MemberOldOrder';
 //===============================================分隔線================================================
 //店家首頁
 import Store from './Store';
@@ -248,7 +249,7 @@ function App() {
               {/* 會員資料頁/編輯 */}
               {/* ~/Member */}
               <Route index element={<MemberDatas />} />
-              {/* 會員訂單紀錄 */}
+              {/* 會員現在訂單 */}
               {/* ~/Member/MemberOrder */}
               <Route path="MemberOrder" element={<MemberOrder />} />
               {/* 會員優惠券 */}
@@ -263,6 +264,9 @@ function App() {
               {/* 會員最愛列表 */}
               {/* ~/Member/MemberLocation */}
               <Route path="MemberLocation" element={<MemberLocation />} />
+              {/* 會員歷史訂單 */}
+              {/* ~/Member/MemberOldOrder */}
+              <Route path="MemberOldOrder" element={<MemberOldOrder />} />
               {/* 會員客服 */}
               {/* ~/Member/MemberService */}
               <Route

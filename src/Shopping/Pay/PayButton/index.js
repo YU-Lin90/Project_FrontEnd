@@ -114,7 +114,8 @@ function PayButton() {
   //現金
   const cashPay = async () => {
     const postData = dataCollection();
-    await loginCheckPostFetch('CashPay', 'Member', postData);
+    const result = await loginCheckPostFetch('CashPay', 'Member', postData);
+    console.log(result);
     paidDeleteCartPart(chooseedPayShop);
     alert('下訂成功');
     navi('/');
@@ -205,7 +206,6 @@ function PayButton() {
     console.log('-----結帳方式-----');
     console.log(payWay === 0 ? '現金' : 'LinePay');
     console.log('-----------------------------------------');
-
   };
   return (
     <>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './Member_Point.css';
-
+const reasons = ['兌換優惠券', '消費獲得'];
 const siteName = window.location.hostname;
 function MemberPoint() {
   const [productData, setproductData] = useState([
@@ -45,7 +45,7 @@ function MemberPoint() {
           </tr>
         </thead>
         <tbody>
-          {productData.map((value) => {
+          {productData.map((value, i) => {
             const {
               coupon_sid,
               point_amount,
@@ -54,10 +54,10 @@ function MemberPoint() {
               coupon_name,
             } = value;
             return (
-              <tr key={coupon_sid}>
+              <tr key={i + 1}>
                 <td className="points">{point_amount}</td>
                 <td className="points">{point_change_time}</td>
-                <td className="points">{point_change_method}</td>
+                <td className="points">{reasons[point_change_method]}</td>
                 <td className="points">{coupon_name}</td>
               </tr>
             );

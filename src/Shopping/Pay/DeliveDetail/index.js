@@ -33,7 +33,7 @@ function DeliveDetail() {
   };
   useEffect(() => {
     // TODO:之後再打開
-    // checkWaitTime();
+    checkWaitTime();
   }, []);
   return (
     <>

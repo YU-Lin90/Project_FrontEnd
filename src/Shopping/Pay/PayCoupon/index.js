@@ -22,7 +22,7 @@ function PayCoupon() {
   //{couponData.length===0 && notUseCouponData.length ===0 ? <></>:<></>}
   //獲得優惠券資訊
   const getCouponDetail = async () => {
-    const res = await loginCheckGetFetch('PayGetCouponDetail', 'Member');
+    const res = await loginCheckGetFetch('Pay/PayGetCouponDetail', 'Member');
     console.log(res);
     //足額
     const canUseArray = res.filter((v, i) => {

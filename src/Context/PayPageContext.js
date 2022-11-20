@@ -37,7 +37,7 @@ export const PaydetailProvider = ({ children }) => {
   //正在支付的訂單SID LINEPAY用
   const [payingOrderSid, setPayingOrderSid] = useState(0);
   //選擇的店家等待時間
-  const [waitTime, setWaitTime] = useState(0);
+  const [waitTime, setWaitTime] = useState(0);  
   //離開結帳頁的時候重設狀態
   const clearPayPageState = () => {
     setCouponCutAmount(0);

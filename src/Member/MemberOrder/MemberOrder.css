@@ -1,0 +1,78 @@
+.orderSelects{
+  border: 1px #ccc solid;
+  padding: 5px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  height: 100%;
+  background-color: #fff;
+  z-index: 2;
+}
+.orderSelects.active{
+  max-height: 500px;
+  height: auto;
+}
+.optionArrow.active{
+  rotate: 180deg;
+}
+.openedOptions{
+  cursor: pointer;
+  font-weight: 600;
+}
+.openedOptions:hover{
+  background-color: #3333ff;
+}
+.openedOptions.active{
+  background-color: var(--mainComplementary);
+}
+.ProgessStep{
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+}
+.ProgessStep>div{
+  height: 100%;
+}
+.stepText{
+  width: 10%;
+  text-align: center;
+}
+.stepText>*,.stepLine>*{
+  height: 50%;
+  width: 100%;
+}
+.stepLine{
+  width: 20%;
+}
+.stepCircleFrame{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stepCircleFrame>div{
+  width: 33.333333%;
+}
+.step.line{
+  height: 5px;
+  background-color: var(--mainComplementary);
+}
+.step.circle{
+  aspect-ratio: 1;
+  border: solid 5px var(--mainComplementary);
+  border-radius: 50%;
+}
+.circle.active{
+  border: solid 5px var(--mainColor);
+}
+.line.active{
+  background-color: var(--mainColor);
+}
+.stepText>p{
+  color: var(--mainComplementary);
+  font-weight: 500;
+}
+.stepText>p.active{
+  color:var(--mainColor)
+}

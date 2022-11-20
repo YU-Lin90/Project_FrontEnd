@@ -14,7 +14,7 @@ function ProfileData() {
   //loginCheckGetFetch('PayGetProfile','Member')
   //獲得個人資料
   const getProfileData = async () => {
-    const datas = await loginCheckGetFetch('PayGetProfile', 'Member');
+    const datas = await loginCheckGetFetch('Pay/PayGetProfile', 'Member');
     setProfile(datas);
   };
   //INPUT修改函式
