@@ -1,7 +1,7 @@
 import StoreNav from './StoreNav';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
-//這邊要放會員NAVBAR
+//這邊要放NAVBAR
 function Store() {
   const location = useLocation().pathname;
   const navi = useNavigate();

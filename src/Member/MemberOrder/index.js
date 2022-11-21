@@ -1,49 +1,46 @@
-//會員中心 現在訂單 第一層
-import { useEffect, useState } from 'react';
-import { useFunc } from '../../Context/FunctionProvider';
-import OrderContents from './OrderContents';
-import OrderSelect from './OrderSelect';
-import './MemberOrder.css';
-
-function MemberOrder() {
-  const { loginCheckGetFetch } = useFunc();
-  //訂單概覽列表
-  const [orderList, setOrderList] = useState([]);
-  //選到的訂單編號
-  const [selectedOrder, setSelectedOrder] = useState(0);
-  const getOrderList = async () => {
-    const res = await loginCheckGetFetch(
-      'MemberOrderCheck/GetSelectDetails',
-      'Member'
-    );
-    setOrderList(res);
-    // console.log(res);
-  };
-
+//會員現在訂單  開SOCKET用
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import MemberOrder from './MemberOrder';
+const siteName = window.location.hostname;
+function MemberOrderSocket() {
+  const navi = useNavigate();
+  const orderSocket = new WebSocket(`ws://${siteName}:3200`);
+  function sendToken() {
+    const tokenString = localStorage.getItem('Member');
+    if (!tokenString) {
+      alert('沒登入');
+      navi(`/MemberLogin`);
+    }
+    orderSocket.send(JSON.stringify({ token: tokenString }));
+  }
+  function receiveMessage(e) {
+    const datas = JSON.parse(e.data);
+    console.log(datas);
+  }
+  orderSocket.addEventListener('open', () => {
+    sendToken();
+    console.log('start');
+  });
   useEffect(() => {
-    getOrderList();
+    orderSocket.addEventListener('message', receiveMessage);
+    console.log('openListener');
+    return () => {
+      orderSocket.removeEventListener('message', receiveMessage);
+      console.log('closeListener');
+    };
+  }, []);
+  useEffect(() => {
+    return () => {
+      orderSocket.close();
+      console.log('end');
+    };
   }, []);
 
   return (
     <>
-      {orderList.length === 0 ? (
-        <div className="flexSetCenter w100p">
-          <p>無現在訂單</p>
-        </div>
-      ) : (
-        <div>
-          <OrderSelect
-            orderList={orderList}
-            selectedOrder={selectedOrder}
-            setSelectedOrder={setSelectedOrder}
-          />
-          <div className="w100p">
-            <p className="fs32 fw6 marb20">你的訂單狀態</p>
-            <OrderContents selectedOrder={selectedOrder} />
-          </div>
-        </div>
-      )}
+      <MemberOrder />
     </>
   );
 }
-export default MemberOrder;
+export default MemberOrderSocket;

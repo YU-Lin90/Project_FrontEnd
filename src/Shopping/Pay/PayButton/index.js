@@ -66,7 +66,7 @@ function unsubscribe(eventName, listener) {
 }
 //===============================================分隔線================================================
 //payWay 0現金 1LINEPAY
-function PayButton() {
+function PayButton({ orderSocket }) {
   //導向
   const navi = useNavigate();
   //結帳按鈕鎖定狀態
@@ -213,6 +213,13 @@ function PayButton() {
       <div
         onClick={() => {
           if (!buttonLock) {
+            orderSocket.send(
+              JSON.stringify({
+                receiveSide: 2,
+                receiveSid: chooseedPayShop,
+                step: 1,
+              })
+            );
             setButtonLock(true);
             if (payWay === 0) {
               cashPay();

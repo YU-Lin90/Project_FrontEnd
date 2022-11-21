@@ -1,40 +1,46 @@
-import OrederDetailForPay from './OrederDetailForPay';
+//結帳頁最外層 開Socket
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DeliveDetail from './DeliveDetail';
-import ProfileData from './ProfileData';
-import PayCoupon from './PayCoupon';
-import Payment from './Payment';
-import { usePay } from '../../Context/PayPageContext';
-import './Pay.css';
-//結帳頁 全體
-function Pay() {
-  const { chooseedPayShop, clearPayPageState } = usePay();
-
+import Pay from './Pay';
+const siteName = window.location.hostname;
+//===============================================分隔線================================================
+function PaySocket() {
   const navi = useNavigate();
-  // 製作中先關掉 做完再打開(空白選擇阻擋)
+  const orderSocket = new WebSocket(`ws://${siteName}:3200`);
+  function sendToken() {
+    const tokenString = localStorage.getItem('Member');
+    if (!tokenString) {
+      alert('沒登入');
+      navi(`/MemberLogin`);
+    }
+    orderSocket.send(JSON.stringify({ token: tokenString }));
+  }
+  function receiveMessage(e) {
+    const datas = JSON.parse(e.data);
+    console.log(datas);
+  }
+  orderSocket.addEventListener('open', () => {
+    sendToken();
+    console.log('start');
+  });
   useEffect(() => {
-    //沒選擇直接擋掉
-    // if (!chooseedPayShop > 1) {
-    //   alert('尚未選擇店家!!');
-    //   navi('/');
-    // }
+    orderSocket.addEventListener('message', receiveMessage);
+    console.log('openListener');
     return () => {
-      clearPayPageState();
+      orderSocket.removeEventListener('message', receiveMessage);
+      console.log('closeListener');
+    };
+  }, []);
+  useEffect(() => {
+    return () => {
+      orderSocket.close();
+      console.log('end');
     };
   }, []);
   return (
     <>
-      <div className="disf padV20">
-        <div className="w70p flexSetCenter fd-c jc-se">
-          <DeliveDetail />
-          <ProfileData />
-          <PayCoupon />
-          <Payment />
-        </div>
-        <OrederDetailForPay />
-      </div>
+      <Pay orderSocket={orderSocket} />
     </>
   );
 }
-export default Pay;
+export default PaySocket;

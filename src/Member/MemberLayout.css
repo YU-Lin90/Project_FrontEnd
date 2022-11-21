@@ -1,17 +1,22 @@
 .memberCenter{
   width: 100%;
   display: flex;
-  min-height:calc(100vh - 50px);
-  flex-direction: column;
+  /* min-height:calc(100vh - 50px); */
+  flex-direction: column-reverse;
+  position: relative;
 }
 .memberCenterList{
-  border-right: 1px #222 solid;
   /* background-color: #ccc; */
+  border-top: 1px #222 solid;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
   min-height: 50px;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
 }
 .memberCenterContent{
   padding: 20px;
@@ -20,11 +25,13 @@
 @media screen and (min-width:768px) {
   .memberCenter{
     flex-direction: row;
+    min-height:calc(100vh - 50px);
   }
   .memberCenterList{
+    border-right: 1px #222 solid;
     width: 30%;
     min-height:calc( 100vh - 50px);
-
+    position:static;
     /* background-color: #ccc; */
     flex-direction: column;
   }

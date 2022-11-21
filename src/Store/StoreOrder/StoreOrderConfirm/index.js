@@ -9,7 +9,13 @@ const fetchList = [
 ];
 const buttonContent = ['確認接單', '完成訂單'];
 
-function StoreOrderConfirm({ setOpenDetail, page, choosedOrderSid, setPage }) {
+function StoreOrderConfirm({
+  setOpenDetail,
+  page,
+  choosedOrderSid,
+  orderSocket,
+  setPage,
+}) {
   //接單API 之後往下放
   function setOrder(orderSid, member_sid) {
     const postData = JSON.stringify({ sid: orderSid, member_sid: member_sid });
@@ -162,15 +168,33 @@ function StoreOrderConfirm({ setOpenDetail, page, choosedOrderSid, setPage }) {
               <span className="fw6">總金額:</span>
               {orderDetail.sale}
             </p>
-
+            {/* //===============================================分隔線================================================ */}
             {page < 2 ? (
               <div
                 className="storeConfirmOrderButton"
                 onClick={async () => {
                   if (page === 0) {
+                    //接單  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 2,}
+                    orderSocket.send(
+                      JSON.stringify({
+                        receiveSide: 1,
+                        receiveSid: orderDetail.member_sid,
+                        step: 2,
+                        orderSid: orderDetail.sid,
+                      })
+                    );
                     await setOrder(orderDetail.sid, orderDetail.member_sid);
                     setPage(1);
                   } else if (page === 1) {
+                    //完成  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 3}
+                    orderSocket.send(
+                      JSON.stringify({
+                        receiveSide: 1,
+                        receiveSid: orderDetail.member_sid,
+                        step: 3,
+                        orderSid: orderDetail.sid,
+                      })
+                    );
                     await completeOrder(orderDetail.store_order_sid);
                     setPage(2);
                   }
@@ -180,6 +204,7 @@ function StoreOrderConfirm({ setOpenDetail, page, choosedOrderSid, setPage }) {
                 {buttonContent[page]}
               </div>
             ) : null}
+            {/* //===============================================分隔線================================================ */}
           </div>
         </div>
 

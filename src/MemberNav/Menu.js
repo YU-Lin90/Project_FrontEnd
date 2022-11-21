@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 function Menu({ setToggle, toggle }) {
   const navi = useNavigate();
   const menuList = [
-    { text: 'LinePay', link: '/LinePay' },
+    // { text: 'LinePay', link: '/LinePay' },
     { text: '找店家', link: '/Shopping' },
     { text: '店家內商品列表', link: '/StoreDetail' },
-    { text: '結帳頁', link: '/Pay' },
+    // { text: '結帳頁', link: '/Pay' },
     { text: '台北市', link: '/City/Taipei' },
     // { text: '附近美食', link: '/' },
     // { text: '找餐點', link: '/' },

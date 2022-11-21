@@ -3,7 +3,7 @@ import { useState } from 'react';
 import PayTitleBlock from '../PayTitleBlock';
 import PayButton from '../PayButton';
 import { usePay } from '../../../Context/PayPageContext';
-function Payment() {
+function Payment({ orderSocket }) {
   const { payWay, setPayWay } = usePay();
   //付款方式 0 現金 1 LinePay 傳到按鈕處理
   return (
@@ -42,7 +42,7 @@ function Payment() {
             </div>
           </div>
         </div>
-        <PayButton />
+        <PayButton orderSocket={orderSocket} />
       </div>
     </>
   );
