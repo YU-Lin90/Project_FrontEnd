@@ -9,7 +9,7 @@ nav.storeNav {
   justify-content: space-between;
   color: var(--mainColor);
   top: 0;
-  z-index: 20;
+  z-index: 10;
 }
 
 .logCheck {

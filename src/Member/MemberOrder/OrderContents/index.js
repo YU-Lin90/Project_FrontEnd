@@ -3,10 +3,14 @@ import { useEffect, useState } from 'react';
 import OrderMap from '../OrderMap';
 import { useFunc } from '../../../Context/FunctionProvider';
 import ProgessStep from './ProgessStep';
+import OrderShowOnMap from './OrderShowOnMap';
 //selectedOrder 選到的訂單SID
 function OrderContents({ selectedOrder }) {
+  //現在階段
   const [step, setStep] = useState(1);
   const { loginCheckGetFetch } = useFunc();
+  //現在顯示的訂單編號
+  const [orderShowNow, setOrderShowNow] = useState({});
   //叫資料函式
   const getOrderDetail = async (orderSid) => {
     const res = await loginCheckGetFetch(
@@ -14,7 +18,8 @@ function OrderContents({ selectedOrder }) {
       'Member'
     );
     //stepNow  1 店家還沒接單  2 店家還沒完成 3 店家完成外送員還沒取餐  4外送員已取餐還沒到
-    console.log(res);
+    // console.log(res);
+    setOrderShowNow(res);
     setStep(res.stepNow);
   };
   /* {
@@ -64,7 +69,6 @@ function OrderContents({ selectedOrder }) {
 
   useEffect(() => {
     if (selectedOrder !== 0) {
-      // console.log(selectedOrder);
       getOrderDetail(selectedOrder);
     }
     //這裡要叫資料
@@ -72,8 +76,17 @@ function OrderContents({ selectedOrder }) {
   return (
     <div className="w100p marHauto">
       <ProgessStep step={step} />
-      {/* 下半地圖 */}
-      <OrderMap selectedOrder={selectedOrder} />
+      <div className="po-r">
+        {/* 地圖上訂單按鈕 */}
+        <OrderShowOnMap
+          selectedOrder={selectedOrder}
+          orderShowNow={orderShowNow}
+        />
+        {/* 下半地圖 */}
+        <div style={{ height: '500px', width: '100%' }}>
+          <OrderMap />
+        </div>
+      </div>
     </div>
   );
 }

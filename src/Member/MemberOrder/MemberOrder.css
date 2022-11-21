@@ -1,4 +1,4 @@
-.orderSelects{
+.orderSelects {
   border: 1px #ccc solid;
   padding: 5px;
   overflow: auto;
@@ -9,70 +9,111 @@
   background-color: #fff;
   z-index: 2;
 }
-.orderSelects.active{
+
+.orderSelects.active {
   max-height: 500px;
   height: auto;
 }
-.optionArrow.active{
+
+.optionArrow.active {
   rotate: 180deg;
 }
-.openedOptions{
+
+.openedOptions {
   cursor: pointer;
   font-weight: 600;
 }
-.openedOptions:hover{
+
+.openedOptions:hover {
   background-color: #3333ff;
 }
-.openedOptions.active{
+
+.openedOptions.active {
   background-color: var(--mainComplementary);
 }
-.ProgessStep{
+
+.ProgessStep {
   display: flex;
   align-items: center;
   height: 60px;
   width: 100%;
 }
-.ProgessStep>div{
+
+.ProgessStep>div {
   height: 100%;
 }
-.stepText{
+
+.stepText {
   width: 10%;
   text-align: center;
 }
-.stepText>*,.stepLine>*{
+
+.stepText>*,
+.stepLine>* {
   height: 50%;
   width: 100%;
 }
-.stepLine{
+
+.stepLine {
   width: 20%;
 }
-.stepCircleFrame{
+
+.stepCircleFrame {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.stepCircleFrame>div{
+
+.stepCircleFrame>div {
   width: 33.333333%;
 }
-.step.line{
+
+.step.line {
   height: 5px;
   background-color: var(--mainComplementary);
 }
-.step.circle{
+
+.step.circle {
   aspect-ratio: 1;
   border: solid 5px var(--mainComplementary);
   border-radius: 50%;
 }
-.circle.active{
+
+.circle.active {
   border: solid 5px var(--mainColor);
 }
-.line.active{
+
+.line.active {
   background-color: var(--mainColor);
 }
-.stepText>p{
+
+.stepText>p {
   color: var(--mainComplementary);
   font-weight: 500;
 }
-.stepText>p.active{
-  color:var(--mainColor)
+
+.stepText>p.active {
+  color: var(--mainColor)
+}
+
+.orderButtonOnMap {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 2;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.orderButtonOnMap.close {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* .orderButtonOnMap.open {} */
+
+.orderButtonOnMapSVG {
+  fill: var(--mainColor);
+  width: 100%;
+  height: 100%;
 }

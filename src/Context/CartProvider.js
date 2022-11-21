@@ -195,9 +195,8 @@ export const CartProvider = ({ children }) => {
       setShowCart(false);
     }
   }
-
   //===============================================分隔線================================================
-  //結帳後刪除該店家購物車內容 刪不掉?
+  //結帳後刪除該店家購物車內容
   function paidDeleteCartPart(shopSid) {
     console.log('function-start');
     let localCart = JSON.parse(localStorage.getItem('cart'));
@@ -225,7 +224,7 @@ export const CartProvider = ({ children }) => {
     setCartContents(localCart);
     setCartTotal(countCartTotal);
   }
-
+  //===============================================分隔線================================================
   return (
     <CartContext.Provider
       value={{

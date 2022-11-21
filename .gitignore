@@ -28,3 +28,4 @@ yarn.lock
 package-lock.json
 README2.md
 .vscode
+keys.js

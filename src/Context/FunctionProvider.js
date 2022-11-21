@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext } from 'react';
 const siteName = window.location.hostname;
 const FunctionContext = createContext(null);
-
+//常用的函式放在這裡管理
 export const FunctionProvider = ({ children }) => {
   //有帶登入檢查的FETCH
   //回傳RES                (API連結 ,哪方,post資料 json格式 )

@@ -1,7 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
-
 const PayContext = createContext(null);
-
+//購物車相關狀態管理
 export const PaydetailProvider = ({ children }) => {
   //===============================================分隔線================================================
   //舊 useCart
@@ -37,7 +36,7 @@ export const PaydetailProvider = ({ children }) => {
   //正在支付的訂單SID LINEPAY用
   const [payingOrderSid, setPayingOrderSid] = useState(0);
   //選擇的店家等待時間
-  const [waitTime, setWaitTime] = useState(0);  
+  const [waitTime, setWaitTime] = useState(0);
   //離開結帳頁的時候重設狀態
   const clearPayPageState = () => {
     setCouponCutAmount(0);

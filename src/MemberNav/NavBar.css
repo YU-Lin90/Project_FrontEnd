@@ -7,7 +7,7 @@ nav.memberNav {
   position: sticky;
   top: 0;
   justify-content: space-between;
-  z-index: 2;
+  z-index: 10;
 }
 
 .menubtn {
