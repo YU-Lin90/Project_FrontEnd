@@ -141,6 +141,12 @@
 .fontSubColor{
   color: var(--subColor);
 }
+.fillMainColor{
+  fill: var(--mainColor);
+}
+.fillSubColor{
+  fill: var(--subColor);
+}
 .fontW{
   color: #fff;
 }

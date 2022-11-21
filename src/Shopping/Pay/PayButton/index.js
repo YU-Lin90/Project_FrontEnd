@@ -118,7 +118,7 @@ function PayButton({ orderSocket }) {
     console.log(result);
     paidDeleteCartPart(chooseedPayShop);
     alert('下訂成功');
-    navi('/');
+    navi('/Member/MemberOrder');
   };
   //LinePay
   const linePay = async () => {
@@ -140,6 +140,7 @@ function PayButton({ orderSocket }) {
         amount: totalPrice,
         currency: 'TWD',
         orderId: res.orderSid,
+        siteName: siteName,
       });
       const url =
         `http://${siteName}:3001/LinePay/reserve/?` + params.toString();

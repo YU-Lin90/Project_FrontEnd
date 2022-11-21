@@ -3,6 +3,7 @@ import { useAuth } from '../../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import './NavBar.css';
 import StoreMenu from './StoreMenu';
+import { useSVG } from '../../Context/SVGProvider';
 // import { Link } from 'react-router-dom';
 const siteName = window.location.hostname;
 
@@ -14,6 +15,7 @@ function getName(setStoreName) {
   }
 }
 function StoreNav() {
+  const { logoSVG } = useSVG();
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
   const navi = useNavigate();
@@ -71,6 +73,7 @@ function StoreNav() {
             className={`menubtn_bar menubtn_bar_03 ${toggle ? 'changed' : ''}`}
           ></div>
         </div>
+        {logoSVG('fillMainColor h100p pointer')}
         {/* 名稱顯示 暫放 */}
         <p>店家名稱:{storeName}</p>
         <p

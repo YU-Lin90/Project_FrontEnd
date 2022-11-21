@@ -1,5 +1,5 @@
 nav.deliverNav {
-  height: 50px;
+  height: var(--navHeight);
   background-color: var(--mainColor);
   display: flex;
   align-items: center;

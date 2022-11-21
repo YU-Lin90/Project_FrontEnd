@@ -14,11 +14,26 @@ function OrderSelect({ orderList, selectedOrder, setSelectedOrder }) {
       });
     }
   }, []);
+
+  const checkBlock = (e) => {
+    const targetTag = e.target.closest('#OrderOptionsBlock');
+    // console.log(targetTag);
+    if (!targetTag && openList) {
+      setOpenList(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('click', checkBlock);
+    return () => {
+      window.removeEventListener('click', checkBlock);
+    };
+  }, []);
+
   return (
     <>
       <div className="w100p disf jc-fe">
         {/* 整個選項 */}
-        <div className="w70p disf h30 ai-fs">
+        <div className="w70p disf h30 ai-fs" id="OrderOptionsBlock">
           {/* 前半段有文字 */}
           <div className={`w90p orderSelects ${openList ? 'active' : ''} `}>
             {openList ? (
@@ -28,13 +43,14 @@ function OrderSelect({ orderList, selectedOrder, setSelectedOrder }) {
                 setOpenList={setOpenList}
                 setSelectedData={setSelectedData}
                 selectedOrder={selectedOrder}
+                openList={openList}
               />
             ) : (
               <div
                 onClick={() => {
                   setOpenList(true);
                 }}
-                className="w100p padV5 disf jc-sb ai-c h100p"
+                className="w100p padV5 disf jc-sb ai-c h100p pointer"
               >
                 <p className="w50p">{selectedData.name}</p>
                 <p className="w50p">訂單編號:{selectedData.orderId}</p>

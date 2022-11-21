@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 //選項群
 function OrderOptions({
   orderList,
@@ -5,6 +7,7 @@ function OrderOptions({
   setOpenList,
   setSelectedData,
   selectedOrder,
+  openList,
 }) {
   //{ orderId: 0, name: '' }
   /* 
@@ -17,6 +20,7 @@ function OrderOptions({
     }
      */
   //  .openedOptions    .active
+
   return (
     <>
       <div>
