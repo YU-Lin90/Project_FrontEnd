@@ -1,0 +1,18 @@
+.oldOrderFrame {
+  border: 1px #222 solid;
+}
+
+.oldOrderTopDetail {
+  border-bottom: 1px solid #222;
+}
+
+.oldOrderCommand {
+  color: var(--mainColor);
+  border: 3px solid var(--mainColor);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin-bottom: 5px;
+} 
