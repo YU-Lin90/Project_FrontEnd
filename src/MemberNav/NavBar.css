@@ -19,10 +19,11 @@ nav.memberNav {
 }
 
 @media screen and (min-width:768px) {
+
   /* TODO: 正式使用要再啟用 開發階段先關掉 */
-  /* .menubtn {
+  .menubtn {
     display: none;
-  } */
+  }
 }
 
 .menubtn_bar {
@@ -116,11 +117,39 @@ nav.memberNav {
 }
 
 .navLinks>p {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 600;
 }
 
 .cartButton.navUser {
   background-color: transparent;
   color: #000;
+}
+
+
+.navAddress {
+  max-width: 200px;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.navAddressInputs {
+  display: flex;
+  position: fixed;
+  top: var(--navHeight);
+  z-index: 10;
+  width: fit-content;
+  left: 20%;
+}
+@media screen and (min-width:768px) {
+  .navAddress {
+    width: 400px;
+    max-width: none;
+  }
+  .navAddressInputs{
+    left:initial;
+  }
 }

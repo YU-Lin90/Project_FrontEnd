@@ -12,7 +12,7 @@ function OrederDetailForPay() {
     setProductList(cartContents.cartList[chooseedPayShop].list);
   }, []);
   return (
-    <div className=" topUnderNav padV20 w30p flexSetCenter of-a OrederDetailForPay">
+    <div className=" topUnderNav padV20 flexSetCenter of-a OrederDetailForPay">
       <div className="disf jc-c fd-c ai-c w80p gap20 padV20">
         <p className="fs36 fw6 ta-c marb15">你的訂單</p>
         {/* TODO:繼續加購商品 */}

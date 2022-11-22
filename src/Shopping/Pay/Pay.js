@@ -25,8 +25,8 @@ function Pay({ orderSocket }) {
   }, []);
   return (
     <>
-      <div className="disf padV20">
-        <div className="w70p flexSetCenter fd-c jc-se">
+      <div className="disf padV20 payPageFrame">
+        <div className="payPageFrameLeft flexSetCenter fd-c jc-se">
           <DeliveDetail />
           <ProfileData />
           <PayCoupon />

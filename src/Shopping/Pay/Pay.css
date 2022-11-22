@@ -81,3 +81,24 @@
 .payCoupons.active {
   outline: 3px red solid;
 }
+.payPageFrame{
+  flex-direction: column-reverse;
+}
+.payPageFrameLeft{
+  width: 100%;
+}
+.OrederDetailForPay{
+  width: 100%;
+}
+@media screen and (min-width:768px){
+  .payPageFrame{
+
+    flex-direction: row;
+  }
+  .payPageFrameLeft{
+    width: 70%;
+  }
+  .OrederDetailForPay{
+    width: 30%;
+  }
+}

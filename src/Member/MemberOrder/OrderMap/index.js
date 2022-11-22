@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import CycleContent from './CycleContent';
-import keys from '../../../keys';
+// import keys from '../../../keys';
 const SelfPosition = () => (
   <div>
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>

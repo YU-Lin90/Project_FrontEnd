@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthProvider';
 import { usePay } from '../Context/PayPageContext';
 import { useSVG } from '../Context/SVGProvider';
+import NavAddress from './NavAddress';
 
 import { useNavigate, Link } from 'react-router-dom';
 import './NavBar.css';
@@ -140,7 +141,7 @@ function MemberNav() {
           })}
         </div>
         {/* 名稱顯示 暫放 */}
-        <p>送到:{sendAddress}</p>
+        <NavAddress sendAddress={sendAddress} setSendAddress={setSendAddress} />
         {/* 購物車按鈕 */}
         <div className="disf gap10">
           {window.location.pathname === '/Pay' ? (
