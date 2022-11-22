@@ -9,10 +9,14 @@
 .oldOrderCommand {
   color: var(--mainColor);
   border: 3px solid var(--mainColor);
-  border-radius: 2px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
   margin-bottom: 5px;
-} 
+  cursor: pointer;
+}
+.reverseArrow.active{
+  rotate: 180deg;
+}
