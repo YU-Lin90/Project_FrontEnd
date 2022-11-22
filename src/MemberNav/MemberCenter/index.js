@@ -6,8 +6,8 @@ function MemberCenter({ setOpenMemberCenter }) {
   const navi = useNavigate();
   const menuList = [
     { text: '會員資料', link: '/Member', index: 0 },
-    // { text: '現在訂單', link: '/Member', index: 1 },
-    { text: '歷史訂單', link: '/Member/MemberOrder', index: 2 },
+    { text: '現在訂單', link: '/Member/MemberOrder', index: 1 },
+    { text: '歷史訂單', link: '/Member/MemberOldOrder', index: 2 },
     { text: '紅利明細', link: '/Member/MemberPoint', index: 3 },
     { text: '最愛店家', link: '/Member/FavoriteStore', index: 4 },
     { text: '優惠券', link: '/Member/MemberCoupon', index: 5 },
@@ -15,7 +15,15 @@ function MemberCenter({ setOpenMemberCenter }) {
   ];
   return (
     <>
-      <div className="navMemberCenter">
+      <div className="navMemberCenter boxShadow padH20 ">
+        <div className="as-e padH20 disfHiddens">
+          <i
+            onClick={() => {
+              setOpenMemberCenter(false);
+            }}
+            className="fa-solid fa-circle-xmark cartX pointer"
+          ></i>
+        </div>
         {menuList.map((value, index) => {
           return (
             <p
