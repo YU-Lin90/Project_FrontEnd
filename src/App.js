@@ -48,7 +48,13 @@ import StoreLogin from './Store/StoreLogin';
 //店家資料
 import StoreDatas from './Store/StoreDatas';
 //店家商品管理
-import StoreProductEdit from './Store/StoreProductEdit';
+// import StoreProductEdit from './Store/StoreProductEdit';
+import Menubar from "./Store/StoreProductEdit/components/Menubar";
+import Overview from "./Store/StoreProductEdit/pages/Overview";
+import Type from "./Store/StoreProductEdit/pages/Type";
+import Product from "./Store/StoreProductEdit/pages/Product";
+import Option from "./Store/StoreProductEdit/pages/Option";
+import ShopList from "./Store/StoreProductEdit/pages/ShopList";
 //店家分類管理
 import StoreTypeEdit from './Store/StoreTypeEdit';
 //店家註冊
@@ -131,10 +137,22 @@ function App() {
             <Route path="StoreDatas" element={<StoreDatas />} />
             {/* 店家商品分類管理 */}
             {/* ~/Store/StoreTypeEdit */}
-            <Route path="StoreTypeEdit" element={<StoreTypeEdit />} />
+            <Route path="StoreTypeEdit" element={<Menubar />} >
             {/* 店家商品管理 */}
             {/* ~/Store/StoreProductEdit */}
-            <Route path="StoreProductEdit" element={<StoreProductEdit />} />
+            {/* <Route path="StoreProductEdit" element={<StoreProductEdit />} /> */}
+            <Route path='overview' element={<Overview />} />
+            <Route path="type" element={<Type />} />
+            <Route path="product" element={<Product />} />
+            <Route path="option" element={<Option />} />
+            <Route index element={<ShopList />} />
+
+
+            </Route>
+            
+            
+
+            
             {/* 店家註冊 */}
             {/* ~/Store/StoreRegister */}
             <Route path="StoreRegister" element={<StoreRegister />} />
