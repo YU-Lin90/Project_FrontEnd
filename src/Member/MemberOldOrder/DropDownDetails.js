@@ -1,3 +1,4 @@
+//歷史訂單 第三層 訂單細節
 import { useEffect, useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
 //  訂單編號  其他訂單細節
@@ -50,7 +51,7 @@ function DropDownDetails({ orderSid, orderData }) {
           {productDetails.map((v, i) => {
             return (
               <>
-                <div className="disf jc-sb padV10 padH20">
+                <div key={i} className="disf jc-sb padV10 padH20">
                   <p className="fontMainColor fw6 ">{v.amount}x</p>
                   <p>{v.name}</p>
                   <p>{v.product_price * v.amount}</p>
@@ -59,12 +60,17 @@ function DropDownDetails({ orderSid, orderData }) {
             );
           })}
         </div>
-        <p>付款方式：{payMethod[orderData.pay_method]}</p>
-        {orderData.coupon_sid === 0 ? null : (
-          <p>優惠券：{orderData.coupon_name}</p>
-        )}
-        <p>下單時間：{orderData.order_time}</p>
-        <p>完成時間：{orderData.complete_time}</p>
+        <div className="disf jc-sb marV15">
+          <p>付款方式：{payMethod[orderData.pay_method]}</p>
+          {orderData.coupon_sid === 0 ? null : (
+            <p>優惠券：{orderData.coupon_name}</p>
+          )}
+        </div>
+
+        <div className="disf jc-sb marV15">
+          <p>下單時間：{orderData.order_time}</p>
+          <p>完成時間：{orderData.complete_time}</p>
+        </div>
       </div>
     </>
   );

@@ -19,4 +19,9 @@
 }
 .reverseArrow.active{
   rotate: 180deg;
+}.oldOrderCommand:hover{
+  background-color: var(--subColor);
+}
+.oldOrderStoreImg{
+  object-fit:cover;
 }

@@ -12,7 +12,7 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
             onClick={() => {
               setOpenDetail(false);
             }}
-            class="fs24 fa-regular fa-square-minus pointer openDetailMinus"
+            className="fs24 fa-regular fa-square-minus pointer openDetailMinus"
           ></i>
         </p>
         <p className="fw6 fs18 borderBotGray3 padV5">

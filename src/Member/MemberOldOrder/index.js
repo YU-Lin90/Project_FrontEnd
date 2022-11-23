@@ -1,3 +1,4 @@
+//歷史訂單 第一層
 import { useEffect, useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
 import OldOrderPerOrder from './OldOrderPerOrder';
@@ -5,6 +6,7 @@ import './OldOrder.css';
 function MemberOldOrder() {
   const [orders, setOrders] = useState([]);
   const { loginCheckGetFetch } = useFunc();
+  const [reloading, setReloading] = useState(0);
   const getAllCompleteOrders = async () => {
     const result = await loginCheckGetFetch(
       'MemberOldOrder/GetAllCompleteOrders',
@@ -31,20 +33,31 @@ function MemberOldOrder() {
         "deliverName": "外送員01",
         "coupon_name": null,
         "orderId": "M221122112"
+        deliverScore
+        shopScore
   } */
   useEffect(() => {
     getAllCompleteOrders();
   }, []);
+  useEffect(() => {
+    getAllCompleteOrders();
+  }, [reloading]);
   return (
     <div>
-      <p className="marb20">過往訂單</p>
+      <p className="marb20 fs36 fw7 ta-c">過往訂單</p>
       <div name="訂單整體外框">
         {/* 這邊MAP */}
         {/* //===============================================分隔線================================================ */}
         {/* 傳單筆資料進去 */}
         {/* <OldOrderPerOrder orderData={1} /> */}
         {orders.map((v, i) => {
-          return <OldOrderPerOrder key={v.sid} orderData={v} />;
+          return (
+            <OldOrderPerOrder
+              key={v.sid}
+              orderData={v}
+              setReloading={setReloading}
+            />
+          );
         })}
         {/* //===============================================分隔線================================================ */}
 

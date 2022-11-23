@@ -54,7 +54,7 @@
 /* Font-Size */
 .fs12{font-size:12px;}.fs16{font-size:16px;}.fs18{font-size:18px;}.fs24{font-size:24px;}.fs28{font-size:28px;}.fs32{font-size:32px;}.fs36{font-size:36px;}.fs40{font-size:40px;}.fs48{font-size:48px;}
 /* Line-Height */
-.lh16{line-height:16px;}.lh24{line-height:24px;}.lh36{line-height:36px;}.lh48{line-height:48px;}.lh60{line-height:60px;}
+.lh0{line-height:0;}.lh16{line-height:16px;}.lh24{line-height:24px;}.lh36{line-height:36px;}.lh48{line-height:48px;}.lh60{line-height:60px;}
 /* Border */
 .borderBotGray5{border-bottom: 5px solid #ccc;}.borderBotGray3{border-bottom: 3px solid #ccc;}
 /* 四方固定 */
