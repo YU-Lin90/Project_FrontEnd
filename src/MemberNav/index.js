@@ -129,21 +129,22 @@ function MemberNav() {
           >
             <Link to="/">{logoSVG('h100p navLogo')}</Link>
           </div>
+          {/* 連結 */}
+          <div className="navLinks">
+            {navList.map((v, i) => {
+              return (
+                <p key={i}>
+                  <Link to={v.link}>{v.text}</Link>
+                </p>
+              );
+            })}
+          </div>
         </div>
-        {/* 連結 */}
-        <div className="navLinks">
-          {navList.map((v, i) => {
-            return (
-              <p key={i}>
-                <Link to={v.link}>{v.text}</Link>
-              </p>
-            );
-          })}
-        </div>
+
         {/* 名稱顯示 暫放 */}
         <NavAddress sendAddress={sendAddress} setSendAddress={setSendAddress} />
         {/* 購物車按鈕 */}
-        <div className="disf gap10">
+        <div className="navRight">
           {window.location.pathname === '/Pay' ? (
             <></>
           ) : (
@@ -176,7 +177,7 @@ function MemberNav() {
           </div>
           {/* 登入登出按鈕 */}
           <p
-            className="logCheck"
+            className="logCheck flexSetCenter"
             onClick={
               authMember
                 ? () => {

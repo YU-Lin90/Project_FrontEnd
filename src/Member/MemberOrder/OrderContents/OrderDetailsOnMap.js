@@ -31,8 +31,8 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
             return (
               <div key={v.sid} className="disf jc-sb padV10 padH10">
                 <div className="disf w80p">
-                  <p className="w10p fontMainColor fw6">{v.amount}x</p>
-                  <p className="w90p">{v.name}</p>
+                  <p className="w20p fontMainColor fw6">{v.amount}x</p>
+                  <p className="w80p">{v.name}</p>
                 </div>
                 <p className="w20p">NT${v.product_price * v.amount}</p>
               </div>

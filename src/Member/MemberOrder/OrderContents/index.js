@@ -4,6 +4,7 @@ import OrderMap from '../OrderMap';
 import { useFunc } from '../../../Context/FunctionProvider';
 import ProgessStep from './ProgessStep';
 import OrderShowOnMap from './OrderShowOnMap';
+
 //selectedOrder 選到的訂單SID
 function OrderContents({ selectedOrder }) {
   //現在階段
@@ -43,6 +44,7 @@ function OrderContents({ selectedOrder }) {
           <OrderMap />
         </div>
       </div>
+      <div className="h200 bigHidden"></div>
     </div>
   );
 }

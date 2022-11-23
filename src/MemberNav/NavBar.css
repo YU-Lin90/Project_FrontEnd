@@ -9,7 +9,9 @@ nav.memberNav {
   justify-content: space-between;
   z-index: 10;
 }
-
+nav.memberNav>*{
+  /* height: 100%; */
+}
 .menubtn {
   width: 30px;
   height: 30px;
@@ -21,9 +23,9 @@ nav.memberNav {
 @media screen and (min-width:768px) {
 
   /* TODO: 正式使用要再啟用 開發階段先關掉 */
-  /* .menubtn {
+  .menubtn {
     display: none;
-  } */
+  }
 }
 
 .menubtn_bar {
@@ -60,12 +62,25 @@ nav.memberNav {
   transform: rotateZ(-45deg);
   width: 28px;
 }
+.navRight{
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+}
 
 .logCheck {
   background-color: #ccc;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   cursor: pointer;
+  /* aspect-ratio: 1; */
+  height:100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
 }
 
 .cartButton {
@@ -84,6 +99,8 @@ nav.memberNav {
   /* border-radius: 20px; */
   font-weight: 700;
   font-size: 24px;
+  /* height: 100%; */
+  aspect-ratio: 1;
 }
 
 .navLogo {
@@ -146,8 +163,8 @@ nav.memberNav {
 }
 @media screen and (min-width:768px) {
   .navAddress {
-    width: 400px;
-    max-width: none;
+    max-width: 400px;
+    /* max-width: none; */
   }
   .navAddressInputs{
     left:initial;

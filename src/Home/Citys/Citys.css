@@ -13,9 +13,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5%;
+  padding: 30px;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: 800px;
 }
 
 
@@ -92,27 +92,17 @@
   font-size: 28px;
   color: #fff;
   font-weight: 800;
+  cursor: pointer;
 }
 .vh100 {
   height: 100vh;
-  background-color: #ccc;
+  /* background-color: #ccc; */
 }
 @media screen and (min-width:1024px) {
   .FR {
       aspect-ratio: 16/9;
-      padding: 10%;
+      padding: 30px;
   }
-
-  .FR::before {
-      content: "城市";
-      position: absolute;
-      top: 3%;
-      left: 3%;
-      font-size: 7vw;
-      color: var(--mainColor);
-      font-weight: 800;
-  }
-
   .hex {
       width: 16.6666%;
       /* min-height: 50%; */
@@ -136,4 +126,7 @@
       transform: translateY(0);
   }
 
+}
+.cityLogo{
+  font-size: 72px;
 }

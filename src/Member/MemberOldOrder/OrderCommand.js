@@ -44,7 +44,7 @@ function OrderCommand({
           </p>
           {/* <i className="fa-regular fa-star"></i> */}
           {/* <i className="fa-solid fa-star"></i> */}
-          <div className="borderBotGray3 padV20 padH20">
+          <div className="borderBotGray3 padV20 padH20 ta-c">
             {Array(5)
               .fill(1)
               .map((v, i) => {

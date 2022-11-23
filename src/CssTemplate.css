@@ -65,6 +65,8 @@
 .of-a{overflow:auto;}.of-h{overflow:hidden;}.of-v{overflow:visible;}
 /* cursor */
 .pointer{cursor:pointer;}
+/*  */
+
 :root {
   /* 主色 */
   /* var(--mainColor) */
@@ -90,8 +92,9 @@
 .container{
   max-width: 1440px;
   margin: 0 auto;
-  border-left: 3px red solid;
-  border-right: 3px red solid;
+  /* border-left: 3px red solid; */
+  /* border-right: 3px red solid; */
+  box-shadow: 0 2px 8px 0 rgba(99,99,99,0.2);
   min-height: calc(100vh - var(--navHeight));
   position: relative;
   /* padding-top: 10px; */
@@ -99,8 +102,9 @@
 .deliverContainer{
   max-width: 768px;
   margin: 0 auto;
-  border-left: 3px red solid;
-  border-right: 3px red solid;
+  box-shadow: 0 2px 8px 0 rgba(99,99,99,0.2);
+  /* border-left: 3px red solid;
+  border-right: 3px red solid; */
   min-height: 100vh;
 }
 
@@ -125,6 +129,9 @@
   background-color: #eee;
   overflow: auto;
 }
+.smallHidden{
+  display: none;
+}
 @media screen and (min-width:768px) {
   .onGrayBack{
     width: auto;
@@ -133,6 +140,9 @@
     top: 15%;
     left: 50%;
     translate: -50%;
+  }
+  .smallHidden{
+    display: inherit;
   }
 }
 .fontMainColor{
@@ -173,4 +183,8 @@
 }
 .boxShadow{
   box-shadow: 5px 5px 5px #bbbb;
+}
+
+body{
+  background: url(../public/eatfont.svg) center center / 20% no-repeat fixed;
 }

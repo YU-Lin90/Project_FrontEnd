@@ -134,3 +134,11 @@
   position: relative;
   translate: -50% -50%;
 }
+
+.orderSelectWrap {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: clip;
+  overflow: hidden;
+}

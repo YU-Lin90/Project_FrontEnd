@@ -31,7 +31,7 @@ function OrderSelect({ orderList, selectedOrder, setSelectedOrder }) {
 
   return (
     <>
-      <div className="w100p disf jc-fe">
+      <div className="w100p disf jc-fe marb20">
         {/* 整個選項 */}
         <div className="w70p disf h30 ai-fs" id="OrderOptionsBlock">
           {/* 前半段有文字 */}
@@ -52,8 +52,11 @@ function OrderSelect({ orderList, selectedOrder, setSelectedOrder }) {
                 }}
                 className="w100p padV5 disf jc-sb ai-c h100p pointer"
               >
-                <p className="w50p">{selectedData.name}</p>
-                <p className="w50p">訂單編號:{selectedData.orderId}</p>
+                <p className="w50p orderSelectWrap">{selectedData.name}</p>
+                <p className="w50p">
+                  <span className="smallHidden">訂單編號:</span>
+                  {selectedData.orderId}
+                </p>
               </div>
             )}
           </div>

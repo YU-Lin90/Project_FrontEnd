@@ -6,21 +6,27 @@ const siteName = window.location.hostname;
 function MemberOrderSocket() {
   const navi = useNavigate();
   const orderSocket = new WebSocket(`ws://${siteName}:3200`);
-  function sendToken() {
+  const orderChatSocket = new WebSocket(`ws://${siteName}:3001`);
+  function sendToken(sever) {
     const tokenString = localStorage.getItem('Member');
     if (!tokenString) {
       alert('沒登入');
       navi(`/MemberLogin`);
     }
-    orderSocket.send(JSON.stringify({ token: tokenString }));
+    sever.send(JSON.stringify({ token: tokenString }));
+    // orderChatSocket.send(JSON.stringify({ token: tokenString }))
   }
   function receiveMessage(e) {
     const datas = JSON.parse(e.data);
     console.log(datas);
   }
   orderSocket.addEventListener('open', () => {
-    sendToken();
-    console.log('start');
+    sendToken(orderSocket);
+    console.log('訂單系統伺服器連線');
+  });
+  orderChatSocket.addEventListener('open', () => {
+    sendToken(orderChatSocket);
+    console.log('訂單即時對話開始');
   });
   useEffect(() => {
     orderSocket.addEventListener('message', receiveMessage);
@@ -33,7 +39,7 @@ function MemberOrderSocket() {
   useEffect(() => {
     return () => {
       orderSocket.close();
-      console.log('end');
+      console.log('訂單系統伺服器離線');
     };
   }, []);
 

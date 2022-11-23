@@ -38,8 +38,11 @@ function OrderOptions({
                 selectedOrder === v.sid ? 'active' : ''
               }`}
             >
-              <p className="w50p">{v.name}</p>
-              <p className="w50p">訂單編號:{v.orderId}</p>
+              <p className="w50p orderSelectWrap">{v.name}</p>
+              <p className="w50p">
+                <span className="smallHidden">訂單編號:</span>
+                {v.orderId}
+              </p>
             </div>
           );
         })}
