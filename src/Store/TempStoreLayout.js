@@ -1,5 +1,5 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-
+//這頁沒用到
 import './StoreLayout.css';
 function StoreLayout() {
   const location = useLocation().pathname;
