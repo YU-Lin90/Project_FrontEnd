@@ -38,6 +38,7 @@ function MemberLogin() {
             //有回傳成功則存到本機儲存空間
             localStorage.setItem('Member', res.token);
             localStorage.setItem(`MemberName`, res.name);
+            localStorage.setItem('MemberSid', res.sid);
             navi(-1, { replace: false });
             setAuthMember(true);
           } else {
@@ -84,6 +85,7 @@ function MemberLogin() {
           <button
             onClick={() => {
               //登出直接刪除本機空間
+              localStorage.removeItem('MemberSid');
               localStorage.removeItem('Member');
               localStorage.removeItem('MemberName');
             }}
