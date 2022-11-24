@@ -35,7 +35,7 @@ function ShopList() {
                   shop_name: shop.name,
                 };
                 localStorage.setItem('user', JSON.stringify(user));
-                navigate('/overview');
+                navigate('/Store/StoreTypeEdit/overview');
               }}
             >
               {shop.name}

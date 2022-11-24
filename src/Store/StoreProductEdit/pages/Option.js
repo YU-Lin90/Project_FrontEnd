@@ -30,9 +30,9 @@ function Option() {
 
   useEffect(() => {
     // 取出localStorage中的店家資料
-    setMyUserSid(JSON.parse(localStorage.getItem('user')).sid);
+    setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
     // 取得店家菜單資料
-    getData(JSON.parse(localStorage.getItem('user')).sid);
+    getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
   }, []);
 
   const insertBtnHandler = (e) => {

@@ -37,6 +37,8 @@ function StoreLogin() {
             //有回傳成功則存到本機儲存空間
             localStorage.setItem('Store', res.token);
             localStorage.setItem(`StoreName`, res.name);
+            localStorage.setItem(`StoreDatas`, JSON.stringify(res.showedData));
+
             if (res.adminToken) {
               //登入管理者導向不同
               localStorage.setItem('Admin', res.adminToken);
