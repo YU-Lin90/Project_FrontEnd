@@ -1,6 +1,7 @@
 //會員 WS 第二層 有輸入框的頁面 只對管理者發言
 import { useEffect, useState } from 'react';
 import ChatContent from './ChatContent';
+const siteName = window.location.hostname;
 function ChatBox({ socket, sideName }) {
   const [inputContent, setInputContent] = useState('');
   const [newContent, setNewContent] = useState({ newMsg: false, content: {} });
@@ -33,7 +34,13 @@ function ChatBox({ socket, sideName }) {
     socket.send(JSON.stringify(sendString));
   }
   return (
-    <div className="w100p">
+    <div
+      className="w100p"
+      style={{
+        background: `url(http://${siteName}:3001/images/chatroomBackground.jpg) center center / cover`,
+        'box-shadow': '0 4px 12px  rgba(0,0,0,0.08)',
+      }}
+    >
       <div className="notAdminChattingBox">
         <ChatContent
           newContent={newContent}

@@ -186,5 +186,7 @@
 }
 
 body{
-  background: url(../public/eatfont.svg) center center / 20% no-repeat fixed;
+  /* background: url(../public/eatfont.svg) center center / 20% no-repeat fixed; */
+  background: url(../public/foodBG.jpg) center center /cover no-repeat fixed;
+
 }
