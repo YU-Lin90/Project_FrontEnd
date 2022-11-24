@@ -151,7 +151,7 @@ export default function FavoriteStore() {
             'http://localhost:3001/uploads/79bb3c65-6d92-44d1-a118-d7cde35159ff.jpg'
           }
         />
-        <p className="font1">店名:{v.name}</p>
+        <p className="font1">店名1:{v.name}</p>
         <p className="font2">地址:{v.address}</p>
         <p className="font3">電話:{v.phone}</p>
       </div>
