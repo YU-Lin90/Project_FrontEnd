@@ -18,7 +18,7 @@
   bottom: 0;
   z-index: 5;
   width: 100%;
-  background-color: #eee;
+  /* background-color: #eee; */
   font-weight: 600;
 }
 
@@ -34,7 +34,7 @@
 
 .memberCenterContent {
   padding: 20px;
-  background-color: #eee;
+  /* background-color: #eee; */
 
 }
 

@@ -9,7 +9,7 @@
 
 .storeCenterList {
   border-right: 1px #222 solid;
-  background-color: #eee;
+  /* background-color: #eee; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
 
 .storeContent {
   padding: 20px;
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 
 @media screen and (min-width:768px) {

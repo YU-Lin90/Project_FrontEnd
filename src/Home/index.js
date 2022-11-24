@@ -9,8 +9,9 @@ function Home() {
     <>
       <Jumbotron />
       <Random />
-      <Citys />
       <HomeCoupons />
+      <Citys />
+
       <FoodTypes />
     </>
   );
