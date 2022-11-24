@@ -66,6 +66,9 @@
 /* cursor */
 .pointer{cursor:pointer;}
 /*  */
+.b33s100{
+  width: 100%;
+}
 
 :root {
   /* 主色 */
@@ -92,12 +95,14 @@
 .container{
   max-width: 1440px;
   margin: 0 auto;
+  background-color: #dddd;
   /* border-left: 3px red solid; */
   /* border-right: 3px red solid; */
-  box-shadow: 0 2px 8px 0 rgba(99,99,99,0.2);
+  /* box-shadow: 0 2px 8px 0 rgba(99,99,99,0.2); */
   min-height: calc(100vh - var(--navHeight));
   position: relative;
   /* padding-top: 10px; */
+  box-shadow: 0 10px 36px 0 rgba(0,0,0,0.16), 0 0 10px  rgba(0,0,0,0.06), 0 10px 36px 0 rgba(0,0,0,0.16);
 }
 .deliverContainer{
   max-width: 768px;
@@ -144,6 +149,9 @@
   .smallHidden{
     display: inherit;
   }
+  .b33s100{
+    width: 33.333333%;
+  }
 }
 .fontMainColor{
   color: var(--mainColor);
@@ -187,6 +195,6 @@
 
 body{
   /* background: url(../public/eatfont.svg) center center / 20% no-repeat fixed; */
-  /* background: url(../public/foodBG.jpg) center center /cover no-repeat fixed; */
-
+  background: url(../public/foodBG.jpg) center center /cover no-repeat fixed;
+  min-width: 320px;
 }
