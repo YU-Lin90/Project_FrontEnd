@@ -1,6 +1,7 @@
 //會員 WS 第一層 開啟WS 只對管理者發言
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './NotAdminService.css';
 
 import ChatBox from './ChatBox';
 const siteName = window.location.hostname;

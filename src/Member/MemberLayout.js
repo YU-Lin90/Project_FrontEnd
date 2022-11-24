@@ -1,45 +1,55 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import './MemberLayout.css';
+import { useSVG } from '../Context/SVGProvider';
 function MemberLayout() {
+  const {
+    memberDataSVG,
+    orderNowSVG,
+    oldOrderSVG,
+    pointSVG,
+    favorStoreSVG,
+    couponSVG,
+    serviceSVG,
+  } = useSVG();
   const location = useLocation().pathname;
   const navi = useNavigate();
   const menuList = [
-    { text: '會員資料', link: '/Member', index: 0, svg: '/memberData.svg' },
+    { text: '會員資料', link: '/Member', index: 0, svg: memberDataSVG },
     {
       text: '現在訂單',
       link: '/Member/MemberOrder',
       index: 1,
-      svg: '/order.svg',
+      svg: orderNowSVG,
     },
     {
       text: '歷史訂單',
       link: '/Member/MemberOldOrder',
       index: 2,
-      svg: '/oldOrder.svg',
+      svg: oldOrderSVG,
     },
     {
       text: '紅利明細',
       link: '/Member/MemberPoint',
       index: 3,
-      svg: '/award.svg',
+      svg: pointSVG,
     },
     {
       text: '最愛店家',
       link: '/Member/FavoriteStore',
       index: 4,
-      svg: '/shopFavor.svg',
+      svg: favorStoreSVG,
     },
     {
       text: '優惠票券',
       link: '/Member/MemberCoupon',
       index: 5,
-      svg: '/cup.svg',
+      svg: couponSVG,
     },
     {
       text: '客服中心',
       link: '/Member/MemberService',
       index: 6,
-      svg: '/messages.svg',
+      svg: serviceSVG,
     },
   ];
 
@@ -50,17 +60,20 @@ function MemberLayout() {
         <div className="memberCenterList">
           {menuList.map((value, index) => {
             return (
-              <div key={index} className="disf fd-c jc-sb pointer">
+              <div
+                key={index}
+                className="disf fd-c jc-sb pointer"
+                onClick={() => {
+                  navi(value.link);
+                }}
+              >
                 <p className="bigHidden">
-                  <img src={value.svg} alt={value.text} />
+                  {value.svg(`${value.link === location ? 'fillMemberCenterColor' : 'fillMainColor'} w100p`)}
                 </p>
                 <p
                   className={`fontMainColor memberCenterButton  ${
                     value.link === location ? 'active' : ''
                   }`}
-                  onClick={() => {
-                    navi(value.link);
-                  }}
                 >
                   {value.text}
                 </p>

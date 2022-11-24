@@ -27,6 +27,9 @@ function ChatBox({ socket, sideName }) {
       receive_sid: sid,
       receive_side: side,
     };
+    if (sendString.msg === '') {
+      return;
+    }
     socket.send(JSON.stringify(sendString));
   }
   return (
@@ -59,7 +62,7 @@ function ChatBox({ socket, sideName }) {
             setInputContent('');
           }}
         >
-          send
+          傳送
         </button>
       </div>
     </div>

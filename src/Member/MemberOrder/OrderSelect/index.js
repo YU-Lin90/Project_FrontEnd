@@ -53,9 +53,9 @@ function OrderSelect({ orderList, selectedOrder, setSelectedOrder }) {
                 className="w100p padV5 disf jc-sb ai-c h100p pointer"
               >
                 <p className="w50p orderSelectWrap">{selectedData.name}</p>
-                <p className="w50p">
+                <p className="w50p disf">
                   <span className="smallHidden">訂單編號:</span>
-                  {selectedData.orderId}
+                  <span>{selectedData.orderId}</span>
                 </p>
               </div>
             )}

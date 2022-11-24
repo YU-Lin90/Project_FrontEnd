@@ -33,7 +33,7 @@ function OrderMap({ selectedOrder, orderShowNow }) {
   //25.03359696638214, 121.5434922509409
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((location) => {
-      console.log(location);
+      console.log(location.coords);
       setDeliverPosition({
         lat: location.coords.latitude,
         lng: location.coords.longitude,
@@ -62,7 +62,11 @@ function OrderMap({ selectedOrder, orderShowNow }) {
           lng={positionNow.lng}
           text="My Marker"
         />
-        <CycleContent lat={deliverPosition.lat} lng={deliverPosition.lng} text="My Marker" />
+        <CycleContent
+          lat={deliverPosition.lat}
+          lng={deliverPosition.lng}
+          text="My Marker"
+        />
       </GoogleMapReact>
 
       <button

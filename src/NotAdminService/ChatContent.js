@@ -44,19 +44,19 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   }, [newContent]);
   return (
     <>
-      <div className="flexSetCenter chatContent">
+      <div className="flexSetCenter notAdminChatContent">
         {contents.map((value) => {
           return (
             <div
               key={value.sid}
-              className={`chatBlocks ${
+              className={`notAdminChatBlocks ${
                 value.post_sid === 101 && value.post_side === 4
                   ? 'ChatSetLeft'
                   : 'ChatSetRight'
               }`}
             >
-              <div>{value.post_content}</div>
-              <div>{value.post_time}</div>
+              <p className="notAdminTexts">{value.post_content}</p>
+              <p className="notAdminTimes">{value.post_time}</p>
             </div>
           );
         })}

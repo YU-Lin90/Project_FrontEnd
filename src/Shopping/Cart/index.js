@@ -137,7 +137,7 @@ function Cart({ setShowCart, setShowChooseShop }) {
         >
           前往結帳．${cartContents.cartList[chooseedPayShop].shopPriceTotal}
         </div>
-        <div className="w100p h200"></div>
+        <div className="w100p h200 bigHidden"></div>
       </div>
     </div>
   );

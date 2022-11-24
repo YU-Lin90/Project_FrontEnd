@@ -35,35 +35,39 @@ function MemberPoint() {
   // getData()
   return (
     <>
-      <table className="memberPointTable">
-        <thead>
-          <tr key={0}>
-            <th className="points">異動點數</th>
-            <th className="points">異動時間</th>
-            <th className="points">異動原因</th>
-            <th className="points">優惠券名稱</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productData.map((value, i) => {
-            const {
-              coupon_sid,
-              point_amount,
-              point_change_time,
-              point_change_method,
-              coupon_name,
-            } = value;
-            return (
-              <tr key={i + 1}>
-                <td className="points">{point_amount}</td>
-                <td className="points">{point_change_time}</td>
-                <td className="points">{reasons[point_change_method]}</td>
-                <td className="points">{coupon_name}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div>
+        {' '}
+        <table className="memberPointTable">
+          <thead>
+            <tr key={0}>
+              <th className="points">異動點數</th>
+              <th className="points">異動時間</th>
+              <th className="points">異動原因</th>
+              <th className="points">優惠券名稱</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productData.map((value, i) => {
+              const {
+                coupon_sid,
+                point_amount,
+                point_change_time,
+                point_change_method,
+                coupon_name,
+              } = value;
+              return (
+                <tr key={i + 1}>
+                  <td className="points">{point_amount}</td>
+                  <td className="points">{point_change_time}</td>
+                  <td className="points">{reasons[point_change_method]}</td>
+                  <td className="points">{coupon_name}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div className="h200 w100p bigHidden"></div>
+      </div>
     </>
   );
 }

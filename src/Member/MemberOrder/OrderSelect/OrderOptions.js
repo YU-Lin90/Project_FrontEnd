@@ -39,9 +39,10 @@ function OrderOptions({
               }`}
             >
               <p className="w50p orderSelectWrap">{v.name}</p>
-              <p className="w50p">
+              <p className="w50p disf">
                 <span className="smallHidden">訂單編號:</span>
-                {v.orderId}
+                <span>{v.orderId}</span>
+                
               </p>
             </div>
           );
