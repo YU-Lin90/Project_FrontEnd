@@ -25,7 +25,7 @@ function Type() {
 
   useEffect(() => {
     // 取出localStorage中的店家資料
-    const myUser = JSON.parse(localStorage.getItem('user'));
+    const myUser = JSON.parse(localStorage.getItem('StoreDatas'));
 
     // 取得店家菜單資料
     getData(myUser.sid);
@@ -35,7 +35,7 @@ function Type() {
   // 點擊儲存按鈕
   const addBtnHandler = async () => {
     // 因為insert一筆新的資料需要shop_sid，所以先找到localStorage的sid
-    const myUserId = JSON.parse(localStorage.getItem('user')).sid;
+    const myUserId = JSON.parse(localStorage.getItem('StoreDatas')).sid;
     const response = await axios.post(
       `http://localhost:3001/store-admin/type/${myUserId}`,
       editType

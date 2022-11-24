@@ -31,14 +31,15 @@ function Product() {
       `http://localhost:3001/store-admin/product/${shop_sid}`
     );
     const rd = response.data;
+    console.log(rd);
     setData({ ...rd });
   };
 
   useEffect(() => {
     // 取出localStorage中的店家資料
-    setMyUserSid(JSON.parse(localStorage.getItem('user')).sid);
+    setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
     // 取得店家菜單資料
-    getData(JSON.parse(localStorage.getItem('user')).sid);
+    getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
   }, []);
 
   // 新贓商品的儲存按鈕被按下時
@@ -146,7 +147,13 @@ function Product() {
                   });
                 }}
               >
-                <td>{product.src}</td>
+                <td>
+                  <img
+                    src={`http://localhost:3001/uploads/${product.src}`}
+                    alt="pic"
+                  />
+                  {product.src}
+                </td>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <td>{product.type_name}</td>

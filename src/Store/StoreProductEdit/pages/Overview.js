@@ -21,7 +21,7 @@ function Overview() {
 
   useEffect(() => {
     // 取出localStorage中的店家資料
-    const myUser = JSON.parse(localStorage.getItem('user'));
+    const myUser = JSON.parse(localStorage.getItem('StoreDatas'));
 
     // 取得店家菜單資料
     getData(myUser.sid);
