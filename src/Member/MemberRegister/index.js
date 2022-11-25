@@ -4,6 +4,7 @@ import axios from 'axios';
 import './register.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
 function MemberRegister() {
   // 選擇的檔案
   const [selectedFile, setSelectedFile] = useState(null);
@@ -86,8 +87,9 @@ function MemberRegister() {
   const navigate = useNavigate();
 
   // true = 呈現密碼 / false = 隱藏密碼
-  const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
+
+  const [passwordFieldType, setPasswordFieldType] = useState('password');
+  const [passwordFieldType2, setPasswordFieldType2] = useState('password');
 
   const handleFieldChange = (e) => {
     //console.log(e.target.type, e.target.name, e.target.value)
@@ -186,12 +188,12 @@ function MemberRegister() {
         >
           <input type="file" name="avatar" onChange={changeHandler} />
           {selectedFile && (
-            <div>
+            <div className="m_mar">
               預覽圖片:
               <img className="m_img" src={preview} alt="" />
             </div>
           )}
-          <br />
+
           <div className="m_mar">
             <label className="m_label">帳號(Email):</label>
             <input
@@ -204,13 +206,13 @@ function MemberRegister() {
               required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             />
-            <span>{fieldErrors.email}</span>
+            <span className="m_span">{fieldErrors.email}</span>
           </div>
-          <br />
+
           <div className="m_mar">
             <label className="m_label">密碼:</label>
             <input
-              type={show ? 'text' : 'password'}
+              type={passwordFieldType}
               className="m_password"
               name="password"
               value={user.password}
@@ -219,22 +221,28 @@ function MemberRegister() {
               required
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
             />
-            <span>{fieldErrors.password}</span>
-            <input
-              type="checkbox"
-              name="show"
-              checked={show}
-              onChange={() => {
-                setShow(!show);
+            <button
+              className="m_icon_button"
+              type="button"
+              onClick={() => {
+                setPasswordFieldType(
+                  passwordFieldType === 'text' ? 'password' : 'text'
+                );
               }}
-            />
-            <label className="m_label">顯示密碼</label>
+            >
+              {passwordFieldType === 'text' ? (
+                <FaRegEyeSlash className="m_icon" />
+              ) : (
+                <FaRegEye className="m_icon" />
+              )}
+            </button>
+            <span className="m_span">{fieldErrors.password}</span>
           </div>
-          <br />
+
           <div className="m_mar">
             <label className="m_label">再次輸入密碼:</label>
             <input
-              type={show1 ? 'text' : 'password'}
+              type={passwordFieldType2}
               name="doublepassword"
               className="m_doublepassword"
               value={user.doublepassword}
@@ -243,18 +251,24 @@ function MemberRegister() {
               required
               // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{9,}$"
             />
-            <span>{fieldErrors.doublepassword}</span>
-            <input
-              type="checkbox"
-              name="show1"
-              checked={show1}
-              onChange={() => {
-                setShow1(!show1);
+            <button
+              className="m_icon_button"
+              type="button"
+              onClick={() => {
+                setPasswordFieldType2(
+                  passwordFieldType2 === 'text' ? 'password' : 'text'
+                );
               }}
-            />
-            <label className="m_label">顯示密碼</label>
+            >
+              {passwordFieldType2 === 'text' ? (
+                <FaRegEyeSlash className="m_icon" />
+              ) : (
+                <FaRegEye className="m_icon" />
+              )}
+            </button>
+            <span className="m_span">{fieldErrors.doublepassword}</span>
           </div>
-          <br />
+
           <div className="m_mar">
             <label className="m_label">名子:</label>
             <input
@@ -266,9 +280,9 @@ function MemberRegister() {
               onChange={handleFieldChange}
               required
             />
-            <span>{fieldErrors.name}</span>
+            <span className="m_span">{fieldErrors.name}</span>
           </div>
-          <br />
+
           <div className="m_mar">
             <label className="m_label">手機:</label>
             <input
@@ -281,9 +295,9 @@ function MemberRegister() {
               required
               pattern="09\d{2}\d{6}"
             />
-            <span>{fieldErrors.phone}</span>
+            <span className="m_span">{fieldErrors.phone}</span>
           </div>
-          <br />
+
           <button type="submit" className="m_sb">
             送出
           </button>
