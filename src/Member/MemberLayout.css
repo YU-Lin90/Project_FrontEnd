@@ -8,6 +8,7 @@
 
 .memberCenterList {
   /* background-color: #ccc; */
+  background-color: #eeee;
   border-top: 1px #222 solid;
   display: flex;
   justify-content: space-evenly;
@@ -53,11 +54,14 @@
   }
 
   .memberCenterList {
+    background-color: transparent;
     border-top: none;
+    height:var(--vh100NoNavHeight);
     border-right: 1px #222 solid;
     width: 30%;
     min-height: var(--vh100NoNavHeight);
-    position: static;
+    position: sticky;
+    top: var(--navHeight);
     /* background-color: #ccc; */
     flex-direction: column;
     justify-content: center;

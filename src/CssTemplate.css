@@ -107,7 +107,8 @@
 .deliverContainer{
   max-width: 768px;
   margin: 0 auto;
-  box-shadow: 0 2px 8px 0 rgba(99,99,99,0.2);
+  box-shadow: 0 10px 36px 0 rgba(0,0,0,0.16), 0 0 10px  rgba(0,0,0,0.06), 0 10px 36px 0 rgba(0,0,0,0.16);
+  background-color: #dddd;
   /* border-left: 3px red solid;
   border-right: 3px red solid; */
   min-height: 100vh;
@@ -137,6 +138,9 @@
 .smallHidden{
   display: none;
 }
+.fd-sc-br{
+  flex-direction: column;
+}
 @media screen and (min-width:768px) {
   .onGrayBack{
     width: auto;
@@ -152,6 +156,9 @@
   .b33s100{
     width: 33.333333%;
   }
+  .fd-sc-br{
+    flex-direction: row;
+  }
 }
 .fontMainColor{
   color: var(--mainColor);
@@ -165,11 +172,26 @@
 .fillSubColor{
   fill: var(--subColor);
 }
+.strokeMainColor{
+  stroke: var(--mainColor);
+}
+.strokeSubColor{
+  stroke: var(--subColor);
+}
+.strokeBlueColor{
+  stroke: #3893E8;
+}
+.strokeRedColor{
+  stroke: rgb(205, 71, 71);
+}
 .fontW{
   color: #fff;
 }
 .fontB{
   color: #000;
+}
+.fontBlue{
+  color: #3893E8;
 }
 .bgcW{
   background-color: #fff;
