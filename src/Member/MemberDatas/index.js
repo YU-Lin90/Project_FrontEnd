@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './memberdatas.css';
 function MemberDatas() {
   // 選擇的檔案
   const [selectedFile, setSelectedFile] = useState(null);
@@ -148,14 +149,14 @@ function MemberDatas() {
         <div>
           <input type="file" name="avatar" onChange={changeHandler} />
           <img
-            className="img"
+            className="m_img"
             src={` http://${siteName}:3001/uploads/${user.image}`}
             alt=""
           />
           {selectedFile && (
             <div>
               預覽圖片:
-              <img className="img" src={preview} alt="" />
+              <img className="m_img" src={preview} alt="" />
             </div>
           )}
           <br />

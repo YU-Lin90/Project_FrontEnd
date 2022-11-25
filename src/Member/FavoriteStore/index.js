@@ -148,7 +148,7 @@ export default function FavoriteStore() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/79bb3c65-6d92-44d1-a118-d7cde35159ff.jpg'
+            'http://localhost:3001/uploads/7a2cb8bd-73e0-4971-8a0f-7454a82c57c6.jpg'
           }
         />
         <p className="font1">店名1:{v.name}</p>
@@ -164,7 +164,7 @@ export default function FavoriteStore() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/79bb3c65-6d92-44d1-a118-d7cde35159ff.jpg'
+            'http://localhost:3001/uploads/7a2cb8bd-73e0-4971-8a0f-7454a82c57c6.jpg'
           }
         />
         <p className="font1">店名:{v.name}</p>
