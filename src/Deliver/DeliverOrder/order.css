@@ -1,0 +1,63 @@
+.Dttcontext{
+    width: 100%;
+    height: 100vh;
+    background-color: #CDCACA;
+}
+.Dtopcontext{
+    height: 50px;
+    padding: 0 25px;
+    background-color: #EBEBEB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Dinfo1{
+    width: 100%;
+    margin: 0;
+    display: block;
+    background-color: white;
+}
+.Dinfodata{
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #EBEBEB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+.Dinfotext{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Dicon .Dimgicon{
+    font-size: 35px;
+    color: #3893E8;
+}
+.Dsimgicon{
+    font-size: 25px;
+    color: #3893E8
+}
+.Dcontext{
+    color: #858585;
+}
+.Dbbtn{
+    border-radius: 5px;
+    border: none;
+    background-color: #3893E8;
+    font-size: 1.1em;
+    color: white;
+    height: 40px;
+    width: 100%;
+}
+.Dfooter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    height: 40px;
+    background-color: #CDCACA;
+    border-bottom: 1px solid rgb(139, 139, 139);
+}
