@@ -10,7 +10,7 @@ function MemberOrderSocket() {
   function sendToken(sever) {
     const tokenString = localStorage.getItem('Member');
     if (!tokenString) {
-      alert('沒登入');
+      Swal.fire('沒登入');
       navi(`/MemberLogin`);
     }
     sever.send(JSON.stringify({ token: tokenString }));

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './memberdatas.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 function MemberDatas() {
   // 選擇的檔案
   const [selectedFile, setSelectedFile] = useState(null);
@@ -128,17 +130,17 @@ function MemberDatas() {
         .put(`http://localhost:3001/MemberLogin/edit/${sid}`, fd)
         .then((result) => {
           console.log(result);
-          alert('修改成功');
+          Swal.fire('修改成功');
           navigate('/');
         })
         .catch((e) => {
           console.log(e);
           console.log(e.response);
           // console.log(e.response.request.responseText);
-          alert('修改失敗!');
+          Swal.fire('修改失敗!');
         });
     } else if (user.password !== user.doublepassword) {
-      alert('兩次密碼輸入不一致!');
+      Swal.fire('兩次密碼輸入不一致!');
     }
   };
 

@@ -58,9 +58,9 @@ function Admin_CouponAdd({ setAddEnd, setAdd }) {
       .then((res) => {
         // console.log(res)
         if (res === 1) {
-          alert('新增成功')
+          Swal.fire('新增成功')
         } else {
-          alert('新增失敗')
+          Swal.fire('新增失敗')
         }
       })
   }

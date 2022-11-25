@@ -9,7 +9,7 @@ function OrderSocket() {
   function sendToken() {
     const tokenString = localStorage.getItem('Store');
     if (!tokenString) {
-      alert('沒登入');
+      Swal.fire('沒登入');
       navi(`/StoreLogin`);
     }
     orderSocket.send(JSON.stringify({ token: tokenString }));

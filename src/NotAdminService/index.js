@@ -18,7 +18,7 @@ function MemberService({ sideName }) {
   }, []);
   function sendToken() {
     if (!tokenString) {
-      alert('沒登入');
+      Swal.fire('沒登入');
       navi(`/${sideName}Login`);
     }
     socket.send(JSON.stringify({ token: tokenString }));

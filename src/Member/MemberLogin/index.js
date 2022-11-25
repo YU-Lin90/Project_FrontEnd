@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthProvider';
 import './MemberLogin.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
 
@@ -14,7 +16,7 @@ function MemberLogin() {
   function login(email, password) {
     //如果其中一樣是空的
     if (!email.trim() || !password.trim()) {
-      alert('輸入欄不可為空');
+      Swal.fire('輸入欄不可為空');
       return;
     } else {
       //傳送資料
@@ -42,7 +44,7 @@ function MemberLogin() {
             navi(-1, { replace: false });
             setAuthMember(true);
           } else {
-            alert(res.errorType);
+            Swal.fire(res.errorType);
           }
         });
     }
