@@ -105,8 +105,8 @@ function MemberLogin() {
         <div>
           <button
             onClick={() => {
-              setEmail('test@test.com');
-              setPassword('test');
+              setEmail('abc1234000@gmail.com');
+              setPassword('Aa123456781');
             }}
           >
             會員快速登入

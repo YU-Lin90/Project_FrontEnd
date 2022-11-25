@@ -113,8 +113,8 @@ function MemberRegister() {
         .post('http://localhost:3001/MemberLogin/add', fd)
         .then((result) => {
           console.log(result);
-          Swal.fire('註冊成功');
-          navigate('/');
+          alert('註冊成功');
+          // navigate('/');
         })
         .catch((e) => {
           console.log(e);

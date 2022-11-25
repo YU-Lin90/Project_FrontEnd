@@ -82,6 +82,10 @@ function MemberDatas() {
 
   useEffect(() => {
     getform();
+  }, []);
+
+  useEffect(() => {
+    // getform();
     if (!selectedFile) {
       setPreview('');
       return;
@@ -141,7 +145,7 @@ function MemberDatas() {
   const display = (
     <div>
       <form
-        // name="avatar"
+        name="avatar"
         onSubmit={handleFormSubmit}
         onInvalid={handleFormInvalid}
         onChange={handleFormChange}

@@ -183,6 +183,7 @@ function MemberNav() {
                 ? () => {
                     localStorage.removeItem('Member');
                     localStorage.removeItem('MemberName');
+                    localStorage.removeItem('MemberSid');
                     setMemberName('');
                     setAuthMember(!authMember);
                   }
