@@ -67,7 +67,7 @@ function DropDownDetails({ orderSid, orderData }) {
           )}
         </div>
 
-        <div className="disf jc-sb marV15">
+        <div className="disf jc-sb marV15 ta-c fd-sc-br">
           <p>下單時間：{orderData.order_time}</p>
           <p>完成時間：{orderData.complete_time}</p>
         </div>

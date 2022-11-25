@@ -44,7 +44,7 @@ function ProfileData() {
       <div className="payDetailBox">
         <PayTitleBlock number={2} titleString={'取餐人資料'} />
         {/* INPUT群 */}
-        <div className="disf ta-c jc-sb fw-w">
+        <div className="disf ta-c jc-sb fw-w marb20">
           <div className="marb10 w33p">
             <p className="fs24 fw6 marb10">姓名</p>
             {edit ? (

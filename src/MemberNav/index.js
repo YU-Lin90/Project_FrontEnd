@@ -3,8 +3,7 @@ import { useAuth } from '../Context/AuthProvider';
 import { usePay } from '../Context/PayPageContext';
 import { useSVG } from '../Context/SVGProvider';
 import NavAddress from './NavAddress';
-
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import Menu from './Menu';
 import ChooseCart from '../Shopping/ChooseCart';
@@ -42,6 +41,7 @@ function getName(setMemberName) {
 }
 //===============================================分隔線================================================
 function MemberNav() {
+  const location = useLocation();
   const { logoSVG } = useSVG();
   const navi = useNavigate();
   //目錄開合切換
@@ -90,6 +90,9 @@ function MemberNav() {
     checkCartAmount();
     fetchLoginCheck(setAuthMember);
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     getName(setMemberName);
@@ -142,7 +145,14 @@ function MemberNav() {
         </div>
 
         {/* 名稱顯示 暫放 */}
-        <NavAddress sendAddress={sendAddress} setSendAddress={setSendAddress} />
+        {window.location.pathname === '/Pay' ? (
+          <></>
+        ) : (
+          <NavAddress
+            sendAddress={sendAddress}
+            setSendAddress={setSendAddress}
+          />
+        )}
         {/* 購物車按鈕 */}
         <div className="navRight">
           {window.location.pathname === '/Pay' ? (

@@ -1,5 +1,6 @@
 //結帳頁--訂單細節(右半邊)
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { usePay } from '../../../Context/PayPageContext';
 
 function OrederDetailForPay() {
@@ -7,6 +8,7 @@ function OrederDetailForPay() {
   const [productList, setProductList] = useState({});
   const { couponCutAmount, deliverFee, cartContents, chooseedPayShop } =
     usePay();
+  const navi = useNavigate();
   useEffect(() => {
     // setProductList(cartContents.cartList["89"].list);
     setProductList(cartContents.cartList[chooseedPayShop].list);
@@ -15,7 +17,9 @@ function OrederDetailForPay() {
     <div className=" topUnderNav padV20 flexSetCenter of-a OrederDetailForPay">
       <div className="disf jc-c fd-c ai-c w80p gap20 padV20">
         <p className="fs36 fw6 ta-c marb15">你的訂單</p>
-        {/* TODO:繼續加購商品 */}
+        <p className="fs24 fw5">
+          {cartContents.cartList[chooseedPayShop].shopName}
+        </p>
         <div className="w100p borderBotGray3 padV5">
           {/* 在這之間MAP--商品明細 */}
           {/* {
@@ -110,6 +114,15 @@ function OrederDetailForPay() {
             )}
             點
           </span>
+        </p>
+        {/* TODO:繼續加購商品 */}
+        <p
+          className="payPageButton"
+          onClick={() => {
+            navi(`/StoreDetail?shopSid=${chooseedPayShop}`);
+          }}
+        >
+          繼續加購
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import './NavBar.css';
 import StoreMenu from './StoreMenu';
 import { useSVG } from '../../Context/SVGProvider';
@@ -9,12 +9,14 @@ const siteName = window.location.hostname;
 
 //獲得會員名
 function getName(setStoreName) {
+
   const settedName = localStorage.getItem('StoreName');
   if (!!settedName) {
     setStoreName(settedName);
   }
 }
 function StoreNav() {
+  const location = useLocation();
   const { logoSVG } = useSVG();
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
@@ -45,10 +47,13 @@ function StoreNav() {
         //收到0代表沒登入
       });
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     fetchLoginCheck(setAuthStore);
-  });
+  },[]);
 
   useEffect(() => {
     getName(setStoreName);

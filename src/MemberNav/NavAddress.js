@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 //NAV 地址
 function NavAddress({ sendAddress, setSendAddress }) {
+  const location = useLocation();
   const [openSetAddress, setOpenSetAddress] = useState(false);
   return (
     <>

@@ -39,21 +39,19 @@ function DeliveDetail() {
     <>
       <div className="payDetailBox">
         <PayTitleBlock number={1} titleString={'送餐詳情'} />
-        <div className="marb10 disf jc-sb ai-c">
-          <p>店家名稱:{cartContents.cartList[chooseedPayShop].shopName}</p>
-          <p>店家現在等待時間:{waitTime}分鐘</p>
-        </div>
-        <div className="marb10 disf jc-sb ai-c">
+
+        <div className="marb20 disf jc-sb ai-c">
           <div>
             <p className="fs24 marb10">送達地址:</p>
             {editAddress ? (
               <div>
                 <input
-                  className="w100p"
+                  className="w100p w300"
                   value={sendAddress}
                   onChange={(e) => {
                     setSendAddress(e.target.value);
                   }}
+                  autoFocus={editAddress}
                 />
               </div>
             ) : (
@@ -69,16 +67,18 @@ function DeliveDetail() {
             {editAddress ? '儲存' : '修改'}
           </div>
         </div>
-        <div className="marb10 disf jc-sb ai-c">
+        <div className="marb20 disf jc-sb ai-c">
           <div>
             <p className="fs24 marb10">店家備註</p>
             {editShopMemo ? (
               <div>
                 <input
+                  className="w300"
                   value={storeMemo}
                   onChange={(e) => {
                     setStoreMemo(e.target.value);
                   }}
+                  autoFocus={editShopMemo}
                 />
               </div>
             ) : (
@@ -95,16 +95,18 @@ function DeliveDetail() {
             {editShopMemo ? '儲存' : '修改'}
           </div>
         </div>
-        <div className="marb10 disf jc-sb ai-c">
+        <div className="marb20 disf jc-sb ai-c">
           <div>
             <p className="fs24 marb10">外送員備註</p>
             {editDeliverMemo ? (
               <div>
                 <input
+                  className="w300"
                   value={deliverMemo}
                   onChange={(e) => {
                     setDeliverMemo(e.target.value);
                   }}
+                  autoFocus={editDeliverMemo}
                 />
               </div>
             ) : (
@@ -119,6 +121,12 @@ function DeliveDetail() {
           >
             {editDeliverMemo ? '儲存' : '修改'}
           </div>
+        </div>
+        <div className="marb10 disf jc-sb ai-c">
+          <p className="fs18">
+            店家現在等待時間:<span className="fw6">{waitTime}</span>
+            分鐘
+          </p>
         </div>
       </div>
     </>

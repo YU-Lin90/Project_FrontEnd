@@ -73,7 +73,10 @@ function PayCoupon() {
           </div>
         ) : (
           <>
-            <div className="bgcGray disf fw-w ai-c">
+            <div
+              className=" disf fw-w ai-c"
+              style={{ 'background-color': '#eee9' }}
+            >
               <div key={0} className="payCouponFrame padV10 padH10">
                 <div
                   onClick={(e) => {
@@ -116,7 +119,8 @@ function PayCoupon() {
                 return (
                   <div key={v.sid} className="payCouponFrame padV10 padH10">
                     <div className={'payCoupons fontW insufficient'}>
-                      <div className="as-s fw6 fs18">折{v.sale_detail}元</div>
+                      {/* <div className="as-s fw6 fs18">折{v.sale_detail}元</div> */}
+                      <div className="as-s fw6 fs18 fontRed">條件不符</div>
                       <div className="as-c fw6 fs18 w60p ta-c">
                         {v.coupon_name}
                       </div>

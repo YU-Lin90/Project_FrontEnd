@@ -52,7 +52,7 @@
 
 .payPageButton.locked {
   opacity: 0.7;
-  cursor: initial;
+  cursor:not-allowed;
 }
 
 .payCoupons {
@@ -83,6 +83,7 @@
 }
 .payPageFrame{
   flex-direction: column-reverse;
+  background-color: #eee5;
 }
 .payPageFrameLeft{
   width: 100%;

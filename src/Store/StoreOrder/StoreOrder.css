@@ -5,7 +5,7 @@
   font-size: 24px;
   margin-bottom: 10px;
   position: sticky;
-  top: 80px;
+  top: calc(var(--navHeight) + 20px);
   /* background-color: #eee; */
   padding: 10px;
 }
@@ -94,7 +94,8 @@
   font-size: 18px;
   line-height: 24px;
 }
-.storeConfirmOrder>*{
+
+.storeConfirmOrder>* {
   vertical-align: middle;
   padding: 15px;
 }
@@ -115,14 +116,17 @@
 .storeOrderProductsContents {
   border-bottom: 3px #ccc solid;
 }
-.productDetails{
+
+.productDetails {
   background-color: #FEEEEE;
 }
-.shopMemos{
-  background-color: #ddd; 
+
+.shopMemos {
+  background-color: #ddd;
 
 }
-.storeConfirmOrderButton{
+
+.storeConfirmOrderButton {
   text-align: center;
   background-color: #3893E8;
   width: 100%;
@@ -130,7 +134,8 @@
   color: #fff;
   font-weight: 600;
 }
-.setTimeButton{
+
+.setTimeButton {
   background-color: #000;
   color: #fff;
   text-align: center;

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import CycleContent from './CycleContent';
-// import keys from '../../../keys';
+import keys from '../../../keys';
 const SelfPosition = () => (
   <div>
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
@@ -24,6 +24,15 @@ function OrderMap({ selectedOrder, orderShowNow }) {
     },
     zoom: 15,
   };
+  const checkLocation = () => {
+    navigator.geolocation.getCurrentPosition((location) => {
+      console.log(location.coords);
+      setDeliverPosition({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      });
+    });
+  };
   // const intervalTest = setInterval(() => {
   //   setDeliverPosition({
   //     lat: deliverPosition.lat + 0.0001,
@@ -32,14 +41,8 @@ function OrderMap({ selectedOrder, orderShowNow }) {
   // }, 1000);
   //25.03359696638214, 121.5434922509409
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((location) => {
-      console.log(location.coords);
-      setDeliverPosition({
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      });
-    });
-
+    // setInterval(checkLocation, 1000);
+    checkLocation()
     return () => {
       // clearInterval(intervalTest);
     };
@@ -51,8 +54,8 @@ function OrderMap({ selectedOrder, orderShowNow }) {
     <>
       <GoogleMapReact
         // TODO 之後再打開 不然會浪費額度
-        // bootstrapURLKeys={{ key: keys.gmap }}
-        bootstrapURLKeys={{ key: '' }}
+        bootstrapURLKeys={{ key: keys.gmap }}
+        // bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         center={deliverPosition}
