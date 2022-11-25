@@ -68,7 +68,13 @@ function MemberLayout() {
                 }}
               >
                 <p className="bigHidden">
-                  {value.svg(`${value.link === location ? 'fillMemberCenterColor' : 'fillMainColor'} w100p`)}
+                  {value.svg(
+                    `${
+                      value.link === location
+                        ? 'fillMemberCenterColor'
+                        : 'fillMainColor'
+                    } w100p`
+                  )}
                 </p>
                 <p
                   className={`fontMainColor memberCenterButton  ${

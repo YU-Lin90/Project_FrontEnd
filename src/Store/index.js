@@ -1,6 +1,7 @@
 import StoreNav from './StoreNav';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import './StoreLayout.css';
+import Footer from '../Footer';
 //這邊要放NAVBAR
 function Store() {
   const location = useLocation().pathname;
@@ -38,6 +39,7 @@ function Store() {
           </div>
           <div className="storeContent">{<Outlet />}</div>
         </div>
+        <Footer />
       </div>
     </>
   );

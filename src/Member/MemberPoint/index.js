@@ -36,7 +36,6 @@ function MemberPoint() {
   return (
     <>
       <div>
-        {' '}
         <table className="memberPointTable">
           <thead>
             <tr key={0}>
@@ -66,7 +65,6 @@ function MemberPoint() {
             })}
           </tbody>
         </table>
-        <div className="h200 w100p bigHidden"></div>
       </div>
     </>
   );
