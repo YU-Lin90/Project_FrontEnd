@@ -68,7 +68,7 @@ function MemberLogin() {
             會員登入
           </h3>
           <div>
-            <label>帳號</label>
+            <label className='m_login_label'>帳號</label>
             <br />
             <input
               className="m_login_email"
@@ -81,7 +81,7 @@ function MemberLogin() {
           </div>
           <br />
           <div>
-            <label>密碼</label>
+            <label className='m_login_label'>密碼</label>
             <br />
             <input
               className="m_login_password"
