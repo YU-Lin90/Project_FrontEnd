@@ -13,7 +13,7 @@ function StoreLogin() {
   function login(email, password) {
     //如果其中一樣是空的
     if (!email.trim() || !password.trim()) {
-      alert('輸入欄不可為空');
+      Swal.fire('輸入欄不可為空');
       return;
     } else {
       //傳送資料
@@ -51,7 +51,7 @@ function StoreLogin() {
             navi(-1, { replace: true });
             setAuthStore(true);
           } else {
-            alert(res.errorType);
+            Swal.fire(res.errorType);
           }
         });
     }

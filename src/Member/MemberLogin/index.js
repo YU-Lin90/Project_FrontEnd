@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthProvider';
 import './MemberLogin.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
 
@@ -14,7 +16,10 @@ function MemberLogin() {
   function login(email, password) {
     //如果其中一樣是空的
     if (!email.trim() || !password.trim()) {
-      alert('輸入欄不可為空');
+      Swal.fire({
+        icon: 'warning',
+        title: '輸入欄不可為空白',
+      });
       return;
     } else {
       //傳送資料
@@ -41,12 +46,16 @@ function MemberLogin() {
             localStorage.setItem('MemberSid', res.sid);
             navi(-1, { replace: false });
             setAuthMember(true);
-
-            const example = localStorage.getItem('side')
-            console.log(example)
-            
+            Swal.fire({
+              icon: 'success',
+              title: '登入成功',
+            });
+            navi('/');
           } else {
-            alert(res.errorType);
+            Swal.fire({
+              icon: 'error',
+              title: res.errorType,
+            });
           }
         });
     }
@@ -54,12 +63,22 @@ function MemberLogin() {
 
   return (
     <div className="disf fd-c ai-c jc-c padV20">
-      <h3 className="marb20">會員登入</h3>
       <div className="memberLoginForm">
-        <div>
+        <div className="m_box">
+          <h3
+            className="mar"
+            onClick={() => {
+              setEmail('abc1234000@gmail.com');
+              setPassword('Aa123456781');
+            }}
+          >
+            會員登入
+          </h3>
           <div>
+            <label className="m_login_label">帳號</label>
+            <br />
             <input
-              className="marb20"
+              className="m_login_email"
               value={email}
               placeholder="請輸入信箱"
               onChange={(e) => {
@@ -67,9 +86,12 @@ function MemberLogin() {
               }}
             />
           </div>
+          <br />
           <div>
+            <label className="m_login_label">密碼</label>
+            <br />
             <input
-              className="marb20"
+              className="m_login_password"
               value={password}
               placeholder="請輸入密碼"
               onChange={(e) => {
@@ -77,16 +99,16 @@ function MemberLogin() {
               }}
             />
           </div>
-        </div>
-        <div className="marb20 disf gap5">
-          <button
-            onClick={() => {
-              login(email, password);
-            }}
-          >
-            登入
-          </button>
-          <button
+          <div>
+            <button
+              className="m_login_button"
+              onClick={() => {
+                login(email, password);
+              }}
+            >
+              登入
+            </button>
+            {/* <button
             onClick={() => {
               //登出直接刪除本機空間
               localStorage.removeItem('MemberSid');
@@ -95,26 +117,16 @@ function MemberLogin() {
             }}
           >
             登出
-          </button>
-          <button
+          </button> */}
+            {/* <button
             onClick={() => {
               setEmail('');
               setPassword('');
             }}
           >
             清空
-          </button>
-        </div>
-
-        <div>
-          <button
-            onClick={() => {
-              setEmail('test@test.com');
-              setPassword('testaA123654');
-            }}
-          >
-            會員快速登入
-          </button>
+          </button> */}
+          </div>
         </div>
       </div>
     </div>

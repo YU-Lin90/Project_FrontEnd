@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Img.css';
+import './register.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
 function MemberRegister() {
   // 選擇的檔案
   const [selectedFile, setSelectedFile] = useState(null);
@@ -84,8 +87,9 @@ function MemberRegister() {
   const navigate = useNavigate();
 
   // true = 呈現密碼 / false = 隱藏密碼
-  const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
+
+  const [passwordFieldType, setPasswordFieldType] = useState('password');
+  const [passwordFieldType2, setPasswordFieldType2] = useState('password');
 
   const handleFieldChange = (e) => {
     //console.log(e.target.type, e.target.name, e.target.value)
@@ -111,8 +115,11 @@ function MemberRegister() {
         .post('http://localhost:3001/MemberLogin/add', fd)
         .then((result) => {
           console.log(result);
-          alert('註冊成功');
-          // navigate('/');
+          Swal.fire({
+            icon: 'success',
+            title: '註冊成功',
+          });
+          navigate('/');
         })
         .catch((e) => {
           console.log(e);
@@ -122,25 +129,37 @@ function MemberRegister() {
             e.response.data.message.indexOf('email') !== -1 &&
             e.response.data.message.indexOf('phone') !== -1
           ) {
-            alert('註冊失敗！此帳號跟手機已存在，請嘗試新的帳號跟手機！');
+            Swal.fire({
+              icon: 'warning',
+              title: '註冊失敗！此帳號跟手機已存在，請嘗試新的帳號跟手機！',
+            });
           }
           if (
             e.response.data.code === 'ER_DUP_ENTRY' &&
             e.response.data.message.indexOf('phone') !== -1
           ) {
-            alert('註冊失敗！此手機已存在，請嘗試新的手機！');
+            Swal.fire({
+              icon: 'warning',
+              title: '註冊失敗！此手機已存在，請嘗試新的手機！',
+            });
           } else if (
             e.response.data.code === 'ER_DUP_ENTRY' &&
             e.response.data.message.indexOf('email') !== -1
           ) {
-            alert('註冊失敗！此帳號已存在，請嘗試新的帳號！');
+            Swal.fire({
+              icon: 'warning',
+              title: '註冊失敗！此帳號已存在，請嘗試新的帳號！',
+            });
           } else {
             // console.log(e.response.request.responseText);
-            alert('註冊失敗!');
+            Swal.fire({
+              icon: 'error',
+              title: '註冊失敗!',
+            });
           }
         });
     } else {
-      alert('兩次密碼輸入不一致!');
+      Swal.fire('兩次密碼輸入不一致!');
     }
   };
   // 得到輸入值的方式
@@ -175,121 +194,160 @@ function MemberRegister() {
 
   return (
     <>
-      <form
-        name="avatar"
-        onSubmit={handleFormSubmit}
-        onInvalid={handleFormInvalid}
-        onChange={handleFormChange}
-      >
-        <input type="file" name="avatar" onChange={changeHandler} />
-        {selectedFile && (
-          <div>
-            預覽圖片:
-            <img className="img" src={preview} alt="" />
-          </div>
-        )}
-        <br />
-        <label>帳號(Email)</label>
-        <input
-          type="email"
-          name="email"
-          value={user.email}
-          onChange={handleFieldChange}
-          required
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        />
-        <span>{fieldErrors.email}</span>
-        <br />
-        <label>密碼</label>
-        <input
-          type={show ? 'text' : 'password'}
-          name="password"
-          value={user.password}
-          onChange={handleFieldChange}
-          required
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
-        />
-        <span>{fieldErrors.password}</span>
-        <input
-          type="checkbox"
-          name="show"
-          checked={show}
-          onChange={() => {
-            setShow(!show);
-          }}
-        />
-        <label>顯示密碼</label>
-        <br />
-        <label>再次輸入密碼</label>
-        <input
-          type={show1 ? 'text' : 'password'}
-          name="doublepassword"
-          value={user.doublepassword}
-          onChange={handleFieldChange}
-          required
-          // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{9,}$"
-        />
-        <span>{fieldErrors.doublepassword}</span>
-        <input
-          type="checkbox"
-          name="show1"
-          checked={show1}
-          onChange={() => {
-            setShow1(!show1);
-          }}
-        />
-        <label>顯示密碼</label>
-        <br />
-        <label>名子</label>
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleFieldChange}
-          required
-        />
-        <span>{fieldErrors.name}</span>
-        <br />
-        <label>手機</label>
-        <input
-          type="text"
-          name="phone"
-          value={user.phone}
-          onChange={handleFieldChange}
-          required
-          pattern="09\d{2}\d{6}"
-        />
-        <span>{fieldErrors.phone}</span>
-        <br />
-        <button type="submit">送出</button>
-        <button
-          type="button"
-          onClick={() => {
-            setUser({
-              email: '',
-              password: '',
-              doublepassword: '',
-              name: '',
-              phone: '',
-            });
-          }}
+      <div className="m_iner">
+        <form
+          name="avatar"
+          onSubmit={handleFormSubmit}
+          onInvalid={handleFormInvalid}
+          onChange={handleFormChange}
         >
-          清空
-        </button>
-      </form>
-      <button
-        onClick={() => {
-          setUser({
-            email: 'abc1234@gmail.com',
-            password: 'Aa123456789',
-            doublepassword: 'Aa123456789',
-            name: '王大明',
-            phone: '0912345678',
-          });
-        }}
-      >
-        快速填入
-      </button>
+          <input type="file" name="avatar" onChange={changeHandler} />
+          {selectedFile && (
+            <div className="m_mar">
+              預覽圖片:
+              <img className="m_img" src={preview} alt="" />
+            </div>
+          )}
+
+          <div className="m_mar">
+            <label className="m_label">帳號(Email):</label>
+            <input
+              className="m_email"
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleFieldChange}
+              placeholder="請輸入帳號(Email)"
+              required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            />
+            <span className="m_span">{fieldErrors.email}</span>
+          </div>
+
+          <div className="m_mar">
+            <label className="m_label">密碼:</label>
+            <input
+              type={passwordFieldType}
+              className="m_password"
+              name="password"
+              value={user.password}
+              onChange={handleFieldChange}
+              placeholder="請輸入密碼"
+              required
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+            />
+            <button
+              className="m_icon_button"
+              type="button"
+              onClick={() => {
+                setPasswordFieldType(
+                  passwordFieldType === 'text' ? 'password' : 'text'
+                );
+              }}
+            >
+              {passwordFieldType === 'text' ? (
+                <FaRegEyeSlash className="m_icon" />
+              ) : (
+                <FaRegEye className="m_icon" />
+              )}
+            </button>
+            <span className="m_span">{fieldErrors.password}</span>
+          </div>
+
+          <div className="m_mar">
+            <label className="m_label">再次輸入密碼:</label>
+            <input
+              type={passwordFieldType2}
+              name="doublepassword"
+              className="m_doublepassword"
+              value={user.doublepassword}
+              placeholder="再次輸入密碼"
+              onChange={handleFieldChange}
+              required
+              // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{9,}$"
+            />
+            <button
+              className="m_icon_button"
+              type="button"
+              onClick={() => {
+                setPasswordFieldType2(
+                  passwordFieldType2 === 'text' ? 'password' : 'text'
+                );
+              }}
+            >
+              {passwordFieldType2 === 'text' ? (
+                <FaRegEyeSlash className="m_icon" />
+              ) : (
+                <FaRegEye className="m_icon" />
+              )}
+            </button>
+            <span className="m_span">{fieldErrors.doublepassword}</span>
+          </div>
+
+          <div className="m_mar">
+            <label className="m_label">名子:</label>
+            <input
+              type="text"
+              name="name"
+              className="m_name"
+              value={user.name}
+              placeholder="請輸入名子"
+              onChange={handleFieldChange}
+              required
+            />
+            <span className="m_span">{fieldErrors.name}</span>
+          </div>
+
+          <div className="m_mar">
+            <label className="m_label">手機:</label>
+            <input
+              type="text"
+              name="phone"
+              className="m_phone"
+              value={user.phone}
+              placeholder="請輸入手機"
+              onChange={handleFieldChange}
+              required
+              pattern="09\d{2}\d{6}"
+            />
+            <span className="m_span">{fieldErrors.phone}</span>
+          </div>
+
+          <button type="submit" className="m_sb">
+            送出
+          </button>
+          <button
+            type="button"
+            className="m_clear"
+            onClick={() => {
+              setUser({
+                email: '',
+                password: '',
+                doublepassword: '',
+                name: '',
+                phone: '',
+              });
+            }}
+          >
+            清空
+          </button>
+          <button
+            className="m_fast"
+            onClick={(e) => {
+              e.preventDefault();
+              setUser({
+                email: 'abc1234@gmail.com',
+                password: 'Aa123456789',
+                doublepassword: 'Aa123456789',
+                name: '王大明',
+                phone: '0912345678',
+              });
+            }}
+          >
+            快速填入
+          </button>
+        </form>
+      </div>
     </>
   );
 }

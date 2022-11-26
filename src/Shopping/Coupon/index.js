@@ -61,10 +61,10 @@ function Coupon() {
   };
   const get = async () => {
     if (user3 < 0) {
-      alert('點數不足');
+      Swal.fire('點數不足');
     }
     if (forms2.current.value > user3) {
-      alert('點數不足');
+      Swal.fire('點數不足');
     } else {
       setText(!text);
       // e.preventDefault();
@@ -84,10 +84,10 @@ function Coupon() {
         .then((r) => r.json())
         .then((res) => {
           if (res === 1) {
-            alert('領取成功');
+            Swal.fire('領取成功');
             console.log(res);
           } else {
-            alert('領取失敗');
+            Swal.fire('領取失敗');
             console.log(res);
           }
         });
