@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import DeliverNav from './DeliverNav';
 import Footer from '../Footer';
+import BottomNav from './BottomNav/BottomState';
+
 function DeliverLayout() {
   return (
     <>
@@ -8,6 +10,7 @@ function DeliverLayout() {
         <DeliverNav />
         <Outlet />
         <Footer />
+        <BottomNav />
       </div>
     </>
   );

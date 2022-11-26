@@ -1,0 +1,57 @@
+.Dhistoryul{
+    width: 100%;
+}
+.Dhistorylist{
+    width: 100%;
+    border-bottom: 1px solid rgb(186, 186, 186);
+}
+.Dhistoryitem{
+    width: 100%;
+    height: 70px;
+    padding: 0 15px;
+    border-bottom: 1px solid rgb(186, 186, 186);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Dfristcontext{
+    display: flex;
+}
+.Dfristcontext i{
+    padding-right: 10px;
+}
+.Dsecondtext{
+    text-align: center;
+}
+.Dhistorydetail{
+    min-height: 150px;
+    padding: 15px;
+    padding-bottom: 20px;
+}
+.Ddetaillist{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.Ddetailcontext{
+    display: flex;
+}
+.Dfoodmeun{
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #CDCACA;
+}
+.Dfoodtop{
+    padding-bottom: 17px;
+    border-bottom: 1px solid #626262;
+}
+.Dfoodcontext{
+    height: 25px;
+    display: flex;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #626262;
+}
