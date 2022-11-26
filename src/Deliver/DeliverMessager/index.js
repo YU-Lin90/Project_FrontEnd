@@ -4,7 +4,7 @@ function DeliverMessager() {
   const ordersid = localStorage.getItem('order_sid');
   async function foodget() {
     const respon = await axios.put(
-      `http://localhost:3005/deliverorder/${ordersid}`
+      `http://localhost:3001/deliverorder/${ordersid}`
     );
   }
 

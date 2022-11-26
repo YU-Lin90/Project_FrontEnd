@@ -78,6 +78,8 @@ import DeliverOrder from './Deliver/DeliverOrder';
 import DeliverDatas from './Deliver/DeliverDatas';
 //外送員即時通訊
 import DeliverMessager from './Deliver/DeliverMessager';
+//外送員地圖頁
+import DeliverMap from './Deliver/DeliverMap';
 //===============================================分隔線================================================
 //管理者首頁
 import Admin from './Admin';
@@ -142,7 +144,6 @@ function App() {
               <Route path="type" element={<Type />} />
               <Route path="product" element={<Product />} />
               <Route path="option" element={<Option />} />
-              
             </Route>
 
             {/* 店家註冊 */}
@@ -182,6 +183,9 @@ function App() {
             {/* 外送員訂單 */}
             {/* ~/Deliver/DeliverOrder */}
             <Route path="DeliverOrder" element={<DeliverOrder />} />
+            {/* 外送員地圖 */}
+            {/* ~/Deliver/DeliverMap */}
+            <Route path="DeliverMap" element={<DeliverMap />} />
             {/* 外送員即時通訊 */}
             {/* ~/Deliver/DeliverMessager */}
             <Route path="DeliverMessager" element={<DeliverMessager />} />

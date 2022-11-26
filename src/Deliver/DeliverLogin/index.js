@@ -22,11 +22,12 @@ function DeliverLogin() {
   /*--------------發送axios出去成功(formData可以成為json格式輸出)----------------*/
   const mySubmit = async (e) =>{
     e.preventDefault();
-    const { data } = await axios.post('http://localhost:3005/deliverlogin', formData)
+    const { data } = await axios.post('http://localhost:3001/deliverlogin', formData)
     if(data.success){
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
       localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
-      localStorage.setItem('onlie_state', JSON.stringify(data.success));
+      localStorage.setItem('onlie_state', JSON.stringify(data.success));       
+      localStorage.setItem('Deliver', JSON.stringify(data.tokenYU));
       navi('/Deliver/DeliverConfirmOrder');
       alert("登入成功");
     }else{
