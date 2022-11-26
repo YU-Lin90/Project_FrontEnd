@@ -43,6 +43,10 @@ function MemberLogin() {
             localStorage.setItem('MemberSid', res.sid);
             navi(-1, { replace: false });
             setAuthMember(true);
+            Swal.fire({
+              icon: 'success',
+              title: '登入成功',
+            });
           } else {
             Swal.fire(res.errorType);
           }
@@ -52,12 +56,22 @@ function MemberLogin() {
 
   return (
     <div className="disf fd-c ai-c jc-c padV20">
-      <h3 className="marb20">會員登入</h3>
       <div className="memberLoginForm">
-        <div>
+        <div className="m_box">
+          <h3
+            className="mar"
+            onClick={() => {
+              setEmail('abc1234000@gmail.com');
+              setPassword('Aa123456781');
+            }}
+          >
+            會員登入
+          </h3>
           <div>
+            <label>帳號</label>
+            <br />
             <input
-              className="marb20"
+              className="m_login_email"
               value={email}
               placeholder="請輸入信箱"
               onChange={(e) => {
@@ -65,9 +79,12 @@ function MemberLogin() {
               }}
             />
           </div>
+          <br />
           <div>
+            <label>密碼</label>
+            <br />
             <input
-              className="marb20"
+              className="m_login_password"
               value={password}
               placeholder="請輸入密碼"
               onChange={(e) => {
@@ -75,16 +92,16 @@ function MemberLogin() {
               }}
             />
           </div>
-        </div>
-        <div className="marb20 disf gap5">
-          <button
-            onClick={() => {
-              login(email, password);
-            }}
-          >
-            登入
-          </button>
-          <button
+          <div>
+            <button
+              className="m_login_button"
+              onClick={() => {
+                login(email, password);
+              }}
+            >
+              登入
+            </button>
+            {/* <button
             onClick={() => {
               //登出直接刪除本機空間
               localStorage.removeItem('MemberSid');
@@ -93,26 +110,16 @@ function MemberLogin() {
             }}
           >
             登出
-          </button>
-          <button
+          </button> */}
+            {/* <button
             onClick={() => {
               setEmail('');
               setPassword('');
             }}
           >
             清空
-          </button>
-        </div>
-
-        <div>
-          <button
-            onClick={() => {
-              setEmail('abc1234000@gmail.com');
-              setPassword('Aa123456781');
-            }}
-          >
-            會員快速登入
-          </button>
+          </button> */}
+          </div>
         </div>
       </div>
     </div>
