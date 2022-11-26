@@ -1,6 +1,7 @@
 //結帳頁最外層 開Socket
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert';
 import Pay from './Pay';
 const siteName = window.location.hostname;
 //===============================================分隔線================================================

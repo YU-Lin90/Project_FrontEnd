@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NotAdminService.css';
+import Swal from 'sweetalert';
 
 import ChatBox from './ChatBox';
 const siteName = window.location.hostname;

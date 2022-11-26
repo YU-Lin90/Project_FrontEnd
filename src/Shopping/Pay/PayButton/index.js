@@ -4,6 +4,7 @@ import { useFunc } from '../../../Context/FunctionProvider';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../../Context/CartProvider';
+import Swal from 'sweetalert';
 
 const siteName = window.location.hostname;
 //===============================================分隔線================================================

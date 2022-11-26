@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Admin_CouponEdit.css'
-
+import Swal from 'sweetalert';
 const siteName = window.location.hostname
 
 function Admin_CouponEdit({ editData, setEdit, setEditEnd }) {

@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MemberOrder from './MemberOrder';
+import Swal from 'sweetalert';
 const siteName = window.location.hostname;
 function MemberOrderSocket() {
   const navi = useNavigate();

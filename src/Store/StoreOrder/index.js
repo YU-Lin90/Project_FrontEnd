@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StoreOrder from './StoreOrder';
+import Swal from 'sweetalert';
 function OrderSocket() {
   const navi = useNavigate();
   const siteName = window.location.hostname;

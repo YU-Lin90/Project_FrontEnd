@@ -23,9 +23,9 @@ nav.memberNav>*{
 @media screen and (min-width:768px) {
 
   /* TODO: 正式使用要再啟用 開發階段先關掉 */
-  .menubtn {
+  /* .menubtn {
     display: none;
-  }
+  } */
 }
 
 .menubtn_bar {

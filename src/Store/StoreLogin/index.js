@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthProvider';
+import Swal from 'sweetalert';
 import './StoreLogin.css';
 const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Moment from 'react-moment';
+import Swal from 'sweetalert';
 import './card.css';
 function Coupon() {
   const [user, setUser] = useState([]);
