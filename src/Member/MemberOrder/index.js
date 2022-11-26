@@ -46,7 +46,7 @@ function MemberOrderSocket() {
 
   return (
     <>
-      <MemberOrder />
+      <MemberOrder orderSocket={orderSocket} />
     </>
   );
 }

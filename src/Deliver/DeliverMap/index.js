@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DeliverMapContent from './DeliverMapContent';
 const siteName = window.location.hostname;
 function DeliverMap() {
+  const [socketOpened, setSocketOpened] = useState(false);
   // const navi = useNavigate();
   const orderSocket = new WebSocket(`ws://${siteName}:3200`);
   function sendToken(sever) {
@@ -14,6 +16,7 @@ function DeliverMap() {
   }
   orderSocket.addEventListener('open', () => {
     sendToken(orderSocket);
+    setSocketOpened(true);
     console.log('訂單系統伺服器連線');
   });
 
@@ -23,6 +26,13 @@ function DeliverMap() {
       console.log('訂單系統伺服器離線');
     };
   }, []);
-  return <></>;
+  return (
+    <div style={{ width: '100%', minHeight: '500px', height: '500px' }}>
+      <DeliverMapContent
+        orderSocket={orderSocket}
+        socketOpened={socketOpened}
+      />
+    </div>
+  );
 }
 export default DeliverMap;

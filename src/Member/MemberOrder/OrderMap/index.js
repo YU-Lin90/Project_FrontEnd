@@ -8,8 +8,8 @@ const SelfPosition = () => (
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
-function OrderMap({ selectedOrder, orderShowNow }) {
-  const { calculateDistance } = useGeo();
+function OrderMap({ selectedOrder, orderShowNow, orderSocket }) {
+  const { calculateDistance, calculateDistanceByLatLng } = useGeo();
   const [position, setPosition] = useState({ lat: 25.03359, lng: 121.54349 });
   const [deliverPosition, setDeliverPosition] = useState({
     lat: 25.03359,
@@ -82,7 +82,7 @@ function OrderMap({ selectedOrder, orderShowNow }) {
           //   lng: deliverPosition.lng + 1.0001,
           // });
 
-          calculateDistance('台北市信義路一段1號', '台北市復興南路一段390號');
+          calculateDistance('廣州街觀光夜市', '第一家禽批發市場');
 
           // setPosition({ lat: 25.18309, lng: 121.44458 });
         }}

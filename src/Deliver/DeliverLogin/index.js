@@ -27,7 +27,7 @@ function DeliverLogin() {
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
       localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
       localStorage.setItem('onlie_state', JSON.stringify(data.success));       
-      localStorage.setItem('Deliver', JSON.stringify(data.tokenYU));
+      localStorage.setItem('Deliver', data.tokenYU);
       navi('/Deliver/DeliverConfirmOrder');
       alert("登入成功");
     }else{
