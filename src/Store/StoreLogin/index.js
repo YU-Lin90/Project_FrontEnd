@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthProvider';
+import Swal from 'sweetalert';
 import './StoreLogin.css';
 const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
@@ -13,7 +14,7 @@ function StoreLogin() {
   function login(email, password) {
     //如果其中一樣是空的
     if (!email.trim() || !password.trim()) {
-      alert('輸入欄不可為空');
+      Swal.fire('輸入欄不可為空');
       return;
     } else {
       //傳送資料
@@ -37,6 +38,8 @@ function StoreLogin() {
             //有回傳成功則存到本機儲存空間
             localStorage.setItem('Store', res.token);
             localStorage.setItem(`StoreName`, res.name);
+            localStorage.setItem(`StoreDatas`, JSON.stringify(res.showedData));
+
             if (res.adminToken) {
               //登入管理者導向不同
               localStorage.setItem('Admin', res.adminToken);
@@ -49,7 +52,7 @@ function StoreLogin() {
             navi(-1, { replace: true });
             setAuthStore(true);
           } else {
-            alert(res.errorType);
+            Swal.fire(res.errorType);
           }
         });
     }

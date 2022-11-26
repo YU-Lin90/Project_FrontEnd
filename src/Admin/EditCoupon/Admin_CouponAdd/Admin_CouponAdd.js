@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import moment from 'moment/moment'
-
+import Swal from 'sweetalert';
 function Admin_CouponAdd({ setAddEnd, setAdd }) {
   const timeNow = moment(new Date()).format('YYYY-MM-DD')
   const defObject = {
@@ -58,9 +58,9 @@ function Admin_CouponAdd({ setAddEnd, setAdd }) {
       .then((res) => {
         // console.log(res)
         if (res === 1) {
-          alert('新增成功')
+          window.alert('新增成功')
         } else {
-          alert('新增失敗')
+          window.alert('新增失敗')
         }
       })
   }

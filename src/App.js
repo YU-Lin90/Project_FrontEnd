@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './Context/AuthProvider';
+
+import ContextProviders from './Context/ContextProvider';
 import './reset.css';
 import './CssTemplate.css';
 //===============================================分隔線================================================
@@ -10,6 +11,11 @@ import IndexPage from './IndexPage';
 import NoFound from './NoFound';
 //首頁內容
 import Home from './Home';
+//===============================================分隔線================================================
+//可通用元件
+//客服
+import NotAdminService from './NotAdminService';
+//===============================================分隔線================================================
 //會員登入
 import MemberLogin from './Member/MemberLogin';
 //會員中心
@@ -18,7 +24,7 @@ import MemberLayout from './Member/MemberLayout';
 import MemberDatas from './Member/MemberDatas';
 //會員中心 紅利點數
 import MemberPoint from './Member/MemberPoint';
-//會員中心 訂單紀錄
+//會員中心 現在訂單
 import MemberOrder from './Member/MemberOrder';
 //會員中心 優惠券
 import MemberCoupon from './Member/MemberCoupon';
@@ -28,8 +34,8 @@ import MemberRegister from './Member/MemberRegister';
 import FavoriteStore from './Member/FavoriteStore';
 //會員位置記錄管理
 import MemberLocation from './Member/MemberLocation';
-//會員客服
-import NotAdminService from './NotAdminService';
+//會員歷史訂單
+import MemberOldOrder from './Member/MemberOldOrder';
 //===============================================分隔線================================================
 //店家首頁
 import Store from './Store';
@@ -42,7 +48,13 @@ import StoreLogin from './Store/StoreLogin';
 //店家資料
 import StoreDatas from './Store/StoreDatas';
 //店家商品管理
-import StoreProductEdit from './Store/StoreProductEdit';
+// import StoreProductEdit from './Store/StoreProductEdit';
+import Menubar from './Store/StoreProductEdit/components/Menubar';
+import Overview from './Store/StoreProductEdit/pages/Overview';
+import Type from './Store/StoreProductEdit/pages/Type';
+import Product from './Store/StoreProductEdit/pages/Product';
+import Option from './Store/StoreProductEdit/pages/Option';
+import ShopList from './Store/StoreProductEdit/pages/ShopList';
 //店家分類管理
 import StoreTypeEdit from './Store/StoreTypeEdit';
 //店家註冊
@@ -94,11 +106,15 @@ import StoreDetail from './Shopping/StoreDetail';
 import Pay from './Shopping/Pay';
 //台北市預留頁
 import Taipei from './Shopping/Taipei';
+//LinePay
+import LinePay from './Shopping/LinePay';
+//LinePay 結帳完成頁
+import PayConfirmed from './Shopping/LinePay/PayConfirmed';
 //===============================================分隔線================================================
 function App() {
   return (
     //登入檢查狀態 全域狀態
-    <AuthProvider>
+    <ContextProviders>
       {/* 路由設定 */}
       <BrowserRouter>
         <Routes>
@@ -106,8 +122,6 @@ function App() {
           {/* 店家首頁 放店家Navbar  */}
           <Route path="/Store" element={<Store />}>
             {/* 店家基礎頁 */}
-            {/* ~/Store/ */}
-            <Route element={<StoreHome />} />
             {/* 店家登入 */}
             {/* ~/Store/StoreLogin */}
             <Route path="StoreLogin" element={<StoreLogin />} />
@@ -119,10 +133,18 @@ function App() {
             <Route path="StoreDatas" element={<StoreDatas />} />
             {/* 店家商品分類管理 */}
             {/* ~/Store/StoreTypeEdit */}
-            <Route path="StoreTypeEdit" element={<StoreTypeEdit />} />
-            {/* 店家商品管理 */}
-            {/* ~/Store/StoreProductEdit */}
-            <Route path="StoreProductEdit" element={<StoreProductEdit />} />
+            <Route path="StoreTypeEdit" element={<Menubar />}>
+              {/* 店家商品管理 */}
+              {/* ~/Store/StoreProductEdit */}
+              {/* <Route path="StoreProductEdit" element={<StoreProductEdit />} /> */}
+              <Route index element={<ShopList />} />
+              <Route path="overview" element={<Overview />} />
+              <Route path="type" element={<Type />} />
+              <Route path="product" element={<Product />} />
+              <Route path="option" element={<Option />} />
+              
+            </Route>
+
             {/* 店家註冊 */}
             {/* ~/Store/StoreRegister */}
             <Route path="StoreRegister" element={<StoreRegister />} />
@@ -218,6 +240,13 @@ function App() {
             {/* 測試用購物車頁 */}
             {/* ~/CartTemp */}
             <Route path="CartTemp" element={<CartTemp />} />
+            {/* LinePay 測試頁 */}
+            {/* ~/LinePay */}
+            <Route path="LinePay" element={<LinePay />} />
+            {/* LinePay 結帳完成頁 */}
+            {/* ~/PayConfirmed */}
+            <Route path="PayConfirmed" element={<PayConfirmed />} />
+
             {/* ===============================================分隔線================================================ */}
             {/* 會員註冊 */}
             {/* ~/MemberRegister */}
@@ -230,7 +259,7 @@ function App() {
               {/* 會員資料頁/編輯 */}
               {/* ~/Member */}
               <Route index element={<MemberDatas />} />
-              {/* 會員訂單紀錄 */}
+              {/* 會員現在訂單 */}
               {/* ~/Member/MemberOrder */}
               <Route path="MemberOrder" element={<MemberOrder />} />
               {/* 會員優惠券 */}
@@ -245,6 +274,9 @@ function App() {
               {/* 會員最愛列表 */}
               {/* ~/Member/MemberLocation */}
               <Route path="MemberLocation" element={<MemberLocation />} />
+              {/* 會員歷史訂單 */}
+              {/* ~/Member/MemberOldOrder */}
+              <Route path="MemberOldOrder" element={<MemberOldOrder />} />
               {/* 會員客服 */}
               {/* ~/Member/MemberService */}
               <Route
@@ -258,7 +290,7 @@ function App() {
           <Route path="*" element={<NoFound />} />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    </ContextProviders>
   );
 }
 

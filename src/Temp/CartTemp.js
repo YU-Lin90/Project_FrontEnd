@@ -1,84 +1,93 @@
+import { useEffect, useState } from 'react';
+import { useCart } from '../Context/CartProvider';
+import { useFunc } from '../Context/FunctionProvider';
+
 function CartTemp() {
-  //+
-  function addCart(shopSid, productSid) {
-    let localCart = JSON.parse(localStorage.getItem('cart'));
-    if (!localCart) {
-      localCart = {};
-    }
-    if (!localCart.cartList) {
-      localCart.cartList = {};
-    }
-    if (!localCart.cartList[shopSid]) {
-      localCart.cartList[shopSid] = {};
-      localCart.cartList[shopSid].shopTotal = 0;
-    }
-    if (!localCart.cartList[shopSid].list) {
-      localCart.cartList[shopSid].list = {};
-    }
-    //本來就有就+1 沒有就設定成1
-    localCart.cartList[shopSid].list[productSid]
-      ? localCart.cartList[shopSid].list[productSid]++
-      : (localCart.cartList[shopSid].list[productSid] = 1);
-    localCart.cartList[shopSid].shopTotal++;
-
-    //總數重新計算
-    let countCartTotal = 0;
-    for (let element in localCart.cartList) {
-      if (element) {
-        countCartTotal += localCart.cartList[element].shopTotal;
-        // console.log(countCartTotal);
-      }
-    }
-    //放回去
-    localCart.cartTotal = countCartTotal;
-    // localStorage.removeItem("cart");
-    localStorage.setItem('cart', JSON.stringify(localCart));
-  }
-  //-
-  function reduceCart(shopSid, productSid) {
-    let localCart = JSON.parse(localStorage.getItem('cart'));
-    if (
-      !localCart ||
-      !localCart.cartList ||
-      !localCart.cartList[shopSid] ||
-      !localCart.cartList[shopSid].list ||
-      !localCart.cartList[shopSid].list[productSid]
-    ) {
-      return;
-    }
-    //判斷現在幾個
-    if (localCart.cartList[shopSid].list[productSid] > 1) {
-      localCart.cartList[shopSid].list[productSid]--;
-    } else if (localCart.cartList[shopSid].list[productSid] === 1) {
-      delete localCart.cartList[shopSid].list[productSid];
-    }
-    //如果是最後一個則清除 不然只-1
-    localCart.cartList[shopSid].shopTotal === 1
-      ? delete localCart.cartList[shopSid]
-      : localCart.cartList[shopSid].shopTotal--;
-
-    //總數重新計算
-    let countCartTotal = 0;
-    for (let element in localCart.cartList) {
-      if (element) {
-        countCartTotal += localCart.cartList[element].shopTotal;
-      }
-    }
-    //如果歸零直接刪除
-    if (countCartTotal === 0) {
-      localStorage.removeItem('cart');
-    } else {
-      localCart.cartTotal = countCartTotal;
-      // localStorage.removeItem("cart");
-      localStorage.setItem('cart', JSON.stringify(localCart));
-    }
-  }
+  const { notLoginGetFetch } = useFunc();
+  const [datas, setDatas] = useState([]);
+  const [shopName, setShopName] = useState('Pasta');
+  const [shopSid, setShopSid] = useState(89);
+  const getTempData = async () => {
+    const res = await notLoginGetFetch('getTempProductList');
+    setDatas(res)
+    console.log(res);
+  };
+  //  addCart(1, 2, '一號店', '二號產品', 80, 70, '', {});
+  //  addCart(shopSid, value.sid, shopName, value.name,price, (price - discount), '', {});
+  //  reduceCart(shopSid, value.sid);
+  /*{
+    "sid": 1102,
+    "name": "義式肉醬麵",
+    "shop_sid": 89,
+    "price": 120,
+    "products_type_sid": 1,
+    "available": 1,
+    "type": "1",
+    "product_order": 0,
+    "discount": 0,
+    "note": ""
+  }*/
+  //Function
+  const { addCart, reduceCart } = useCart();
+  useEffect(() => {
+    getTempData();
+  }, []);
   return (
-    <div className="disf padV20 fd-c jc-c ai-c gap10">
-      <div>
+    <div className="disf padV20 padH20 fw-w jc-c ai-c gap10">
+      {datas.map((value) => {
+        return (
+          <>
+            <div className="w25p" key={value.sid}>
+              <button
+                onClick={() => {
+                  addCart(
+                    shopSid,
+                    value.sid,
+                    shopName,
+                    value.name,
+                    Number(value.price),
+                    Number(value.price - value.discount),
+                    '',
+                    {}
+                  );
+                }}
+              >
+                ＋
+              </button>
+              {value.name}
+              <button
+                onClick={() => {
+                  reduceCart(shopSid, value.sid);
+                }}
+              >
+                －
+              </button>
+            </div>
+          </>
+        );
+      })}
+
+      {/* <div>
         <button
           onClick={() => {
-            addCart(1, 2);
+            addCart(1, 2, '一號店', '二號產品', 80, 70, '', {});
+          }}
+        >
+          (1,2)+
+        </button>
+        <button
+          onClick={() => {
+            reduceCart(1, 2);
+          }}
+        >
+          (1,2)-
+        </button>
+      </div> */}
+
+      {/* <div>
+        <button
+          onClick={() => {
+            addCart(1, 2, '一號店', '二號產品', 80, 70, '', {});
           }}
         >
           (1,2)+
@@ -96,7 +105,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(2, 3);
+            addCart(2, 3, '二號店', '三號產品', 50, 50, '', {});
           }}
         >
           (2,3)+
@@ -114,7 +123,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 1);
+            addCart(1, 1, '一號店', '一號產品', 40, 40, '', {});
           }}
         >
           (1,1)+
@@ -132,7 +141,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(3, 4);
+            addCart(3, 4, '三號店', '四號產品', 20, 10, '', {});
           }}
         >
           (3,4)+
@@ -150,7 +159,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 5);
+            addCart(1, 5, '一號店', '五號產品', 100, 100, '', {});
           }}
         >
           (1,5)+
@@ -168,7 +177,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 6);
+            addCart(1, 6, '一號店', '六號產品', 120, 120, '', {});
           }}
         >
           (1,6)+
@@ -186,7 +195,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 7);
+            addCart(1, 7, '一號店', '七號產品', 10, 10, '', {});
           }}
         >
           (1,7)+
@@ -204,7 +213,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 8);
+            addCart(1, 8, '一號店', '八號產品', 50, 50, '', {});
           }}
         >
           (1,8)+
@@ -222,7 +231,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 9);
+            addCart(1, 9, '一號店', '九號產品', 90, 80, '', {});
           }}
         >
           (1,9)+
@@ -240,7 +249,7 @@ function CartTemp() {
         {' '}
         <button
           onClick={() => {
-            addCart(1, 10);
+            addCart(1, 10, '一號店', '十號產品一', 40, 40, '', {});
           }}
         >
           (1,10)+
@@ -253,6 +262,24 @@ function CartTemp() {
           (1,10)-
         </button>
       </div>
+
+      <div>
+        {' '}
+        <button
+          onClick={() => {
+            addCart(1, 11, '一號店', '十一號產品', 40, 40, '', {});
+          }}
+        >
+          (1,11)+
+        </button>
+        <button
+          onClick={() => {
+            reduceCart(1, 11);
+          }}
+        >
+          (1,11)-
+        </button>
+      </div>*/}
     </div>
   );
 }

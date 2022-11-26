@@ -1,0 +1,27 @@
+.oldOrderFrame {
+  border: 1px #222 solid;
+}
+
+.oldOrderTopDetail {
+  border-bottom: 1px solid #222;
+}
+
+.oldOrderCommand {
+  color: var(--mainColor);
+  border: 3px solid var(--mainColor);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.reverseArrow.active{
+  rotate: 180deg;
+}.oldOrderCommand:hover{
+  background-color: var(--subColor);
+}
+.oldOrderStoreImg{
+  object-fit:cover;
+}

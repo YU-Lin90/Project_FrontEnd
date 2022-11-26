@@ -1,0 +1,14 @@
+.card{
+    
+    height: 100px;
+    border: 1px solid rgb(202, 13, 13);
+    background-color: aqua;
+    margin: 10px;
+}
+.col{
+    width: 25%;
+}
+.con{
+    display: flex;
+    flex-wrap: wrap;
+}

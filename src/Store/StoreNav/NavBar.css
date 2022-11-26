@@ -1,13 +1,18 @@
-nav.storeNav{
-  height: 50px;
-  background-color: #fff500;
+nav.storeNav {
+  height: 80px;
+  background-color: var(--subColor);
   display: flex;
   align-items: center;
   padding: 20px;
-  /* position: relative; */
+  position: sticky;
+  width: 100%;
   justify-content: space-between;
+  color: var(--mainColor);
+  top: 0;
+  z-index: 10;
 }
-.logCheck{
+
+.logCheck {
   background-color: #ccc;
   padding: 5px;
   border-radius: 10px;

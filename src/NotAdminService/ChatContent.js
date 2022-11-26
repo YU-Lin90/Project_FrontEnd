@@ -19,7 +19,6 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   }
 
   function getChatDetail() {
-    //TODO 這裡路徑要改
     fetch(`http://${siteName}:3001/${sideName}/ChatServiceToAdmin`, {
       method: 'POST',
       mode: 'cors',
@@ -43,22 +42,21 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   useEffect(() => {
     addNewContent(newContent);
   }, [newContent]);
-  // adminChatSetLeft adminChatSetRight
   return (
     <>
-      <div className="flexSetCenter chatContent">
+      <div className="flexSetCenter notAdminChatContent">
         {contents.map((value) => {
           return (
             <div
               key={value.sid}
-              className={`chatBlocks ${
+              className={`notAdminChatBlocks ${
                 value.post_sid === 101 && value.post_side === 4
                   ? 'ChatSetLeft'
                   : 'ChatSetRight'
               }`}
             >
-              <div>{value.post_content}</div>
-              <div>{value.post_time}</div>
+              <p className="notAdminTexts">{value.post_content}</p>
+              <p className="notAdminTimes">{value.post_time}</p>
             </div>
           );
         })}
@@ -67,36 +65,3 @@ function ChatContent({ newContent, setNewContent, sideName }) {
   );
 }
 export default ChatContent;
-
-/*
-ws
-post_content
-post_time
-post_sid
-post_side
-sid
-{
-  "msg": "123",
-  "name": "管理者",
-  "post_side": 4,
-  "post_sid": 101,
-  "receive_side": 1,
-  "receive_sid": 28,
-  "sid": 64,
-  "time": "2022-11-09 22:10:23",
-  "self": true
-}
-
-DB
-{
-  "sid": 51,
-  "post_sid": 101,
-  "post_side": 4,
-  "receive_sid": 28,
-  "receive_side": 1,
-  "post_content": "j",
-  "post_time": "2022-11-09 21:24:14",
-  "order_sid": null,
-  "name": null
-}
-*/

@@ -1,0 +1,56 @@
+.storeCenter {
+  width: 100%;
+  display: flex;
+  min-height: calc(100vh - 50px);
+  flex-direction: column-reverse;
+  position: relative;
+  justify-content: space-between;
+}
+
+.storeCenterList {
+  border-right: 1px #222 solid;
+  /* background-color: #eee; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  min-height: 50px;
+  position: fixed;
+  bottom:0;
+  background-color: #eeee;
+  width: 100%;
+}
+
+.storeContent {
+  padding: 20px;
+  /* background-color: #eee; */
+}
+
+@media screen and (min-width:768px) {
+  .storeCenter {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .storeCenterList {
+    position: sticky;
+    top: var(--navHeight); 
+    width: 30%;
+    min-height: 500px;
+    /* height: calc(100vh - 80px); */
+    height: 100vh;
+    /* background-color: #ccc; */
+    flex-direction: column;
+    z-index: 2;
+    background-color: transparent;
+  }
+
+  .storeContent {
+    width: 70%;
+    min-height: calc(100vh - 50px);
+  }
+}
+
+.storeCenterList>.active {
+  color: var(--mainColor);
+}

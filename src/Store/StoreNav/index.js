@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import StoreMenu from './StoreMenu';
+import { useSVG } from '../../Context/SVGProvider';
 // import { Link } from 'react-router-dom';
 const siteName = window.location.hostname;
 
@@ -14,6 +15,8 @@ function getName(setStoreName) {
   }
 }
 function StoreNav() {
+  const location = useLocation();
+  const { logoSVG } = useSVG();
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
   const navi = useNavigate();
@@ -43,10 +46,13 @@ function StoreNav() {
         //收到0代表沒登入
       });
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     fetchLoginCheck(setAuthStore);
-  });
+  }, []);
 
   useEffect(() => {
     getName(setStoreName);
@@ -71,8 +77,16 @@ function StoreNav() {
             className={`menubtn_bar menubtn_bar_03 ${toggle ? 'changed' : ''}`}
           ></div>
         </div>
-        {/* 名稱顯示 暫放 */}
-        <p>店家名稱:{storeName}</p>
+        <span
+          onClick={() => {
+            navi('/');
+          }}
+        >
+          {logoSVG('fillMainColor h100p pointer')}
+        </span>
+
+        {/* 名稱顯示*/}
+        <p>{storeName}</p>
         <p
           className="logCheck"
           onClick={

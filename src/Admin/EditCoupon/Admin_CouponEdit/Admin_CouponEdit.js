@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Admin_CouponEdit.css'
-
+import Swal from 'sweetalert';
 const siteName = window.location.hostname
 
 function Admin_CouponEdit({ editData, setEdit, setEditEnd }) {
@@ -57,9 +57,9 @@ function Admin_CouponEdit({ editData, setEdit, setEditEnd }) {
       .then((res) => {
         // console.log(res)
         if (res === 1) {
-          alert('修改成功')
+          window.alert('修改成功')
         } else {
-          alert('修改失敗')
+          window.alert('修改失敗')
         }
       })
   }
