@@ -41,6 +41,10 @@ function MemberLogin() {
             localStorage.setItem('MemberSid', res.sid);
             navi(-1, { replace: false });
             setAuthMember(true);
+
+            const example = localStorage.getItem('side')
+            console.log(example)
+            
           } else {
             alert(res.errorType);
           }
@@ -106,7 +110,7 @@ function MemberLogin() {
           <button
             onClick={() => {
               setEmail('test@test.com');
-              setPassword('test');
+              setPassword('testaA123654');
             }}
           >
             會員快速登入
