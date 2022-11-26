@@ -12,7 +12,7 @@ function DeliverOrder() {
 
   async function getOrder() {
     const response = await axios.get(
-      `http://localhost:3005/deliverorder/${ordersid}`
+      `http://localhost:3001/deliverorder/${ordersid}`
     );
     setOrderData(response.data.rows);
     setFoodData(response.data.food);
