@@ -47,6 +47,7 @@ function MemberLogin() {
               icon: 'success',
               title: '登入成功',
             });
+            navi('/');
           } else {
             Swal.fire(res.errorType);
           }
@@ -68,7 +69,7 @@ function MemberLogin() {
             會員登入
           </h3>
           <div>
-            <label className='m_login_label'>帳號</label>
+            <label className="m_login_label">帳號</label>
             <br />
             <input
               className="m_login_email"
@@ -81,7 +82,7 @@ function MemberLogin() {
           </div>
           <br />
           <div>
-            <label className='m_login_label'>密碼</label>
+            <label className="m_login_label">密碼</label>
             <br />
             <input
               className="m_login_password"

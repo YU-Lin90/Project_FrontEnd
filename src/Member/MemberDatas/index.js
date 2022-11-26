@@ -67,6 +67,10 @@ function MemberDatas() {
   };
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
+    if (!sid) {
+      Swal.fire('請先登入會員');
+      navigate('/MemberLogin');
+    }
     try {
       const response = await axios.get(
         `http://localhost:3001/MemberLogin/api2/${sid}`

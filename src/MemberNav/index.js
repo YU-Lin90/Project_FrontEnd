@@ -186,6 +186,7 @@ function MemberNav() {
                     localStorage.removeItem('MemberSid');
                     setMemberName('');
                     setAuthMember(!authMember);
+                    navi('/ ');
                   }
                 : () => {
                     navi('/MemberLogin ');
