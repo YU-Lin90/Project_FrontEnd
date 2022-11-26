@@ -272,7 +272,7 @@ export default function ListTable() {
                         />
                       </svg>
                     {/* 資料庫結構: 小數點 */}
-                      {shop.evaluation_score}
+                      {shop.average_evaluation}
                     </div>
 
                     {/* TODO 距離 */}
