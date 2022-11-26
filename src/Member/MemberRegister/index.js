@@ -115,7 +115,10 @@ function MemberRegister() {
         .post('http://localhost:3001/MemberLogin/add', fd)
         .then((result) => {
           console.log(result);
-          Swal.fire('註冊成功');
+          Swal.fire({
+            icon: 'success',
+            title: '註冊成功',
+          });
           navigate('/');
         })
         .catch((e) => {
@@ -126,21 +129,33 @@ function MemberRegister() {
             e.response.data.message.indexOf('email') !== -1 &&
             e.response.data.message.indexOf('phone') !== -1
           ) {
-            Swal.fire('註冊失敗！此帳號跟手機已存在，請嘗試新的帳號跟手機！');
+            Swal.fire({
+              icon: 'warning',
+              title: '註冊失敗！此帳號跟手機已存在，請嘗試新的帳號跟手機！',
+            });
           }
           if (
             e.response.data.code === 'ER_DUP_ENTRY' &&
             e.response.data.message.indexOf('phone') !== -1
           ) {
-            Swal.fire('註冊失敗！此手機已存在，請嘗試新的手機！');
+            Swal.fire({
+              icon: 'warning',
+              title: '註冊失敗！此手機已存在，請嘗試新的手機！',
+            });
           } else if (
             e.response.data.code === 'ER_DUP_ENTRY' &&
             e.response.data.message.indexOf('email') !== -1
           ) {
-            Swal.fire('註冊失敗！此帳號已存在，請嘗試新的帳號！');
+            Swal.fire({
+              icon: 'warning',
+              title: '註冊失敗！此帳號已存在，請嘗試新的帳號！',
+            });
           } else {
             // console.log(e.response.request.responseText);
-            Swal.fire('註冊失敗!');
+            Swal.fire({
+              icon: 'error',
+              title: '註冊失敗!',
+            });
           }
         });
     } else {

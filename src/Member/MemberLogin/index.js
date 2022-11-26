@@ -16,7 +16,10 @@ function MemberLogin() {
   function login(email, password) {
     //如果其中一樣是空的
     if (!email.trim() || !password.trim()) {
-      Swal.fire('輸入欄不可為空');
+      Swal.fire({
+        icon: 'warning',
+        title: '輸入欄不可為空白',
+      });
       return;
     } else {
       //傳送資料
@@ -49,7 +52,10 @@ function MemberLogin() {
             });
             navi('/');
           } else {
-            Swal.fire(res.errorType);
+            Swal.fire({
+              icon: 'error',
+              title: res.errorType,
+            });
           }
         });
     }
