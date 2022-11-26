@@ -57,9 +57,9 @@ function Admin_CouponEdit({ editData, setEdit, setEditEnd }) {
       .then((res) => {
         // console.log(res)
         if (res === 1) {
-          Swal.fire('修改成功')
+          window.alert('修改成功')
         } else {
-          Swal.fire('修改失敗')
+          window.alert('修改失敗')
         }
       })
   }

@@ -11,7 +11,7 @@ function PaySocket() {
   function sendToken() {
     const tokenString = localStorage.getItem('Member');
     if (!tokenString) {
-      Swal.fire('沒登入');
+      window.alert('沒登入');
       navi(`/MemberLogin`);
     }
     orderSocket.send(JSON.stringify({ token: tokenString }));

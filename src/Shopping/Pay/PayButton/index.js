@@ -118,7 +118,7 @@ function PayButton({ orderSocket }) {
     const result = await loginCheckPostFetch('CashPay', 'Member', postData);
     console.log(result);
     paidDeleteCartPart(chooseedPayShop);
-    Swal.fire('下訂成功');
+    window.alert('下訂成功');
     navi('/Member/MemberOrder');
   };
   //LinePay
@@ -176,7 +176,7 @@ function PayButton({ orderSocket }) {
       //TODO:這邊之後改成結帳完成頁(訂單成立頁)
       //這一頁之後做成元件放在訂單頁
       paidDeleteCartPart(chooseedPayShop);
-      Swal.fire('付款成功');
+      window.alert('付款成功');
       navi('/');
       // setTimeout(() => {
       //
