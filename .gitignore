@@ -28,3 +28,8 @@ yarn.lock
 package-lock.json
 README2.md
 .vscode
+
+
+# 個人更改原檔不須放上部分
+/src/Member
+.gitignore
