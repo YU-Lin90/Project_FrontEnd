@@ -38,7 +38,7 @@ function ChatBox({ socket, sideName }) {
       className="w100p"
       style={{
         background: `url(http://${siteName}:3001/images/chatroomBackground.jpg) center center / cover`,
-        'box-shadow': '0 4px 12px  rgba(0,0,0,0.08)',
+        boxShadow: '0 4px 12px  rgba(0,0,0,0.08)',
       }}
     >
       <div className="notAdminChattingBox">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import StoreMenu from './StoreMenu';
 import { useSVG } from '../../Context/SVGProvider';
@@ -9,7 +9,6 @@ const siteName = window.location.hostname;
 
 //獲得會員名
 function getName(setStoreName) {
-
   const settedName = localStorage.getItem('StoreName');
   if (!!settedName) {
     setStoreName(settedName);
@@ -53,7 +52,7 @@ function StoreNav() {
 
   useEffect(() => {
     fetchLoginCheck(setAuthStore);
-  },[]);
+  }, []);
 
   useEffect(() => {
     getName(setStoreName);
@@ -78,9 +77,16 @@ function StoreNav() {
             className={`menubtn_bar menubtn_bar_03 ${toggle ? 'changed' : ''}`}
           ></div>
         </div>
-        {logoSVG('fillMainColor h100p pointer')}
-        {/* 名稱顯示 暫放 */}
-        <p>店家名稱:{storeName}</p>
+        <span
+          onClick={() => {
+            navi('/');
+          }}
+        >
+          {logoSVG('fillMainColor h100p pointer')}
+        </span>
+
+        {/* 名稱顯示*/}
+        <p>{storeName}</p>
         <p
           className="logCheck"
           onClick={

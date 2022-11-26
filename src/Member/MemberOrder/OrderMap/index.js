@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import CycleContent from './CycleContent';
 import keys from '../../../keys';
+import { useGeo } from '../../../Context/GeoLocationProvider';
 const SelfPosition = () => (
   <div>
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
 function OrderMap({ selectedOrder, orderShowNow }) {
+  const { calculateDistance } = useGeo();
   const [position, setPosition] = useState({ lat: 25.03359, lng: 121.54349 });
   const [deliverPosition, setDeliverPosition] = useState({
     lat: 25.03359,
@@ -25,6 +27,7 @@ function OrderMap({ selectedOrder, orderShowNow }) {
     zoom: 15,
   };
   const checkLocation = () => {
+    //獲得現在位置 然後傳到裡面的函式
     navigator.geolocation.getCurrentPosition((location) => {
       console.log(location.coords);
       setDeliverPosition({
@@ -42,7 +45,7 @@ function OrderMap({ selectedOrder, orderShowNow }) {
   //25.03359696638214, 121.5434922509409
   useEffect(() => {
     // setInterval(checkLocation, 1000);
-    checkLocation()
+    checkLocation();
     return () => {
       // clearInterval(intervalTest);
     };
@@ -74,10 +77,13 @@ function OrderMap({ selectedOrder, orderShowNow }) {
 
       <button
         onClick={() => {
-          setDeliverPosition({
-            lat: deliverPosition.lat + 1.0001,
-            lng: deliverPosition.lng + 1.0001,
-          });
+          // setDeliverPosition({
+          //   lat: deliverPosition.lat + 1.0001,
+          //   lng: deliverPosition.lng + 1.0001,
+          // });
+
+          calculateDistance('台北市信義路一段1號', '台北市復興南路一段390號');
+
           // setPosition({ lat: 25.18309, lng: 121.44458 });
         }}
       >
