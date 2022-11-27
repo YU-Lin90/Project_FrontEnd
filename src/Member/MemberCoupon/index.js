@@ -2,10 +2,18 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './card.css';
 import Moment from 'react-moment';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 function MemberCoupon() {
+  const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
+    if (!sid) {
+      Swal.fire('請先登入會員');
+      navigate('/MemberLogin');
+    }
     try {
       const response = await axios.get(
         `http://localhost:3001/MemberLogin/api5/${sid}`

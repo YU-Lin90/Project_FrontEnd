@@ -2,7 +2,9 @@ import './favorite.css';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 export default function FavoriteStore() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
@@ -10,8 +12,13 @@ export default function FavoriteStore() {
   const [index, setIndex] = useState();
 
   const input = useRef(null);
+  const navigate = useNavigate();
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
+    if (!sid) {
+      Swal.fire('請先登入會員');
+      navigate('/MemberLogin');
+    }
     try {
       const response = await axios.get(
         `http://localhost:3001/MemberLogin/api3/${sid}`

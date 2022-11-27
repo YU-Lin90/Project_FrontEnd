@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Moment from 'react-moment';
-import Swal from 'sweetalert';
 import './card.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 function Coupon() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
@@ -11,7 +13,7 @@ function Coupon() {
   const forms = useRef(null);
   const forms2 = useRef(null);
   const forms3 = useRef(null);
-
+  const navigate = useNavigate();
   function calcu(a, b) {
     const result = {
       hit: [],
@@ -36,6 +38,10 @@ function Coupon() {
   }
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
+    if (!sid) {
+      Swal.fire('請先登入會員');
+      navigate('/MemberLogin');
+    }else{
     try {
       const res = await axios.get(
         `http://localhost:3001/MemberCouponGetRenderApi/${sid}`
@@ -59,6 +65,7 @@ function Coupon() {
     } catch (e) {
       console.error(e.message);
     }
+  }
   };
   const get = async () => {
     if (user3 < 0) {
