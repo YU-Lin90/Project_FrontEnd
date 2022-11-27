@@ -4,13 +4,13 @@ import keys from '../keys';
 const GeoContext = createContext(null);
 //https://www.npmjs.com/package/react-geocode
 export const GeoLocationProvider = ({ children }) => {
-  //計算兩地距離 輸入兩個地址後計算
+
   Geocode.setApiKey(keys.gmap);
   // Geocode.setApiKey('456465465132156456456');
   Geocode.setLanguage('zh-tw');
   Geocode.setRegion('tw');
   Geocode.setLocationType('ROOFTOP');
-
+  //計算兩地距離 輸入兩個地址後計算
   const calculateDistance = async (firstAddress, secondAddress) => {
     const positions = { first: {}, second: {} };
     await Geocode.fromAddress(firstAddress).then(

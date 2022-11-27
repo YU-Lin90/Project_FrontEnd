@@ -29,14 +29,14 @@ function MemberOrderSocket() {
     sendToken(orderChatSocket);
     console.log('訂單即時對話開始');
   });
-  useEffect(() => {
-    orderSocket.addEventListener('message', receiveMessage);
-    console.log('openListener');
-    return () => {
-      orderSocket.removeEventListener('message', receiveMessage);
-      console.log('closeListener');
-    };
-  }, []);
+  // useEffect(() => {
+  //   orderSocket.addEventListener('message', receiveMessage);
+  //   console.log('openListener');
+  //   return () => {
+  //     orderSocket.removeEventListener('message', receiveMessage);
+  //     console.log('closeListener');
+  //   };
+  // }, []);
   useEffect(() => {
     return () => {
       orderSocket.close();

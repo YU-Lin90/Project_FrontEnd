@@ -1,20 +1,35 @@
+//會員現在訂單 地圖層
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import CycleContent from './CycleContent';
 import keys from '../../../keys';
 import { useGeo } from '../../../Context/GeoLocationProvider';
-const SelfPosition = () => (
+import { useFunc } from '../../../Context/FunctionProvider';
+const SelfPositionIcon = () => (
   <div>
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
-function OrderMap({ selectedOrder, orderShowNow, orderSocket }) {
-  const { calculateDistance, calculateDistanceByLatLng } = useGeo();
-  const [position, setPosition] = useState({ lat: 25.03359, lng: 121.54349 });
+const StorePositionIcon = () => (
+  <div>
+    <i className="fa-solid fa-store fontMainColor mapTranslate fs48"></i>
+  </div>
+);
+function OrderMap({ selectedOrder, orderSocket }) {
+  const { loginCheckGetFetch } = useFunc();
+  const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
+    useGeo();
+  //店家位置
+  const [storePosition, setStorePosition] = useState({
+    lat: 25.03359,
+    lng: 121.54349,
+  });
+  //外送員位置
   const [deliverPosition, setDeliverPosition] = useState({
     lat: 25.03359,
     lng: 121.54349,
   });
+  //自己位置
   const [positionNow, setPositionNow] = useState({
     lat: 25.03359,
     lng: 121.54349,
@@ -36,23 +51,57 @@ function OrderMap({ selectedOrder, orderShowNow, orderSocket }) {
       });
     });
   };
-  // const intervalTest = setInterval(() => {
-  //   setDeliverPosition({
-  //     lat: deliverPosition.lat + 0.0001,
-  //     lng: deliverPosition.lng + 0.0001,
-  //   });
-  // }, 1000);
-  //25.03359696638214, 121.5434922509409
+
+  const getStoreLocation = async (orderSid) => {
+    const res = await loginCheckGetFetch(
+      `MemberMapDetails/GetStoreDetail/?orderSid=${orderSid}`,
+      'Member'
+    );
+    const gettedStorePosition = await getLatLngByAddress(res.address);
+    console.log({ gettedStorePosition });
+    console.log({ res });
+    setStorePosition(gettedStorePosition)
+  };
+
   useEffect(() => {
     // setInterval(checkLocation, 1000);
     checkLocation();
+    getStoreLocation(selectedOrder);
     return () => {
       // clearInterval(intervalTest);
     };
   }, []);
+  useEffect(() => {
+    getStoreLocation(selectedOrder);
+  }, [selectedOrder]);
   /* location.coords.longitude
   location.coords.latitude
    */
+  //===============================================分隔線================================================
+  //訊息監聽
+  /* {
+    "position": true,
+    "lat": 25.012723125816077,
+    "lng": 121.51290893554688,
+    "receiveSid": 1,
+    "receiveSide": 1,
+    "orderSid": 1
+  } */
+  function receiveMessage(e) {
+    const datas = JSON.parse(e.data);
+    console.log(datas);
+    if (datas.orderSid === selectedOrder)
+      setDeliverPosition({ lat: datas.lat, lng: datas.lng });
+  }
+  useEffect(() => {
+    orderSocket.addEventListener('message', receiveMessage);
+    console.log('openListener');
+    return () => {
+      orderSocket.removeEventListener('message', receiveMessage);
+      console.log('closeListener');
+    };
+  }, []);
+  //===============================================分隔線================================================
   return (
     <>
       <GoogleMapReact
@@ -63,15 +112,20 @@ function OrderMap({ selectedOrder, orderShowNow, orderSocket }) {
         defaultZoom={defaultProps.zoom}
         center={deliverPosition}
       >
-        <SelfPosition
+        <SelfPositionIcon
           lat={positionNow.lat}
           lng={positionNow.lng}
-          text="My Marker"
+          text="Member"
         />
         <CycleContent
           lat={deliverPosition.lat}
           lng={deliverPosition.lng}
-          text="My Marker"
+          text="Deliver"
+        />
+        <StorePositionIcon
+          lat={storePosition.lat}
+          lng={storePosition.lng}
+          text="Store"
         />
       </GoogleMapReact>
 

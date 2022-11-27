@@ -1,18 +1,20 @@
+//外送員 地圖
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { useGeo } from '../../../Context/GeoLocationProvider';
 import keys from '../../../keys';
 import { useFunc } from '../../../Context/FunctionProvider';
-const Cycle = () => {
+const Cycle = () => (
   <div>
     <i className="fs48 fa-solid fa-motorcycle fontMainColor mapTranslate cycleFontOnMap"></i>
-  </div>;
-};
-const SelfPosition = () => (
+  </div>
+);
+const TargetPosition = () => (
   <div>
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
+const buttonText = ['', '送達', '取餐'];
 function DeliverMapContent({
   side = 2,
   orderSid = 1,
@@ -23,6 +25,7 @@ function DeliverMapContent({
   const { loginCheckGetFetch } = useFunc();
   const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
     useGeo();
+  const [buttonStatus, setButtonStatus] = useState(true);
   //目標位置
   const [targetPosition, setTargetPosition] = useState({
     lat: 25.03359,
@@ -30,8 +33,8 @@ function DeliverMapContent({
   });
   //自己位置
   const [deliverPosition, setDeliverPosition] = useState({
-    lat: 25.03359,
-    lng: 121.54349,
+    lat: 0,
+    lng: 0,
   });
   //對方地址
   const [targetAddress, setTargetAddress] = useState('');
@@ -43,8 +46,26 @@ function DeliverMapContent({
     },
     zoom: 15,
   };
+  //檢查是否抵達 控制按鈕是否可以點(送達/取餐)
+  const checkArraive = async () => {
+    if (deliverPosition.lat !== 0) {
+      const distance = await calculateDistanceByLatLng(
+        deliverPosition,
+        targetPosition
+      );
+      if (distance < 0.15) {
+        setButtonStatus(false);
+      } else {
+        setButtonStatus(true);
+      }
+      console.log(distance);
+    }
+  };
   //獲得對方位置函式
   const getAddress = async () => {
+    if (orderSid === 0) {
+      return;
+    }
     const res = await loginCheckGetFetch(
       `deliving/GetAddress?side=${side}&orderSid=${orderSid}`,
       'Deliver'
@@ -67,7 +88,7 @@ function DeliverMapContent({
     setTargetAddress(address);
   };
   //===============================================分隔線================================================
-  const checkMyLocation = () => {
+  const checkMyLocation = async () => {
     //獲得現在位置 然後傳到裡面的函式
     navigator.geolocation.getCurrentPosition((location) => {
       console.log(location.coords);
@@ -102,6 +123,7 @@ function DeliverMapContent({
         })
       );
     }
+    checkArraive();
   }, [deliverPosition]);
   //===============================================分隔線================================================
   return (
@@ -114,10 +136,10 @@ function DeliverMapContent({
         defaultZoom={defaultProps.zoom}
         center={deliverPosition}
       >
-        <SelfPosition
+        <TargetPosition
           lat={targetPosition.lat}
           lng={targetPosition.lng}
-          text="My Marker"
+          text="target"
         />
         <Cycle
           lat={deliverPosition.lat}
@@ -125,6 +147,7 @@ function DeliverMapContent({
           text="My Marker"
         />
       </GoogleMapReact>
+      <button disabled={buttonStatus}>{buttonText[side]}</button>
     </>
   );
 }
