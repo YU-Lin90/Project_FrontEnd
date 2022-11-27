@@ -57,8 +57,8 @@ function OrderMap({ selectedOrder, orderShowNow }) {
     <>
       <GoogleMapReact
         // TODO 之後再打開 不然會浪費額度
-        bootstrapURLKeys={{ key: keys.gmap }}
-        // bootstrapURLKeys={{ key: '' }}
+        // bootstrapURLKeys={{ key: keys.gmap }}
+        bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         center={deliverPosition}
