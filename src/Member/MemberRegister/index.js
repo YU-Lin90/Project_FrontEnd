@@ -159,7 +159,7 @@ function MemberRegister() {
           }
         });
     } else {
-      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!'});
+      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!' });
     }
   };
   // 得到輸入值的方式

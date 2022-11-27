@@ -44,7 +44,7 @@ function MemberLogin() {
             localStorage.setItem('Member', res.token);
             localStorage.setItem(`MemberName`, res.name);
             localStorage.setItem('MemberSid', res.sid);
-            navi(-1, { replace: false });
+            // navi(-1, { replace: false });
             setAuthMember(true);
             Swal.fire({
               icon: 'success',
@@ -93,6 +93,7 @@ function MemberLogin() {
             <input
               className="m_login_password"
               value={password}
+              type="password"
               placeholder="請輸入密碼"
               onChange={(e) => {
                 setPassword(e.target.value);
