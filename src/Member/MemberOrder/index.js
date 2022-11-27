@@ -7,7 +7,7 @@ const siteName = window.location.hostname;
 function MemberOrderSocket() {
   const navi = useNavigate();
   const orderSocket = new WebSocket(`ws://${siteName}:3200`);
-  const orderChatSocket = new WebSocket(`ws://${siteName}:3001`);
+  // const orderChatSocket = new WebSocket(`ws://${siteName}:3001`);
   function sendToken(sever) {
     const tokenString = localStorage.getItem('Member');
     if (!tokenString) {
@@ -15,7 +15,6 @@ function MemberOrderSocket() {
       navi(`/MemberLogin`);
     }
     sever.send(JSON.stringify({ token: tokenString }));
-    // orderChatSocket.send(JSON.stringify({ token: tokenString }))
   }
   function receiveMessage(e) {
     const datas = JSON.parse(e.data);
@@ -25,18 +24,6 @@ function MemberOrderSocket() {
     sendToken(orderSocket);
     console.log('訂單系統伺服器連線');
   });
-  orderChatSocket.addEventListener('open', () => {
-    sendToken(orderChatSocket);
-    console.log('訂單即時對話開始');
-  });
-  // useEffect(() => {
-  //   orderSocket.addEventListener('message', receiveMessage);
-  //   console.log('openListener');
-  //   return () => {
-  //     orderSocket.removeEventListener('message', receiveMessage);
-  //     console.log('closeListener');
-  //   };
-  // }, []);
   useEffect(() => {
     return () => {
       orderSocket.close();

@@ -89,7 +89,7 @@ function OrderMap({ selectedOrder, orderSocket }) {
   } */
   function receiveMessage(e) {
     const datas = JSON.parse(e.data);
-    console.log(datas);
+    console.log('收到外送員位置');
     if (datas.orderSid === selectedOrder)
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
   }

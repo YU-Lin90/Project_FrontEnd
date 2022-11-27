@@ -10,6 +10,7 @@ function DeliverLayout() {
         <DeliverNav />
         <Outlet />
         <Footer />
+        <div className="w100p h50 smallHidden"></div>
         <BottomNav />
       </div>
     </>
