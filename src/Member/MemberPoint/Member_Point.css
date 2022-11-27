@@ -38,3 +38,12 @@
 .mt_tr:nth-of-type(even) td{
   background-color:#f3f3f3;
 }
+@media screen and (max-width:576px) {
+  .mt_th {
+    font-size: 20px;
+  }
+  .mt_td {
+    font-size: 16px;
+  }
+
+}
