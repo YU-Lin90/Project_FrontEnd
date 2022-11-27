@@ -56,7 +56,7 @@ function MemberPoint() {
               <th className="mt_th">優惠券名稱</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='mt_body'>
             {productData.map((value, i) => {
               const {
                 coupon_sid,
