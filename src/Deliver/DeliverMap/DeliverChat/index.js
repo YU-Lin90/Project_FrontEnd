@@ -1,8 +1,8 @@
-//地圖上聊天按鈕
+//外送員地圖上聊天按鈕
 import { useEffect, useState } from 'react';
 import { useSVG } from '../../../Context/SVGProvider';
-import OrderChattingBox from './OrderChattingBox';
-function ChatOnOrderMap({ selectedOrder, step, orderSocket }) {
+import DeliverChatBox from './DeliverChatBox';
+function DeliverChat({ selectedOrder = 1, step, orderSocket }) {
   const { chatSVG } = useSVG();
   const [openChat, setOpenChat] = useState(false);
   const [acceptedMessage, setAcceptedMessage] = useState({});
@@ -12,7 +12,7 @@ function ChatOnOrderMap({ selectedOrder, step, orderSocket }) {
     console.log(datas);
     if (datas) {
       console.log('有訊息');
-      setAcceptedMessage(datas)
+      setAcceptedMessage(datas);
     }
   }
   useEffect(() => {
@@ -36,7 +36,7 @@ function ChatOnOrderMap({ selectedOrder, step, orderSocket }) {
         </div>
       </div>
       {openChat ? (
-        <OrderChattingBox
+        <DeliverChatBox
           setOpenChat={setOpenChat}
           acceptedMessage={acceptedMessage}
           selectedOrder={selectedOrder}
@@ -47,4 +47,4 @@ function ChatOnOrderMap({ selectedOrder, step, orderSocket }) {
     </>
   );
 }
-export default ChatOnOrderMap;
+export default DeliverChat;

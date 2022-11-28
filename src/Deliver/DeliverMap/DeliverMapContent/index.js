@@ -16,10 +16,15 @@ const TargetPosition = () => (
 );
 const buttonText = ['', '送達', '取餐'];
 function DeliverMapContent({
+  //現在跟哪方對話
   side = 2,
+  //現在的訂單SID
   orderSid = 1,
+  //聊天室
   orderSocket,
+  //會員SID
   memberSid = 1,
+  //聊天室開啟狀態
   socketOpened,
 }) {
   const { loginCheckGetFetch } = useFunc();
@@ -99,13 +104,14 @@ function DeliverMapContent({
     });
   };
   //每秒定位 OK 1126/2315
-  useEffect(() => {
-    const intervals = setInterval(checkMyLocation, 1000);
-    getAddress();
-    return () => {
-      clearInterval(intervals);
-    };
-  }, []);
+  // TODO 製作聊天室中暫時關閉
+  // useEffect(() => {
+  //   const intervals = setInterval(checkMyLocation, 1000);
+  //   getAddress();
+  //   return () => {
+  //     clearInterval(intervals);
+  //   };
+  // }, []);
   //位置有改變時傳送位置訊息
   //orderSocket memberSid
   //  JSON.stringify({position:true,lat:deliverPosition.lat,lng:deliverPosition.lng ,receiveSid:memberSid,receiveSide:side,orderSid:orderSid})

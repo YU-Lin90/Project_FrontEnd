@@ -13,6 +13,7 @@ function ChatContentBox({ acceptedMessage, selectedOrder }) {
     console.log(res);
     if (res) {
       console.log('yes');
+      setChattingDetails(res);
     }
   };
   /* {
@@ -28,6 +29,22 @@ function ChatContentBox({ acceptedMessage, selectedOrder }) {
   useEffect(() => {
     getChatHistory();
   }, []);
-  return <>123456</>;
+  return (
+    <>
+      {chattingDetails.map((v, i) => {
+        return (
+          <div
+            className={`notAdminChatBlocks ${
+              v.post_side === 1 ? 'ChatSetRight' : 'ChatSetLeft'
+            }`}
+            key={v.sid}
+          >
+            <p className="notAdminTexts">{v.post_content}</p>
+            <p className="notAdminTimes">{v.post_time}</p>
+          </div>
+        );
+      })}
+    </>
+  );
 }
 export default ChatContentBox;
