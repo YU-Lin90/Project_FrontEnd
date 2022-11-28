@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import OptionGroup from '../components/OptionGroup';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import ProductList from '../pages/ProductList';
 
-function Overview() {
+function ProductList() {
   const [amount, setAmount] = useState(1);
   const [data, setData] = useState({
+    shop: {},
     types: [],
     products: [],
     options_types: [],
@@ -15,10 +14,11 @@ function Overview() {
   const [selectedItem, setSelectedItem] = useState('');
   const getData = async (shop_sid) => {
     const response = await axios.get(
-      `http://localhost:3001/store-admin/overview/${shop_sid}`
+      `http://localhost:3001/store/?shop_sid=${shop_sid}`
     );
     const rd = response.data;
     setData({ ...rd });
+    console.log(data.shop.sid);
   };
 
   useEffect(() => {
@@ -32,11 +32,26 @@ function Overview() {
 
   return (
     <>
-      <Link to="/productList">商品列表</Link>
+      <div className="shop-information">
+        <h1>{data.shop.sid}</h1>
+        <h1>{data.shop.name}</h1>
+        <h1>{data.shop.address}</h1>
+      </div>
+      <div className="type-nav">
+        <ul>
+          {data.types.map((type) => {
+            return (
+              <li>
+                <a href={`#${type.sid}`}>{type.name}</a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       {data.types.map((type) => {
         return (
           <>
-            <h1 key={type.sid} style={{ color: 'red' }}>
+            <h1 key={type.sid} style={{ color: 'red' }} id={type.sid}>
               {type.name}
             </h1>
             {data.products
@@ -104,4 +119,4 @@ function Overview() {
   );
 }
 
-export default Overview;
+export default ProductList;

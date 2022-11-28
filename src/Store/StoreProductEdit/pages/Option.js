@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import axios from 'axios';
-import InputHash from '../components/InputHash';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
+import InputHash from "../components/InputHash";
 
 function Option() {
   const [data, setData] = useState({
@@ -10,14 +10,14 @@ function Option() {
   });
   const [myUserSid, setMyUserSid] = useState();
   const [formData, setFormData] = useState({
-    sid: '',
-    name: '',
-    min: '',
-    max: '',
+    sid: "",
+    name: "",
+    min: "",
+    max: "",
   });
   const [optionData, setOptionData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(0);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
 
   const getData = async (shop_sid) => {
     console.log(shop_sid);
@@ -30,9 +30,9 @@ function Option() {
 
   useEffect(() => {
     // 取出localStorage中的店家資料
-    setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
+    setMyUserSid(JSON.parse(localStorage.getItem("StoreDatas")).sid);
     // 取得店家菜單資料
-    getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
+    getData(JSON.parse(localStorage.getItem("StoreDatas")).sid);
   }, []);
 
   const insertBtnHandler = (e) => {
@@ -44,7 +44,7 @@ function Option() {
       price: 0,
     });
     setOptionData(newOptionData);
-    setInputText('');
+    setInputText("");
   };
 
   const addBtnHandler = async (e) => {
@@ -79,10 +79,10 @@ function Option() {
         onClick={() => {
           setSelectedItem(0);
           setFormData({
-            sid: '',
-            name: '',
-            min: '',
-            max: '',
+            sid: "",
+            name: "",
+            min: "",
+            max: "",
           });
           setOptionData([]);
         }}
@@ -143,15 +143,15 @@ function Option() {
           })}
         </tbody>
       </table>
-      {selectedItem === '' ? (
-        ''
+      {selectedItem === "" ? (
+        ""
       ) : (
         <div>
           <form action="" name="form1">
             <input
               type="number"
               name="sid"
-              value={selectedItem ? formData.sid : ''}
+              value={selectedItem ? formData.sid : ""}
               hidden
             />
             <label>
@@ -159,7 +159,7 @@ function Option() {
               <input
                 type="text"
                 name="name"
-                value={!(selectedItem === '') ? formData.name : ''}
+                value={!(selectedItem === "") ? formData.name : ""}
                 onChange={(e) => {
                   setFormData({ ...formData, name: e.target.value });
                 }}
@@ -170,7 +170,7 @@ function Option() {
               <input
                 type="number"
                 name="min"
-                value={!(selectedItem === '') ? formData.min : ''}
+                value={!(selectedItem === "") ? formData.min : ""}
                 onChange={(e) => {
                   setFormData({ ...formData, min: e.target.value });
                 }}
@@ -181,7 +181,7 @@ function Option() {
               <input
                 type="number"
                 name="max"
-                value={!(selectedItem === '') ? formData.max : ''}
+                value={!(selectedItem === "") ? formData.max : ""}
                 onChange={(e) => {
                   setFormData({ ...formData, max: e.target.value });
                 }}
@@ -265,12 +265,12 @@ function Option() {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                setSelectedItem('');
+                setSelectedItem("");
               }}
             >
               取消
             </button>
-            {selectedItem ? <button onClick={delBtnHandler}>刪除</button> : ''}
+            {selectedItem ? <button onClick={delBtnHandler}>刪除</button> : ""}
           </form>
         </div>
       )}

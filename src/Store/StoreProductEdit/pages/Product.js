@@ -12,6 +12,9 @@ function Product() {
   // 找到目前使用者的shop_sid
   const [myUserSid, setMyUserSid] = useState();
 
+  // 預覽圖片的state
+  const [imgSrc, setImgSrc] = useState('');
+
   // 目前正在編輯的商品的sid，sid=0就是新增商品。
   const [selectedItem, setSelectedItem] = useState('');
   const [formData, setFormData] = useState({
@@ -31,7 +34,6 @@ function Product() {
       `http://localhost:3001/store-admin/product/${shop_sid}`
     );
     const rd = response.data;
-    console.log(rd);
     setData({ ...rd });
   };
 
@@ -89,6 +91,25 @@ function Product() {
     const response = await axios.delete(
       `http://localhost:3001/store-admin/product/${selectedItem}`
     );
+  };
+
+  const uploadImgHandler = (e) => {
+    console.log(e.target.files);
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      () => {
+        // convert image file to base64 string
+        setImgSrc(reader.result);
+        // preview.src = reader.result;
+      },
+      false
+    );
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -149,10 +170,9 @@ function Product() {
               >
                 <td>
                   <img
-                    src={`http://localhost:3001/uploads/${product.src}`}
-                    alt="pic"
+                    src={`http://localhost:3001/public/uploads/${product.src}`}
+                    alt=""
                   />
-                  {product.src}
                 </td>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
@@ -185,9 +205,10 @@ function Product() {
               name="sid"
               hidden
             />
+            <img src={imgSrc} alt="" />
             <label>
               上傳圖片
-              <input type="file" name="avatar" />
+              <input type="file" name="avatar" onChange={uploadImgHandler} />
             </label>
 
             <label>
