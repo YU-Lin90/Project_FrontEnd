@@ -12,7 +12,7 @@ function DeliverOrder() {
 
   async function getOrder() {
     const response = await axios.get(
-      `http://localhost:3005/deliverorder/${ordersid}`
+      `http://localhost:3001/deliverorder/${ordersid}`
     );
     setOrderData(response.data.rows);
     setFoodData(response.data.food);
@@ -74,7 +74,7 @@ function DeliverOrder() {
                 </div>
                 <div>
                   {foodData.map((v, i) => {
-                    return <p key={i}>{v.product_price}</p>;   //這有問題之後處理
+                    return <p key={i}>{v.product_price}</p>; //這有問題之後處理
                   })}
                 </div>
               </div>
@@ -94,7 +94,7 @@ function DeliverOrder() {
                 <button
                   className="Dbbtn"
                   onClick={() => {
-                    navi('/Deliver/DeliverMessager');  //還要修正按鈕
+                    navi('/Deliver/DeliverMessager'); //還要修正按鈕
                   }}
                 >
                   前往地圖

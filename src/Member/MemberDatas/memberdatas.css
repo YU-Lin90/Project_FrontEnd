@@ -1,6 +1,82 @@
-.m_img{
-    width: 300px;
-    height:300px;
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+.mb_img {
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    object-fit:cover;
+    object-fit: cover;
+}
+
+.mb_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 900px;
+}
+
+.mb_label {
+    font-size: 30px;
+}
+
+.mb_input {
+    height: 40px;
+    font-size: 30px;
+}
+.mb_input_img {
+    height: 40px;
+    font-size: 24px;
+}
+.mb_imgbox{
+    font-size: 30px;
+}
+.mb_mar{
+    margin-bottom: 20px;
+}
+.mb_button{
+    font-size: 30px;
+}
+.mb_clear{
+    margin-left: 30px;
+    font-size: 30px;
+}
+.mb_icon_button {
+    margin-left: 3px;
+    width: 40px;
+    height: 40px;
+}
+
+.mb_icon {
+    width: 25px;
+    height: 25px;
+}
+.mb_span{
+    font-size: 30px;
+    color: red;
+}
+@media screen and (max-width:576px) {
+    .mb_label {
+        font-size: 20px;
+    }
+    
+    .mb_input {
+        height: 30px;
+        font-size: 20px;
+    }
+
+    .mb_span{
+        font-size: 20px;
+    
+    }
+    .mb_icon_button {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .mb_icon {
+        width: 20px;
+        height: 20px;
+    }
+
 }

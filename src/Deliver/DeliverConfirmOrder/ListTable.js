@@ -43,7 +43,7 @@ function ListTable({ name, address, shop_sid, member_sid,  order_sid}) {
                   // console.log(ordernum);
                   localStorage.setItem('order_sid', JSON.stringify(order_sid));
                   localStorage.setItem('deliver_order_sid', JSON.stringify(deliver_order_sid));
-                  axios.post('http://localhost:3005/sendOrder', ordernum)
+                  axios.post('http://localhost:3001/sendOrder', ordernum)
                   .then(r => r.json);
                   navi('/Deliver/DeliverOrder');   //還要修正按鈕按下時其他都不能按
                 }

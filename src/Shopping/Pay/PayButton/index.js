@@ -177,7 +177,7 @@ function PayButton({ orderSocket }) {
       //這一頁之後做成元件放在訂單頁
       paidDeleteCartPart(chooseedPayShop);
       window.alert('付款成功');
-      navi('/');
+      navi('/Member/MemberOrder');
       // setTimeout(() => {
       //
       // }, 3000);

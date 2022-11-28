@@ -41,7 +41,14 @@ export default function ListTable() {
   const [searchWord, setSearchWord] = useState('');
   const [searchPriceMax, setSearchPriceMax] = useState('');
   const [searchPriceMin, setSearchPriceMin] = useState('');
-  const [searchWaitTime, setSearchWaitTime] = useState('60');
+  const [searchWaitTime, setSearchWaitTime] = useState('');
+
+  //如果還沒有搜尋過，讓預計配送時間在第一次render即預設120分鐘
+  // useEffect(() => {
+  //   if (!usp.toString()) {
+  //     setSearchWaitTime(120);
+  //   }
+  // }, []);
 
   //儲存搜尋時呈現的結果用
   const [noResult, setNoResult] = useState('正在搜尋中');
@@ -88,8 +95,8 @@ export default function ListTable() {
   };
 
   const handleChange = (event) => {
-    let searchWaitTime_value = event.target.value;
-    setSearchWaitTime(searchWaitTime_value);
+    let value = event.target.value
+    setSearchWaitTime(value);
   };
 
   //不送出就搜尋(暫時無用)
@@ -122,13 +129,18 @@ export default function ListTable() {
     let price_min = usp.get('price_min');
     let wait_time = usp.get('wait_time');
 
+    if (wait_time && wait_time < 5) {
+      wait_time = 5;
+    }
+
     setSearchWord(key);
     setSearchPriceMax(price_max);
     setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
 
     let result = await axios.get(
-      `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}`
+      `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&wait_time=${wait_time}`
+      // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
 
     console.log(
@@ -154,14 +166,19 @@ export default function ListTable() {
       usp.get('price_max'),
       '價格下限:',
       usp.get('price_min'),
-      'shop:',
-      shop.length,
-      'usp:',
-      usp.toString()
+      '等待時間:',
+      usp.get('wait_time')
     );
 
+    console.log('usp:', usp.toString());
+
     //如果什麼都沒輸入 找全店家列表
-    if (!usp.get('search') && !usp.get('price_max') && !usp.get('price_min')) {
+    if (
+      !usp.get('search') &&
+      !usp.get('price_max') &&
+      !usp.get('price_min') &&
+      !usp.get('wait_time')
+    ) {
       getShop();
     }
   };
@@ -175,7 +192,7 @@ export default function ListTable() {
               <span>搜尋店家及餐點</span>
             </div>
             <div className="search_bar_box">
-            {/* Link時 querystring資料要換成店家的querystring("sid" "name"之類的) */}
+              {/* Link時 querystring資料要換成店家的querystring("sid" "name"之類的) */}
               <div className="search_bar_name">
                 <input
                   type="text"
@@ -195,7 +212,7 @@ export default function ListTable() {
                   type="number"
                   name="price_max"
                   className="search_bar_price_max_input"
-                  defaultValue={searchPriceMax}
+                  defaultValue={searchPriceMax || ""}
                 />
                 <span>最低</span>
                 <input
@@ -203,7 +220,7 @@ export default function ListTable() {
                   name="price_min"
                   className="search_bar_price_min_input"
                   min="0"
-                  defaultValue={searchPriceMin}
+                  defaultValue={searchPriceMin || ""}
                 />
               </div>
               <div className="search_bar_point">
@@ -221,18 +238,40 @@ export default function ListTable() {
                 5星
               </div>
               <div className="search_bar_time">
-                <span>預計配送時間</span>
-                <span>最長{searchWaitTime}分鐘</span>
-                <input
-                  type="range"
-                  name="wait_time"
-                  id="wait_time"
-                  min="0"
-                  max="120"
-                  step="5"
-                  value={searchWaitTime}
-                  onChange={handleChange}
-                />
+                <span>預計配送時間(最低5分鐘)</span>
+                <div className='range_label'>
+                  <span>最長</span>
+                  <input
+                    type="number"
+                    min="0"
+                    max="120"
+                    onChange={handleChange}
+                    disabled
+                    value={searchWaitTime || 120}
+                  />
+                  <span>分鐘</span>
+                </div>
+                <div className="range">
+                  <input
+                    className="slider"
+                    type="range"
+                    name="wait_time"
+                    id="wait_time"
+                    min="0"
+                    max="120"
+                    step="5"
+                    value={searchWaitTime || 120}
+                    onChange={handleChange}
+                    list="steplist"
+                  />
+                  <div className="sliderticks">
+                    <p>5</p>
+                    <p>30</p>
+                    <p>60</p>
+                    <p>90</p>
+                    <p>120</p>
+                  </div>
+                </div>
               </div>
             </div>
             <input type="submit" value="開始搜尋" />
@@ -251,7 +290,7 @@ export default function ListTable() {
                 <div className="shopCard_image">
                   <div className="shopCard_conpon"></div>
                   <div className="shopCard_delivery_time">
-                    等待時間{shop.delivery_time}
+                    等待時間{shop.wait_time}
                   </div>
                 </div>
                 <div className="shopCard_text" onClick={handleClick}>
@@ -271,13 +310,13 @@ export default function ListTable() {
                           fill="#FFA500"
                         />
                       </svg>
-                    {/* 資料庫結構: 小數點 */}
-                      {shop.evaluation_score}
+                      {/* 資料庫結構: 小數點 */}
+                      {shop.average_evaluation}
                     </div>
 
                     {/* TODO 距離 */}
                   </div>
-                  <span>${shop.price}元</span>
+                  <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span>
                   <span>{shop.food_type_sid}</span>
                   <span>{shop.phone}</span>
                 </div>
@@ -286,6 +325,7 @@ export default function ListTable() {
           ) : (
             <div>{noResult}</div>
           )}
+
         </div>
       </div>
     </>
