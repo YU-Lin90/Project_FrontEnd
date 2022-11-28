@@ -52,22 +52,23 @@ function ChattingBox({
   }
   return (
     <>
-      <div className="chattingBox">
+      <div className="chattingBox"  >
         <ChatContent
           chattingPerson={chattingPerson}
           newContent={newContent}
           setNewContent={setNewContent}
         />
-        <div className="chatInputFrame">
+        <div className="chatInputFrame ai-c">
           <div
             className="pointer"
             onClick={() => {
               setChatting(false);
             }}
           >
-            X
+            <i className="fa-solid fa-circle-xmark fs24"></i>
           </div>
           <input
+            className="chattingRoomInput"
             autoFocus
             value={inputContent}
             onChange={(e) => {
@@ -81,14 +82,15 @@ function ChattingBox({
               }
             }}
           />
-          <button
+          <div
+            className="chattingRoomButton"
             onClick={() => {
               sendData(inputContent, side, sid);
               setInputContent('');
             }}
           >
-            send
-          </button>
+            傳送
+          </div>
         </div>
       </div>
       <div

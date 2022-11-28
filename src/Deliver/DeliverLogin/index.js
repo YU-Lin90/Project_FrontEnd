@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './index'
+import './index';
 
 function DeliverLogin() {
-  const navi = useNavigate()
+  const navi = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -20,27 +20,40 @@ function DeliverLogin() {
   };
   /*-------------------------------------------------------------------------*/
   /*--------------發送axios出去成功(formData可以成為json格式輸出)----------------*/
-  const mySubmit = async (e) =>{
+  const mySubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post('http://localhost:3001/deliverlogin', formData)
-    if(data.success){
+    const { data } = await axios.post(
+      'http://localhost:3001/deliverlogin',
+      formData
+    );
+    if (data.success) {
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
       localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
-      localStorage.setItem('onlie_state', JSON.stringify(data.success));       
+      localStorage.setItem('onlie_state', JSON.stringify(data.success));
       localStorage.setItem('Deliver', data.tokenYU);
       navi('/Deliver/DeliverConfirmOrder');
-      alert("登入成功");
-    }else{
-      localStorage.removeItem('deliver_name');  //移除
+      alert('登入成功');
+    } else {
+      localStorage.removeItem('deliver_name'); //移除
       localStorage.removeItem('onlie_state');
-      alert("登入失敗")
+      alert('登入失敗');
     }
-  }
+  };
   /*-------------------------------------------------------------------------*/
 
   return (
     <>
-      外送員登入頁
+      <p
+        onClick={() => {
+          setFormData({
+            email: 'deliver@test.com',
+            password: '123456',
+            // online: 1,
+          });
+        }}
+      >
+        外送員登入
+      </p>
       <form onSubmit={mySubmit}>
         <label htmlFor="email">帳號</label>
         <input

@@ -1,6 +1,7 @@
 //聊天框 含輸入框  只跟會員通訊  店家不做
 import { useEffect, useState } from 'react';
 import { useFunc } from '../../../../Context/FunctionProvider';
+import DeliverChatContentBox from './DeliverChatContentBox';
 const siteName = window.location.hostname;
 function DeliverChatBox({
   //開關聊天窗
@@ -8,24 +9,21 @@ function DeliverChatBox({
   //收到訊息的處理
   acceptedMessage,
   //選擇的訂單編號
-  selectedOrder,
+  selectedOrder = 1,
   //聊天伺服器
   orderSocket,
-  //訂單現在階段
-  step,
 }) {
   const { loginCheckGetFetch } = useFunc();
-  const sideList = [0, 2, 2, 3, 3];
   //input內容
   const [inputValue, setInputValue] = useState('');
-  //外送員SID
+  //對方SID
   const [targetSid, setTargetSid] = useState(0);
   //傳送訊息
   const sendMessage = () => {
     const sendString = {
       deliveMsg: inputValue.trim(),
       receive_sid: targetSid,
-      receive_side: sideList[step],
+      receive_side: 1,
       orderSid: selectedOrder,
     };
     if (sendString.msg === '') {
@@ -37,22 +35,12 @@ function DeliverChatBox({
     if (!selectedOrder) {
       return;
     }
-    //依照送餐階段獲得不同目標SID
-    if (step >= 3) {
-      const res = await loginCheckGetFetch(
-        `MemberMapDetails/GetDeliverSid?orderSid=${selectedOrder}`,
-        'Member'
-      );
-      console.log(res);
-      setTargetSid(res);
-    } else {
-      const res = await loginCheckGetFetch(
-        `MemberMapDetails/GetShopSid?orderSid=${selectedOrder}`,
-        'Member'
-      );
-      console.log(res);
-      setTargetSid(res);
-    }
+    const res = await loginCheckGetFetch(
+      `deliving/GetOrderStep?orderSid=${selectedOrder}`,
+      'Deliver'
+    );
+    console.log(res);
+    setTargetSid(res.member_sid);
   };
   useEffect(() => {
     getTargetSid();
@@ -100,10 +88,10 @@ function DeliverChatBox({
           </div>
           {/* 內容 */}
           <div className="orderOnMapChattingBoxContent">
-            {/* <ChatContentBox
+            <DeliverChatContentBox
               acceptedMessage={acceptedMessage}
               selectedOrder={selectedOrder}
-            /> */}
+            />
           </div>
         </div>
       </div>

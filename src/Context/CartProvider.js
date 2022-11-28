@@ -143,7 +143,10 @@ export const CartProvider = ({ children }) => {
   ) {
     let localCart = JSON.parse(localStorage.getItem('cart'));
     //選擇不是0就設定數量
-    if (amount === 0) {
+    console.log(123);
+    console.log(amount);
+    if (Number(amount) === 0) {
+      console.log(123);
       delete localCart.cartList[shopSid].list[productSid];
     } else if (amount > 0) {
       localCart.cartList[shopSid].list[productSid].amount = amount;
@@ -194,6 +197,71 @@ export const CartProvider = ({ children }) => {
       setShowChooseShop(false);
       setShowCart(false);
     }
+  }
+  //===============================================分隔線================================================
+  function setCartWithAmount(
+    shopSid, // 店家SID
+    productSid, //產品SID
+    shopName, //店家名稱
+    productName, //產品名稱
+    price, //產品價格
+    cuttedPrice, //產品特價後價格
+    imageUrl, //產品圖片連結
+    details, //其他資訊(選擇等等)
+    amount //數量
+  ) {
+    let localCart = JSON.parse(localStorage.getItem('cart'));
+    if (!localCart) {
+      localCart = {};
+    }
+    if (!localCart.cartList) {
+      localCart.cartList = {};
+    }
+    if (!localCart.cartList[shopSid]) {
+      localCart.cartList[shopSid] = {};
+      localCart.cartList[shopSid].shopTotal = 0;
+      localCart.cartList[shopSid].shopName = shopName;
+    }
+    if (!localCart.cartList[shopSid].list) {
+      localCart.cartList[shopSid].list = {};
+    }
+    if (!localCart.cartList[shopSid].list[productSid]) {
+      localCart.cartList[shopSid].list[productSid] = {};
+    }
+    //沒設定過要設定商品資訊
+    localCart.cartList[shopSid].list[productSid].amount = amount;
+    localCart.cartList[shopSid].list[productSid].name = productName;
+    localCart.cartList[shopSid].list[productSid].price = price;
+    localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
+    localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
+    localCart.cartList[shopSid].list[productSid].details = details;
+
+    localCart.cartList[shopSid].shopTotal += amount;
+
+    //店家總金額
+    let shopPriceTotal = 0;
+    for (let element in localCart.cartList[shopSid].list) {
+      if (element) {
+        const dividedProduct = localCart.cartList[shopSid].list[element];
+        shopPriceTotal +=
+          Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+      }
+    }
+    localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
+
+    //總數重新計算
+    let countCartTotal = 0;
+    for (let element in localCart.cartList) {
+      if (element) {
+        countCartTotal += localCart.cartList[element].shopTotal;
+      }
+    }
+    //放回去
+    localCart.cartTotal = countCartTotal;
+    localStorage.setItem('cart', JSON.stringify(localCart));
+    //全域變數
+    setCartTotal(countCartTotal);
+    setCartContents(localCart);
   }
   //===============================================分隔線================================================
   //結帳後刪除該店家購物車內容

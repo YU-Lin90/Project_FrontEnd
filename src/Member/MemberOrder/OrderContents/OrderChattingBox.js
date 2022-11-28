@@ -79,6 +79,7 @@ function OrderChattingBox({
               <i className="fa-solid fa-circle-xmark fs24"></i>
             </p>
             <input
+              className="chattingRoomInput"
               value={inputValue}
               onChange={(e) => {
                 setInputValue(e.target.value);
@@ -90,14 +91,15 @@ function OrderChattingBox({
                 }
               }}
             />
-            <button
+            <div
+              className="chattingRoomButton"
               onClick={() => {
                 sendMessage();
                 setInputValue('');
               }}
             >
-              send
-            </button>
+              傳送
+            </div>
           </div>
           {/* 內容 */}
           <div className="orderOnMapChattingBoxContent">

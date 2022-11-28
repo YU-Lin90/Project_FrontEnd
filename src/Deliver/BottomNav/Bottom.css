@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    z-index: 10;
 }
 .DBottomNav .Dactive{
     color: #3893E8;
