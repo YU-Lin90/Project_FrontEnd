@@ -1,9 +1,8 @@
-//聊天框 含輸入框
+//聊天框 含輸入框  只跟會員通訊  店家不做
 import { useEffect, useState } from 'react';
-import ChatContentBox from './ChatContentBox';
-import { useFunc } from '../../../Context/FunctionProvider';
+import { useFunc } from '../../../../Context/FunctionProvider';
 const siteName = window.location.hostname;
-function OrderChattingBox({
+function DeliverChatBox({
   //開關聊天窗
   setOpenChat,
   //收到訊息的處理
@@ -101,14 +100,14 @@ function OrderChattingBox({
           </div>
           {/* 內容 */}
           <div className="orderOnMapChattingBoxContent">
-            <ChatContentBox
+            {/* <ChatContentBox
               acceptedMessage={acceptedMessage}
               selectedOrder={selectedOrder}
-            />
+            /> */}
           </div>
         </div>
       </div>
     </>
   );
 }
-export default OrderChattingBox;
+export default DeliverChatBox;
