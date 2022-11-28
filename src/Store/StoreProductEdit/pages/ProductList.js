@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import OptionGroup from '../components/OptionGroup';
+import { useLocation, Link } from 'react-router-dom';
 
 function ProductList() {
+  const location = useLocation();
+  const usp = new URLSearchParams(location.search);
   const [amount, setAmount] = useState(1);
   const [data, setData] = useState({
     shop: {},
@@ -23,10 +26,10 @@ function ProductList() {
 
   useEffect(() => {
     // 取出localStorage中的店家資料
-    const myUser = JSON.parse(localStorage.getItem('StoreDatas'));
-
+    // const myUser = JSON.parse(localStorage.getItem('StoreDatas'));
+    const shop_sid = usp.get('shop_sid');
     // 取得店家菜單資料
-    getData(myUser.sid);
+    getData(shop_sid);
     console.log(data);
   }, []);
 
