@@ -39,7 +39,10 @@ function Coupon() {
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
-      Swal.fire('請先登入會員');
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
       navigate('/MemberLogin');
     } else {
       try {
@@ -69,10 +72,10 @@ function Coupon() {
   };
   const get = async () => {
     if (user3 < 0) {
-      window.alert('點數不足');
+      Swal.fire({ icon: 'warning', title: '點數不足' });
     }
     if (forms2.current.value > user3) {
-      window.alert('點數不足');
+      Swal.fire({ icon: 'warning', title: '點數不足' });
     } else {
       setText(!text);
       // e.preventDefault();
@@ -92,10 +95,10 @@ function Coupon() {
         .then((r) => r.json())
         .then((res) => {
           if (res === 1) {
-            window.alert('領取成功');
+            Swal.fire('領取成功');
             console.log(res);
           } else {
-            window.alert('領取失敗');
+            Swal.fire('領取失敗');
             console.log(res);
           }
         });

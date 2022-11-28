@@ -6,7 +6,6 @@ import 'sweetalert2/src/sweetalert2.scss';
 const reasons = ['兌換優惠券', '消費獲得'];
 const siteName = window.location.hostname;
 
-
 function MemberPoint() {
   const navigate = useNavigate();
   const [productData, setproductData] = useState([
@@ -21,7 +20,10 @@ function MemberPoint() {
   function getData() {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
-      Swal.fire('請先登入會員');
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
       navigate('/MemberLogin');
     }
     fetch(`http://${siteName}:3001/MemberPointApi`, {
@@ -46,17 +48,17 @@ function MemberPoint() {
   // getData()
   return (
     <>
-      <div className='mt_wrap'>
+      <div className="mt_wrap">
         <table className="mt_table">
           <thead>
-            <tr className='mt_tr' key={0}>
+            <tr className="mt_tr" key={0}>
               <th className="mt_th">異動點數</th>
               <th className="mt_th">異動時間</th>
               <th className="mt_th">異動原因</th>
               <th className="mt_th">優惠券名稱</th>
             </tr>
           </thead>
-          <tbody className='mt_body'>
+          <tbody className="mt_body">
             {productData.map((value, i) => {
               const {
                 coupon_sid,
@@ -66,7 +68,7 @@ function MemberPoint() {
                 coupon_name,
               } = value;
               return (
-                <tr className='mt_tr' key={i + 1}>
+                <tr className="mt_tr" key={i + 1}>
                   <td className="mt_td">{point_amount}</td>
                   <td className="mt_td">{point_change_time}</td>
                   <td className="mt_td">{reasons[point_change_method]}</td>

@@ -68,7 +68,10 @@ function MemberDatas() {
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
-      Swal.fire('請先登入會員');
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
       navigate('/MemberLogin');
     }
     try {
@@ -146,25 +149,22 @@ function MemberDatas() {
           e.preventDefault();
           // console.log(e.response.request.responseText);
           Swal.fire('修改失敗!');
-
         });
     } else if (user.password !== user.doublepassword) {
       e.preventDefault();
-      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!'});
+      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!' });
     }
   };
 
   const display = (
-    <div className='mb_container'>
-
+    <div className="mb_container">
       <form
         name="avatar"
         onSubmit={handleFormSubmit}
         onInvalid={handleFormInvalid}
         onChange={handleFormChange}
       >
-
-        <div className='mb_imgbox'>
+        <div className="mb_imgbox">
           大頭貼:
           <img
             className="mb_img"
@@ -173,19 +173,24 @@ function MemberDatas() {
           />
         </div>
         <div className="mb_mar">
-          <input className='mb_input_img' type="file" name="avatar" onChange={changeHandler} />
+          <input
+            className="mb_input_img"
+            type="file"
+            name="avatar"
+            onChange={changeHandler}
+          />
           {selectedFile && (
-            <div className='mb_imgbox'>
+            <div className="mb_imgbox">
               更改後大頭貼:
               <img className="mb_img" src={preview} alt="" />
             </div>
           )}
         </div>
         <div className="mb_mar">
-          <label className='mb_label'>帳號(Email):{user.email}</label>
+          <label className="mb_label">帳號(Email):{user.email}</label>
         </div>
         <div className="mb_mar">
-          <label className='mb_label'>密碼:</label>
+          <label className="mb_label">密碼:</label>
           <input
             className="mb_input"
             type={passwordFieldType}
@@ -195,26 +200,26 @@ function MemberDatas() {
             required
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
           />
-          
+
           <button
-              className="mb_icon_button"
-              type="button"
-              onClick={() => {
-                setPasswordFieldType(
-                  passwordFieldType === 'text' ? 'password' : 'text'
-                );
-              }}
-            >
-              {passwordFieldType === 'text' ? (
-                <FaRegEyeSlash className="mb_icon" />
-              ) : (
-                <FaRegEye className="mb_icon" />
-              )}
-            </button>
-            <span className='mb_span'>{fieldErrors.password}</span>
+            className="mb_icon_button"
+            type="button"
+            onClick={() => {
+              setPasswordFieldType(
+                passwordFieldType === 'text' ? 'password' : 'text'
+              );
+            }}
+          >
+            {passwordFieldType === 'text' ? (
+              <FaRegEyeSlash className="mb_icon" />
+            ) : (
+              <FaRegEye className="mb_icon" />
+            )}
+          </button>
+          <span className="mb_span">{fieldErrors.password}</span>
         </div>
         <div className="mb_mar">
-          <label className='mb_label'>再次輸入密碼:</label>
+          <label className="mb_label">再次輸入密碼:</label>
           <input
             className="mb_input"
             type={passwordFieldType2}
@@ -222,28 +227,28 @@ function MemberDatas() {
             value={user.doublepassword}
             onChange={handleFieldChange}
             required
-          // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
           />
-          
+
           <button
-              className="mb_icon_button"
-              type="button"
-              onClick={() => {
-                setPasswordFieldType2(
-                  passwordFieldType2 === 'text' ? 'password' : 'text'
-                );
-              }}
-            >
-              {passwordFieldType2 === 'text' ? (
-                <FaRegEyeSlash className="mb_icon" />
-              ) : (
-                <FaRegEye className="mb_icon" />
-              )}
-            </button>
-            <span className='mb_span'>{fieldErrors.doublepassword}</span>
+            className="mb_icon_button"
+            type="button"
+            onClick={() => {
+              setPasswordFieldType2(
+                passwordFieldType2 === 'text' ? 'password' : 'text'
+              );
+            }}
+          >
+            {passwordFieldType2 === 'text' ? (
+              <FaRegEyeSlash className="mb_icon" />
+            ) : (
+              <FaRegEye className="mb_icon" />
+            )}
+          </button>
+          <span className="mb_span">{fieldErrors.doublepassword}</span>
         </div>
         <div className="mb_mar">
-          <label className='mb_label'>名子:</label>
+          <label className="mb_label">名子:</label>
           <input
             className="mb_input"
             type="text"
@@ -252,10 +257,10 @@ function MemberDatas() {
             onChange={handleFieldChange}
             required
           />
-          <span className='mb_span'>{fieldErrors.name}</span>
+          <span className="mb_span">{fieldErrors.name}</span>
         </div>
         <div className="mb_mar">
-          <label className='mb_label'>手機:</label>
+          <label className="mb_label">手機:</label>
           <input
             className="mb_input"
             type="text"
@@ -265,9 +270,11 @@ function MemberDatas() {
             required
             pattern="09\d{2}\d{6}"
           />
-          <span className='mb_span'>{fieldErrors.phone}</span>
+          <span className="mb_span">{fieldErrors.phone}</span>
         </div>
-        <button className='mb_button' type="submit">送出</button>
+        <button className="mb_button" type="submit">
+          送出
+        </button>
         <button
           type="button"
           className="mb_clear"
@@ -283,7 +290,6 @@ function MemberDatas() {
         >
           清空
         </button>
-
       </form>
     </div>
   );

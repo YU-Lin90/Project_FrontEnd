@@ -16,7 +16,10 @@ export default function FavoriteStore() {
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
-      Swal.fire('請先登入會員');
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
       navigate('/MemberLogin');
     }
     try {
