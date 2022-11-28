@@ -6,7 +6,7 @@ function Menubar() {
     <>
       <ul>
         <li>
-          <Link to="/Store/StoreTypeEdit/">商店列表</Link>
+          <Link to="/productList">商店列表</Link>
         </li>
         <li>
           <Link to="/Store/StoreTypeEdit/overview">總覽</Link>
