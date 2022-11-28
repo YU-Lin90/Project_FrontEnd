@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext } from 'react';
 import Geocode from 'react-geocode';
 import keys from '../keys';
 const GeoContext = createContext(null);
-//https://www.npmjs.com/package/react-geocode
+// https://www.npmjs.com/package/react-geocode
 export const GeoLocationProvider = ({ children }) => {
 
   Geocode.setApiKey(keys.gmap);

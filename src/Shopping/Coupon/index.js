@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Moment from 'react-moment';
-import Swal from 'sweetalert';
-import './card.css';
+import './coupon.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 function Coupon() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
@@ -11,7 +13,7 @@ function Coupon() {
   const forms = useRef(null);
   const forms2 = useRef(null);
   const forms3 = useRef(null);
-
+  const navigate = useNavigate();
   function calcu(a, b) {
     const result = {
       hit: [],
@@ -36,36 +38,44 @@ function Coupon() {
   }
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
-    try {
-      const res = await axios.get(
-        `http://localhost:3001/MemberCouponGetRenderApi/${sid}`
-      );
-      console.log(res.data);
-      console.log(res.data.coupons);
-      console.log(res.data.check);
-      console.log(res.data.point);
-      const a = res.data.check;
-      const b = res.data.coupons;
-      calcu(a, b);
-      const result = calcu(a, b);
-      console.log(result);
-      console.log(result.hit);
-      console.log(result.miss);
-      setUser(result.miss);
-      setText(Array(result.miss.length).fill(''));
-      console.log(text);
-      setUser2(result.hit);
-      setUser3(res.data.point);
-    } catch (e) {
-      console.error(e.message);
+    if (!sid) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
+      navigate('/MemberLogin');
+    } else {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/MemberCouponGetRenderApi/${sid}`
+        );
+        console.log(res.data);
+        console.log(res.data.coupons);
+        console.log(res.data.check);
+        console.log(res.data.point);
+        const a = res.data.check;
+        const b = res.data.coupons;
+        calcu(a, b);
+        const result = calcu(a, b);
+        console.log(result);
+        console.log(result.hit);
+        console.log(result.miss);
+        setUser(result.miss);
+        setText(Array(result.miss.length).fill(''));
+        console.log(text);
+        setUser2(result.hit);
+        setUser3(res.data.point);
+      } catch (e) {
+        console.error(e.message);
+      }
     }
   };
   const get = async () => {
     if (user3 < 0) {
-      window.alert('點數不足');
+      Swal.fire({ icon: 'warning', title: '點數不足' });
     }
     if (forms2.current.value > user3) {
-      window.alert('點數不足');
+      Swal.fire({ icon: 'warning', title: '點數不足' });
     } else {
       setText(!text);
       // e.preventDefault();
@@ -85,10 +95,10 @@ function Coupon() {
         .then((r) => r.json())
         .then((res) => {
           if (res === 1) {
-            window.alert('領取成功');
+            Swal.fire('領取成功');
             console.log(res);
           } else {
-            window.alert('領取失敗');
+            Swal.fire('領取失敗');
             console.log(res);
           }
         });
@@ -99,15 +109,20 @@ function Coupon() {
   }, []);
   const display = user.map((v, i) => {
     return (
-      <div className="col" key={v.sid}>
-        <div className="card">
-          <p>優惠券名稱{v.coupon_name}</p>
-          <p>折扣金額{v.sale_detail}</p>
-          <p>優惠券使用限制{v.use_range}</p>
-          <p>需要紅利{v.need_point}</p>
-          <p>
-            使用期限<Moment format="YYYY/MM/DD">{v.expire}</Moment>
-          </p>
+      <div className="sc_col" key={v.sid}>
+        <div className="sc_card">
+          <div className="sc_total">
+            <p>{v.sale_detail}元</p>
+          </div>
+
+          <div className="sc_sale_detail">
+            <p>優惠券名稱:{v.coupon_name}</p>
+            <p>{v.name}</p>
+            <p>需要點數:{v.need_point}</p>
+            <p>
+              使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
+            </p>
+          </div>
           <form
             onSubmit={() => {
               get();
@@ -140,9 +155,12 @@ function Coupon() {
               value={v.expire}
               ref={forms3}
             ></input>
-            <button type="submit" disabled={text === '' ? 'disabled' : ''}>
-              領取
-            </button>
+            <div className="sc_buttonbox">
+              <button className="sc_button" onClick={get}>
+                <p className="sc_buttonfont">領</p>
+                <p className="sc_buttonfont">取</p>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -150,14 +168,20 @@ function Coupon() {
   });
   const display2 = user2.map((v, i) => {
     return (
-      <div className="col" key={v.sid}>
-        <div className="card">
-          <p>優惠券名稱{v.coupon_name}</p>
-          <p>折扣金額{v.sale_detail}</p>
-          <p>優惠券使用限制{v.use_range}</p>
-          <p>
-            使用期限<Moment format="YYYY/MM/DD">{v.expire}</Moment>
-          </p>
+      <div className="sc_col" key={v.sid}>
+        <div className="sc_card2">
+          <div className="sc_total2">
+            <p>{v.sale_detail}元</p>
+          </div>
+
+          <div className="sc_sale_detail2">
+            <p>優惠券名稱:{v.coupon_name}</p>
+            <p>{v.name === '管理者' ? '全站通用' : v.name}</p>
+            <p>需要點數:{v.need_point}</p>
+            <p>
+              使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -165,12 +189,10 @@ function Coupon() {
 
   return (
     <>
-      <button onClick={getform}>按鈕</button>
-      <h1>點數:{user3}</h1>
-      <p>優惠券</p>
-      <div className="con"> {display}</div>
-      <p>已領取優惠券</p>
-      <div className="con"> {display2}</div>
+      {/* <button onClick={getform}>按鈕</button> */}
+      <h3 className="sc_h3">持有紅利點數:{user3}</h3>
+      <div className="sc_wrap"> {display}</div>
+      <div className="sc_wrap"> {display2}</div>
     </>
   );
 }
