@@ -87,6 +87,12 @@ export default function ListTable() {
   const getShop = async () => {
     try {
       let result = await axios.get(`http://${siteName}:3001/Shopping`);
+
+      // TODO:要把sendaddress比對商店的address後，算出現在位置和店家之間的距離
+      // 每5公里加10元外送費
+      // for in (sendaddress <=> shop.address)
+      // (distance in result.data)
+      
       setShop(result.data);
     } catch (e) {
       setErrorMsg(e.message);
