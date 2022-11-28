@@ -39,13 +39,14 @@ function MemberCoupon() {
     return (
       <div className="mc_col" key={v.sid}>
         <div className="mc_card">
-          <div className='mc_sale_detail'>{v.sale_detail}元</div>
-          <div className='mc_coupon'>
+          <div className="mc_sale_detail">{v.sale_detail}元</div>
+          <div className="mc_coupon">
             <p>優惠券名稱:{v.coupon_name}</p>
-          <p>
-            使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
-          </p>
-          <p>{(v.name === '管理者' ? '全站通用' : v.name)}</p></div>
+            <p>
+              使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
+            </p>
+            <p>{v.name === '管理者' ? '全站通用' : v.name}</p>
+          </div>
         </div>
       </div>
     );

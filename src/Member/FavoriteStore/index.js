@@ -152,22 +152,20 @@ export default function FavoriteStore() {
   };
   const display = user.map((v, i) => {
     return (
-     
-      <div className='mf_col' key={v.sid}>
-         <div className='mf_card'>
-          <div className='mf_imgbox'>
-        <img
-          className='mf_img'
-          src={
-            'http://localhost:3001/uploads/HP003.jpg'
-          }
-        />
-         </div>
-        <h3 className="mf_font1">{v.name}</h3>
-        <p className="mf_font2">地址:{v.address}</p>
-        <p className="mf_font3">電話:{v.phone}</p>
-       
-      </div>
+      <div className="mf_col" key={v.sid}>
+        <div className="mf_card">
+          <div className="mf_imgbox">
+            <img
+              className="mf_img"
+              src={
+                'http://localhost:3001/uploads/f8b7c508-c0a1-45c1-b74d-34b4be49da76.jpg'
+              }
+            />
+          </div>
+          <h3 className="mf_font1">{v.name}</h3>
+          <p className="mf_font2">地址:{v.address}</p>
+          <p className="mf_font3">電話:{v.phone}</p>
+        </div>
       </div>
     );
   });
@@ -178,7 +176,7 @@ export default function FavoriteStore() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/7a2cb8bd-73e0-4971-8a0f-7454a82c57c6.jpg'
+            'http://localhost:3001/uploads/f8b7c508-c0a1-45c1-b74d-34b4be49da76.jpg'
           }
         />
         <p className="font1">店名:{v.name}</p>
@@ -226,7 +224,7 @@ export default function FavoriteStore() {
         {myIndex === 0 ? <AiOutlineHeart /> : <AiFillHeart />}
       </button> */}
       {/* <div className="con">{display2}</div> */}
-      <h2 className='mf_h2'>最愛店家</h2>
+      <h2 className="mf_h2">最愛店家</h2>
       <div className="mf_wrap">{display}</div>
     </>
   );
