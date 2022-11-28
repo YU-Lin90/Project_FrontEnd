@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-function OptionGroup({ ot, data }) {
+function OptionGroup({ ot, data, details, setDetails }) {
   const [checkState, setCheckState] = useState([]);
   const [nowNum, setNowNum] = useState(0);
 
@@ -26,12 +26,18 @@ function OptionGroup({ ot, data }) {
           return (
             <>
               <label>
-                {min === 1 ? (
-                  <input type="radio" name="option" />
+                {max === 1 ? (
+                  <input
+                    type="radio"
+                    value={opt.sid}
+                    name={ot.name}
+                    onChange={(e) => {}}
+                  />
                 ) : (
                   <input
                     type="checkbox"
-                    name="option"
+                    name={ot.name}
+                    value={ot.name}
                     checked={checkState[i]}
                     onChange={() => {
                       const newCheckState = [...checkState];
@@ -41,11 +47,12 @@ function OptionGroup({ ot, data }) {
                       } else {
                         newCheckState[i] = false;
                         setNowNum(nowNum - 1);
+                        // 將選項資訊移出details
                       }
                       setCheckState(newCheckState);
                     }}
                     disabled={
-                      min > 1 && !checkState[i] && nowNum === min ? true : false
+                      min > 1 && !checkState[i] && nowNum === max ? true : false
                     }
                   />
                 )}

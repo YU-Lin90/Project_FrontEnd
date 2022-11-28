@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import OptionGroup from '../components/OptionGroup';
 import { useLocation, Link } from 'react-router-dom';
+import { useCart } from '../../../Context/CartProvider';
 
 function ProductList() {
+  const { addCart } = useCart();
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
   const [amount, setAmount] = useState(1);
@@ -14,7 +16,14 @@ function ProductList() {
     options_types: [],
     options: [],
   });
-  const [selectedItem, setSelectedItem] = useState('');
+  const [selectedItem, setSelectedItem] = useState({
+    sid: '',
+    name: '',
+    price: '',
+    src: '',
+    finalPrice: '',
+  });
+  const [details, setDetails] = useState([]);
   const getData = async (shop_sid) => {
     const response = await axios.get(
       `http://localhost:3001/store/?shop_sid=${shop_sid}`
@@ -32,6 +41,21 @@ function ProductList() {
     getData(shop_sid);
     console.log(data);
   }, []);
+
+  const intoCart = (e) => {
+    e.preventDefault()
+    addCart(
+      data.shop.sid,
+      selectedItem.sid,
+      data.shop.name,
+      selectedItem.name,
+      selectedItem.price,
+      selectedItem.price,
+      selectedItem.src
+    );
+    const fd = new FormData(document.testForm)
+    console.log(fd.get(''))
+  }
 
   return (
     <>
@@ -66,7 +90,12 @@ function ProductList() {
                   <>
                     <h3
                       onClick={() => {
-                        setSelectedItem(product.sid);
+                        const newSelectedItem = { ...selectedItem };
+                        newSelectedItem.sid = product.sid;
+                        newSelectedItem.name = product.name;
+                        newSelectedItem.price = product.price;
+                        newSelectedItem.src = product.src;
+                        setSelectedItem(newSelectedItem);
                       }}
                     >
                       {[product.name]}
@@ -77,47 +106,58 @@ function ProductList() {
           </>
         );
       })}
-      {selectedItem ? (
-        <div>
-          {data.options_types
-            .filter((ot) => {
-              return ot.product_sid === selectedItem;
-            })
-            .map((ot) => {
-              return (
-                <div>
-                  <h2>{ot.name}</h2>
-                  <div>
-                    <OptionGroup ot={ot} data={data} />
-                  </div>
-                </div>
-              );
-            })}
+      {selectedItem.sid ? (
+        <form name="testForm" onSubmit={(e) => e.preventDefault()}>
           <div>
-            <i
-              class="fa-solid fa-plus"
-              onClick={() => {
-                if (amount > 0) setAmount(amount - 1);
-              }}
-            ></i>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => {
-                setAmount(e.target.value);
-              }}
-            />
-            <i
-              class="fa-solid fa-minus"
-              onClick={() => {
-                setAmount(amount + 1);
-              }}
-            ></i>
+            {data.options_types
+              .filter((ot) => {
+                return ot.product_sid === selectedItem.sid;
+              })
+              .map((ot) => {
+                return (
+                  <div>
+                    <h2>{ot.name}</h2>
+                    <div>
+                      <OptionGroup
+                        ot={ot}
+                        data={data}
+                        details={details}
+                        setDetails={setDetails}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            <div>
+              <i
+                class="fa-solid fa-minus"
+                onClick={() => {
+                  setAmount(amount - 1);
+                }}
+              ></i>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => {
+                  setAmount(e.target.value);
+                }}
+              />
+              <i
+                class="fa-solid fa-plus"
+                onClick={() => {
+                  if (amount > 0) setAmount(amount + 1);
+                }}
+              ></i>
+
+              <button
+                onClick={intoCart}
+              >
+                放入購物車
+              </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        ''
-      )}
+        </form>
+      ) : null}
     </>
   );
 }

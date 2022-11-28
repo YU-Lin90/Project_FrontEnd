@@ -290,14 +290,15 @@ function Product() {
             </label>
 
             <label>
-              餐點折扣:
+              折扣後價格:
               <input
                 type="number"
                 name="discount"
-                value={!(selectedItem === '') ? formData.discount : ''}
+                value={!(selectedItem === '') ? formData.price : ''}
                 onChange={(e) => {
                   setFormData({ ...formData, discount: e.target.value });
                 }}
+                hidden
               />
             </label>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import EditTypeForm from '../components/EditTypeForm';
+import '../styles/style.css';
 
 function Type() {
   const [data, setData] = useState({
