@@ -5,11 +5,11 @@ function Menubar() {
   return (
     <>
       <ul>
-        <li>
+        {/* <li>
           <Link to="/productList">商店列表</Link>
-        </li>
+        </li> */}
         <li>
-          <Link to="/Store/StoreTypeEdit/overview">總覽</Link>
+          <Link to="/Store/StoreTypeEdit">總覽</Link>
         </li>
         <li>
           <Link to="/Store/StoreTypeEdit/type">商品類別</Link>

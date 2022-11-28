@@ -170,7 +170,7 @@ function Product() {
               >
                 <td>
                   <img
-                    src={`http://localhost:3001/public/uploads/${product.src}`}
+                    src={`http://localhost:3001/uploads/${product.src}`}
                     alt=""
                   />
                 </td>
