@@ -11,6 +11,7 @@
     border: 3px solid palegoldenrod;
     margin-left: 22px;
     transition: .5s;
+    justify-content: space-around;
 }
 
 .mc_card::before {
@@ -43,7 +44,7 @@
     flex-wrap: wrap;
 }
 .mc_sale_detail{
-    font-size:60px;
+    font-size:50px;
     line-height: 141px;
 }
 .mc_coupon{
