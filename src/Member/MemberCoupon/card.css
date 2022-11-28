@@ -44,7 +44,7 @@
     flex-wrap: wrap;
 }
 .mc_sale_detail{
-    font-size:50px;
+    font-size:30px;
     line-height: 141px;
 }
 .mc_coupon{
@@ -65,7 +65,7 @@
         width: 100%;
     }
     .mc_sale_detail{
-    font-size:50px;
+    font-size:40px;
     }
     .mc_coupon{
         font-size:20px;

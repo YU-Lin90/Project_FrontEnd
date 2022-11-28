@@ -117,7 +117,7 @@ function Coupon() {
 
           <div className="sc_sale_detail">
             <p>優惠券名稱:{v.coupon_name}</p>
-            <p>{v.name}</p>
+            <p>{v.name === '管理者' ? '全站通用' : v.name}</p>
             <p>需要點數:{v.need_point}</p>
             <p>
               使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
@@ -177,7 +177,6 @@ function Coupon() {
           <div className="sc_sale_detail2">
             <p>優惠券名稱:{v.coupon_name}</p>
             <p>{v.name === '管理者' ? '全站通用' : v.name}</p>
-            <p>需要點數:{v.need_point}</p>
             <p>
               使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
             </p>
@@ -192,6 +191,7 @@ function Coupon() {
       {/* <button onClick={getform}>按鈕</button> */}
       <h3 className="sc_h3">持有紅利點數:{user3}</h3>
       <div className="sc_wrap"> {display}</div>
+      <h4 className="sc_h4">已領取優惠券:</h4>
       <div className="sc_wrap"> {display2}</div>
     </>
   );
