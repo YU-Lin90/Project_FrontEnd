@@ -206,9 +206,10 @@ export default function ListTable() {
                   //:3001/Shopping/?search=
                   name="search"
                   className="search_bar_name_input"
-                  placeholder="以店名及商品名搜尋"
+                  placeholder="以店名及餐點搜尋"
                   // onChange={searchHandle}
                   defaultValue={searchWord}
+                  autoFocus
                 />
               </div>
               <div className="search_bar_price">
@@ -218,6 +219,7 @@ export default function ListTable() {
                   type="number"
                   name="price_max"
                   className="search_bar_price_max_input"
+                  min="0"
                   defaultValue={searchPriceMax || ""}
                 />
                 <span>最低</span>
@@ -301,7 +303,7 @@ export default function ListTable() {
                 </div>
                 <div className="shopCard_text" onClick={handleClick}>
                   <div className="shopCard_text_name">
-                    {submitHandle && <span>{shop.products_name}</span>}
+                    {/* {submitHandle && <span>{shop.products_name}</span>} */}
                     <span>{shop.name}</span>
                     <div className="shopCard_score">
                       <svg
@@ -322,7 +324,7 @@ export default function ListTable() {
 
                     {/* TODO 距離 */}
                   </div>
-                  <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span>
+                  {/* <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span> */}
                   <span>{shop.food_type_sid}</span>
                   <span>{shop.phone}</span>
                 </div>
