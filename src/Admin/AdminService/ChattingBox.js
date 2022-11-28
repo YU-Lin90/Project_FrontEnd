@@ -1,7 +1,7 @@
 //WS 第四層 有輸入框的頁面
 import { useEffect, useState } from 'react';
 import ChatContent from './ChatContent';
-
+const siteName = window.location.hostname;
 function ChattingBox({
   setChattingPerson,
   setChatting,
@@ -52,7 +52,13 @@ function ChattingBox({
   }
   return (
     <>
-      <div className="chattingBox"  >
+      <div
+        className="chattingBox"
+        style={{
+          background: `url(http://${siteName}:3001/images/chatroomBackground.jpg) center center / cover`,
+          boxShadow: '0 4px 12px  rgba(0,0,0,0.08)',
+        }}
+      >
         <ChatContent
           chattingPerson={chattingPerson}
           newContent={newContent}
