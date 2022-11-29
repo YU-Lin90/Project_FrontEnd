@@ -21,6 +21,16 @@
   width: 100%;
   z-index: 10;
 }
+.storeCenterButton {
+  /* border: 1px red solid; */
+  /* height: 20%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  text-align: center;
+  color: var(--mainColor);
+}
 
 .storeContent {
   padding: 20px;
@@ -53,5 +63,5 @@
 }
 
 .storeCenterList>.active {
-  color: var(--mainColor);
+  color: rgb(145, 105, 5);
 }

@@ -2,9 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useFunc } from '../../../Context/FunctionProvider';
 
-function ChatContentBox({ acceptedMessage, selectedOrder }) {
+function ChatContentBox({ acceptedMessage, selectedOrder, step }) {
   const { loginCheckGetFetch } = useFunc();
   const [chattingDetails, setChattingDetails] = useState([]);
+  const sideList = [0, 2, 2, 3, 3];
   const getChatHistory = async () => {
     const res = await loginCheckGetFetch(
       `MemberMapDetails/GetChattingContent?orderSid=${selectedOrder}`,
@@ -12,7 +13,7 @@ function ChatContentBox({ acceptedMessage, selectedOrder }) {
     );
     console.log(res);
     if (res) {
-      console.log('yes');
+      // console.log('yes');
       setChattingDetails(res);
     }
   };

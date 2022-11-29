@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSVG } from '../../../Context/SVGProvider';
 import OrderChattingBox from './OrderChattingBox';
 import Swal from 'sweetalert2';
+import OrderChat from '../../../OrderChat';
 const alertMessages = ['', '', '店家已接單', '店家已完成', '外送員已取餐'];
 function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
   const { chatSVG } = useSVG();
@@ -12,24 +13,8 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
   const [acceptedMessage, setAcceptedMessage] = useState({});
   //接單傳遞
   const [acceptedStepMessage, setAcceptedStepMessage] = useState({});
-  function receiveMessage(e) {
-    const datas = JSON.parse(e.data);
-    console.log('訊息');
-    console.log(datas);
-    /**{
-      "receiveSide": 1,
-      "receiveSid": 1,
-      "step": 3,
-      "orderSid": 172
-  } */
-    //確認店家、外送員 是否有動作
-    // 2製作中 3已完成 4運送中
-    if (datas.step) {
-      setAcceptedStepMessage(datas);
-    } else if (datas.deliveMsg) {
-      setAcceptedMessage(datas);
-    }
-  }
+  //接到新訊息時要讓按鈕亮起來
+  const [newMSG, setNewMSG] = useState(false);
 
   useEffect(() => {
     if (
@@ -40,12 +25,34 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
       Swal.fire(alertMessages[acceptedStepMessage.step]);
       setStep(acceptedStepMessage.step);
     }
-  }, [acceptedStepMessage]);
+  }, [acceptedStepMessage, selectedOrder]);
   useEffect(() => {
     setAcceptedStepMessage({});
   }, [selectedOrder]);
 
   useEffect(() => {
+    function receiveMessage(e) {
+      const datas = JSON.parse(e.data);
+      // console.log('訊息');
+      // console.log(datas);
+      /**{
+        "receiveSide": 1,
+        "receiveSid": 1,
+        "step": 3,
+        "orderSid": 172
+    } */
+      //確認店家、外送員 是否有動作
+      // 2製作中 3已完成 4運送中
+      if (datas.step) {
+        console.log('step');
+        setAcceptedStepMessage(datas);
+      } else if (!datas.self && !openChat) {
+        //新訊息提醒
+        setNewMSG(true);
+        // setAcceptedMessage(datas);
+      }
+    }
+
     orderSocket.addEventListener('message', receiveMessage);
     console.log('openListener');
     return () => {
@@ -53,27 +60,48 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
       console.log('closeListener');
     };
   }, []);
+  useEffect(() => {
+    if (openChat) {
+      setNewMSG(false);
+    }
+  }, [openChat, newMSG]);
   return (
     <>
+      {/* TODO: 要改內容  階段4以前沒有聊天按鈕*/}
       <div
         onClick={() => {
           setOpenChat((v) => !v);
         }}
-        className="orderChatButton"
+        className={`orderChatButton`}
       >
-        <div className="orderChatButtonSVGFrame">
+        <div className={`orderChatButtonSVGFrame ${newMSG ? 'active' : ''}`}>
           {chatSVG('strokeMainColor h30 w100p')}
         </div>
       </div>
       {openChat ? (
-        <OrderChattingBox
-          setOpenChat={setOpenChat}
-          acceptedMessage={acceptedMessage}
-          selectedOrder={selectedOrder}
-          orderSocket={orderSocket}
-          step={step}
-        />
+        <div className="orderOnMapChattingBox">
+          <OrderChat
+          // TODO 這裡暫時先這樣 之後有時間再改成正式版本
+            socket={orderSocket}
+            // selectedOrder
+            orderSid={1}
+            // orderSid={selectedOrder}
+            mySide={1}
+            //targetSid
+            targetSid={1}
+            sideName={'Member'}
+            targetSide={3}
+            setStyle={{ height: '400px' }}
+          />
+        </div>
       ) : null}
+      {/* // <OrderChattingBox
+      //   setOpenChat={setOpenChat}
+      //   acceptedMessage={acceptedMessage}
+      //   selectedOrder={selectedOrder}
+      //   orderSocket={orderSocket}
+      //   step={step}
+      // /> */}
     </>
   );
 }

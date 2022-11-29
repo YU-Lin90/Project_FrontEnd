@@ -44,14 +44,14 @@ function OrderChattingBox({
         `MemberMapDetails/GetDeliverSid?orderSid=${selectedOrder}`,
         'Member'
       );
-      console.log(res);
+      // console.log(res);
       setTargetSid(res);
     } else {
       const res = await loginCheckGetFetch(
         `MemberMapDetails/GetShopSid?orderSid=${selectedOrder}`,
         'Member'
       );
-      console.log(res);
+      // console.log(res);
       setTargetSid(res);
     }
   };
@@ -106,6 +106,7 @@ function OrderChattingBox({
             <ChatContentBox
               acceptedMessage={acceptedMessage}
               selectedOrder={selectedOrder}
+              step={step}
             />
           </div>
         </div>

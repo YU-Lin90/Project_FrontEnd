@@ -57,7 +57,7 @@ function Store() {
             {menuList.map((value, index) => {
               return (
                 <p
-                  className={`pointer  ${
+                  className={`pointer storeCenterButton fw6  ${
                     value.link === location ? 'active' : ''
                   }`}
                   key={index}

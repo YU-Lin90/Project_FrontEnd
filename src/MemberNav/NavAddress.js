@@ -15,7 +15,7 @@ function NavAddress({ sendAddress, setSendAddress }) {
             setOpenSetAddress((v) => !v);
           }}
         >
-          <span>送到：</span>
+          <span className="fw6">送到：</span>
           <span style={{ color: '#FF7C7C' }}>
             <i className="fa-solid fa-location-crosshairs fs18 fw6"></i>
           </span>
