@@ -1,12 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
+
+  const [user, setUser] = useState([]);
+  const [myIndex, setMyIndex] = useState({});
+  const [index, setIndex] = useState();
+  
   const navigate = useNavigate();
 
   //抓網址變動
@@ -15,9 +23,10 @@ export default function ListTable() {
   }, [location]);
 
   //表格資料
-  const [listData, setListData] = useState([]);
-
   const [shop, setShop] = useState([]);
+
+  //按鈕
+  const [isChecked , setIsChecked] = useState(true)
 
   //載入用，true表示正在載入中
   const [isLoading, setIsLoading] = useState(false);
@@ -42,14 +51,8 @@ export default function ListTable() {
   const [searchPriceMax, setSearchPriceMax] = useState('');
   const [searchPriceMin, setSearchPriceMin] = useState('');
   const [searchWaitTime, setSearchWaitTime] = useState('');
-
-  //如果還沒有搜尋過，讓預計配送時間在第一次render即預設120分鐘
-  // useEffect(() => {
-  //   if (!usp.toString()) {
-  //     setSearchWaitTime(120);
-  //   }
-  // }, []);
-
+  const [searchTotalRows, setSearchTotalRows] = useState('');
+  
   //儲存搜尋時呈現的結果用
   const [noResult, setNoResult] = useState('正在搜尋中');
 
@@ -85,24 +88,101 @@ export default function ListTable() {
 
   //取得所有店家
   const getShop = async () => {
+    const sid = localStorage.getItem('MemberSid');
     try {
-      let result = await axios.get(`http://${siteName}:3001/Shopping`);
+      const response = await axios.get(`http://${siteName}:3001/Shopping`);
+      // setShop(result.data);
+      try {
+        const response_favorite = await axios.get(
+          `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+        );
 
-      // TODO:要把sendaddress比對商店的address後，算出現在位置和店家之間的距離
-      // 每5公里加10元外送費
-      // for in (sendaddress <=> shop.address)
-      // (distance in result.data)
-      
-      setShop(result.data);
+        console.log(response_favorite.data);
+        setUser(response_favorite.data);
+        // const arr = { ...response_favorite.data };
+        const obj = {};
+        response_favorite.data.forEach((el) => {
+          obj[el.shop_sid] = true;
+        });
+        console.log(obj);
+        //myIndex, setMyIndex
+        let newIndex = { ...myIndex };
+        response.data.forEach((element) => {
+          if (obj[element.sid]) {
+            newIndex = { ...newIndex, [element.sid]: true };
+            element.favor = true;
+            return;
+          }
+          newIndex = { ...newIndex, [element.sid]: false };
+          element.favor = false;
+        });
+        setMyIndex(newIndex);
+        setShop(response.data);
+        console.log(response.data);
+      } catch (e) {
+        console.error(e.message);
+        return e.message;
+      }
     } catch (e) {
       setErrorMsg(e.message);
     }
-    console.log(errorMsg);
+    // console.log(errorMsg);
   };
 
-  const handleChange = (event) => {
-    let value = event.target.value
+  const add = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+    // const fd = new FormData({ input });
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/MemberLogin/addshop/${sid}/${shopSid}`
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const del = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/MemberLogin/del/${sid}/${shopSid}`
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const submit = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+
+    if (!sid) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
+      navigate('/MemberLogin');
+    } else {
+      // e.preventDefault();
+      // const fd = new FormData({ input });
+      // console.log(fd);
+      // const nextStatusIndex = myIndex[shopSid] === 0 ? 1 : 0;
+      const nextIndex = !myIndex[shopSid] ? add(shopSid) : del(shopSid);
+      // setMyIndex(nextStatusIndex);
+      setIndex(nextIndex);
+    }
+  };
+
+  const waitTime_handleChange = (event) => {
+    let value = event.target.value;
     setSearchWaitTime(value);
+  };
+
+  const checkedBox_handleChange = () => {
+    setIsChecked(!isChecked);
   };
 
   //不送出就搜尋(暫時無用)
@@ -130,6 +210,7 @@ export default function ListTable() {
 
   //送出後再統一做搜尋
   const submitHandle = async (event) => {
+    const sid = localStorage.getItem('MemberSid');
     let key = usp.get('search');
     let price_max = usp.get('price_max');
     let price_min = usp.get('price_min');
@@ -149,6 +230,7 @@ export default function ListTable() {
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
 
+
     console.log(
       'key:',
       key,
@@ -156,13 +238,52 @@ export default function ListTable() {
       `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
     //搜尋後結果存入shop
-    setShop(result.data);
+    //setShop(result.data);
+
+    try {
+      const response_favorite = await axios.get(
+        `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+      );
+
+      console.log(response_favorite.data);
+      setUser(response_favorite.data);
+      // const arr = { ...response_favorite.data };
+      const obj = {};
+      response_favorite.data.forEach((el) => {
+        obj[el.shop_sid] = true;
+      });
+      console.log(obj);
+      //myIndex, setMyIndex
+      let newIndex = { ...myIndex };
+      result.data.forEach((element) => {
+        if (obj[element.sid]) {
+          newIndex = { ...newIndex, [element.sid]: true };
+          element.favor = true;
+          return;
+        }
+        newIndex = { ...newIndex, [element.sid]: false };
+        element.favor = false;
+      });
+      setMyIndex(newIndex);
+      setShop(result.data);
+      console.log(result.data);
+    } catch (e) {
+      console.error(e.message);
+      return e.message;
+    }
+
+    // //搜尋後結果存入shop
+    // setShop(result.data);
 
     //如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
     if (!shop.length) {
       setNoResult('無法找到您想要的餐點');
     } else {
       setNoResult('');
+    }
+
+    if (key || price_max || price_min && result.data.length > 0) {
+      setSearchTotalRows(result.data[0].total_rows);
     }
 
     console.log(
@@ -194,8 +315,16 @@ export default function ListTable() {
       <div className="col_bar">
         <form className="table">
           <div className="search_bar">
+            {searchTotalRows ? (
+              <>
+              {searchWord ? (<p>{searchWord}的搜尋結果</p>) : ""}
+              <p>{searchTotalRows}個店家</p>
+              </>
+            ) : (
+              <p>所有餐廳</p>
+            )}
             <div className="search_bar_title">
-              <span>搜尋店家及餐點</span>
+              <p>搜尋店家及餐點</p>
             </div>
             <div className="search_bar_box">
               {/* Link時 querystring資料要換成店家的querystring("sid" "name"之類的) */}
@@ -206,58 +335,72 @@ export default function ListTable() {
                   //:3001/Shopping/?search=
                   name="search"
                   className="search_bar_name_input"
-                  placeholder="以店名及餐點搜尋"
+                  placeholder="以店名或餐點名搜尋"
                   // onChange={searchHandle}
                   defaultValue={searchWord}
                   autoFocus
                 />
               </div>
               <div className="search_bar_price">
-                <span>價格搜尋</span>
-                <span>最高</span>
-                <input
-                  type="number"
-                  name="price_max"
-                  className="search_bar_price_max_input"
-                  min="0"
-                  defaultValue={searchPriceMax || ""}
-                />
-                <span>最低</span>
-                <input
-                  type="number"
-                  name="price_min"
-                  className="search_bar_price_min_input"
-                  min="0"
-                  defaultValue={searchPriceMin || ""}
-                />
+                <p>以價格搜尋</p>
+                <div className="search_bar_price_max">
+                  <span>最高</span>
+                  <input
+                    type="number"
+                    name="price_max"
+                    className="search_bar_price_max_input"
+                    min="0"
+                    defaultValue={searchPriceMax || ''}
+                  />
+                </div>
+                <div className="search_bar_price_min">
+                  <span>最低</span>
+                  <input
+                    type="number"
+                    name="price_min"
+                    className="search_bar_price_min_input"
+                    min="0"
+                    defaultValue={searchPriceMin || ''}
+                  />
+                </div>
               </div>
-              <div className="search_bar_point">
-                <span>評價搜尋</span>
-                <span>僅包含</span>
-                <input type="checkbox" name="" />
-                1星
-                <input type="checkbox" />
-                2星
-                <input type="checkbox" />
-                3星
-                <input type="checkbox" />
-                4星
-                <input type="checkbox" />
-                5星
+              <div className="search_bar_tag">
+                <p>分類排序</p>
+                <div className="search_bar_point_button">
+                  <div className="search_bar_point_button1">
+                    <input 
+                    type="checkbox" 
+                    name=""
+                    defaultChecked={true}
+                    
+                    onChange={checkedBox_handleChange}
+                    />
+                    <label htmlFor="">評分</label>
+                  </div>
+                  <div className="search_bar_point_button2">
+                    <input 
+                    type="checkbox" 
+                    name=""
+                    checked={!isChecked}
+                    onChange={checkedBox_handleChange}
+                    />
+                    <label htmlFor="">距離</label>
+                  </div>
+                </div>
               </div>
               <div className="search_bar_time">
-                <span>預計配送時間(最低5分鐘)</span>
-                <div className='range_label'>
+                <p>餐點完成時間</p>
+                <div className="range_label">
                   <span>最長</span>
                   <input
                     type="number"
                     min="0"
                     max="120"
-                    onChange={handleChange}
+                    onChange={waitTime_handleChange}
                     disabled
                     value={searchWaitTime || 120}
                   />
-                  <span>分鐘</span>
+                  <span>分鐘(最短5分鐘)</span>
                 </div>
                 <div className="range">
                   <input
@@ -269,7 +412,7 @@ export default function ListTable() {
                     max="120"
                     step="5"
                     value={searchWaitTime || 120}
-                    onChange={handleChange}
+                    onChange={waitTime_handleChange}
                     list="steplist"
                   />
                   <div className="sliderticks">
@@ -288,9 +431,7 @@ export default function ListTable() {
       </div>
 
       <div className="col_list">
-        <div className="subTitle">
-          <h2>所有餐廳</h2>
-        </div>
+        <div className="subTitle"></div>
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
@@ -327,13 +468,22 @@ export default function ListTable() {
                   {/* <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span> */}
                   <span>{shop.food_type_sid}</span>
                   <span>{shop.phone}</span>
+                  <button
+                    onClick={() => {
+                      submit(shop.sid);
+                      const oldState = myIndex[shop.sid];
+                      setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                    }}
+                    // className="icon"
+                  >
+                    {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
+                  </button>
                 </div>
               </div>
             ))
           ) : (
             <div>{noResult}</div>
           )}
-
         </div>
       </div>
     </>
