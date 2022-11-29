@@ -49,7 +49,7 @@ function StoreLogin() {
               navi('/Admin');
               return;
             }
-            navi(-1, { replace: true });
+            navi('/Store');
             setAuthStore(true);
           } else {
             Swal.fire(res.errorType);
@@ -57,11 +57,11 @@ function StoreLogin() {
         });
     }
   }
-  useEffect(() => {
-    if (authStore) {
-      navi('/store/');
-    }
-  }, [authStore]);
+  // useEffect(() => {
+  //   if (authStore) {
+  //     navi('/store/');
+  //   }
+  // }, [authStore]);
 
   return (
     <div className="disf ai-c jc-c padV20">

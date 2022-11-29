@@ -13,37 +13,41 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
   const [lengthNow, setLengthNow] = useState(0);
   return (
     <>
-      <div className="disf jc-se w500 marHauto marV20 padV20 padH20">
-        {typeList.map((v) => (
-          <div key={v.sid} className="disf">
-            <p>{v.name}</p>
-            <input
-              disabled={
-                lengthNow === limit && !rejectedTypes[v.sid - 1] ? true : false
-              }
-              type="checkbox"
-              checked={rejectedTypes[v.sid - 1]}
-              onChange={() => {
-                if (rejectedTypes[v.sid - 1]) {
-                  const newArr = [...rejectedTypes];
-                  newArr[v.sid - 1] = false;
-                  // console.log(lengthNow);
-                  setRejectedTypes(newArr);
-                  setLengthNow(lengthNow - 1);
-                } else if (lengthNow < limit && !rejectedTypes[v.sid - 1]) {
-                  const newArr = [...rejectedTypes];
-                  newArr[v.sid - 1] = true;
-                  setRejectedTypes(newArr);
-                  setLengthNow(lengthNow + 1);
+      <div>
+        <p className="fs24 fw6 ta-c">拒絕選項</p>
+        <div className="disf jc-se w500 marHauto  padV20 padH20">
+          {typeList.map((v) => (
+            <div key={v.sid} className="disf">
+              <label className="marr10" htmlFor={`randomCheckbox${v.sid}`}>
+                {v.name}
+              </label>
+              <input
+                id={`randomCheckbox${v.sid}`}
+                disabled={
+                  lengthNow === limit && !rejectedTypes[v.sid - 1]
+                    ? true
+                    : false
                 }
-
-                // const newArr = [...rejectedTypes];
-                // newArr[v.sid - 1] = !newArr[v.sid - 1];
-                // setRejectedTypes(newArr);
-              }}
-            />
-          </div>
-        ))}
+                type="checkbox"
+                checked={rejectedTypes[v.sid - 1]}
+                onChange={() => {
+                  if (rejectedTypes[v.sid - 1]) {
+                    const newArr = [...rejectedTypes];
+                    newArr[v.sid - 1] = false;
+                    // console.log(lengthNow);
+                    setRejectedTypes(newArr);
+                    setLengthNow(lengthNow - 1);
+                  } else if (lengthNow < limit && !rejectedTypes[v.sid - 1]) {
+                    const newArr = [...rejectedTypes];
+                    newArr[v.sid - 1] = true;
+                    setRejectedTypes(newArr);
+                    setLengthNow(lengthNow + 1);
+                  }
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

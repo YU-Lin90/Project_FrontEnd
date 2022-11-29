@@ -4,6 +4,7 @@ import './StoreOrder.css';
 import StoreOrderDetails from './StoreOrderDetails';
 import StoreOrderConfirm from './StoreOrderConfirm';
 import StoreSetWaitTime from './StoreSetWaitTime';
+import Swal from 'sweetalert2';
 const siteName = window.location.hostname;
 const fetchList = ['checkDisConfirm', 'checkConfirmed', 'checkCompleted'];
 
@@ -50,7 +51,34 @@ function StoreOrder({ orderSocket }) {
         // setShowDatas(res);
       });
   }
-
+  function receiveMessage(e) {
+    const datas = JSON.parse(e.data);
+    if (datas.step) {
+      Swal.fire('你有新訂單');
+      setTimeout(() => {
+        setPage(0);
+        if (page === 0) {
+          getData();
+        }
+      }, 1000);
+      setChangeTime(false);
+      setOpenDetail(false);
+    }
+    /*{
+    "receiveSide": 2,
+    "receiveSid": 89,
+    "step": 1
+} */
+    console.log(datas);
+  }
+  useEffect(() => {
+    orderSocket.addEventListener('message', receiveMessage);
+    console.log('openListener');
+    return () => {
+      orderSocket.removeEventListener('message', receiveMessage);
+      console.log('closeListener');
+    };
+  }, []);
   //===============================================分隔線================================================
   useEffect(() => {
     getData();

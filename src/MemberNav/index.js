@@ -194,7 +194,7 @@ function MemberNav() {
 
           {/* 登入登出按鈕 */}
           <p
-            className="logCheck flexSetCenter"
+            className="logCheck member flexSetCenter"
             onClick={
               authMember
                 ? () => {
@@ -218,7 +218,7 @@ function MemberNav() {
               onClick={() => {
                 navi('/MemberRegister');
               }}
-              className="logCheck flexSetCenter bgcSubColor"
+              className="logCheck member flexSetCenter bgcSubColor"
             >
               註冊
             </p>

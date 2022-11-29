@@ -1,4 +1,4 @@
-//會員現在訂單 地圖層
+//會員現在訂單 地圖層 這裡一個監聽器
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import CycleContent from './CycleContent';
@@ -91,7 +91,7 @@ function OrderMap({ selectedOrder, orderSocket }) {
     const datas = JSON.parse(e.data);
     console.log('收到外送員位置');
     console.log(datas);
-    if (datas.orderSid === selectedOrder) {
+    if (datas.orderSid === selectedOrder && datas.lat && datas.lng) {
       console.log('in');
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
     }

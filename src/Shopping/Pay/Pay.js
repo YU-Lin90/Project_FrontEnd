@@ -9,13 +9,17 @@ import { usePay } from '../../Context/PayPageContext';
 import './Pay.css';
 //結帳頁 全體
 function Pay({ orderSocket }) {
-  const { chooseedPayShop, clearPayPageState } = usePay();
-
+  const { chooseedPayShop, clearPayPageState, cartTotal } = usePay();
   const navi = useNavigate();
+  // if (!chooseedPayShop) {
+  //   alert('尚未選擇店家!!');
+  //   navi('/');
+  // }
+
   // 製作中先關掉 做完再打開(空白選擇阻擋)
   useEffect(() => {
-    //沒選擇直接擋掉
-    // if (!chooseedPayShop > 1) {
+    // //沒選擇直接擋掉
+    // if (!cartTotal) {
     //   alert('尚未選擇店家!!');
     //   navi('/');
     // }

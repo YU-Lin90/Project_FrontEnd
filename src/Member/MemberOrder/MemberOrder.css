@@ -115,6 +115,8 @@
 .orderButtonOnMap.open {
   overflow: auto;
   max-height: 500px;
+  z-index: 5;
+
   /* width: fit-content; */
   min-width: 350px;
 }

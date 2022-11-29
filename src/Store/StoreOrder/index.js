@@ -19,19 +19,8 @@ function OrderSocket() {
     sendToken();
     console.log('start');
   });
-  function receiveMessage(e) {
-    const datas = JSON.parse(e.data);
 
-    console.log(datas);
-  }
-  useEffect(() => {
-    orderSocket.addEventListener('message', receiveMessage);
-    console.log('openListener');
-    return () => {
-      orderSocket.removeEventListener('message', receiveMessage);
-      console.log('closeListener');
-    };
-  }, []);
+
   //===============================================分隔線================================================
   useEffect(() => {
     return () => {

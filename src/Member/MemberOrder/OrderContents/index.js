@@ -6,7 +6,7 @@ import ProgessStep from './ProgessStep';
 import OrderShowOnMap from './OrderShowOnMap';
 import ChatOnOrderMap from './ChatOnOrderMap';
 //selectedOrder 選到的訂單SID
-function OrderContents({ selectedOrder, orderSocket }) {
+function OrderContents({ selectedOrder, orderSocket, setSelectedOrder }) {
   //現在階段
   const [step, setStep] = useState(1);
   const { loginCheckGetFetch } = useFunc();
@@ -40,9 +40,11 @@ function OrderContents({ selectedOrder, orderSocket }) {
           orderShowNow={orderShowNow}
         />
         <ChatOnOrderMap
+          setStep={setStep}
           selectedOrder={selectedOrder}
           step={step}
           orderSocket={orderSocket}
+          setSelectedOrder={setSelectedOrder}
         />
         {/* 下半地圖 */}
         <div style={{ height: '500px', width: '100%' }}>

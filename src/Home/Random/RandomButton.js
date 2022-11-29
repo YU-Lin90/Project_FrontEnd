@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
-function RandomButton({ rejectedTypes }) {
+function RandomButton({ rejectedTypes, setGettedShopName }) {
   const { loginCheckPostFetch } = useFunc();
 
   //獲得店家函式 輸入不要的種類(陣列) 回傳1筆店家
@@ -12,6 +12,7 @@ function RandomButton({ rejectedTypes }) {
       postData
     );
     console.log(res);
+    setGettedShopName(res.name)
   };
   return (
     <>
@@ -23,7 +24,7 @@ function RandomButton({ rejectedTypes }) {
           rejectedTypes.forEach((v, i) => {
             if (v) rejectedTypesWithNumber.push(i + 1);
           });
-          console.log(rejectedTypesWithNumber);
+          // console.log(rejectedTypesWithNumber);
           getDailyCoupon(rejectedTypesWithNumber);
         }}
         className="ta-c  fs48 fw7 pointer bgcMain"

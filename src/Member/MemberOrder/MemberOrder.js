@@ -42,6 +42,7 @@ function MemberOrder({ orderSocket }) {
             <OrderContents
               selectedOrder={selectedOrder}
               orderSocket={orderSocket}
+              setSelectedOrder={setSelectedOrder}
             />
           </div>
         </div>

@@ -96,7 +96,7 @@ function StoreNav() {
         {/* 名稱顯示*/}
         <p className="fw6 fs24 ">{storeName}</p>
         <p
-          className="logCheck"
+          className="logCheck store"
           onClick={
             authStore
               ? () => {

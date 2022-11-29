@@ -10,6 +10,7 @@ const fetchList = [
 ];
 const buttonContent = ['確認', '完成'];
 const alertContent = ['接單', '完成訂單'];
+const confirmedMessage = ['接單成功', '訂單完成'];
 
 function StoreOrderConfirm({
   setOpenDetail,
@@ -220,11 +221,11 @@ function StoreOrderConfirm({
                               orderSid: orderDetail.sid,
                             })
                           );
-                          await completeOrder(orderDetail.store_order_sid);
+                          completeOrder(orderDetail.store_order_sid);
                           setPage(2);
                         }
                         setOpenDetail(false);
-                        confirmAlert.fire('接單成功');
+                        confirmAlert.fire(confirmedMessage[page]);
                       }
                     });
                 }}

@@ -4,7 +4,7 @@ import { useFunc } from '../../../Context/FunctionProvider';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../../Context/CartProvider';
-import Swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const siteName = window.location.hostname;
 //===============================================分隔線================================================
@@ -118,7 +118,7 @@ function PayButton({ orderSocket }) {
     const result = await loginCheckPostFetch('CashPay', 'Member', postData);
     console.log(result);
     paidDeleteCartPart(chooseedPayShop);
-    window.alert('下訂成功');
+    Swal.fire('下訂成功');
     navi('/Member/MemberOrder');
   };
   //LinePay
@@ -173,10 +173,8 @@ function PayButton({ orderSocket }) {
   useEffect(() => {
     if (paid) {
       // alert('已付款');
-      //TODO:這邊之後改成結帳完成頁(訂單成立頁)
-      //這一頁之後做成元件放在訂單頁
       paidDeleteCartPart(chooseedPayShop);
-      window.alert('付款成功');
+      Swal.fire('付款成功');
       navi('/Member/MemberOrder');
       // setTimeout(() => {
       //
