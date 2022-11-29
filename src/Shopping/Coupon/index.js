@@ -71,7 +71,6 @@ function Coupon() {
     }
   };
   const get = async (e, shop_sid, use_point, expire) => {
-    // shop_sid.preventDefault();
     if (user3 < 0) {
       e.preventDefault();
       Swal.fire({ icon: 'warning', title: '點數不足' });

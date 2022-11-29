@@ -45,14 +45,13 @@ function Shopping() {
   //   }
   // };
 
-
   //渲染
   return (
     <>
       <div className="row">
         {/* <Search_Bar></Search_Bar> */}
-          <ListTable></ListTable>
-        </div>
+        <ListTable></ListTable>
+      </div>
     </>
   );
 }

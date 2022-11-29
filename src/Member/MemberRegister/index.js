@@ -108,6 +108,7 @@ function MemberRegister() {
       // const formData = new FormData();
       const fd = new FormData(e.target);
       console.log(fd);
+      console.log(e.target);
       // return
       // 對照server上的檔案名稱 req.files.avatar
       //fd.append('avatar', selectedFile);

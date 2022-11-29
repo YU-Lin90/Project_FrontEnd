@@ -1,13 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
-  const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+  const [myIndex, setMyIndex] = useState({});
+  const [index, setIndex] = useState();
 
   //抓網址變動
   useEffect(() => {
@@ -78,13 +80,86 @@ export default function ListTable() {
 
   //取得所有店家
   const getShop = async () => {
+    const sid = localStorage.getItem('MemberSid');
     try {
-      let result = await axios.get(`http://${siteName}:3001/Shopping`);
-      setShop(result.data);
+      const response = await axios.get(`http://${siteName}:3001/Shopping`);
+      // setShop(result.data);
+      try {
+        const response_favorite = await axios.get(
+          `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+        );
+
+        console.log(response_favorite.data);
+        setUser(response_favorite.data);
+        // const arr = { ...response_favorite.data };
+        const obj = {};
+        response_favorite.data.forEach((el) => {
+          obj[el.shop_sid] = true;
+        });
+        console.log(obj);
+        //myIndex, setMyIndex
+        let newIndex = { ...myIndex };
+        response.data.forEach((element) => {
+          if (obj[element.sid]) {
+            newIndex = { ...newIndex, [element.sid]: true };
+            element.favor = true;
+            return;
+          }
+          newIndex = { ...newIndex, [element.sid]: false };
+          element.favor = false;
+        });
+        setMyIndex(newIndex);
+        setShop(response.data);
+        console.log(response.data);
+      } catch (e) {
+        console.error(e.message);
+        return e.message;
+      }
     } catch (e) {
       setErrorMsg(e.message);
     }
-    console.log(errorMsg);
+    // console.log(errorMsg);
+  };
+
+  const add = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+    // const fd = new FormData({ input });
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/MemberLogin/addshop/${sid}/${shopSid}`
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const del = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/MemberLogin/del/${sid}/${shopSid}`
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  useEffect(() => {
+    getShop();
+  }, []);
+
+  const submit = async (shopSid) => {
+    // e.preventDefault();
+    // const fd = new FormData({ input });
+    // console.log(fd);
+    // const nextStatusIndex = myIndex[shopSid] === 0 ? 1 : 0;
+    const nextIndex = !myIndex[shopSid] ? add(shopSid) : del(shopSid);
+    // setMyIndex(nextStatusIndex);
+    setIndex(nextIndex);
   };
 
   const handleChange = (event) => {
@@ -175,7 +250,7 @@ export default function ListTable() {
               <span>搜尋店家及餐點</span>
             </div>
             <div className="search_bar_box">
-            {/* Link時 querystring資料要換成店家的querystring("sid" "name"之類的) */}
+              {/* Link時 querystring資料要換成店家的querystring("sid" "name"之類的) */}
               <div className="search_bar_name">
                 <input
                   type="text"
@@ -271,15 +346,27 @@ export default function ListTable() {
                           fill="#FFA500"
                         />
                       </svg>
-                    {/* 資料庫結構: 小數點 */}
+                      {/* 資料庫結構: 小數點 */}
                       {shop.evaluation_score}
                     </div>
 
                     {/* TODO 距離 */}
                   </div>
+
                   <span>${shop.price}元</span>
                   <span>{shop.food_type_sid}</span>
                   <span>{shop.phone}</span>
+
+                  <button
+                    onClick={() => {
+                      submit(shop.sid);
+                      const oldState = myIndex[shop.sid];
+                      setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                    }}
+                    // className="icon"
+                  >
+                    {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
+                  </button>
                 </div>
               </div>
             ))
