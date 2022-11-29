@@ -60,33 +60,41 @@ function StoreNav() {
   return (
     <>
       <nav className="storeNav">
-        <div
-          // 目錄按鈕(三橫線)
-          onClick={() => {
-            setToggle(!toggle);
-          }}
-          className="menubtn"
-        >
+        <div className="disf ai-c jc-sb">
           <div
-            className={`menubtn_bar menubtn_bar_01 ${toggle ? 'changed' : ''}`}
-          ></div>
-          <div
-            className={`menubtn_bar menubtn_bar_02 ${toggle ? 'changed' : ''}`}
-          ></div>
-          <div
-            className={`menubtn_bar menubtn_bar_03 ${toggle ? 'changed' : ''}`}
-          ></div>
+            // 目錄按鈕(三橫線)
+            onClick={() => {
+              setToggle(!toggle);
+            }}
+            className="menubtn"
+          >
+            <div
+              className={`menubtn_bar menubtn_bar_01 ${
+                toggle ? 'changed' : ''
+              }`}
+            ></div>
+            <div
+              className={`menubtn_bar menubtn_bar_02 ${
+                toggle ? 'changed' : ''
+              }`}
+            ></div>
+            <div
+              className={`menubtn_bar menubtn_bar_03 ${
+                toggle ? 'changed' : ''
+              }`}
+            ></div>
+          </div>
+          <span
+            onClick={() => {
+              navi('/');
+            }}
+          >
+            {logoSVG('fillMainColor h100p pointer')}
+          </span>
         </div>
-        <span
-          onClick={() => {
-            navi('/');
-          }}
-        >
-          {logoSVG('fillMainColor h100p pointer')}
-        </span>
 
         {/* 名稱顯示*/}
-        <p>{storeName}</p>
+        <p className="fw6 fs24 ">{storeName}</p>
         <p
           className="logCheck"
           onClick={
@@ -96,6 +104,7 @@ function StoreNav() {
                   localStorage.removeItem('StoreName');
                   setStoreName('');
                   setAuthStore(!authStore);
+                  navi('/');
                 }
               : () => {
                   navi('/Store/StoreLogin');

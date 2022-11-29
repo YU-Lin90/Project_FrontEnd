@@ -4,8 +4,11 @@ import '../Cart.css';
 import { useNavigate } from 'react-router-dom';
 import { usePay } from '../../Context/PayPageContext';
 import { useCart } from '../../Context/CartProvider';
+import { useAuth } from '../../Context/AuthProvider';
+import Swal from 'sweetalert2';
 function Cart({ setShowCart, setShowChooseShop }) {
   const { editCartBySelect } = useCart();
+  const { authMember } = useAuth();
   const navi = useNavigate();
   const selectOptions = new Array(31).fill(1);
   //===============================================分隔線================================================
@@ -130,7 +133,15 @@ function Cart({ setShowCart, setShowChooseShop }) {
         <div
           className="goPayButoon"
           onClick={() => {
-            navi('/Pay');
+            if (!authMember) {
+              Swal.fire({
+                icon: 'warning',
+                title: '請先登入會員',
+              });
+              navi('/MemberLogin');
+            } else {
+              navi('/Pay');
+            }
             setShowCart(false);
             setShowChooseShop(false);
           }}

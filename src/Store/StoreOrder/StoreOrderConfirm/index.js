@@ -1,13 +1,15 @@
 //接單/完成畫面
 
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 const siteName = window.location.hostname;
 const fetchList = [
   'checkDisConfirmDetail',
   'checkConfirmedDetail',
   'checkCompletedDetail',
 ];
-const buttonContent = ['確認接單', '完成訂單'];
+const buttonContent = ['確認', '完成'];
+const alertContent = ['接單', '完成訂單'];
 
 function StoreOrderConfirm({
   setOpenDetail,
@@ -111,6 +113,16 @@ function StoreOrderConfirm({
         }
     ]
 }*/
+  //===============================================分隔線================================================
+  const confirmAlert = Swal.mixin({
+    customClass: {
+      //classname
+      confirmButton: 'storeConfirmOrderAlertButton',
+      cancelButton: 'storeConfirmOrderAlertButton',
+    },
+    buttonsStyling: false,
+  });
+  //===============================================分隔線================================================
 
   useEffect(() => {
     getData(choosedOrderSid);
@@ -173,32 +185,48 @@ function StoreOrderConfirm({
               <div
                 className="storeConfirmOrderButton"
                 onClick={async () => {
-                  if (page === 0) {
-                    //接單  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 2,}
-                    orderSocket.send(
-                      JSON.stringify({
-                        receiveSide: 1,
-                        receiveSid: orderDetail.member_sid,
-                        step: 2,
-                        orderSid: orderDetail.sid,
-                      })
-                    );
-                    await setOrder(orderDetail.sid, orderDetail.member_sid);
-                    setPage(1);
-                  } else if (page === 1) {
-                    //完成  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 3}
-                    orderSocket.send(
-                      JSON.stringify({
-                        receiveSide: 1,
-                        receiveSid: orderDetail.member_sid,
-                        step: 3,
-                        orderSid: orderDetail.sid,
-                      })
-                    );
-                    await completeOrder(orderDetail.store_order_sid);
-                    setPage(2);
-                  }
-                  setOpenDetail(false);
+                  confirmAlert
+                    .fire({
+                      title: `是否確定${alertContent[page]}?`,
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonText: '確定',
+                      cancelButtonText: '取消',
+                    })
+                    .then(async (result) => {
+                      if (result.isConfirmed) {
+                        if (page === 0) {
+                          //接單  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 2,}
+                          orderSocket.send(
+                            JSON.stringify({
+                              receiveSide: 1,
+                              receiveSid: orderDetail.member_sid,
+                              step: 2,
+                              orderSid: orderDetail.sid,
+                            })
+                          );
+                          await setOrder(
+                            orderDetail.sid,
+                            orderDetail.member_sid
+                          );
+                          setPage(1);
+                        } else if (page === 1) {
+                          //完成  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 3}
+                          orderSocket.send(
+                            JSON.stringify({
+                              receiveSide: 1,
+                              receiveSid: orderDetail.member_sid,
+                              step: 3,
+                              orderSid: orderDetail.sid,
+                            })
+                          );
+                          await completeOrder(orderDetail.store_order_sid);
+                          setPage(2);
+                        }
+                        setOpenDetail(false);
+                        confirmAlert.fire('接單成功');
+                      }
+                    });
                 }}
               >
                 {buttonContent[page]}

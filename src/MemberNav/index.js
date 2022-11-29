@@ -71,9 +71,9 @@ function MemberNav() {
 
   //連結
   const navList = [
-    { text: '找店家', link: '/Shopping' },
-    { text: '附近美食', link: '/' },
-    { text: '優惠券', link: '/Coupon' },
+    { text: '找店家', link: '/Shopping', index: 0 },
+    { text: '附近美食', link: '/', index: 1 },
+    { text: '優惠券', link: '/Coupon', index: 2 },
   ];
 
   //購物車檢查
@@ -135,8 +135,12 @@ function MemberNav() {
           {/* 連結 */}
           <div className="navLinks">
             {navList.map((v, i) => {
+              if (v.index === 1 && sendAddress === '') {
+                return null;
+              }
               return (
                 <p key={i}>
+                  {/* sendAddress */}
                   <Link to={v.link}>{v.text}</Link>
                 </p>
               );
@@ -177,14 +181,17 @@ function MemberNav() {
           )}
 
           {/* 會員中心按鈕 */}
-          <div
-            className="cartButton navUser"
-            onClick={() => {
-              setOpenMemberCenter((v) => !v);
-            }}
-          >
-            <i className="fa-solid fa-user"></i>
-          </div>
+          {authMember ? (
+            <div
+              className="cartButton navUser"
+              onClick={() => {
+                setOpenMemberCenter((v) => !v);
+              }}
+            >
+              <i className="fa-solid fa-user"></i>
+            </div>
+          ) : null}
+
           {/* 登入登出按鈕 */}
           <p
             className="logCheck flexSetCenter"
@@ -206,6 +213,16 @@ function MemberNav() {
           >
             {authMember ? '登出' : '登入'}
           </p>
+          {authMember ? null : (
+            <p
+              onClick={() => {
+                navi('/MemberRegister');
+              }}
+              className="logCheck flexSetCenter bgcSubColor"
+            >
+              註冊
+            </p>
+          )}
         </div>
       </nav>
       {/* 目錄切換 */}

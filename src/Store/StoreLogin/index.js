@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthProvider';
 import Swal from 'sweetalert';
@@ -7,7 +7,7 @@ const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
 
 function StoreLogin() {
-  const { setAuthStore, setAuthAdmin } = useAuth();
+  const { authStore, setAuthStore, setAuthAdmin } = useAuth();
   const navi = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,6 +57,11 @@ function StoreLogin() {
         });
     }
   }
+  useEffect(() => {
+    if (authStore) {
+      navi('/store/');
+    }
+  }, [authStore]);
 
   return (
     <div className="disf ai-c jc-c padV20">

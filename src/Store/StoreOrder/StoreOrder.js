@@ -98,6 +98,12 @@ function StoreOrder({ orderSocket }) {
           </span>
         </div>
       </div>
+      {datas.length === 0 ? (
+        <div className="flexSetCenter fs48 fw7 w100p h300">
+          無{options[page].name}訂單
+        </div>
+      ) : null}
+
       <StoreOrderDetails
         setOpenDetail={setOpenDetail}
         datas={datas}

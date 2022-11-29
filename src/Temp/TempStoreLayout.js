@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 //這頁沒用到
 import './StoreLayout.css';
@@ -12,7 +13,8 @@ function StoreLayout() {
     { text: '消費分析', link: '/Store/StoreSellAnalyze', index: 4 },
     { text: '客服中心', link: '/Store/StoreService', index: 5 },
   ];
-
+  //authStore
+  useEffect(() => {}, []);
   return (
     <>
       {/* 會員中心 外層 */}

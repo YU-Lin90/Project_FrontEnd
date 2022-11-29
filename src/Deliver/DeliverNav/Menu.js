@@ -10,14 +10,13 @@ function Menu({ setToggle, toggle }) {
     { text: '外送員首頁', link: '/Deliver' },
     { text: '過往紀錄', link: '/Deliver/DeliverDatas' },
     { text: '外送員登入', link: '/Deliver/DeliverLogin' },
-    { text: '外送員註冊', link: '/Deliver/DeliverRegister' },
     { text: '外送員接單', link: '/Deliver/DeliverConfirmOrder' },
     { text: '外送員訂單', link: '/Deliver/DeliverOrder' },
     { text: '外送員即時通訊 ', link: '/Deliver/DeliverMessager' },
     { text: '外送員統計 ', link: '/Deliver/DeliverStatistics' },
     { text: '外送員客服', link: '/Deliver/DeliverService' },
     { text: '一般首頁', link: '/' },
-    { text: '店家首頁', link: '/Store' },
+    { text: '店家首頁', link: '/Store/StoreLogin' },
     { text: '管理者首頁', link: '/Admin' },
   ];
   return (
