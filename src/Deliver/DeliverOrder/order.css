@@ -33,6 +33,10 @@
     justify-content: flex-start;
     margin: 10px 0;
 }
+.Dicon{
+    width: 40px;
+    text-align: center;
+}
 .Dicon .Dimgicon{
     font-size: 35px;
     color: #3893E8;
@@ -42,6 +46,7 @@
     color: #3893E8
 }
 .Dcontext{
+    margin-top: 5px;
     color: #858585;
 }
 .Dbbtn{
@@ -61,4 +66,7 @@
     height: 40px;
     background-color: #CDCACA;
     border-bottom: 1px solid rgb(139, 139, 139);
+}
+.Dofoodlist{
+    margin-top: 5px;
 }
