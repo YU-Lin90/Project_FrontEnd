@@ -31,25 +31,68 @@ function OptionGroup({ ot, data, details, setDetails }) {
                     type="radio"
                     value={opt.sid}
                     name={ot.name}
-                    onChange={(e) => {}}
+                    onChange={() => {
+                      const thisIndex = details.findIndex((detail, index) => {
+                        return detail.sid === ot.sid;
+                      });
+                      const newDetails = [...details];
+                      newDetails[thisIndex].list = [
+                        { sid: opt.sid, name: opt.name, price: opt.price },
+                      ];
+                      setDetails(newDetails);
+                      console.log(details);
+                    }}
                   />
                 ) : (
                   <input
                     type="checkbox"
                     name={ot.name}
-                    value={ot.name}
+                    value={opt.name}
                     checked={checkState[i]}
-                    onChange={() => {
+                    onChange={(e) => {
                       const newCheckState = [...checkState];
+
                       if (!newCheckState[i]) {
                         newCheckState[i] = true;
                         setNowNum(nowNum + 1);
+                        setCheckState(newCheckState);
+
+                        // details
+                        const thisIndex = details.findIndex((detail) => {
+                          return detail.sid === ot.sid;
+                        });
+                        const newDetails = [...details];
+                        if (!newDetails[thisIndex].list) {
+                          newDetails[thisIndex].list = [];
+                        }
+                        newDetails[thisIndex].list.push({
+                          sid: opt.sid,
+                          name: opt.name,
+                          price: opt.price,
+                        });
+                        setDetails(newDetails);
+                        console.log(details);
                       } else {
                         newCheckState[i] = false;
                         setNowNum(nowNum - 1);
-                        // 將選項資訊移出details
+                        setCheckState(newCheckState);
+                        // details
+                        const thisIndex = details.findIndex((detail) => {
+                          return detail.sid === ot.sid;
+                        });
+                        const newDetails = [...details];
+                        if (!newDetails[thisIndex].list) {
+                          newDetails[thisIndex].list = [];
+                        }
+                        const listIndex = details[thisIndex].list.findIndex(
+                          (l) => {
+                            return l.sid === opt.sid;
+                          }
+                        );
+                        newDetails[thisIndex].list.splice(listIndex, 1);
+                        setDetails(newDetails);
+                        console.log(details);
                       }
-                      setCheckState(newCheckState);
                     }}
                     disabled={
                       min > 1 && !checkState[i] && nowNum === max ? true : false

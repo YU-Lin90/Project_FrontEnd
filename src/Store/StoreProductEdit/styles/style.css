@@ -2,21 +2,22 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-weight: 500;
 }
 
-.container {
+.store-admin {
+  font-weight: 500;
+  background-color: #fff;
+}
+.store-admin .menu-container {
   padding: 0px 16px;
   position: relative;
 }
-
-h4 {
+.store-admin h4 {
   font-size: 28px;
   font-weight: 700;
   padding: 0;
 }
-
-.title {
+.store-admin .menu-title {
   height: 110px;
   width: 100%;
   display: flex;
@@ -24,25 +25,40 @@ h4 {
   justify-content: space-between;
   align-items: center;
 }
-
-.bg-black-btn {
+.store-admin .bg-black-btn {
+  line-height: 24px;
   font-size: 14px;
   color: white;
   background-color: black;
   padding: 8px 24px;
   border-radius: 8px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  text-align: center;
 }
-.bg-black-btn i {
+.store-admin .bg-black-btn i {
   font-size: 16px;
   margin-right: 12px;
   text-align: center;
 }
-
-.bg-white-btn {
+.store-admin .sm-black-btn {
+  line-height: 16px;
+  font-size: 14px;
+  color: white;
+  background-color: black;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.store-admin .sm-black-btn i {
+  font-size: 16px;
+  margin-right: 12px;
+  text-align: center;
+}
+.store-admin .bg-white-btn {
+  line-height: 24px;
   font-size: 14px;
   color: #262626;
   background-color: #f7f7f7;
@@ -53,32 +69,135 @@ h4 {
   justify-content: space-between;
   text-align: center;
 }
-.bg-white-btn i {
+.store-admin .bg-white-btn i {
   font-size: 16px;
   margin-right: 12px;
   text-align: center;
 }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
+.store-admin .sm-white-btn {
+  line-height: 16px;
+  font-size: 14px;
+  color: #262626;
+  background-color: #f7f7f7;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-table thead tr {
+.store-admin .sm-white-btn i {
+  font-size: 16px;
+  margin-right: 12px;
+  text-align: center;
+}
+.store-admin .table {
+  width: 100%;
+  height: auto;
+  padding: 0px 16px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+.store-admin .table .thead .tr {
+  display: flex;
   border-bottom: 2px solid rgb(224, 224, 224);
 }
-table thead tr th {
+.store-admin .table .thead .tr .th {
   padding: 20px 0px;
-  text-align: left;
-  margin: 5rem;
 }
-table tbody tr {
+.store-admin .table .thead .tr .th-3 {
+  width: 33.33%;
+}
+.store-admin .table .thead .tr .th-8 {
+  width: 33.33%;
+}
+.store-admin .table .thead .tr-type {
+  display: flex;
+  border-bottom: 2px solid rgb(224, 224, 224);
+}
+.store-admin .table .thead .tr-type .th {
+  padding: 20px 0px;
+}
+.store-admin .table .thead .tr-type .th:nth-child(1) {
+  width: 25%;
+}
+.store-admin .table .thead .tr-type .th:nth-child(2) {
+  width: 25%;
+}
+.store-admin .table .thead .tr-type .th:nth-child(3) {
+  width: 50%;
+}
+.store-admin .table .thead .tr-product {
+  display: flex;
+  border-bottom: 2px solid rgb(224, 224, 224);
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
+}
+.store-admin .table .thead .tr-product .th {
+  width: 12.5%;
+}
+.store-admin .table .tbody .tr {
+  display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
 }
-table tbody tr td {
+.store-admin .table .tbody .tr .td {
   padding: 20px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.store-admin .table .tbody .tr .td-3 {
+  width: 33.33%;
+}
+.store-admin .table .tbody .tr .td-8 {
+  width: 12.5%;
+}
+.store-admin .table .tbody .tr-type {
+  display: flex;
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
+.store-admin .table .tbody .tr-type .td {
+  padding: 20px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.store-admin .table .tbody .tr-type .td:nth-child(1) {
+  width: 25%;
+}
+.store-admin .table .tbody .tr-type .td:nth-child(2) {
+  width: 25%;
+}
+.store-admin .table .tbody .tr-type .td:nth-child(3) {
+  width: 50%;
+}
+.store-admin .table .tbody .tr-product {
+  display: flex;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: middle;
+  height: 72px;
+}
+.store-admin .table .tbody .tr-product .td {
+  width: 12.5%;
+}
+.store-admin .table .tbody .tr-product .td img {
+  width: 40px;
+  height: 40px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.store-admin .noDisplay {
+  display: none;
+}
+.store-admin .row {
+  display: flex;
+  width: 100%;
 }
 
-.menubar {
+.store-admin .menubar {
   width: 100%;
   list-style-type: none;
   display: flex;
@@ -86,33 +205,79 @@ table tbody tr td {
   justify-content: baseline;
   border-bottom: 5px solid #e2e2e2;
 }
-.menubar li {
+.store-admin .menubar li {
   padding: 16px 16px;
 }
-.menubar li a {
+.store-admin .menubar li a {
   font-size: 14px;
   text-decoration: none;
   color: black;
   padding: 16px 0px;
 }
-.menubar li a .active {
+.store-admin .menubar li a .active {
   border-bottom: 5px solid black;
 }
-.menubar li:hover {
+.store-admin .menubar li:hover {
   background-color: #ededed;
 }
 
-.edit-form {
+.store-admin {
+  font-weight: 500;
+  background-color: #fff;
+}
+.store-admin .menu-container {
+  padding: 0px 16px;
+  position: relative;
+}
+.store-admin .menu-container .edit-form {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: scroll;
 }
-.edit-form form input {
+.store-admin .menu-container .edit-form form input {
   display: block;
   width: 100%;
   border: none;
   border-bottom: 1px solid rgb(118, 118, 118);
+  line-height: 36px;
+  padding: 10px 0px;
+}
+.store-admin .menu-container .edit-form form .previewImg {
+  width: 80%;
+  display: flex;
+}
+.store-admin .menu-container .edit-form form .previewImg .img img {
+  background-color: gray;
+  width: 300px;
+  height: 240px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.store-admin .menu-container .edit-form form .previewImg .direction {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.store-admin .menu-container .edit-form form .previewImg .direction p {
+  font-size: 14px;
+  margin-bottom: 14px;
+  line-height: 20px;
+}
+.store-admin .menu-container .edit-form form .previewImg .direction .imgInput {
+  border: none;
+}
+.store-admin .top-edit-bar {
+  padding-top: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.store-admin .top-edit-bar .left-btn-group div i {
+  font-size: 20px;
+}
+.store-admin .top-edit-bar .right-btn-group {
+  display: flex;
+}
+.store-admin .top-edit-bar .right-btn-group div {
+  margin-right: 12px;
 }/*# sourceMappingURL=style.css.map */

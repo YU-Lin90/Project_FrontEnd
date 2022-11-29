@@ -59,129 +59,149 @@ function Type() {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="title">
-            <h4>類別</h4>
-            <div
-              className="bg-black-btn"
-              onClick={() => {
-                setEditType({ ...editType, type_name: '', type_sid: 0 });
-              }}
-            >
-              <i class="fa-solid fa-plus btn-icon"></i>新增類別
+      <div className="store-admin">
+        <div
+          className={`menu-container ${
+            !(editType.type_sid === '') ? 'noDisplay' : ''
+          }`}
+        >
+          <div className="row">
+            <div className="menu-title">
+              <h4>類別</h4>
+              <div
+                className="bg-black-btn"
+                onClick={() => {
+                  setEditType({ ...editType, type_name: '', type_sid: 0 });
+                }}
+              >
+                <i class="fa-solid fa-plus btn-icon"></i>
+                <p>新增類別</p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="table">
+              <div className="thead">
+                <div className="tr-type">
+                  <div className="th">名稱</div>
+                  <div className="th">項目數量</div>
+                  <div className="th">項目內容</div>
+                </div>
+              </div>
+              <div className="tbody">
+                {data.types.map((type, index) => {
+                  return (
+                    <div
+                      className="tr-type"
+                      key={type.sid}
+                      // 點到誰就把editType變成誰
+                      onClick={() => {
+                        setEditType({
+                          ...editType,
+                          type_sid: type.sid,
+                          type_name: type.name,
+                        });
+                      }}
+                    >
+                      <div className="td">{type.name}</div>
+                      <div className="td">
+                        {
+                          data.products.filter((p) => {
+                            return p.products_type_sid === type.sid;
+                          }).length
+                        }
+                      </div>
+                      <div className="td">
+                        {data.products
+                          .filter((p) => {
+                            return p.products_type_sid === type.sid;
+                          })
+                          .map((p) => {
+                            return p.name;
+                          })
+                          .join()}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
-        <div className="row">
-          <table>
-            <thead>
-              <tr>
-                <th>名稱</th>
-                <th>項目數量</th>
-                <th>項目內容</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.types.map((type, index) => {
-                return (
-                  <tr
-                    key={type.sid}
-                    // 點到誰就把editType變成誰
+        <div
+          className={`menu-container ${
+            editType.type_sid === '' ? 'noDisplay' : ''
+          }`}
+        >
+          <div className="row">
+            <div className="top-edit-bar">
+              <div className="left-btn-group">
+                <div
+                  onClick={() => {
+                    setEditType({ type_name: '', type_sid: '' });
+                  }}
+                >
+                  <i className="fa-solid fa-arrow-left"></i>
+                </div>
+              </div>
+
+              <div className="right-btn-group">
+                {editType.type_sid === 0 ? (
+                  ''
+                ) : (
+                  <div
+                    className="sm-white-btn"
                     onClick={() => {
-                      setEditType({
-                        ...editType,
-                        type_sid: type.sid,
-                        type_name: type.name,
-                      });
+                      delBtnHandler(editType.type_sid);
                     }}
                   >
-                    <td>{type.name}</td>
-                    <td>
-                      {
-                        data.products.filter((p) => {
-                          return p.products_type_sid === type.sid;
-                        }).length
-                      }
-                    </td>
-                    <td>
-                      {data.products
-                        .filter((p) => {
-                          return p.products_type_sid === type.sid;
-                        })
-                        .map((p) => {
-                          return p.name;
-                        })
-                        .join()}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div className="container">
-        {editType.type_sid === '' ? (
-          ''
-        ) : (
-          <>
-            <div className="row">div.</div>
-            <div className="row">
-              <div className="edit-form">
-                <form action="" name="editForm">
+                    <p>刪除</p>
+                  </div>
+                )}
+                <div
+                  className="sm-black-btn"
+                  onClick={
+                    editType.type_sid === 0
+                      ? addBtnHandler
+                      : () => {
+                          editBtnHandler(editType.type_sid);
+                        }
+                  }
+                >
+                  <p>儲存</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="edit-form">
+              <form action="" name="editForm">
+                <label hidden>
                   <input
                     type="number"
                     name="type_sid"
                     value={editType.type_sid}
-                    hidden
                   />
-                  <label>
-                    類別名稱
-                    <input
-                      type="text"
-                      name="type_name"
-                      value={editType.type_name}
-                      onChange={(e) => {
-                        setEditType({ ...editType, type_name: e.target.value });
-                      }}
-                    />
-                  </label>
-                  <button
-                    onClick={
-                      editType.type_sid === 0
-                        ? addBtnHandler
-                        : () => {
-                            editBtnHandler(editType.type_sid);
-                          }
-                    }
-                  >
-                    儲存
-                  </button>
+                </label>
 
-                  <button
-                    onClick={() => {
-                      setEditType({ type_name: '', type_sid: '' });
+                <label>
+                  <input
+                    type="text"
+                    name="type_name"
+                    value={editType.type_name}
+                    onChange={(e) => {
+                      setEditType({
+                        ...editType,
+                        type_name: e.target.value,
+                      });
                     }}
-                  >
-                    取消
-                  </button>
-                  {editType.type_sid === 0 ? (
-                    ''
-                  ) : (
-                    <button
-                      onClick={() => {
-                        delBtnHandler(editType.type_sid);
-                      }}
-                    >
-                      刪除
-                    </button>
-                  )}
-                </form>
-              </div>
+                    placeholder="名稱"
+                  />
+                </label>
+              </form>
             </div>
-          </>
-        )}
+          </div>
+        </div>
       </div>
     </>
   );

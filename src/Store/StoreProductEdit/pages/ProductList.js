@@ -43,7 +43,7 @@ function ProductList() {
   }, []);
 
   const intoCart = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     addCart(
       data.shop.sid,
       selectedItem.sid,
@@ -51,11 +51,20 @@ function ProductList() {
       selectedItem.name,
       selectedItem.price,
       selectedItem.price,
-      selectedItem.src
+      selectedItem.src,
+      details
     );
-    const fd = new FormData(document.testForm)
-    console.log(fd.get(''))
-  }
+    console.log(
+      data.shop.sid,
+      selectedItem.sid,
+      data.shop.name,
+      selectedItem.name,
+      selectedItem.price,
+      selectedItem.price,
+      selectedItem.src,
+      details
+    );
+  };
 
   return (
     <>
@@ -96,6 +105,19 @@ function ProductList() {
                         newSelectedItem.price = product.price;
                         newSelectedItem.src = product.src;
                         setSelectedItem(newSelectedItem);
+                        // details
+                        const newDetails = data.options_types
+                          .filter((ot) => {
+                            return ot.product_sid === product.sid;
+                          })
+                          .map((ot) => {
+                            return {
+                              sid: ot.sid,
+                              name: ot.name,
+                              list: [],
+                            };
+                          });
+                        setDetails(newDetails);
                       }}
                     >
                       {[product.name]}
@@ -130,7 +152,7 @@ function ProductList() {
               })}
             <div>
               <i
-                class="fa-solid fa-minus"
+                className="fa-solid fa-minus"
                 onClick={() => {
                   setAmount(amount - 1);
                 }}
@@ -143,17 +165,13 @@ function ProductList() {
                 }}
               />
               <i
-                class="fa-solid fa-plus"
+                className="fa-solid fa-plus"
                 onClick={() => {
                   if (amount > 0) setAmount(amount + 1);
                 }}
               ></i>
 
-              <button
-                onClick={intoCart}
-              >
-                放入購物車
-              </button>
+              <button onClick={intoCart}>放入購物車</button>
             </div>
           </div>
         </form>
