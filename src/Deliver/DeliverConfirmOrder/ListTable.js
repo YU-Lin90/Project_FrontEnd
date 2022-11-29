@@ -30,6 +30,7 @@ function ListTable({ name, address, shop_sid, member_sid,  order_sid}) {
                 if (argee) {
                   setToggle(!toggle);
                   
+                  
                   // const member = 1;  //不用特別寫
                   // const shop_sid = {}; //不用特別寫
                   const deliver_sid = Number(localStorage.getItem('deliver_sid'));
