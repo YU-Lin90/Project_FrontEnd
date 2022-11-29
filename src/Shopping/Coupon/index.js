@@ -8,7 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 function Coupon() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
-  const [user3, setUser3] = useState([]);
+  const [user3, setUser3] = useState();
   const [text, setText] = useState([]);
   const forms = useRef(null);
   const forms2 = useRef(null);
@@ -70,20 +70,22 @@ function Coupon() {
       }
     }
   };
-  const get = async (e) => {
+  const get = async (e, shop_sid, use_point, expire) => {
+    // shop_sid.preventDefault();
     if (user3 < 0) {
+      e.preventDefault();
       Swal.fire({ icon: 'warning', title: '點數不足' });
-    } else if (forms2.current.value > user3) {
+    }
+    if (use_point > user3) {
+      e.preventDefault();
       Swal.fire({ icon: 'warning', title: '點數不足' });
     } else {
-      // e.preventDefault();
       setText(!text);
-      console.log(forms.current.value);
       const sid = localStorage.getItem('MemberSid');
       let FD = JSON.stringify({
-        coupon_sid: forms.current.value,
-        use_point: forms2.current.value,
-        expire: forms3.current.value,
+        coupon_sid: shop_sid,
+        use_point: use_point,
+        expire: expire,
       });
 
       await fetch(`http://localhost:3001/MemberCouponGetApi/${sid}`, {
@@ -123,8 +125,9 @@ function Coupon() {
             </p>
           </div>
           <form
-            onSubmit={() => {
-              get();
+            ref={forms}
+            onSubmit={(e) => {
+              get(e, v.sid, v.need_point, v.expire);
               const a = [...text];
               if (a[i] === '') {
                 a[i] = 'disabled';
@@ -136,24 +139,9 @@ function Coupon() {
               }
             }}
           >
-            <input
-              type="hidden"
-              name="coupon_sid"
-              value={v.sid}
-              ref={forms}
-            ></input>
-            <input
-              type="hidden"
-              name="need_point"
-              value={v.need_point}
-              ref={forms2}
-            ></input>
-            <input
-              type="hidden"
-              name="expire"
-              value={v.expire}
-              ref={forms3}
-            ></input>
+            <input type="hidden" name="coupon_sid" value={v.sid}></input>
+            <input type="hidden" name="need_point" value={v.need_point}></input>
+            <input type="hidden" name="expire" value={v.expire}></input>
             <div className="sc_buttonbox">
               <button type="submit" className="sc_button">
                 <p className="sc_buttonfont">領</p>
