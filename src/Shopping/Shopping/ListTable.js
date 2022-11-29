@@ -2,6 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListTable() {
   const siteName = window.location.hostname;
@@ -10,6 +13,7 @@ export default function ListTable() {
   const [user, setUser] = useState([]);
   const [myIndex, setMyIndex] = useState({});
   const [index, setIndex] = useState();
+  const navigate = useNavigate();
 
   //抓網址變動
   useEffect(() => {
@@ -149,13 +153,23 @@ export default function ListTable() {
   };
 
   const submit = async (shopSid) => {
-    // e.preventDefault();
-    // const fd = new FormData({ input });
-    // console.log(fd);
-    // const nextStatusIndex = myIndex[shopSid] === 0 ? 1 : 0;
-    const nextIndex = !myIndex[shopSid] ? add(shopSid) : del(shopSid);
-    // setMyIndex(nextStatusIndex);
-    setIndex(nextIndex);
+    const sid = localStorage.getItem('MemberSid');
+
+    if (!sid) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
+      navigate('/MemberLogin');
+    } else {
+      // e.preventDefault();
+      // const fd = new FormData({ input });
+      // console.log(fd);
+      // const nextStatusIndex = myIndex[shopSid] === 0 ? 1 : 0;
+      const nextIndex = !myIndex[shopSid] ? add(shopSid) : del(shopSid);
+      // setMyIndex(nextStatusIndex);
+      setIndex(nextIndex);
+    }
   };
 
   const handleChange = (event) => {
@@ -240,7 +254,6 @@ export default function ListTable() {
       console.error(e.message);
       return e.message;
     }
-
 
     // //搜尋後結果存入shop
     // setShop(result.data);
