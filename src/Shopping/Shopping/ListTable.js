@@ -188,6 +188,7 @@ export default function ListTable() {
 
   //送出後再統一做搜尋
   const submitHandle = async (event) => {
+    const sid = localStorage.getItem('MemberSid');
     let key = usp.get('search');
     let price_max = usp.get('price_max');
     let price_min = usp.get('price_min');
@@ -208,8 +209,41 @@ export default function ListTable() {
       '結果網址',
       `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-    //搜尋後結果存入shop
-    setShop(result.data);
+    try {
+      const response_favorite = await axios.get(
+        `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+      );
+
+      console.log(response_favorite.data);
+      setUser(response_favorite.data);
+      // const arr = { ...response_favorite.data };
+      const obj = {};
+      response_favorite.data.forEach((el) => {
+        obj[el.shop_sid] = true;
+      });
+      console.log(obj);
+      //myIndex, setMyIndex
+      let newIndex = { ...myIndex };
+      result.data.forEach((element) => {
+        if (obj[element.sid]) {
+          newIndex = { ...newIndex, [element.sid]: true };
+          element.favor = true;
+          return;
+        }
+        newIndex = { ...newIndex, [element.sid]: false };
+        element.favor = false;
+      });
+      setMyIndex(newIndex);
+      setShop(result.data);
+      console.log(result.data);
+    } catch (e) {
+      console.error(e.message);
+      return e.message;
+    }
+
+
+    // //搜尋後結果存入shop
+    // setShop(result.data);
 
     //如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
     if (!shop.length) {
