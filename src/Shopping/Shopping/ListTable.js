@@ -148,10 +148,6 @@ export default function ListTable() {
     }
   };
 
-  useEffect(() => {
-    getShop();
-  }, []);
-
   const submit = async (shopSid) => {
     // e.preventDefault();
     // const fd = new FormData({ input });
