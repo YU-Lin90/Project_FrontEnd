@@ -17,7 +17,7 @@ const TargetPosition = () => (
 const buttonText = ['', '送達', '取餐'];
 function DeliverMapContent({
   //現在跟哪方對話
-  side = 2,
+  side = 1,
   //現在的訂單SID
   orderSid = 1,
   //聊天室

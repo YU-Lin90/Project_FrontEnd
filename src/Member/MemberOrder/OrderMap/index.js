@@ -60,7 +60,7 @@ function OrderMap({ selectedOrder, orderSocket }) {
     const gettedStorePosition = await getLatLngByAddress(res.address);
     console.log({ gettedStorePosition });
     console.log({ res });
-    setStorePosition(gettedStorePosition)
+    setStorePosition(gettedStorePosition);
   };
 
   useEffect(() => {
@@ -90,8 +90,11 @@ function OrderMap({ selectedOrder, orderSocket }) {
   function receiveMessage(e) {
     const datas = JSON.parse(e.data);
     console.log('收到外送員位置');
-    if (datas.orderSid === selectedOrder)
+    console.log(datas);
+    if (datas.orderSid === selectedOrder) {
+      console.log('in');
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
+    }
   }
   useEffect(() => {
     orderSocket.addEventListener('message', receiveMessage);

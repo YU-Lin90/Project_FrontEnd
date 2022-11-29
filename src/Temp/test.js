@@ -46,3 +46,23 @@ function CBtest() {
   );
 }
 export default CBtest;
+
+
+
+
+
+
+const a = [
+  {
+    name: '加料',
+    sid: 1,
+    list: [
+      { sid: 2, name: '珍珠', price: 15 },
+      { sid: 3, name: '耶果', price: 10 },
+    ],
+  },
+];
+
+
+
+//10$/5km
