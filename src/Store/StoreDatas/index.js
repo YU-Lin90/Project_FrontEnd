@@ -105,7 +105,7 @@ export default function StoreDatas() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/d4801ba2-34a5-4709-a128-d2002ec355c6.jpg'
+            'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
           }
         />
         <p className="font1">店名:{v.name}</p>

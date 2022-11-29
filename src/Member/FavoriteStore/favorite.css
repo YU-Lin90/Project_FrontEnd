@@ -21,7 +21,7 @@
     transform: translateY(-6px);
 }
 
-.mf_card:hover>.mf_font1 {
+.mf_card:hover .mf_font1 {
     letter-spacing: 1rem;
     text-indent: 1rem;
 }
@@ -74,8 +74,8 @@
 
 .mf_icon{
     position: absolute;
-    right: 15px;
-    top: 10px;
+    right: 8px;
+    top: 8px;
     font-size: 20px;
 }
 

@@ -70,15 +70,14 @@ function Coupon() {
       }
     }
   };
-  const get = async () => {
+  const get = async (e) => {
     if (user3 < 0) {
       Swal.fire({ icon: 'warning', title: '點數不足' });
-    }
-    if (forms2.current.value > user3) {
+    } else if (forms2.current.value > user3) {
       Swal.fire({ icon: 'warning', title: '點數不足' });
     } else {
-      setText(!text);
       // e.preventDefault();
+      setText(!text);
       console.log(forms.current.value);
       const sid = localStorage.getItem('MemberSid');
       let FD = JSON.stringify({
@@ -156,7 +155,7 @@ function Coupon() {
               ref={forms3}
             ></input>
             <div className="sc_buttonbox">
-              <button className="sc_button" onClick={get}>
+              <button type="submit" className="sc_button">
                 <p className="sc_buttonfont">領</p>
                 <p className="sc_buttonfont">取</p>
               </button>
