@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthProvider';
 import './MemberLogin.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -9,11 +7,9 @@ const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
 
 function MemberLogin() {
-  const { setAuthMember } = useAuth();
-  const navi = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const location = useLocation();
+
   const [passwordFieldType, setPasswordFieldType] = useState('password');
   function login(email, password) {
     //如果其中一樣是空的
@@ -23,43 +19,6 @@ function MemberLogin() {
         title: '輸入欄不可為空白',
       });
       return;
-    } else {
-      //傳送資料
-      let postData = JSON.stringify({
-        email: email,
-        password: password,
-      });
-
-      fetch(`http://${siteName}:3001/Login/Member`, {
-        method: 'POST',
-        //跨域請求
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: postData,
-      })
-        .then((r) => r.json())
-        .then((res) => {
-          if (res.success) {
-            //有回傳成功則存到本機儲存空間
-            localStorage.setItem('Member', res.token);
-            localStorage.setItem(`MemberName`, res.name);
-            localStorage.setItem('MemberSid', res.sid);
-            // navi(-1, { replace: false });
-            setAuthMember(true);
-            Swal.fire({
-              icon: 'success',
-              title: '登入成功',
-            });
-            navi('/');
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: res.errorType,
-            });
-          }
-        });
     }
   }
 
@@ -117,7 +76,7 @@ function MemberLogin() {
               )}
             </button>
           </div>
-          <div className='ml_buttonbox'>
+          <div className="ml_buttonbox">
             <button
               className="m_login_button"
               onClick={() => {
@@ -126,24 +85,6 @@ function MemberLogin() {
             >
               登入
             </button>
-            {/* <button
-            onClick={() => {
-              //登出直接刪除本機空間
-              localStorage.removeItem('MemberSid');
-              localStorage.removeItem('Member');
-              localStorage.removeItem('MemberName');
-            }}
-          >
-            登出
-          </button> */}
-            {/* <button
-            onClick={() => {
-              setEmail('');
-              setPassword('');
-            }}
-          >
-            清空
-          </button> */}
           </div>
         </div>
       </div>
