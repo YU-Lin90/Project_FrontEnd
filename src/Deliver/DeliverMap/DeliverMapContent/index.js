@@ -105,13 +105,13 @@ function DeliverMapContent({
   };
   //每秒定位 OK 1126/2315
   // TODO 製作聊天室中暫時關閉
-  // useEffect(() => {
-  //   const intervals = setInterval(checkMyLocation, 1000);
-  //   getAddress();
-  //   return () => {
-  //     clearInterval(intervals);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const intervals = setInterval(checkMyLocation, 1000);
+    getAddress();
+    return () => {
+      clearInterval(intervals);
+    };
+  }, []);
   //位置有改變時傳送位置訊息
   //orderSocket memberSid
   //  JSON.stringify({position:true,lat:deliverPosition.lat,lng:deliverPosition.lng ,receiveSid:memberSid,receiveSide:side,orderSid:orderSid})
@@ -135,7 +135,6 @@ function DeliverMapContent({
   return (
     <>
       <GoogleMapReact
-        // TODO 之後再打開 不然會浪費額度
         bootstrapURLKeys={{ key: keys.gmap }}
         // bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}

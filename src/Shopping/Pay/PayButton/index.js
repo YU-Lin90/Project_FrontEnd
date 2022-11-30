@@ -7,6 +7,14 @@ import { useCart } from '../../../Context/CartProvider';
 import Swal from 'sweetalert2';
 
 const siteName = window.location.hostname;
+const confirmAlert = Swal.mixin({
+  customClass: {
+    //classname
+    confirmButton: 'storeConfirmOrderAlertButton',
+    cancelButton: 'storeConfirmOrderAlertButton',
+  },
+  buttonsStyling: false,
+});
 //===============================================分隔線================================================
 // 開新視窗並置中的函式，facebook use it
 // https://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen
@@ -173,12 +181,14 @@ function PayButton({ orderSocket }) {
   useEffect(() => {
     if (paid) {
       // alert('已付款');
-      paidDeleteCartPart(chooseedPayShop);
-      Swal.fire('付款成功');
-      navi('/Member/MemberOrder');
-      // setTimeout(() => {
-      //
-      // }, 3000);
+      Swal.fire({
+        title: '付款成功',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navi('/Member/MemberOrder');
+          paidDeleteCartPart(chooseedPayShop);
+        }
+      });
     }
     return;
   }, [paid]);
@@ -211,8 +221,26 @@ function PayButton({ orderSocket }) {
     <>
       {/* setButtonLock */}
       <div
-        onClick={() => {
+        onClick={async () => {
           if (!buttonLock) {
+            let checkState = false;
+            await confirmAlert
+              .fire({
+                // TODO: 要加入等待時間
+                title: `等待時間超過${20}是否確定訂餐?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '確定',
+                cancelButtonText: '取消',
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  checkState = true;
+                }
+              });
+            if (!checkState) {
+              return;
+            }
             orderSocket.send(
               JSON.stringify({
                 receiveSide: 2,

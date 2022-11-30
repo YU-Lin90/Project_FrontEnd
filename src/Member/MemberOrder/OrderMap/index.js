@@ -108,7 +108,6 @@ function OrderMap({ selectedOrder, orderSocket }) {
   return (
     <>
       <GoogleMapReact
-        // TODO 之後再打開 不然會浪費額度
         bootstrapURLKeys={{ key: keys.gmap }}
         // bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
