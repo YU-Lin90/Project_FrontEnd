@@ -95,7 +95,7 @@ function Coupon() {
         .then((r) => r.json())
         .then((res) => {
           if (res === 1) {
-            Swal.fire('領取成功');
+            // Swal.fire('領取成功');
             console.log(res);
           } else {
             Swal.fire('領取失敗');
