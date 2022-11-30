@@ -4,7 +4,6 @@ import dayjs from "dayjs"
 
 function History({
   order_sid,
-  deliver_order_sid,
   deliver_fee,
   name,
   deliver_check_time,
@@ -35,15 +34,15 @@ function History({
               foodmeun();
             }}
           ></i>
-          <p>{deliver_order_sid}</p>
+          <p>{"D" + dayjs(deliver_check_time).format('HHMMmm')}</p>
         </div>
         <div className="Dsecondtext">
-          <p>外送費</p>
-          <p>{deliver_fee}</p>
+          <p className='Dhistorytitle'>外送費</p>
+          <p className='Dhistorytext'>{deliver_fee}</p>
         </div>
         <div className="Dsecondtext">
-          <p>客戶</p>
-          <p>{name}</p>
+          <p className='Dhistorytitle'>客戶</p>
+          <p className='Dhistorytext'>{name}</p>
         </div>
         <p>{dayjs(deliver_check_time).format('YYYY-MM-DD HH:mm')}</p>
       </div>
@@ -57,12 +56,12 @@ function History({
                 </div>
                 <div>
                   <p>{shopname}</p>
-                  <p>{address}</p>
+                  <p className='Dhistorytext'>{address}</p>
                 </div>
               </div>
               <div>
                 <p>接單時間&nbsp;&nbsp;&nbsp;{dayjs(deliver_take_time).format('HH:mm')}</p>
-                <p>取餐時間&nbsp;&nbsp;&nbsp;{dayjs(complete_time).format('HH:mm')}</p>
+                <p className='Dhistorytext'>取餐時間&nbsp;&nbsp;&nbsp;{dayjs(complete_time).format('HH:mm')}</p>
               </div>
             </div>
             <div className="Dfoodmeun">
