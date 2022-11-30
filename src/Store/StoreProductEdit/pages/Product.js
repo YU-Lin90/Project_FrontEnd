@@ -282,14 +282,14 @@ function Product() {
                       檔案規定：JPG、PNG、GIF 或 WEBP 格式，不可超過 10 MB。
                       所需的最低像素：寬度和高度為 320 x 320 像素。
                     </p>
-                  <label>
-                    <input
-                      className="imgInput"
-                      type="file"
-                      name="avatar"
-                      onChange={uploadImgHandler}
-                    />
-                  </label>
+                    <label>
+                      <input
+                        className="imgInput"
+                        type="file"
+                        name="avatar"
+                        onChange={uploadImgHandler}
+                      />
+                    </label>
                   </div>
                 </div>
 
