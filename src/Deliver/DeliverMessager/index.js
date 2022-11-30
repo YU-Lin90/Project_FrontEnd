@@ -1,22 +1,43 @@
 import axios from 'axios';
 
-function DeliverMessager() {
+function Takebtn(){
   const ordersid = localStorage.getItem('order_sid');
   async function foodget() {
-    const respon = await axios.put(
-      `http://localhost:3001/deliverorder/${ordersid}`
-    );
+    await axios.put(`http://localhost:3001/deliverorder/${ordersid}`);
   }
+  return(
+    <button type='button'
+      onClick={()=>{
+        foodget();
+      }}
+    >
+    已取餐
+    </button>
+  )
+}
+function Finishbtn(){
+  const ordersid = localStorage.getItem('order_sid');
+  async function foodreach(){
+    await axios.put(`http://localhost:3001/finishdeliverorder/${ordersid}`);
+  }
+  return(
+    <button type='button'
+      onClick={()=>{
+        foodreach();
+        localStorage.setItem('delivertake',true)
+      }}
+    >
+      已送達
+    </button>
+  )
+}
 
+
+function DeliverMessager() {
   return (
     <>
-      <button type='button'
-        onClick={()=>{
-          foodget()
-        }}
-      >
-      已取餐
-      </button>
+      <Takebtn />
+      <Finishbtn />
     </>
   );
 }
