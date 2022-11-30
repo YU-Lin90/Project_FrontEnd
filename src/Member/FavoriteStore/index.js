@@ -150,7 +150,7 @@ export default function FavoriteStore() {
         .then((r) => r.json())
         .then((res) => {
           console.log(res);
-          Swal.fire('刪除成功');
+          // Swal.fire('刪除成功');
         });
     } catch (e) {
       Swal.fire('刪除失敗');

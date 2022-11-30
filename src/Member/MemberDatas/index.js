@@ -5,6 +5,7 @@ import './memberdatas.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 function MemberDatas() {
   // 選擇的檔案
   const [selectedFile, setSelectedFile] = useState(null);
@@ -123,7 +124,7 @@ function MemberDatas() {
   };
   const handleFormSubmit = async (e) => {
     // 阻擋預設form送出的行為
-    // e.preventDefault();
+    e.preventDefault();
     if (user.password === user.doublepassword) {
       const sid = localStorage.getItem('MemberSid');
       // if (user.password === user.doublepassword) {
@@ -137,10 +138,15 @@ function MemberDatas() {
         .put(`http://localhost:3001/MemberLogin/edit/${sid}`, fd)
         .then((result) => {
           console.log(result);
+          e.preventDefault();
+
           Swal.fire({
             icon: 'success',
             title: '修改成功',
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
           // navigate('/');
         })
         .catch((e) => {
