@@ -9,6 +9,8 @@ import Menu from './Menu';
 import ChooseCart from '../Shopping/ChooseCart';
 import Cart from '../Shopping/Cart';
 import MemberCenter from './MemberCenter';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 const siteName = window.location.hostname;
 //確認登入資訊
 function fetchLoginCheck(setfunc) {
@@ -203,7 +205,8 @@ function MemberNav() {
                     localStorage.removeItem('MemberSid');
                     setMemberName('');
                     setAuthMember(!authMember);
-                    navi('/ ');
+                    Swal.fire('已登出');
+                    navi('/');
                   }
                 : () => {
                     navi('/MemberLogin ');

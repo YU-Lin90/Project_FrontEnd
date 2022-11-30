@@ -13,6 +13,7 @@
     margin: 10px auto;
     transition: 0.5s;
     overflow: hidden;
+    position: relative;
 }
 
 .mf_card:hover {
@@ -20,7 +21,7 @@
     transform: translateY(-6px);
 }
 
-.mf_card:hover>.mf_font1 {
+.mf_card:hover .mf_font1 {
     letter-spacing: 1rem;
     text-indent: 1rem;
 }
@@ -71,6 +72,13 @@
     text-align: center;
 }
 
+.mf_icon{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 20px;
+}
+
 @media screen and (max-width:576px) {
     .mf_col {
         width: 100%;
@@ -90,7 +98,7 @@
         padding: 10px;
     }
     .mf_card {
-        height: 350px;
+        height: 370px;
     }
 
 }

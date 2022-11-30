@@ -108,6 +108,7 @@ function MemberRegister() {
       // const formData = new FormData();
       const fd = new FormData(e.target);
       console.log(fd);
+      console.log(e.target);
       // return
       // 對照server上的檔案名稱 req.files.avatar
       //fd.append('avatar', selectedFile);
@@ -119,7 +120,7 @@ function MemberRegister() {
             icon: 'success',
             title: '註冊成功',
           });
-          navigate('/');
+          navigate('/MemberLogin');
         })
         .catch((e) => {
           console.log(e);
@@ -201,7 +202,12 @@ function MemberRegister() {
           onInvalid={handleFormInvalid}
           onChange={handleFormChange}
         >
-          <input className='m_input_img' type="file" name="avatar" onChange={changeHandler} />
+          <input
+            className="m_input_img"
+            type="file"
+            name="avatar"
+            onChange={changeHandler}
+          />
           {selectedFile && (
             <div className="m_mar">
               預覽圖片:
@@ -264,7 +270,7 @@ function MemberRegister() {
               placeholder="再次輸入密碼"
               onChange={handleFieldChange}
               required
-            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{9,}$"
+              // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{9,}$"
             />
             <button
               className="m_icon_button"

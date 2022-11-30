@@ -1,7 +1,8 @@
 import './favorite.css';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart, AiFillDelete } from 'react-icons/ai';
+import { TiDelete } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -11,8 +12,8 @@ export default function FavoriteStore() {
   const [myIndex, setMyIndex] = useState({});
   const [index, setIndex] = useState();
 
-  const input = useRef(null);
   const navigate = useNavigate();
+  const forms = useRef(null);
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
@@ -34,6 +35,7 @@ export default function FavoriteStore() {
       // const image = response.data[0].image;
       // console.log(image);
       setUser(response.data);
+      console.log(response.data);
       return response.data;
     } catch (e) {
       console.error(e.message);
@@ -132,6 +134,30 @@ export default function FavoriteStore() {
     }
   };
 
+  const del2 = async (shopSid) => {
+    // e.preventDefault();
+    console.log(forms.current.value);
+    const sid = localStorage.getItem('MemberSid');
+    let FD = JSON.stringify({
+      shop: shopSid,
+    });
+    try {
+      await fetch(`http://localhost:3001/MemberLogin/del2/${sid}`, {
+        method: 'delete',
+        headers: { 'Content-Type': 'application/json' },
+        body: FD,
+      })
+        .then((r) => r.json())
+        .then((res) => {
+          console.log(res);
+          // Swal.fire('刪除成功');
+        });
+    } catch (e) {
+      Swal.fire('刪除失敗');
+      console.error(e.message);
+    }
+  };
+
   useEffect(() => {
     getform();
     // get2();
@@ -157,17 +183,33 @@ export default function FavoriteStore() {
     return (
       <div className="mf_col" key={v.sid}>
         <div className="mf_card">
-          <div className="mf_imgbox">
-            <img
-              className="mf_img"
-              src={
-                'http://localhost:3001/uploads/f8b7c508-c0a1-45c1-b74d-34b4be49da76.jpg'
-              }
+          <form
+            key={v.sid}
+            onSubmit={() => {
+              del2(v.shop_sid);
+            }}
+          >
+            <div className="mf_imgbox">
+              <img
+                className="mf_img"
+                src={
+                  'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
+                }
+              />
+            </div>
+            <h3 className="mf_font1">{v.name}</h3>
+            <p className="mf_font2">地址:{v.address}</p>
+            <p className="mf_font3">電話:{v.phone}</p>
+            <input
+              name="shop_sid"
+              value={v.shop_sid}
+              type="hidden"
+              ref={forms}
             />
-          </div>
-          <h3 className="mf_font1">{v.name}</h3>
-          <p className="mf_font2">地址:{v.address}</p>
-          <p className="mf_font3">電話:{v.phone}</p>
+            <button type="submit">
+              <TiDelete className="mf_icon" />
+            </button>
+          </form>
         </div>
       </div>
     );
@@ -179,7 +221,7 @@ export default function FavoriteStore() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/f8b7c508-c0a1-45c1-b74d-34b4be49da76.jpg'
+            'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
           }
         />
         <p className="font1">店名:{v.name}</p>

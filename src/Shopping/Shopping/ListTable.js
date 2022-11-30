@@ -1,12 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
+  const [user, setUser] = useState([]);
+  const [myIndex, setMyIndex] = useState({});
+  const [index, setIndex] = useState();
   const navigate = useNavigate();
 
   //抓網址變動
@@ -85,13 +91,92 @@ export default function ListTable() {
 
   //取得所有店家
   const getShop = async () => {
+    const sid = localStorage.getItem('MemberSid');
     try {
-      let result = await axios.get(`http://${siteName}:3001/Shopping`);
-      setShop(result.data);
+      const response = await axios.get(`http://${siteName}:3001/Shopping`);
+      // setShop(result.data);
+      try {
+        const response_favorite = await axios.get(
+          `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+        );
+
+        console.log(response_favorite.data);
+        setUser(response_favorite.data);
+        // const arr = { ...response_favorite.data };
+        const obj = {};
+        response_favorite.data.forEach((el) => {
+          obj[el.shop_sid] = true;
+        });
+        console.log(obj);
+        //myIndex, setMyIndex
+        let newIndex = { ...myIndex };
+        response.data.forEach((element) => {
+          if (obj[element.sid]) {
+            newIndex = { ...newIndex, [element.sid]: true };
+            element.favor = true;
+            return;
+          }
+          newIndex = { ...newIndex, [element.sid]: false };
+          element.favor = false;
+        });
+        setMyIndex(newIndex);
+        setShop(response.data);
+        console.log(response.data);
+      } catch (e) {
+        console.error(e.message);
+        return e.message;
+      }
     } catch (e) {
       setErrorMsg(e.message);
     }
-    console.log(errorMsg);
+    // console.log(errorMsg);
+  };
+
+  const add = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+    // const fd = new FormData({ input });
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/MemberLogin/addshop/${sid}/${shopSid}`
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const del = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/MemberLogin/del/${sid}/${shopSid}`
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const submit = async (shopSid) => {
+    const sid = localStorage.getItem('MemberSid');
+
+    if (!sid) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
+      navigate('/MemberLogin');
+    } else {
+      // e.preventDefault();
+      // const fd = new FormData({ input });
+      // console.log(fd);
+      // const nextStatusIndex = myIndex[shopSid] === 0 ? 1 : 0;
+      const nextIndex = !myIndex[shopSid] ? add(shopSid) : del(shopSid);
+      // setMyIndex(nextStatusIndex);
+      setIndex(nextIndex);
+    }
   };
 
   const handleChange = (event) => {
@@ -124,6 +209,7 @@ export default function ListTable() {
 
   //送出後再統一做搜尋
   const submitHandle = async (event) => {
+    const sid = localStorage.getItem('MemberSid');
     let key = usp.get('search');
     let price_max = usp.get('price_max');
     let price_min = usp.get('price_min');
@@ -149,8 +235,40 @@ export default function ListTable() {
       '結果網址',
       `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-    //搜尋後結果存入shop
-    setShop(result.data);
+    try {
+      const response_favorite = await axios.get(
+        `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+      );
+
+      console.log(response_favorite.data);
+      setUser(response_favorite.data);
+      // const arr = { ...response_favorite.data };
+      const obj = {};
+      response_favorite.data.forEach((el) => {
+        obj[el.shop_sid] = true;
+      });
+      console.log(obj);
+      //myIndex, setMyIndex
+      let newIndex = { ...myIndex };
+      result.data.forEach((element) => {
+        if (obj[element.sid]) {
+          newIndex = { ...newIndex, [element.sid]: true };
+          element.favor = true;
+          return;
+        }
+        newIndex = { ...newIndex, [element.sid]: false };
+        element.favor = false;
+      });
+      setMyIndex(newIndex);
+      setShop(result.data);
+      console.log(result.data);
+    } catch (e) {
+      console.error(e.message);
+      return e.message;
+    }
+
+    // //搜尋後結果存入shop
+    // setShop(result.data);
 
     //如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
     if (!shop.length) {
@@ -311,14 +429,26 @@ export default function ListTable() {
                         />
                       </svg>
                       {/* 資料庫結構: 小數點 */}
-                      {shop.average_evaluation}
+                      {shop.evaluation_score}
                     </div>
 
                     {/* TODO 距離 */}
                   </div>
-                  <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span>
+
+                  <span>${shop.price}元</span>
                   <span>{shop.food_type_sid}</span>
                   <span>{shop.phone}</span>
+
+                  <button
+                    onClick={() => {
+                      submit(shop.sid);
+                      const oldState = myIndex[shop.sid];
+                      setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                    }}
+                    // className="icon"
+                  >
+                    {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
+                  </button>
                 </div>
               </div>
             ))

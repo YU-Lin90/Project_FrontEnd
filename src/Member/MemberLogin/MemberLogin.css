@@ -45,3 +45,15 @@
 .m_login_label{
   font-size: 20px;
 }
+.ml_icon_button{
+  height: 30px;
+  width: 30px;
+  padding-top: 2px;
+  margin-left: 3px;
+}
+.ml_email{
+ padding-right: 33px;
+}
+.ml_buttonbox{
+  padding-right: 33px;
+}

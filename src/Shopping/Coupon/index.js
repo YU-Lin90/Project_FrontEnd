@@ -8,7 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 function Coupon() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
-  const [user3, setUser3] = useState([]);
+  const [user3, setUser3] = useState();
   const [text, setText] = useState([]);
   const forms = useRef(null);
   const forms2 = useRef(null);
@@ -70,21 +70,21 @@ function Coupon() {
       }
     }
   };
-  const get = async () => {
+  const get = async (e, shop_sid, use_point, expire) => {
     if (user3 < 0) {
+      e.preventDefault();
       Swal.fire({ icon: 'warning', title: '點數不足' });
     }
-    if (forms2.current.value > user3) {
+    if (use_point > user3) {
+      e.preventDefault();
       Swal.fire({ icon: 'warning', title: '點數不足' });
     } else {
       setText(!text);
-      // e.preventDefault();
-      console.log(forms.current.value);
       const sid = localStorage.getItem('MemberSid');
       let FD = JSON.stringify({
-        coupon_sid: forms.current.value,
-        use_point: forms2.current.value,
-        expire: forms3.current.value,
+        coupon_sid: shop_sid,
+        use_point: use_point,
+        expire: expire,
       });
 
       await fetch(`http://localhost:3001/MemberCouponGetApi/${sid}`, {
@@ -95,7 +95,7 @@ function Coupon() {
         .then((r) => r.json())
         .then((res) => {
           if (res === 1) {
-            Swal.fire('領取成功');
+            // Swal.fire('領取成功');
             console.log(res);
           } else {
             Swal.fire('領取失敗');
@@ -117,15 +117,16 @@ function Coupon() {
 
           <div className="sc_sale_detail">
             <p>優惠券名稱:{v.coupon_name}</p>
-            <p>{v.name}</p>
+            <p>{v.name === '管理者' ? '全站通用' : v.name}</p>
             <p>需要點數:{v.need_point}</p>
             <p>
               使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
             </p>
           </div>
           <form
-            onSubmit={() => {
-              get();
+            ref={forms}
+            onSubmit={(e) => {
+              get(e, v.sid, v.need_point, v.expire);
               const a = [...text];
               if (a[i] === '') {
                 a[i] = 'disabled';
@@ -137,26 +138,11 @@ function Coupon() {
               }
             }}
           >
-            <input
-              type="hidden"
-              name="coupon_sid"
-              value={v.sid}
-              ref={forms}
-            ></input>
-            <input
-              type="hidden"
-              name="need_point"
-              value={v.need_point}
-              ref={forms2}
-            ></input>
-            <input
-              type="hidden"
-              name="expire"
-              value={v.expire}
-              ref={forms3}
-            ></input>
+            <input type="hidden" name="coupon_sid" value={v.sid}></input>
+            <input type="hidden" name="need_point" value={v.need_point}></input>
+            <input type="hidden" name="expire" value={v.expire}></input>
             <div className="sc_buttonbox">
-              <button className="sc_button" onClick={get}>
+              <button type="submit" className="sc_button">
                 <p className="sc_buttonfont">領</p>
                 <p className="sc_buttonfont">取</p>
               </button>
@@ -177,7 +163,6 @@ function Coupon() {
           <div className="sc_sale_detail2">
             <p>優惠券名稱:{v.coupon_name}</p>
             <p>{v.name === '管理者' ? '全站通用' : v.name}</p>
-            <p>需要點數:{v.need_point}</p>
             <p>
               使用期限:<Moment format="YYYY/MM/DD">{v.expire}</Moment>
             </p>
@@ -192,6 +177,7 @@ function Coupon() {
       {/* <button onClick={getform}>按鈕</button> */}
       <h3 className="sc_h3">持有紅利點數:{user3}</h3>
       <div className="sc_wrap"> {display}</div>
+      <h4 className="sc_h4">已領取優惠券:</h4>
       <div className="sc_wrap"> {display2}</div>
     </>
   );

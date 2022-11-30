@@ -10,7 +10,7 @@ export default function StoreDatas() {
   const [index, setIndex] = useState();
 
   const input = useRef(null);
- 
+
   const get2 = async () => {
     const sid = localStorage.getItem('MemberSid');
     try {
@@ -98,8 +98,6 @@ export default function StoreDatas() {
     // setMyIndex(nextStatusIndex);
     setIndex(nextIndex);
   };
- 
- 
 
   const display2 = user2.map((v, i) => {
     return (
@@ -107,7 +105,7 @@ export default function StoreDatas() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/7a2cb8bd-73e0-4971-8a0f-7454a82c57c6.jpg'
+            'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
           }
         />
         <p className="font1">店名:{v.name}</p>
@@ -132,9 +130,7 @@ export default function StoreDatas() {
   });
   return (
     <>
-    
       <div className="con">{display2}</div>
-   
     </>
   );
 }
