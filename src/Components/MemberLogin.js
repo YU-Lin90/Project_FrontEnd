@@ -11,17 +11,6 @@ function MemberLogin() {
   const [password, setPassword] = useState('');
 
   const [passwordFieldType, setPasswordFieldType] = useState('password');
-  function login(email, password) {
-    //如果其中一樣是空的
-    if (!email.trim() || !password.trim()) {
-      Swal.fire({
-        icon: 'warning',
-        title: '輸入欄不可為空白',
-      });
-      return;
-    }
-  }
-
   return (
     <div className="disf fd-c ai-c jc-c padV20">
       <div className="memberLoginForm">
@@ -76,16 +65,7 @@ function MemberLogin() {
               )}
             </button>
           </div>
-          <div className="ml_buttonbox">
-            <button
-              className="m_login_button"
-              onClick={() => {
-                login(email, password);
-              }}
-            >
-              登入
-            </button>
-          </div>
+          <div className="ml_buttonbox"></div>
         </div>
       </div>
     </div>
