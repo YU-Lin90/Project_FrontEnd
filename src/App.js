@@ -104,6 +104,7 @@ import CartTemp from './Temp/CartTemp';
 import Coupon from './Shopping/Coupon';
 //店家內商品列表
 import StoreDetail from './Shopping/StoreDetail';
+import ProductList from './Store/StoreProductEdit/pages/ProductList';
 //結帳頁
 import Pay from './Shopping/Pay';
 //台北市預留頁
@@ -139,8 +140,8 @@ function App() {
               {/* 店家商品管理 */}
               {/* ~/Store/StoreProductEdit */}
               {/* <Route path="StoreProductEdit" element={<StoreProductEdit />} /> */}
-              <Route index element={<ShopList />} />
-              <Route path="overview" element={<Overview />} />
+              {/* <Route index element={<ShopList />} /> */}
+              <Route index element={<Overview />} />
               <Route path="type" element={<Type />} />
               <Route path="product" element={<Product />} />
               <Route path="option" element={<Option />} />
@@ -232,6 +233,7 @@ function App() {
             {/* 店家內商品列表 商品選取用卡片式 不用連結 */}
             {/* ~/StoreDetail */}
             <Route path="StoreDetail" element={<StoreDetail />} />
+            <Route path="productList" element={<ProductList />} />
             {/* 結帳頁 */}
             {/* ~/Pay */}
             <Route path="Pay" element={<Pay />} />
