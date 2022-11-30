@@ -3,7 +3,7 @@ import axios from 'axios';
 function Takebtn(){
   const ordersid = localStorage.getItem('order_sid');
   async function foodget() {
-    await axios.put(`http://localhost:3001/deliverorder/${ordersid}`);
+    await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
   }
   return(
     <button type='button'
@@ -18,7 +18,7 @@ function Takebtn(){
 function Finishbtn(){
   const ordersid = localStorage.getItem('order_sid');
   async function foodreach(){
-    await axios.put(`http://localhost:3001/finishdeliverorder/${ordersid}`);
+    await axios.put(`http://localhost:3001/deliver/finishdeliverorder/${ordersid}`);
   }
   return(
     <button type='button'

@@ -17,7 +17,7 @@ function History({
   // const day = 
 
   async function foodmeun() {
-    const repon = await axios.get(`http://localhost:3001/foodmeun/${order_sid}`);
+    const repon = await axios.get(`http://localhost:3001/deliver/foodmeun/${order_sid}`);
     setFood(repon.data);
   }
 
