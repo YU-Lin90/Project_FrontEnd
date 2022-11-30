@@ -6,6 +6,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 
+//地圖用
+import { useGeo } from '../../Context/GeoLocationProvider';
+//地址用
+import { usePay } from '../../Context/PayPageContext';
+
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
@@ -14,8 +19,17 @@ export default function ListTable() {
   const [user, setUser] = useState([]);
   const [myIndex, setMyIndex] = useState({});
   const [index, setIndex] = useState();
-  
+
   const navigate = useNavigate();
+
+  //地圖用
+  const { calculateDistance } = useGeo();
+  //地址用
+  const { sendAddress, setSendAddress } = usePay();
+  //計算距離用
+  const [currentDistance, setCurrentDistance] = useState([]);
+
+  let distanceData = {};
 
   //抓網址變動
   useEffect(() => {
@@ -26,17 +40,17 @@ export default function ListTable() {
   const [shop, setShop] = useState([]);
 
   //按鈕
-  const [isChecked , setIsChecked] = useState(true)
+  const [isChecked, setIsChecked] = useState(true);
 
   //載入用，true表示正在載入中
-  const [isLoading, setIsLoading] = useState(false);
-  const spinner = (
-    <>
-      <div className="spinner" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </>
-  );
+  // const [isLoading, setIsLoading] = useState(false);
+  // const spinner = (
+  //   <>
+  //     <div className="spinner" role="status">
+  //       <span className="visually-hidden">Loading...</span>
+  //     </div>
+  //   </>
+  // );
 
   //連結，暫時無用
   const handleClick = (myLink) => () => {
@@ -52,7 +66,7 @@ export default function ListTable() {
   const [searchPriceMin, setSearchPriceMin] = useState('');
   const [searchWaitTime, setSearchWaitTime] = useState('');
   const [searchTotalRows, setSearchTotalRows] = useState('');
-  
+
   //儲存搜尋時呈現的結果用
   const [noResult, setNoResult] = useState('正在搜尋中');
 
@@ -90,7 +104,13 @@ export default function ListTable() {
   const getShop = async () => {
     const sid = localStorage.getItem('MemberSid');
     try {
-      const response = await axios.get(`http://${siteName}:3001/Shopping`);
+      // const response = await axios.get(`http://${siteName}:3001/Shopping`);
+
+      // 測試API距離資料用
+      const response = await axios.get(
+        `http://localhost:3001/Shopping?search=披薩`
+      );
+
       // setShop(result.data);
       try {
         const response_favorite = await axios.get(
@@ -176,13 +196,17 @@ export default function ListTable() {
     }
   };
 
+  // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
     setSearchWaitTime(value);
   };
 
-  const checkedBox_handleChange = () => {
-    setIsChecked(!isChecked);
+  // checkedBox的改變事件
+  const checkedBox_handleChange = (event) => {
+    if (event.target.checked) {
+      setIsChecked(!isChecked);
+    }
   };
 
   //不送出就搜尋(暫時無用)
@@ -215,9 +239,18 @@ export default function ListTable() {
     let price_max = usp.get('price_max');
     let price_min = usp.get('price_min');
     let wait_time = usp.get('wait_time');
+    let order = usp.get('order');
 
+    // console.log('排序:', order);
+
+    // 如果等待時間小於5，設置成5
     if (wait_time && wait_time < 5) {
       wait_time = 5;
+    }
+
+    // 如果排序選擇距離則設置固定在距離
+    if (order && order === 'distance') {
+      setIsChecked(!isChecked);
     }
 
     setSearchWord(key);
@@ -225,11 +258,16 @@ export default function ListTable() {
     setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
 
+    // 距離計算
+    // console.log(calculateDistance(sendAddress, ""));
+
+    // 取地址
+    // console.log("指定地址",sendAddress)
+
     let result = await axios.get(
-      `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&wait_time=${wait_time}`
+      `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-
 
     console.log(
       'key:',
@@ -282,10 +320,48 @@ export default function ListTable() {
       setNoResult('');
     }
 
-    if (key || price_max || price_min && result.data.length > 0) {
-      setSearchTotalRows(result.data[0].total_rows);
-    }
+    if (key || price_max || price_min) {
+      if (result.data.length > 0) {
+        setSearchTotalRows(result.data[0].total_rows);
 
+        // console.log(calculateDistance(result.data[0].address,sendAddress).then((v)=>{
+        //   console.log("地址",v)
+        // }))
+
+        const address = {};
+        const shopSid = {};
+        let newDistance = { ...currentDistance };
+
+        // 取得forEach中的地址
+        result.data.forEach((element) => {
+          address[element.address] = element.address;
+          shopSid[element.sid] = element.sid;
+          // 解析forEach中的地址
+          if (address[element.address]) {
+            // newDistance = { ...newDistance, [element.name]: [element.address] };
+            // console.log('地址陣列', newDistance);
+            // setCurrentDistance(newDistance)
+            // console.log("state陣列",currentDistance)
+
+            console.log('OBJJJJJJ', address[element.address]);
+
+            calculateDistance(sendAddress, address[element.address]).then(
+              (v) => {
+                distanceData = {
+                  ...distanceData,
+                  [element.sid]: Number(Math.round(v)),
+                };
+                console.log(Math.round(v));
+                // console.log('地址', Math.round(v));
+                // setCurrentDistance(newDistance);
+                console.log('state陣列', distanceData);
+              }
+            );
+          }
+          return;
+        });
+      }
+    }
     console.log(
       'submit後搜尋字串:',
       usp.get('search'),
@@ -317,8 +393,8 @@ export default function ListTable() {
           <div className="search_bar">
             {searchTotalRows ? (
               <>
-              {searchWord ? (<p>{searchWord}的搜尋結果</p>) : ""}
-              <p>{searchTotalRows}個店家</p>
+                {searchWord ? <p>{searchWord}的搜尋結果</p> : ''}
+                <p>{searchTotalRows}個店家</p>
               </>
             ) : (
               <p>所有餐廳</p>
@@ -368,23 +444,26 @@ export default function ListTable() {
                 <p>分類排序</p>
                 <div className="search_bar_point_button">
                   <div className="search_bar_point_button1">
-                    <input 
-                    type="checkbox" 
-                    name=""
-                    defaultChecked={true}
-                    
-                    onChange={checkedBox_handleChange}
+                    <input
+                      type="checkbox"
+                      id="checkbox_point"
+                      name="order"
+                      value="point"
+                      checked={isChecked}
+                      onChange={checkedBox_handleChange}
                     />
-                    <label htmlFor="">評分</label>
+                    <label htmlFor="checkbox_point">評分</label>
                   </div>
                   <div className="search_bar_point_button2">
-                    <input 
-                    type="checkbox" 
-                    name=""
-                    checked={!isChecked}
-                    onChange={checkedBox_handleChange}
+                    <input
+                      type="checkbox"
+                      id="checkbox_distance"
+                      name="order"
+                      value="distance"
+                      checked={!isChecked}
+                      onChange={checkedBox_handleChange}
                     />
-                    <label htmlFor="">距離</label>
+                    <label htmlFor="checkbox_distance">距離</label>
                   </div>
                 </div>
               </div>
@@ -442,7 +521,10 @@ export default function ListTable() {
                     等待時間{shop.wait_time}
                   </div>
                 </div>
+                <span>SID {shop.sid}</span>
                 <div className="shopCard_text" onClick={handleClick}>
+                  <span>AAAA
+                  BBBB</span>
                   <div className="shopCard_text_name">
                     {/* {submitHandle && <span>{shop.products_name}</span>} */}
                     <span>{shop.name}</span>
@@ -466,6 +548,7 @@ export default function ListTable() {
                     {/* TODO 距離 */}
                   </div>
                   {/* <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span> */}
+                  <span>{shop.address}</span>
                   <span>{shop.food_type_sid}</span>
                   <span>{shop.phone}</span>
                   <button
