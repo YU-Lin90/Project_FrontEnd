@@ -1,13 +1,16 @@
 
+
 .row{
     display: flex;
     width: 100%;
-    
 }
 .col_bar{
     width: 30%;
     flex-wrap: wrap;
     flex-direction: column;
+    top: 0;
+    height: 100%;
+    position: sticky;
 }
 
 .table{
@@ -21,12 +24,63 @@
 .search_bar{
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
+    padding: 10vh 3vh;
 }
 
-.search_bar div{
-    margin: 5px;
+.search_bar>p{
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+
+.search_bar_title{
+    /* h2 */
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.search_bar_price>p{
+    /* h2 */
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.search_bar_price_max{
+align-items: center;
+height: fit-content;
+}
+.search_bar_price_min{
+align-items: center;
+height: fit-content;
+}
+
+.search_bar_tag>p{
+    /* h2 */
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.search_bar_point_button div{
+margin: 2vh 0;
 }
 
 .search_bar span{
@@ -35,12 +89,22 @@
     margin: 20px 0;
 }
 
+.search_bar_time>p{
+    /* h2 */
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
 .range_label{
     display: flex;
     align-items: center;
 }
 .range_label input{
-    width: 30%;
+    width: 20%;
 }
 
 .slider {
@@ -128,6 +192,7 @@ margin: 0 auto;
     width: 30%;
     margin: 1%;
     border: 1px solid #CCC;
+    background-color: #FFF;
 }
 .shopCard_delivery_time{
     font-size: small;
