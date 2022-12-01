@@ -24,12 +24,26 @@ function DeliverLogin() {
     e.preventDefault();
     const { data } = await axios.post('http://localhost:3001/deliver/deliverlogin', formData)
     if(data.success){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '登入成功',
+        showConfirmButton: false,
+        timer: 1500
+      })
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
       localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
       localStorage.setItem('onlie_state', JSON.stringify(data.success));
       navi('/Deliver/DeliverConfirmOrder');
       alert("登入成功");
     }else{
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '登入失敗',
+        showConfirmButton: false,
+        timer: 1500
+      })
       localStorage.removeItem('deliver_name');  //移除
       localStorage.removeItem('onlie_state');
       alert("登入失敗")
