@@ -1,7 +1,6 @@
 //會員現在訂單 地圖層 這裡一個監聽器
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import CycleContent from './CycleContent';
 import keys from '../../../keys';
 import { useGeo } from '../../../Context/GeoLocationProvider';
 import { useFunc } from '../../../Context/FunctionProvider';
@@ -15,7 +14,12 @@ const StorePositionIcon = () => (
     <i className="fa-solid fa-store fontMainColor mapTranslate fs48"></i>
   </div>
 );
-function OrderMap({ selectedOrder, orderSocket }) {
+const DeliverPosition = () => (
+  <div>
+    <i className="fs48 fa-solid fa-motorcycle fontMainColor mapTranslate cycleFontOnMap"></i>
+  </div>
+);
+function OrderMap({ selectedOrder, orderSocket, step }) {
   const { loginCheckGetFetch } = useFunc();
   const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
     useGeo();
@@ -41,15 +45,17 @@ function OrderMap({ selectedOrder, orderSocket }) {
     },
     zoom: 15,
   };
-  const checkLocation = () => {
+  const checkLocation = async (orderSid) => {
     //獲得現在位置 然後傳到裡面的函式
-    navigator.geolocation.getCurrentPosition((location) => {
-      console.log(location.coords);
-      setDeliverPosition({
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      });
-    });
+    //TODO 這裡要改成訂單上面的位置
+    const res = await loginCheckGetFetch(
+      `MemberMapDetails/GetOrderAddress/?orderSid=${orderSid}`,
+      'Member'
+    );
+    console.log(res.receive_address);
+    const gettedOrderPosition = await getLatLngByAddress(res.receive_address);
+    console.log(gettedOrderPosition);
+    setPositionNow(gettedOrderPosition);
   };
 
   const getStoreLocation = async (orderSid) => {
@@ -63,15 +69,16 @@ function OrderMap({ selectedOrder, orderSocket }) {
     setStorePosition(gettedStorePosition);
   };
 
+  // useEffect(() => {
+  //   // setInterval(checkLocation, 1000);
+  //   // 
+  //   getStoreLocation(selectedOrder);
+  //   return () => {
+  //     // clearInterval(intervalTest);
+  //   };
+  // }, []);
   useEffect(() => {
-    // setInterval(checkLocation, 1000);
-    checkLocation();
-    getStoreLocation(selectedOrder);
-    return () => {
-      // clearInterval(intervalTest);
-    };
-  }, []);
-  useEffect(() => {
+    checkLocation(selectedOrder);
     getStoreLocation(selectedOrder);
   }, [selectedOrder]);
   /* location.coords.longitude
@@ -91,7 +98,12 @@ function OrderMap({ selectedOrder, orderSocket }) {
     const datas = JSON.parse(e.data);
     console.log('收到外送員位置');
     console.log(datas);
-    if (datas.orderSid === selectedOrder && datas.lat && datas.lng) {
+    if (
+      datas.orderSid === selectedOrder &&
+      datas.lat &&
+      datas.lng &&
+      step === 4
+    ) {
       console.log('in');
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
     }
@@ -112,18 +124,21 @@ function OrderMap({ selectedOrder, orderSocket }) {
         // bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
-        center={deliverPosition}
+        center={positionNow}
       >
         <SelfPositionIcon
           lat={positionNow.lat}
           lng={positionNow.lng}
           text="Member"
         />
-        <CycleContent
-          lat={deliverPosition.lat}
-          lng={deliverPosition.lng}
-          text="Deliver"
-        />
+        {step === 4 ? (
+          <DeliverPosition
+            lat={deliverPosition.lat}
+            lng={deliverPosition.lng}
+            text="Deliver"
+          />
+        ) : null}
+
         <StorePositionIcon
           lat={storePosition.lat}
           lng={storePosition.lng}

@@ -103,6 +103,7 @@ function PayButton({ orderSocket }) {
     cartContents,
     sendAddress,
     chooseedPayShop,
+    waitTime,
   } = usePay();
 
   //回傳要傳的資料 避免重複寫
@@ -118,6 +119,7 @@ function PayButton({ orderSocket }) {
       details: cartContents.cartList[chooseedPayShop],
       storeMemo: storeMemo,
       deliverMemo: deliverMemo,
+      waitTime: waitTime,
     });
   };
   //現金
@@ -125,9 +127,14 @@ function PayButton({ orderSocket }) {
     const postData = dataCollection();
     const result = await loginCheckPostFetch('CashPay', 'Member', postData);
     console.log(result);
-    paidDeleteCartPart(chooseedPayShop);
-    Swal.fire('下訂成功');
-    navi('/Member/MemberOrder');
+    Swal.fire({
+      title: '下訂成功',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navi('/Member/MemberOrder');
+        paidDeleteCartPart(chooseedPayShop);
+      }
+    });
   };
   //LinePay
   const linePay = async () => {
@@ -223,24 +230,27 @@ function PayButton({ orderSocket }) {
       <div
         onClick={async () => {
           if (!buttonLock) {
-            let checkState = false;
-            await confirmAlert
-              .fire({
-                // TODO: 要加入等待時間
-                title: `等待時間超過${20}是否確定訂餐?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: '確定',
-                cancelButtonText: '取消',
-              })
-              .then((result) => {
-                if (result.isConfirmed) {
-                  checkState = true;
-                }
-              });
-            if (!checkState) {
-              return;
+            if (waitTime >= 50) {
+              let checkState = false;
+              await confirmAlert
+                .fire({
+                  // TODO: 要加入等待時間
+                  title: `等待時間超過${waitTime}分鐘，是否確定訂餐?`,
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: '確定',
+                  cancelButtonText: '取消',
+                })
+                .then((result) => {
+                  if (result.isConfirmed) {
+                    checkState = true;
+                  }
+                });
+              if (!checkState) {
+                return;
+              }
             }
+
             orderSocket.send(
               JSON.stringify({
                 receiveSide: 2,

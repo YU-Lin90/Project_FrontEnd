@@ -48,7 +48,11 @@ function OrderContents({ selectedOrder, orderSocket, setSelectedOrder }) {
         />
         {/* 下半地圖 */}
         <div style={{ height: '500px', width: '100%' }}>
-          <OrderMap orderSocket={orderSocket} selectedOrder={selectedOrder} />
+          <OrderMap
+            orderSocket={orderSocket}
+            selectedOrder={selectedOrder}
+            step={step}
+          />
         </div>
       </div>
       {/* <div className="h200 bigHidden"></div> */}

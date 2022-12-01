@@ -104,7 +104,6 @@ function DeliverMapContent({
     });
   };
   //每秒定位 OK 1126/2315
-  // TODO 製作聊天室中暫時關閉
   useEffect(() => {
     const intervals = setInterval(checkMyLocation, 1000);
     getAddress();

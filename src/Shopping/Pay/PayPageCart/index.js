@@ -1,6 +1,5 @@
 //購物車頁面
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { usePay } from '../../../Context/PayPageContext';
 import { useCart } from '../../../Context/CartProvider';
 function PayPageCart() {
@@ -36,7 +35,8 @@ function PayPageCart() {
                   }
                 }}
                 key={key}
-                className="disf jc-se gap5"
+                className="disf jc-sb gap5 ai-c padV10 padH5 "
+                style={{ backgroundColor: '#eeeeff' }}
               >
                 <div className="">
                   {/* prouducts[key].amount數量 */}
@@ -95,13 +95,16 @@ function PayPageCart() {
                   ]
               } */}
               </div>
-              <div className="disf ai-c jc-se padH5 padV5 productDetails">
+              <div
+                style={{ backgroundColor: '#ffeeee88' }}
+                className="disf ai-c jc-se padH5 padV5 borderBotGray3"
+              >
                 {prouducts[key].details.map((value) => {
                   return (
                     <>
                       <div className="ta-c">
-                        <p className="marb5">【{value.name}】</p>
-                        <p>
+                        <p className="marV5">【{value.name}】</p>
+                        <p className="marV5 marr5">
                           {value.price !== 0 ? (
                             <>
                               ${value.price}{' '}

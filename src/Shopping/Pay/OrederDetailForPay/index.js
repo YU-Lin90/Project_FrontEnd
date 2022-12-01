@@ -15,7 +15,12 @@ function OrederDetailForPay() {
   }, []);
   return (
     <div className=" topUnderNav padV20 flexSetCenter of-a OrederDetailForPay">
-      <div className="disf jc-c fd-c ai-c w80p gap20 padV20">
+      <div
+        className="disf jc-c fd-c ai-c w80p gap20 padV20 padH5"
+        style={{
+          boxShadow: '0 0 15px 1px rgba( 234,216,202 , 1 )',
+        }}
+      >
         <p className="fs36 fw6 ta-c marb15">你的訂單</p>
         <PayPageCart />
         {/* <p className="fs24 fw5">
@@ -116,14 +121,13 @@ function OrederDetailForPay() {
             點
           </span>
         </p>
-        {/* TODO:繼續加購商品 */}
         <p
           className="payPageButton"
           onClick={() => {
             navi(`/StoreDetail?shopSid=${chooseedPayShop}`);
           }}
         >
-          繼續加購
+          前往商店加購
         </p>
       </div>
     </div>

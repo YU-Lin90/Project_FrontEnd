@@ -1,7 +1,6 @@
 //地圖上聊天按鈕  訂單SOCKET監聽器在這裡
 import { useEffect, useState } from 'react';
 import { useSVG } from '../../../Context/SVGProvider';
-import OrderChattingBox from './OrderChattingBox';
 import Swal from 'sweetalert2';
 import OrderChat from '../../../OrderChat';
 const alertMessages = ['', '', '店家已接單', '店家已完成', '外送員已取餐'];
@@ -34,7 +33,7 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
     function receiveMessage(e) {
       const datas = JSON.parse(e.data);
       // console.log('訊息');
-      // console.log(datas);
+      console.log(datas);
       /**{
         "receiveSide": 1,
         "receiveSid": 1,
@@ -46,11 +45,17 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
       if (datas.step) {
         console.log('step');
         setAcceptedStepMessage(datas);
-      } else if (!datas.self && !openChat) {
+      } else if (!datas.self && !openChat && !datas.position) {
         //新訊息提醒
         setNewMSG(true);
         // setAcceptedMessage(datas);
       }
+      /*    const input = JSON.parse(newContent.content);
+      if (!input.position) {
+        console.log(newContent.content);
+        setContents([input, ...contents]);
+        setNewContent({ newMsg: false, content: {} });
+      } */
     }
 
     orderSocket.addEventListener('message', receiveMessage);
@@ -81,7 +86,7 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
       {openChat ? (
         <div className="orderOnMapChattingBox">
           <OrderChat
-          // TODO 這裡暫時先這樣 之後有時間再改成正式版本
+            // TODO 這裡暫時先這樣 之後有時間再改成正式版本
             socket={orderSocket}
             // selectedOrder
             orderSid={1}
