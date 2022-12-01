@@ -32,6 +32,9 @@ function PayCoupon() {
     //不足額
     const notUseArray = res.filter((v, i) => {
       const check = totalPrice - v.use_range >= 0 ? true : false;
+      if (!check && clickedCoupon === v.sid) {
+        setClickedCoupon(0);
+      }
       return !check;
     });
     setCouponData(canUseArray);
@@ -43,7 +46,7 @@ function PayCoupon() {
     setCouponSid(couponSid);
     setCouponCutAmount(cutAmount);
   };
-
+  //TODO: 選著的時候改價格變成沒選
   useEffect(() => {
     getCouponDetail();
   }, [cartContents]);
@@ -88,7 +91,7 @@ function PayCoupon() {
                 >
                   <div className="as-s fw6 fs18 h20"></div>
                   <div className="as-c fw6 fs18 w60p ta-c">不使用優惠券</div>
-                  <div className="as-e h20" ></div>
+                  <div className="as-e h20"></div>
                 </div>
               </div>
               {/* 足額優惠券 */}
@@ -105,7 +108,9 @@ function PayCoupon() {
                         clickedCoupon === Number(v.sid) ? 'active' : ''
                       }`}
                     >
-                      <div className="as-s fw6 fs18  h20">折{v.sale_detail}元</div>
+                      <div className="as-s fw6 fs18  h20">
+                        折{v.sale_detail}元
+                      </div>
                       <div className="as-c fw6 fs18 w60p ta-c">
                         {v.coupon_name}
                       </div>

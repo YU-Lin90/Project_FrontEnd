@@ -6,6 +6,9 @@ function RandomButton({
   setGettedShopName,
   setRadomArrays,
   setStartFlashing,
+  todayOver,
+  setTodayOver,
+  startFlashing,
 }) {
   const { loginCheckPostFetch } = useFunc();
 
@@ -19,8 +22,11 @@ function RandomButton({
     );
     console.log(res);
     setStartFlashing(true);
-    setRadomArrays(res);
-    setGettedShopName(res[0].name);
+    setRadomArrays(res.shopList);
+    setGettedShopName(res.shopList[0].name);
+    if (res.over) {
+      setTodayOver(true);
+    }
   };
   return (
     <>
@@ -28,6 +34,9 @@ function RandomButton({
       <div
         // rejectedTypes 之後用這個
         onClick={() => {
+          if (startFlashing) {
+            return;
+          }
           const rejectedTypesWithNumber = [];
           rejectedTypes.forEach((v, i) => {
             if (v) rejectedTypesWithNumber.push(i + 1);

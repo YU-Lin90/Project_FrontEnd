@@ -29,13 +29,30 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
               } */}
           {orderShowNow.productResult.map((v, i) => {
             return (
-              <div key={v.sid} className="disf jc-sb padV10 padH10">
-                <div className="disf w80p">
-                  <p className="w20p fontMainColor fw6">{v.amount}x</p>
-                  <p className="w80p">{v.name}</p>
+              <>
+                <div key={v.sid} className="disf jc-sb padV10 padH10">
+                  <div className="disf ai-c w80p">
+                    <p className="w20p fontMainColor fw6">{v.amount}x</p>
+                    <p className="w80p">{v.name}</p>
+                  </div>
+                  <p className="w20p">NT${v.product_price * v.amount}</p>
                 </div>
-                <p className="w20p">NT${v.product_price * v.amount}</p>
-              </div>
+                {v.options.length === 0 ? null : (
+                  <div
+                    style={{ backgroundColor: '#ffeeee' }}
+                    className="disf jc-se ai-c padV5 borderBotGray3"
+                  >
+                    {/* 細節 */}
+                    {v.options.map((element, i) => {
+                      return (
+                        <span className="fw5" key={i}>
+                          {element.options}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+              </>
             );
           })}
         </div>

@@ -160,7 +160,7 @@ function PayButton({ orderSocket }) {
       });
       const url =
         `http://${siteName}:3001/LinePay/reserve/?` + params.toString();
-      newWindow.current = PopupCenter(url, 'LinelogInPopup', 400, 600);
+      newWindow.current = PopupCenter(url, 'LinelogInPopup', 800, 600);
       // await loginCheckGetFetch(
       //   `LinePay/reserve/?${params.toString()}`,
       //   'Member'
@@ -279,14 +279,14 @@ function PayButton({ orderSocket }) {
       >
         確認
       </div>
-      <div
+      {/* <div
         className="payPageButton"
         onClick={() => {
           showDatasInConsole();
         }}
       >
         測試用按鈕 console顯示資料
-      </div>
+      </div> */}
     </>
   );
 }

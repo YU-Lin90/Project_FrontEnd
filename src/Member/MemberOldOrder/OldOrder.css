@@ -1,9 +1,9 @@
 .oldOrderFrame {
-  border: 1px #222 solid;
+  border: 1px var(--mainColor) solid;
 }
 
 .oldOrderTopDetail {
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--mainColor);
 }
 
 .oldOrderCommand {
