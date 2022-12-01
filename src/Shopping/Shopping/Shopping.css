@@ -24,7 +24,7 @@
 .search_bar{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
     padding: 10vh 3vh;
 }
 
@@ -161,7 +161,7 @@ margin: 2vh 0;
 
 .col_list{
     display: flex;
-    width: 100%;
+    width: 70%;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
