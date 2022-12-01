@@ -6,9 +6,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 
-//地圖用
+//距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
-//地址用
+//地址用----------------------------------------------------------------
 import { usePay } from '../../Context/PayPageContext';
 
 export default function ListTable() {
@@ -22,14 +22,14 @@ export default function ListTable() {
 
   const navigate = useNavigate();
 
-  //地圖用
+  //-------------------------計算距離用------------------------------------
+
+  //距離用
   const { calculateDistance } = useGeo();
   //地址用
   const { sendAddress, setSendAddress } = usePay();
-  //計算距離用
-  const [currentDistance, setCurrentDistance] = useState([]);
 
-  let distanceData = {};
+  //----------------------------------------------------------------------
 
   //抓網址變動
   useEffect(() => {
@@ -107,9 +107,7 @@ export default function ListTable() {
       // const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
       // 測試API距離資料用
-      const response = await axios.get(
-        `http://localhost:3001/Shopping?search=披薩`
-      );
+      const response = await axios.get(`http://${siteName}:3001/Shopping?`);
 
       // setShop(result.data);
       try {
@@ -269,6 +267,17 @@ export default function ListTable() {
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
 
+    //---------------------------計算距離用-----------------------------
+
+    for (let element of result.data) {
+      const shopAddress = element.address;
+      const selfLocation = sendAddress;
+      const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+      element.distance = gettedDistance;
+    }
+
+    //-----------------------------------------------------------------
+
     console.log(
       'key:',
       key,
@@ -328,38 +337,15 @@ export default function ListTable() {
         //   console.log("地址",v)
         // }))
 
-        const address = {};
-        const shopSid = {};
-        let newDistance = { ...currentDistance };
+        // if(sendAddress){
+        //   for (let element of result.data) {
+        //     const distance = await calculateDistance(sendAddress, element.address)
+        //     element.distance = distance
 
-        // 取得forEach中的地址
-        result.data.forEach((element) => {
-          address[element.address] = element.address;
-          shopSid[element.sid] = element.sid;
-          // 解析forEach中的地址
-          if (address[element.address]) {
-            // newDistance = { ...newDistance, [element.name]: [element.address] };
-            // console.log('地址陣列', newDistance);
-            // setCurrentDistance(newDistance)
-            // console.log("state陣列",currentDistance)
-
-            console.log('OBJJJJJJ', address[element.address]);
-
-            calculateDistance(sendAddress, address[element.address]).then(
-              (v) => {
-                distanceData = {
-                  ...distanceData,
-                  [element.sid]: Number(Math.round(v)),
-                };
-                console.log(Math.round(v));
-                // console.log('地址', Math.round(v));
-                // setCurrentDistance(newDistance);
-                console.log('state陣列', distanceData);
-              }
-            );
-          }
-          return;
-        });
+        //   }
+        // }
+        // setCurrentDistance(currentDistance)
+        // console.log("currentDistance",currentDistance)
       }
     }
     console.log(
@@ -523,8 +509,11 @@ export default function ListTable() {
                 </div>
                 <span>SID {shop.sid}</span>
                 <div className="shopCard_text" onClick={handleClick}>
-                  <span>AAAA
-                  BBBB</span>
+                  {/* {currentDistance.map(v,i)=>{
+                  {v.name}
+                }} */}
+                  <span>AAAA{shop.distance} BBBB</span>
+
                   <div className="shopCard_text_name">
                     {/* {submitHandle && <span>{shop.products_name}</span>} */}
                     <span>{shop.name}</span>
