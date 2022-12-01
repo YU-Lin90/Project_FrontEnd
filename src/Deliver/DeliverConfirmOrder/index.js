@@ -8,7 +8,7 @@ function DeliverConfirmOrder() {
   const [listData, setListData] = useState([]);
 
   async function getList() {
-    const response = await axios.get('http://localhost:3001/api');
+    const response = await axios.get('http://localhost:3001/deliver/deliverlist');
     setListData(response.data.rows1);
   }
   useEffect(() => {
