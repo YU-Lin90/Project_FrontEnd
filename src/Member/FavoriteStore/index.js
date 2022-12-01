@@ -273,6 +273,21 @@ export default function FavoriteStore() {
         onChange={(e) => {
           setInputKeyword(e.target.value);
         }}
+        onKeyPress={() => {
+          if (!inputKeyword) {
+            const a = user;
+            console.log(a);
+            getform();
+          } else {
+            if (user.length) {
+              const b = user.filter((v, i) => v.name.includes(inputKeyword));
+              setUser(b);
+              setErrorMsg('');
+            } else if (!user.length) {
+              setErrorMsg('沒有此店家');
+            }
+          }
+        }}
       />
       <button
         onClick={async () => {
@@ -285,11 +300,6 @@ export default function FavoriteStore() {
             const b = user.filter((v, i) => v.name.includes(inputKeyword));
             console.log(b);
             setUser(b);
-          }
-          if (user.length) {
-            setErrorMsg('沒有此店家');
-          } else {
-            setErrorMsg('');
           }
         }}
       >
@@ -308,7 +318,7 @@ export default function FavoriteStore() {
       {/* <div className="con">{display2}</div> */}
       <h2 className="mf_h2">最愛店家</h2>
       <div className="mf_wrap">{display}</div>
-      <div>{errormsg}</div>
+      <div>{user.length > 0 ? errormsg : '沒有此店家'}</div>
     </>
   );
 }
