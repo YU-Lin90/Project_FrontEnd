@@ -34,6 +34,7 @@ function DeliverLogin() {
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
       localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
       localStorage.setItem('onlie_state', JSON.stringify(data.success));
+      localStorage.setItem('delivertake', true);
       navi('/Deliver/DeliverConfirmOrder');
       alert("登入成功");
     }else{
@@ -46,6 +47,8 @@ function DeliverLogin() {
       })
       localStorage.removeItem('deliver_name');  //移除
       localStorage.removeItem('onlie_state');
+      localStorage.removeItem('delivertake');
+      localStorage.removeItem('deliver_sid');
       alert("登入失敗")
     }
   }
