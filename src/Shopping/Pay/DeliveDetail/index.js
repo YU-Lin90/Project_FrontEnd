@@ -32,7 +32,6 @@ function DeliveDetail() {
     setWaitTime(time);
   };
   useEffect(() => {
-    // TODO:之後再打開
     checkWaitTime();
   }, []);
   return (

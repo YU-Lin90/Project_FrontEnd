@@ -12,7 +12,7 @@ function Home() {
       <HomeCoupons />
       <Citys />
 
-      <FoodTypes />
+      {/* <FoodTypes /> */}
     </>
   );
 }

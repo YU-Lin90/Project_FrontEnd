@@ -17,11 +17,17 @@ function ChatContent({
   //{ newMsg: false, content: {} }
   function addNewContent(newContent) {
     // console.log('進入');
+    console.log(newContent.newMsg);
+    console.log(newContent);
+
     if (newContent.newMsg) {
       // console.log('進入判斷式');
-      console.log(newContent.content);
-      setContents([JSON.parse(newContent.content), ...contents]);
-      setNewContent({ newMsg: false, content: {} });
+      const input = JSON.parse(newContent.content);
+      if (!input.position) {
+        // console.log(newContent.content);
+        setContents([input, ...contents]);
+        setNewContent({ newMsg: false, content: {} });
+      }
     }
   }
   async function getChatDetail() {
@@ -32,7 +38,7 @@ function ChatContent({
       postData
     );
     console.log(res);
-    setContents(res)
+    setContents(res);
   }
 
   useEffect(() => {

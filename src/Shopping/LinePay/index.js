@@ -114,7 +114,6 @@ function LinePay(props) {
   useEffect(() => {
     if (paid) {
       // alert('已付款');
-      //TODO:這邊之後改成結帳完成頁(訂單成立頁)
       //這一頁之後做成元件放在訂單頁
       setTimeout(() => {
         navi('/');
