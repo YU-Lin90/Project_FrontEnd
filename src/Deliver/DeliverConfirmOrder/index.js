@@ -19,7 +19,10 @@ function DeliverConfirmOrder() {
     <>
       <div className="Dstates">
         <p>使用狀態</p>
-        <p>{localStorage.getItem('onlie_state') ? '在線中' : '隱藏'}</p>
+        <div className='Donliestate'>
+          <div className={localStorage.getItem('onlie_state') ? 'Donlie' : 'Donlie active'}></div>
+          <p>{localStorage.getItem('onlie_state') ? '在線中' : '隱藏'}</p>
+        </div>
       </div>
       <ul className="Doldlist">
       {/* ---------------------接單列表------------------ */}

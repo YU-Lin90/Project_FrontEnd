@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
-function ListTable({ member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
+function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
   const [btn, setBtn] = useState(false);
   const [delivertake, setDelivertake] = useState(true);
   // const [dosid, setDosid] = useState([]);
@@ -32,12 +32,13 @@ function ListTable({ member_sid, shop_sid, sid, name, address, order_sid, delive
         cancelButtonText: '取消',
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            '謝謝你的辛苦',
-          )
+          Swal.fire({
+            title:'謝謝你的辛苦',}
+          ).then((result)=>{
+            navi('/Deliver/DeliverOrder')
+          })
           sqlactive()
           take()
-          navi('/Deliver/DeliverOrder');
         }
       })
     }else{    //
@@ -65,15 +66,21 @@ function ListTable({ member_sid, shop_sid, sid, name, address, order_sid, delive
       <li className="Doldeitem">
         <div className="Dinfo">
           {/* ------------------------下拉式店家按鈕------------------ */}
-          <i
-            className={btn ? "fa-solid fa-angle-down" : "fa-solid fa-angle-right"}
-            onClick={() => {
-              setBtn(!btn);
-            }}
-          ></i>
+          <div className='DDown'
+            onClick={() => setBtn(!btn)}
+          >
+            <i className={btn ? "fa-solid fa-angle-down" : "fa-solid fa-angle-right"}></i>
+          </div>
           {/* ----------------------------------------------------- */}
-          <p>製作時間{}</p> {/* 未完成 */}
-          <p>距離{}</p>    {/* 未完成 */}
+          <div className='Dcook'>
+            <p className='Dcooktitle'>製作時間</p>
+            <p className='Dcooktext'>{cook_time+"min"}</p>
+          </div>
+          
+          <div className='Dcook'>
+            <p className='Dcooktitle'>距離</p>
+            <p className='Dcooktext'>{}</p>    {/* 未完成 */}
+          </div>
           {/* ----------------------接單按鈕----------------------- */}
           <button
             className={delivertake ? "Dbtn" : "Dbtn Dactive"}
