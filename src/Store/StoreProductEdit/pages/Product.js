@@ -274,7 +274,14 @@ function Product() {
                 </label>
                 <div className="previewImg">
                   <div className="img">
-                    <img src={imgSrc} alt="" />
+                    <img
+                      src={
+                        imgSrc
+                          ? imgSrc
+                          : `http://localhost:3001/uploads/${formData.src}`
+                      }
+                      alt=""
+                    />
                   </div>
                   <div className="direction">
                     <p>餐點相片可協助顧客決定訂購哪些美食，進而提升銷售量。</p>

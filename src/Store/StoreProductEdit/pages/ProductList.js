@@ -26,7 +26,11 @@ function ProductList() {
     max: '',
     finalPrice: '',
   });
+  // 傳入localStorage所需要的State
   const [details, setDetails] = useState([]);
+  // 決定"放入購物車"按鈕是否啟用的State
+  const [isAmountOK, setIsAmountOk] = useState(false);
+
   const getData = async (shop_sid) => {
     const response = await axios.get(
       `http://localhost:3001/store/?shop_sid=${shop_sid}`
@@ -42,11 +46,16 @@ function ProductList() {
     const shop_sid = usp.get('shop_sid');
     // 取得店家菜單資料
     getData(shop_sid);
-    console.log(data);
+    // console.log(data);
   }, []);
 
   const intoCart = (e) => {
     e.preventDefault();
+    // 將details修改成傳進購物車的格式
+    let newDetails = [];
+    details.forEach((d) => {
+      newDetails = [...newDetails, ...d.list];
+    });
     addCart(
       data.shop.sid,
       selectedItem.sid,
@@ -55,7 +64,7 @@ function ProductList() {
       selectedItem.price,
       selectedItem.price,
       selectedItem.src,
-      details
+      newDetails
     );
     console.log(
       data.shop.sid,
@@ -65,7 +74,7 @@ function ProductList() {
       selectedItem.price,
       selectedItem.price,
       selectedItem.src,
-      details
+      newDetails
     );
   };
 
@@ -230,38 +239,53 @@ function ProductList() {
           <div className="row">
             <div className="option-section">
               <div className="option-box">
-                <div className="option-type"></div>
-                <div className="option-list"></div>
+                {data.options_types
+                  .filter((ot) => {
+                    return ot.product_sid === selectedItem.sid;
+                  })
+                  .map((ot) => {
+                    return (
+                      <div className="option-box">
+                        <div className="option-type">
+                          <div className="top">
+                            <h6>{ot.name}</h6>
+                            <p>{!ot.min ? '' : `${ot.min}必填`}</p>
+                          </div>
+                          <div className="bottom">
+                            <p>
+                              {ot.min === 1 && ot.max === 1
+                                ? '選擇1項'
+                                : ot.max > 1 && ot.min > 0
+                                ? `最多可選擇${ot.max}項(最少選擇${ot.min}項)`
+                                : ot.max > 1 && ot.min === 0
+                                ? `最多可選擇${ot.max}項(可不選擇)`
+                                : null}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="option-list">
+                          <OptionGroup
+                            ot={ot}
+                            data={data}
+                            details={details}
+                            setDetails={setDetails}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
-          <div className="row"></div>
-          <form name="testForm" onSubmit={(e) => e.preventDefault()}>
-            <div>
-              {data.options_types
-                .filter((ot) => {
-                  return ot.product_sid === selectedItem.sid;
-                })
-                .map((ot) => {
-                  return (
-                    <div>
-                      <h2>{ot.name}</h2>
-                      <div>
-                        <OptionGroup
-                          ot={ot}
-                          data={data}
-                          details={details}
-                          setDetails={setDetails}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              <div>
+          <div className="row">
+            <div className="amount-section">
+              <div className="left">
                 <i
-                  className="fa-solid fa-minus"
+                  className={`fa-solid fa-minus ${
+                    amount <= 1 ? 'inActive' : ''
+                  }`}
                   onClick={() => {
-                    setAmount(amount - 1);
+                    if (amount > 1) setAmount(amount - 1);
                   }}
                 ></i>
                 <input
@@ -277,11 +301,14 @@ function ProductList() {
                     if (amount > 0) setAmount(amount + 1);
                   }}
                 ></i>
-
-                <button onClick={intoCart}>放入購物車</button>
+              </div>
+              <div className="right">
+                <div className="inActive" onClick={intoCart}>
+                  <p>放入購物車</p>
+                </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
