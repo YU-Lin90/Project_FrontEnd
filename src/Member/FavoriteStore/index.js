@@ -285,12 +285,11 @@ export default function FavoriteStore() {
             const b = user.filter((v, i) => v.name.includes(inputKeyword));
             console.log(b);
             setUser(b);
-            if (!user.length) {
-              console.log(123);
-              setErrorMsg('沒有此店家');
-            } else {
-              setErrorMsg('');
-            }
+          }
+          if (user.length) {
+            setErrorMsg('沒有此店家');
+          } else {
+            setErrorMsg('');
           }
         }}
       >
