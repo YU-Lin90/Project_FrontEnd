@@ -38,7 +38,6 @@ function DeliverLogin() {
       localStorage.setItem('delivertake', true);
       localStorage.setItem('Deliver', data.tokenYU);
       navi('/Deliver/DeliverConfirmOrder');
-      alert("登入成功");
     }else{
       Swal.fire({
         position: 'top-end',
@@ -51,7 +50,6 @@ function DeliverLogin() {
       localStorage.removeItem('onlie_state');
       localStorage.removeItem('delivertake');
       localStorage.removeItem('deliver_sid');
-      alert("登入失敗")
     }
   };
   /*-------------------------------------------------------------------------*/
