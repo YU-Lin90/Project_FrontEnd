@@ -23,7 +23,7 @@ function DeliverLogin() {
   /*--------------發送axios出去成功(formData可以成為json格式輸出)----------------*/
   const mySubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post('http://localhost:3001/deliver/deliverlogin', formData)
+    const { data } = await axios.post('http://localhost:3001/deliverlogin', formData)
     if(data.success){
       Swal.fire({
         position: 'top-end',
