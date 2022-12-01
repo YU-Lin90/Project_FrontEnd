@@ -103,14 +103,18 @@ function StoreOrderConfirm({
         "memberName": "ゆう",
         "orderNumber": "S3891"
     },
-    "productDetails": [
-        {
-            "sid": 1,
-            "order_sid": 3,
-            "product_sid": 1117,
-            "product_price": 90,
-            "amount": 5,
-            "productName": "橄欖油蒜味辣椒麵 "
+    "productDetails": [{
+            "sid": 463,
+            "order_sid": 189,
+            "product_sid": 1111,
+            "product_price": 135,
+            "amount": 1,
+            "productName": "奶油蔬菜鮭魚麵",
+            "detail":{
+                        "option_detail_sid": 1,
+                        "options": "加起司",
+                        "option_price": 10
+                    }
         }
     ]
 }*/
@@ -152,15 +156,25 @@ function StoreOrderConfirm({
                       <p className="w15p fontMainColor ">{value.amount}x</p>
                       <p className="w85p">{value.productName}</p>
                     </div>
-                    {/* TODO:加上選項 */}
-                    <div className=" productDetails disf padV5">
-                      <div className="w100p">
-                        <span className="w50p ta-c">【去冰】</span>
-                        <span className="w50p ta-c">【去冰】</span>
-                        <span className="w50p ta-c">【去冰】</span>
-                        <span className="w50p ta-c">【去冰】</span>
-                      </div>
-                    </div>
+                    {Object.keys(value.detail).length !== 0 ? (
+                      <>
+                        <div className=" productDetails disf padV5">
+                          <div className="w100p">
+                            {value.detail.map((element) => {
+                              return (
+                                <>
+                                  <span className="w50p ta-c">
+                                    【{element.options}】
+                                  </span>
+                                </>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 );
               })}

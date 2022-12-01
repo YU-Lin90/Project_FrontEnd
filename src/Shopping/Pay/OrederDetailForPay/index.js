@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePay } from '../../../Context/PayPageContext';
-
+import PayPageCart from '../PayPageCart';
 function OrederDetailForPay() {
   //顯示商品列表用 只在這頁顯示
   const [productList, setProductList] = useState({});
@@ -17,12 +17,13 @@ function OrederDetailForPay() {
     <div className=" topUnderNav padV20 flexSetCenter of-a OrederDetailForPay">
       <div className="disf jc-c fd-c ai-c w80p gap20 padV20">
         <p className="fs36 fw6 ta-c marb15">你的訂單</p>
-        <p className="fs24 fw5">
+        <PayPageCart />
+        {/* <p className="fs24 fw5">
           {cartContents.cartList[chooseedPayShop].shopName}
-        </p>
-        <div className="w100p borderBotGray3 padV5">
-          {/* 在這之間MAP--商品明細 */}
-          {/* {
+        </p> */}
+        {/* <div className="w100p borderBotGray3 padV5"> */}
+        {/* 在這之間MAP--商品明細 */}
+        {/* {
             "1": {
             "amount": 1,
           "name": "一號產品",
@@ -40,15 +41,15 @@ function OrederDetailForPay() {
           "details": { }
           },
           } */}
-          {/* 樣板 */}
-          {/* <div className="disf jc-sb w100p ">
+        {/* 樣板 */}
+        {/* <div className="disf jc-sb w100p ">
             <p className="w70p disf gap10 ">
               <span className="fontMainColor fw5">2x</span>
               <span>菜品</span>
             </p>
             <p className="w30p ta-e">NT$80</p>
           </div> */}
-          {Object.keys(productList).map((sid, index) => {
+        {/* {Object.keys(productList).map((sid, index) => {
             const divideProduct = productList[sid];
             return (
               <div key={sid} className="disf jc-sb w100p marb15">
@@ -63,10 +64,10 @@ function OrederDetailForPay() {
                 </p>
               </div>
             );
-          })}
+          })} */}
 
-          {/* 在這之間MAP */}
-        </div>
+        {/* 在這之間MAP */}
+        {/* </div> */}
 
         {/* {
     "shopTotal": 20,

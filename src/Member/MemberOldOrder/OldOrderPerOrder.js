@@ -33,16 +33,16 @@ function OldOrderPerOrder({ orderData, setReloading }) {
     "shopScore": null,
     "orderId": "M221122112",
     "order_date": "2022年11月22日"
+    src
 } */ //orderData.deliverScore       orderData.shopScore
   return (
     <>
       <div name="單個訂單外框" className="w100p marb20 oldOrderFrame bgcW">
         <div className="w100p  padV20 padH20 disf oldOrderTopDetail">
-          {/* TODO: 店家照片 */}
           <div className="w20p as1 lh0 flexSetCenter padH10 padV10">
             <img
               className="oldOrderStoreImg"
-              src={` http://${siteName}:3001/images/store01.jpg`}
+              src={` http://${siteName}:3001/images/storeCover/${orderData.src}`}
               alt=""
             />
           </div>
@@ -78,7 +78,7 @@ function OldOrderPerOrder({ orderData, setReloading }) {
               <div>
                 {orderData.deliverScore ? (
                   <p className="ta-c marb10 fw5">
-                    外送員評價：
+                    外送評價：
                     {orderData.deliverScore}
                     <SolidStar />
                   </p>

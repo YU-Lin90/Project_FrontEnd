@@ -46,7 +46,7 @@ function PayCoupon() {
 
   useEffect(() => {
     getCouponDetail();
-  }, []);
+  }, [cartContents]);
   return (
     <>
       <div className="payDetailBox">
@@ -75,7 +75,7 @@ function PayCoupon() {
           <>
             <div
               className=" disf fw-w ai-c"
-              style={{ 'background-color': '#eee9' }}
+              style={{ backgroundColor: '#eee9' }}
             >
               <div key={0} className="payCouponFrame padV10 padH10">
                 <div
