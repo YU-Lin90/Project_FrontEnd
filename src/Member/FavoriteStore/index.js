@@ -6,14 +6,20 @@ import { TiDelete } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import log from 'eslint-plugin-react/lib/util/log';
 export default function FavoriteStore() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
   const [myIndex, setMyIndex] = useState({});
   const [index, setIndex] = useState();
+  const [errormsg, setErrorMsg] = useState('');
 
   const navigate = useNavigate();
   const forms = useRef(null);
+  // 輸入用(可控表單元件用)
+  const [inputKeyword, setInputKeyword] = useState('');
+  // 按下搜尋按鈕用，真正搜尋用
+  const [searchKeyword, setSearchKeyWord] = useState('');
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
@@ -89,11 +95,11 @@ export default function FavoriteStore() {
         response.data.forEach((element) => {
           if (obj[element.sid]) {
             newIndex = { ...newIndex, [element.sid]: true };
-            element.favor = true;
+            // element.favor = true;
             return;
           }
           newIndex = { ...newIndex, [element.sid]: false };
-          element.favor = false;
+          // element.favor = false;
         });
         setMyIndex(newIndex);
         setUser2(response.data);
@@ -159,9 +165,12 @@ export default function FavoriteStore() {
   };
 
   useEffect(() => {
-    getform();
-    // get2();
-  }, []);
+    if (!inputKeyword) {
+      getform();
+      // getform();
+      // get2();
+    }
+  }, [inputKeyword]);
 
   const submit = async (shopSid) => {
     // e.preventDefault();
@@ -193,7 +202,7 @@ export default function FavoriteStore() {
               <img
                 className="mf_img"
                 src={
-                  'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
+                  'http://localhost:3001/uploads/d4801ba2-34a5-4709-a128-d2002ec355c6.jpg'
                 }
               />
             </div>
@@ -221,7 +230,7 @@ export default function FavoriteStore() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
+            'http://localhost:3001/uploads/d4801ba2-34a5-4709-a128-d2002ec355c6.jpg'
           }
         />
         <p className="font1">店名:{v.name}</p>
@@ -258,6 +267,35 @@ export default function FavoriteStore() {
   });
   return (
     <>
+      <input
+        type="text"
+        value={inputKeyword}
+        onChange={(e) => {
+          setInputKeyword(e.target.value);
+        }}
+      />
+      <button
+        onClick={async () => {
+          // setSearchKeyWord(inputKeyword);
+          if (!inputKeyword) {
+            const a = user;
+            console.log(a);
+            getform();
+          } else {
+            const b = user.filter((v, i) => v.name.includes(inputKeyword));
+            console.log(b);
+            setUser(b);
+            if (!user.length) {
+              console.log(123);
+              setErrorMsg('沒有此店家');
+            } else {
+              setErrorMsg('');
+            }
+          }
+        }}
+      >
+        搜尋
+      </button>
       {/* <button
         onClick={() => {
           const nextStatusIndex = myIndex === 0 ? 1 : 0;
@@ -271,6 +309,7 @@ export default function FavoriteStore() {
       {/* <div className="con">{display2}</div> */}
       <h2 className="mf_h2">最愛店家</h2>
       <div className="mf_wrap">{display}</div>
+      <div>{errormsg}</div>
     </>
   );
 }
