@@ -39,18 +39,8 @@ export default function ListTable() {
   //表格資料
   const [shop, setShop] = useState([]);
 
-  //按鈕
+  //checkbox用
   const [isChecked, setIsChecked] = useState(true);
-
-  //載入用，true表示正在載入中
-  // const [isLoading, setIsLoading] = useState(false);
-  // const spinner = (
-  //   <>
-  //     <div className="spinner" role="status">
-  //       <span className="visually-hidden">Loading...</span>
-  //     </div>
-  //   </>
-  // );
 
   //連結，暫時無用
   const handleClick = (myLink) => () => {
@@ -67,38 +57,8 @@ export default function ListTable() {
   const [searchWaitTime, setSearchWaitTime] = useState('');
   const [searchTotalRows, setSearchTotalRows] = useState('');
 
-  //儲存搜尋時呈現的結果用
+  //儲存搜尋時呈現的訊息用
   const [noResult, setNoResult] = useState('正在搜尋中');
-
-  // const [searchData, setSearchData] = useState({
-  //   price_min: '',
-  //   price_max: '',
-  // });
-
-  // const price_maxHandle = (key, value) => {
-  //   this.setSearchData({ price_max: value.key });
-  // };
-
-  // const price_minHandle = (key, value) => {
-  //   this.setSearchData({ price_min: value.key });
-  // };
-
-  // const getListBySearchWord = async (keyword) => {
-  //先載入指示器
-  // setIsLoading(true);
-  // `http://${siteName}:3001/Shopping` + `?` + usp.toString()
-
-  // try {
-  // const response =  axios.get(
-  //   `http://${siteName}:3001/Shopping`
-  //   );
-  //   setListData(response.data);
-  //   } catch (e) {
-  //     setErrorMsg(e.message);
-  // }
-  // };
-
-  // `http://${siteName}:3001/Shopping` + `?` + usp.toString()
 
   //取得所有店家
   const getShop = async () => {
@@ -106,10 +66,29 @@ export default function ListTable() {
     try {
       // const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
-      // 測試API距離資料用
       const response = await axios.get(`http://${siteName}:3001/Shopping?`);
 
+      //---------------------------計算距離用-----------------------------
+      if (sendAddress) {
+        for (let element of response.data) {
+          const shopAddress = element.address;
+          const selfLocation = sendAddress;
+
+          // 計算("店家地址","送達地址")間的直線距離
+          // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+
+          // 測試用，隨機亂數資料
+          const gettedDistance = Math.random() * 50;
+
+          // 將結果放進result.distance
+          element.distance = Math.round(gettedDistance);
+
+        }
+      }
+      //-----------------------------------------------------------------
+
       // setShop(result.data);
+
       try {
         const response_favorite = await axios.get(
           `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
@@ -269,13 +248,26 @@ export default function ListTable() {
 
     //---------------------------計算距離用-----------------------------
 
-    for (let element of result.data) {
-      const shopAddress = element.address;
-      const selfLocation = sendAddress;
-      const gettedDistance = await calculateDistance(shopAddress, selfLocation);
-      element.distance = gettedDistance;
-    }
+    if (sendAddress) {
+      for (let element of result.data) {
+        const shopAddress = element.address;
+        const selfLocation = sendAddress;
 
+        // 計算("店家地址","送達地址")間的直線距離
+        // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+
+        // 測試用，隨機亂數
+        const gettedDistance = Math.random() * 50;
+
+        // 將結果放進result.distance
+        element.distance = Math.round(gettedDistance);
+
+        // 如果排序=距離，把資料按distance由小到大排列
+        if(order === "distance"){
+          result.data.sort((a, b) => a.distance - b.distance);
+        }
+      }
+    }
     //-----------------------------------------------------------------
 
     console.log(
@@ -366,7 +358,8 @@ export default function ListTable() {
       !usp.get('search') &&
       !usp.get('price_max') &&
       !usp.get('price_min') &&
-      !usp.get('wait_time')
+      !usp.get('wait_time') &&
+      !usp.get('order')
     ) {
       getShop();
     }
@@ -500,59 +493,58 @@ export default function ListTable() {
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
-              <div key={index} className="shopCardBox">
-                <div className="shopCard_image">
-                  <div className="shopCard_conpon"></div>
-                  <div className="shopCard_delivery_time">
-                    等待時間{shop.wait_time}
-                  </div>
-                </div>
-                <span>SID {shop.sid}</span>
-                <div className="shopCard_text" onClick={handleClick}>
-                  {/* {currentDistance.map(v,i)=>{
-                  {v.name}
-                }} */}
-                  <span>AAAA{shop.distance} BBBB</span>
-
-                  <div className="shopCard_text_name">
-                    {/* {submitHandle && <span>{shop.products_name}</span>} */}
-                    <span>{shop.name}</span>
-                    <div className="shopCard_score">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 40 37"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M20 0L24.4903 13.8197H39.0211L27.2654 22.3607L31.7557 36.1803L20 27.6393L8.2443 36.1803L12.7346 22.3607L0.97887 13.8197H15.5097L20 0Z"
-                          fill="#FFA500"
-                        />
-                      </svg>
-                      {/* 資料庫結構: 小數點 */}
-                      {shop.average_evaluation}
+                <div key={index} className="shopCardBox">
+                  <div className="shopCard_image">
+                    <div className="shopCard_conpon"></div>
+                    <div className="shopCard_delivery_time">
+                      等待時間{shop.wait_time}
                     </div>
-
-                    {/* TODO 距離 */}
                   </div>
-                  {/* <span>{shop.price ? `\$ ${shop.price} 元` : ""}</span> */}
-                  <span>{shop.address}</span>
-                  <span>{shop.food_type_sid}</span>
-                  <span>{shop.phone}</span>
-                  <button
-                    onClick={() => {
-                      submit(shop.sid);
-                      const oldState = myIndex[shop.sid];
-                      setMyIndex({ ...myIndex, [shop.sid]: !oldState });
-                    }}
-                    // className="icon"
-                  >
-                    {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
-                  </button>
+                  <span>SID {shop.sid}</span>
+                  <div className="shopCard_text" onClick={handleClick}>
+                    <span>{shop.distance} 公里</span>
+
+                    <div className="shopCard_text_name">
+                      {/* {submitHandle && <span>{shop.products_name}</span>} */}
+                      <span>{shop.name}</span>
+                      <div className="shopCard_score">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 40 37"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M20 0L24.4903 13.8197H39.0211L27.2654 22.3607L31.7557 36.1803L20 27.6393L8.2443 36.1803L12.7346 22.3607L0.97887 13.8197H15.5097L20 0Z"
+                            fill="#FFA500"
+                          />
+                        </svg>
+                        {/* 資料庫結構: 小數點 */}
+                        {shop.average_evaluation}
+                      </div>
+
+                      {/* TODO 距離 */}
+                    </div>
+                    <span>{shop.food_type_sid}</span>
+                    <span>{shop.phone}</span>
+                    <button
+                      onClick={() => {
+                        submit(shop.sid);
+                        const oldState = myIndex[shop.sid];
+                        setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                      }}
+                      // className="icon"
+                    >
+                      {!myIndex[shop.sid] ? (
+                        <AiOutlineHeart />
+                      ) : (
+                        <AiFillHeart />
+                      )}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))
+              ))
           ) : (
             <div>{noResult}</div>
           )}
