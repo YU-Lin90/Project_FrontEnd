@@ -89,18 +89,19 @@ function ProductList() {
           </div>
           <div className="row">
             <div className="shop-info">
-              <div className="top-info">
+              <div className="top">
                 <h1>{data.shop.name}</h1>
               </div>
 
-              <div className="bottom-info">
+              <div className="bottom">
                 <div className="rating">
                   <i className="fa-solid fa-star"></i>
                   <p>{data.shop.average_evaluation}</p>
                 </div>
-                <p>{data.shop.wait_time}</p>
+                <p>等待時間 : {data.shop.wait_time}</p>
+                <p>點選即可查看營業時間、資訊和更多內容</p>
               </div>
-              <h1>{data.shop.address}</h1>
+              {/* <h1>{data.shop.address}</h1> */}
             </div>
           </div>
           <div className="row">
@@ -122,7 +123,16 @@ function ProductList() {
                 {data.types.map((type) => {
                   return (
                     <>
-                      <div className="product-type">
+                      <div
+                        className={`product-type ${
+                          !data.products.find(
+                            (product) => product.products_type_sid === type.sid
+                          )
+                            ? 'noDisplay'
+                            : ''
+                        }
+                        `}
+                      >
                         <h5 key={type.sid} id={type.sid}>
                           {type.name}
                         </h5>

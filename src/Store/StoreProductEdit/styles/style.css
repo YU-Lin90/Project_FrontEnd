@@ -288,23 +288,58 @@
   letter-spacing: normal;
   color: #333333;
 }
-.product-list .product-container .row {
-  margin-bottom: 24px;
+.product-list .product-container .row .shop-img {
+  width: 100%;
+}
+.product-list .product-container .row .shop-img img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  background-color: #ccc;
 }
 .product-list .product-container .row .shop-info {
   width: 100%;
-  padding: 0px 40px;
+  padding: 24px 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 16px 16px rgba(0, 0, 0, 0.03);
 }
-.product-list .product-container .row .shop-info h1 {
+.product-list .product-container .row .shop-info .top {
+  margin: 8px 0px;
+}
+.product-list .product-container .row .shop-info .top h1 {
   font-size: 36px;
   font-weight: 700;
+}
+.product-list .product-container .row .shop-info .bottom .rating {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.product-list .product-container .row .shop-info .bottom .rating i,
+.product-list .product-container .row .shop-info .bottom .rating p {
+  font-size: 14px;
+  line-height: 24px;
+}
+.product-list .product-container .row .shop-info .bottom .rating p {
+  margin-left: 5px;
+}
+.product-list .product-container .row .shop-info .bottom p {
+  font-size: 14px;
+  line-height: 24px;
 }
 .product-list .product-container .row .product-info {
   padding: 0px 40px;
   display: flex;
   width: 100%;
+  position: relative;
 }
 .product-list .product-container .row .product-info aside {
+  position: -webkit-sticky;
+  position: sticky;
+  align-self: flex-start;
+  top: 104px;
   width: 30%;
 }
 .product-list .product-container .row .product-info aside .type-nav {
@@ -322,6 +357,9 @@
 .product-list .product-container .row .product-info main {
   width: 70%;
 }
+.product-list .product-container .row .product-info main .product-type {
+  margin-bottom: 40px;
+}
 .product-list .product-container .row .product-info main .product-type h5 {
   font-size: 24px;
   font-weight: 700;
@@ -329,6 +367,7 @@
 .product-list .product-container .row .product-info main .product-type .product-group {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 16px;
 }
 .product-list .product-container .row .product-info main .product-type .product-group .product-box {
   width: 50%;
