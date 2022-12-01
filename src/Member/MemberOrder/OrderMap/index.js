@@ -30,8 +30,8 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
   });
   //外送員位置
   const [deliverPosition, setDeliverPosition] = useState({
-    lat: 25.03359,
-    lng: 121.54349,
+    lat: 0,
+    lng: 0,
   });
   //自己位置
   const [positionNow, setPositionNow] = useState({
@@ -71,7 +71,7 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
 
   // useEffect(() => {
   //   // setInterval(checkLocation, 1000);
-  //   // 
+  //   //
   //   getStoreLocation(selectedOrder);
   //   return () => {
   //     // clearInterval(intervalTest);
@@ -131,7 +131,9 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
           lng={positionNow.lng}
           text="Member"
         />
-        {step === 4 ? (
+        {step === 4 &&
+        deliverPosition.lat !== 0 &&
+        deliverPosition.lng !== 0 ? (
           <DeliverPosition
             lat={deliverPosition.lat}
             lng={deliverPosition.lng}
@@ -145,21 +147,6 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
           text="Store"
         />
       </GoogleMapReact>
-
-      <button
-        onClick={() => {
-          // setDeliverPosition({
-          //   lat: deliverPosition.lat + 1.0001,
-          //   lng: deliverPosition.lng + 1.0001,
-          // });
-
-          calculateDistance('廣州街觀光夜市', '第一家禽批發市場');
-
-          // setPosition({ lat: 25.18309, lng: 121.44458 });
-        }}
-      >
-        test
-      </button>
     </>
   );
 }
