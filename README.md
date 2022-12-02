@@ -12,21 +12,8 @@ NAVBAR 10
 
 2.WEBSOCKET 不要重複開啟
 
-https://stackoverflow.com/questions/1006654/fastest-way-to-find-distance-between-two-lat-long-points
-台北市信義區信義路五段 150 巷
-25.0259029,121.5703875
-500m (0.5 km)
-SELECT
-id, (
-6371 _ acos (
-cos ( radians(25.0259029) )
-_ cos( radians( lat ) )
-_ cos( radians( lng ) - radians(121.5703875) ) + sin ( radians(25.0259029) )
-_ sin( radians( lat ) )
-)
-) AS distance
-FROM realestate_a_no
-HAVING distance < 0.5
-ORDER BY distance
-
 sweetalert2
+
+外送員接單後要更新訂單狀態 --外送員已接單
+取餐後要更新取餐狀態 DELIVER_TAKE
+送達後要更新付款狀態

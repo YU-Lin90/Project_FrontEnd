@@ -99,11 +99,12 @@ function PayButton({ orderSocket }) {
     deliverMemo,
     storeMemo,
     setPayingOrderSid,
-    payingOrderSid,
     cartContents,
     sendAddress,
     chooseedPayShop,
     waitTime,
+    dailyCouponSid, //每日優惠券SID
+    dailyCouponAmount, //每日優惠券額度
   } = usePay();
 
   //回傳要傳的資料 避免重複寫
@@ -120,6 +121,8 @@ function PayButton({ orderSocket }) {
       storeMemo: storeMemo,
       deliverMemo: deliverMemo,
       waitTime: waitTime,
+      dailyCouponSid: dailyCouponSid,
+      dailyCouponAmount: dailyCouponAmount,
     });
   };
   //現金
@@ -222,7 +225,11 @@ function PayButton({ orderSocket }) {
     console.log(storeMemo);
     console.log('-----結帳方式-----');
     console.log(payWay === 0 ? '現金' : 'LinePay');
-    console.log('-----------------------------------------');
+    console.log('-----每日優惠券SID-----');
+    console.log(dailyCouponSid);
+    console.log('-----每日優惠券折扣金額-----');
+    console.log(dailyCouponAmount);
+    console.log('-------------------------------------------------');
   };
   return (
     <>
@@ -279,14 +286,14 @@ function PayButton({ orderSocket }) {
       >
         確認
       </div>
-      {/* <div
+      <div
         className="payPageButton"
         onClick={() => {
           showDatasInConsole();
         }}
       >
         測試用按鈕 console顯示資料
-      </div> */}
+      </div>
     </>
   );
 }

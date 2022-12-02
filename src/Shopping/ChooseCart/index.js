@@ -2,11 +2,14 @@
 import { useEffect, useState } from 'react';
 import { usePay } from '../../Context/PayPageContext';
 import '../Cart.css';
-import { useGeo } from '../../Context/GeoLocationProvider';
 
 function ChooseCart({ setShowChooseShop, setShowCart }) {
-  const { setChooseedPayShop, cartTotal, cartContents, setDeliverFee } =
-    usePay();
+  const {
+    setChooseedPayShop,
+    cartTotal,
+    cartContents,
+
+  } = usePay();
   //狀態切換
   const [cart, setCart] = useState(false);
   //店家列表 只在這頁用
@@ -30,6 +33,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
       setShopList({});
     }
   }, [cartTotal]);
+
   //空購物車
   const emptyCart = () => {
     return (
@@ -74,6 +78,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
               <div
                 onClick={() => {
                   setChoosedShop(Number(keyName));
+
                 }}
                 className="cartShopList"
                 // keyName = 商店SID

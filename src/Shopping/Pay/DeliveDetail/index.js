@@ -3,7 +3,9 @@ import { usePay } from '../../../Context/PayPageContext';
 import { useFunc } from '../../../Context/FunctionProvider';
 import PayTitleBlock from '../PayTitleBlock';
 import { useEffect, useState } from 'react';
+import { useGeo } from '../../../Context/GeoLocationProvider';
 function DeliveDetail() {
+  const { calculateDistance } = useGeo();
   const { notLoginGetFetch } = useFunc();
   //備註設定
   const {
@@ -17,6 +19,7 @@ function DeliveDetail() {
     setWaitTime,
     chooseedPayShop,
     cartContents,
+    setDeliverFee,
   } = usePay();
 
   const [editAddress, setEditAddress] = useState(false);
@@ -24,16 +27,33 @@ function DeliveDetail() {
   const [editShopMemo, setEditShopMemo] = useState(false);
 
   const [editDeliverMemo, setEditDeliverMemo] = useState(false);
-
+  //計算外送費 OK
+  const calculateDeliverFee = async (shopSid) => {
+    const storeAddress = await notLoginGetFetch(
+      `getStoreAddress/?shopSid=${shopSid}`
+    );
+    // console.log(storeAddress);
+    const distance = await calculateDistance(sendAddress, storeAddress);
+    // console.log(distance);
+    const fee = parseInt(distance / 5) * 10 + 30;
+    console.log(fee);
+    setDeliverFee(fee);
+  };
   const checkWaitTime = async () => {
     const time = await notLoginGetFetch(
       `PayGetWaitTime/?sid=${chooseedPayShop}`
     );
     setWaitTime(time);
   };
+
   useEffect(() => {
     checkWaitTime();
   }, []);
+  useEffect(() => {
+    if (!editAddress) {
+      calculateDeliverFee(chooseedPayShop);
+    }
+  }, [editAddress]);
   return (
     <>
       <div className="payDetailBox">
@@ -53,7 +73,8 @@ function DeliveDetail() {
                   autoFocus={editAddress}
                   onKeyDown={(e) => {
                     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-                      setEditAddress(false)
+                      // calculateDeliverFee(Number(chooseedPayShop));
+                      setEditAddress(false);
                     }
                   }}
                 />
@@ -85,7 +106,7 @@ function DeliveDetail() {
                   autoFocus={editShopMemo}
                   onKeyDown={(e) => {
                     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-                      setEditShopMemo(false)
+                      setEditShopMemo(false);
                     }
                   }}
                 />
@@ -118,7 +139,7 @@ function DeliveDetail() {
                   autoFocus={editDeliverMemo}
                   onKeyDown={(e) => {
                     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-                      setEditDeliverMemo(false)
+                      setEditDeliverMemo(false);
                     }
                   }}
                 />

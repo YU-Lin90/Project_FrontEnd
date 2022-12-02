@@ -1,7 +1,12 @@
 //閃爍框
 import { useEffect, useState } from 'react';
 
-function FlashingBox({ radomArrays, setStartFlashing, startFlashing }) {
+function FlashingBox({
+  radomArrays,
+  setStartFlashing,
+  startFlashing,
+  setFlashingEnd,
+}) {
   const [count, setCount] = useState(0);
   const interVals = () => {
     setCount((v) => {
@@ -11,18 +16,36 @@ function FlashingBox({ radomArrays, setStartFlashing, startFlashing }) {
   };
   useEffect(() => {
     const intervalSet = setInterval(interVals, 50);
-    setInterval(() => {
+    setTimeout(() => {
       clearInterval(intervalSet);
+      setFlashingEnd(true);
       // setStartFlashing(false);
     }, 50 * 30);
     return () => {
       clearInterval(intervalSet);
     };
   }, [startFlashing, radomArrays]);
+  useEffect(() => {
+    return () => {
+      setCount(0);
+      setStartFlashing(false);
+    };
+  }, []);
   return (
     <>
-      <div className="randomFlashingBox">
-        {radomArrays[count] ? radomArrays[count].name : radomArrays[0].name}
+      <div className="randomFlashingBox w100p">
+        <p className="randomFlashingTexts">
+          {radomArrays[count] ? radomArrays[count].name : radomArrays[0].name}
+        </p>
+        <div
+          onClick={() => {
+            setStartFlashing(false);
+          }}
+          className="randomFlashingReturnButton ta-c fs24"
+          style={{ marginTop: '200px' }}
+        >
+          return
+        </div>
       </div>
     </>
   );

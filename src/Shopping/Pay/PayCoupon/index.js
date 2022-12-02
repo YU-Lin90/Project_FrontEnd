@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePay } from '../../../Context/PayPageContext';
 import { useFunc } from '../../../Context/FunctionProvider';
+import PayDailyCoupon from './PayDailyCoupon';
 //第三段 優惠券
 import PayTitleBlock from '../PayTitleBlock';
 function PayCoupon() {
@@ -23,7 +24,7 @@ function PayCoupon() {
   //獲得優惠券資訊
   const getCouponDetail = async () => {
     const res = await loginCheckGetFetch('Pay/PayGetCouponDetail', 'Member');
-    console.log(res);
+    // console.log(res);
     //足額
     const canUseArray = res.filter((v, i) => {
       const check = totalPrice - v.use_range >= 0 ? true : false;
@@ -54,7 +55,7 @@ function PayCoupon() {
     <>
       <div className="payDetailBox">
         <PayTitleBlock number={3} titleString={'優惠券'} />
-
+        <PayDailyCoupon />
         {/* {
           "sid": 1,
           "coupon_sid": 2,
