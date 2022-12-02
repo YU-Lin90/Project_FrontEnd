@@ -2,9 +2,11 @@
 import { useEffect, useState } from 'react';
 import { usePay } from '../../Context/PayPageContext';
 import '../Cart.css';
+import { useGeo } from '../../Context/GeoLocationProvider';
 
 function ChooseCart({ setShowChooseShop, setShowCart }) {
-  const { setChooseedPayShop, cartTotal, cartContents } = usePay();
+  const { setChooseedPayShop, cartTotal, cartContents, setDeliverFee } =
+    usePay();
   //狀態切換
   const [cart, setCart] = useState(false);
   //店家列表 只在這頁用

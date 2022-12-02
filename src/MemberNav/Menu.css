@@ -1,5 +1,5 @@
 .menu {
-  height: 100vh;
+  height: 500px;
   width: 100%;
   border: 1px #eee solid;
   display: flex;
@@ -12,7 +12,7 @@
   z-index: 10;
   color: #000;
   font-weight: 700;
-  top: 80px;
+  top: var(--navHeight);
   left: 0;
 }
 

@@ -1,6 +1,12 @@
+//按鈕
 import { useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
-function RandomButton({ rejectedTypes, setGettedShopName }) {
+function RandomButton({
+  rejectedTypes,
+  setGettedShopName,
+  setRadomArrays,
+  setStartFlashing,
+}) {
   const { loginCheckPostFetch } = useFunc();
 
   //獲得店家函式 輸入不要的種類(陣列) 回傳1筆店家
@@ -12,7 +18,9 @@ function RandomButton({ rejectedTypes, setGettedShopName }) {
       postData
     );
     console.log(res);
-    setGettedShopName(res.name)
+    setStartFlashing(true);
+    setRadomArrays(res);
+    setGettedShopName(res[0].name);
   };
   return (
     <>

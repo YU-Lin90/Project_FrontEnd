@@ -15,7 +15,11 @@ export const CartProvider = ({ children }) => {
     price, //產品價格
     cuttedPrice, //產品特價後價格
     imageUrl, //產品圖片連結
-    details //其他資訊(選擇等等)
+    details = [
+      { sid: 2, name: '珍珠', price: 15 },
+      { sid: 3, name: '耶果', price: 10 },
+      { sid: 4, name: '去冰', price: 0 },
+    ] //其他資訊(選擇等等)
   ) {
     let localCart = JSON.parse(localStorage.getItem('cart'));
     if (!localCart) {
@@ -46,9 +50,12 @@ export const CartProvider = ({ children }) => {
       localCart.cartList[shopSid].list[productSid].price = price;
       localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
       localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
-      localCart.cartList[shopSid].list[productSid].details = details;
+      localCart.cartList[shopSid].list[productSid].details = [
+        { sid: 2, name: '珍珠', price: 15 },
+        { sid: 3, name: '耶果', price: 10 },
+        { sid: 4, name: '去冰', price: 0 },
+      ];
     }
-
     localCart.cartList[shopSid].shopTotal++;
 
     //店家總金額
@@ -58,6 +65,15 @@ export const CartProvider = ({ children }) => {
         const dividedProduct = localCart.cartList[shopSid].list[element];
         shopPriceTotal +=
           Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+        //===============================================分隔線================================================
+        if (Object.keys(dividedProduct.details).length) {
+          // console.log(Object.keys(dividedProduct.details).length);
+          for (let element of dividedProduct.details) {
+            shopPriceTotal +=
+              Number(element.price) * Number(dividedProduct.amount);
+          }
+        }
+        //===============================================分隔線================================================
       }
     }
     localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
@@ -108,6 +124,15 @@ export const CartProvider = ({ children }) => {
           const dividedProduct = localCart.cartList[shopSid].list[element];
           shopPriceTotal +=
             Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+          //===============================================分隔線================================================
+          if (Object.keys(dividedProduct.details).length) {
+            // console.log(Object.keys(dividedProduct.details).length);
+            for (let element of dividedProduct.details) {
+              shopPriceTotal +=
+                Number(element.price) * Number(dividedProduct.amount);
+            }
+          }
+          //===============================================分隔線================================================
         }
       }
       localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
@@ -129,11 +154,12 @@ export const CartProvider = ({ children }) => {
       localStorage.setItem('cart', JSON.stringify(localCart));
     }
     //全域變數
+
     setCartTotal(countCartTotal);
     setCartContents(localCart);
   }
   //===============================================分隔線================================================
-  //購物車下拉式API 已經有資料    店家SID 產品SID 數量  setShowCart  setShowChooseShop
+  //購物車下拉式API 已經有資料    店家SID 產品SID 數量  setShowCart  setShowChooseShop 購物車內不動選項
   function editCartBySelect(
     shopSid,
     productSid,
@@ -165,6 +191,14 @@ export const CartProvider = ({ children }) => {
         //金額
         shopPriceTotal +=
           Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+        //===============================================分隔線================================================
+        if (Object.keys(dividedProduct.details).length) {
+          // console.log(Object.keys(dividedProduct.details).length);
+          for (let element of dividedProduct.details) {
+            shopPriceTotal +=
+              Number(element.price) * Number(dividedProduct.amount);
+          }
+        }
       }
     }
     localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
@@ -173,8 +207,6 @@ export const CartProvider = ({ children }) => {
     if (shopPriceTotal === 0) {
       delete localCart.cartList[shopSid];
     }
-    //這是那頁的狀態 總金額
-    // setTotalPrice(shopPriceTotal);
 
     //總數重新計算
     let countCartTotal = 0;
@@ -194,8 +226,10 @@ export const CartProvider = ({ children }) => {
       setCartContents(localCart);
     }
     if (shopPriceTotal === 0 || countCartTotal === 0) {
-      setShowChooseShop(false);
-      setShowCart(false);
+      if (setShowChooseShop && setShowCart) {
+        setShowChooseShop(false);
+        setShowCart(false);
+      }
     }
   }
   //===============================================分隔線================================================
@@ -209,6 +243,23 @@ export const CartProvider = ({ children }) => {
     imageUrl, //產品圖片連結
     details, //其他資訊(選擇等等)
     amount //數量
+    /* [
+  {
+    name: '加料',
+    sid: 1,
+    list: [
+      { sid: 2, name: '珍珠', price: 15 },
+      { sid: 3, name: '耶果', price: 10 },
+    ],
+  },
+   {
+    name: '溫度',
+    sid: 2,
+    list: [
+      { sid: 4, name: '去冰', price: 15 },
+    ],
+  },
+]; */
   ) {
     let localCart = JSON.parse(localStorage.getItem('cart'));
     if (!localCart) {
@@ -234,7 +285,11 @@ export const CartProvider = ({ children }) => {
     localCart.cartList[shopSid].list[productSid].price = price;
     localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
     localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
-    localCart.cartList[shopSid].list[productSid].details = details;
+    localCart.cartList[shopSid].list[productSid].details = [
+      { sid: 2, name: '珍珠', price: 15 },
+      { sid: 3, name: '耶果', price: 10 },
+      { sid: 4, name: '去冰', price: 0 },
+    ];
 
     localCart.cartList[shopSid].shopTotal += amount;
 
@@ -245,6 +300,13 @@ export const CartProvider = ({ children }) => {
         const dividedProduct = localCart.cartList[shopSid].list[element];
         shopPriceTotal +=
           Number(dividedProduct.cuttedPrice) * Number(dividedProduct.amount);
+        //===============================================分隔線================================================
+        if (Object.keys(dividedProduct.details).length) {
+          // console.log(Object.keys(dividedProduct.details).length);
+          for (let element of dividedProduct.details) {
+            shopPriceTotal += Number(element.price);
+          }
+        }
       }
     }
     localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;
@@ -300,6 +362,7 @@ export const CartProvider = ({ children }) => {
         reduceCart,
         paidDeleteCartPart,
         editCartBySelect,
+        setCartWithAmount,
       }}
     >
       {children}

@@ -14,7 +14,7 @@ function ListTable({ member_sid, shop_sid, sid, name, address, order_sid, delive
     const deliver_sid = Number(localStorage.getItem('deliver_sid'));
     const order_finish = 0;     //自動生成0即可
     const ordernum = { member_sid, shop_sid, deliver_sid, sid, order_sid, deliver_memo, order_finish, deliver_fee}
-    const res = await axios.post('http://localhost:3001/sendOrder', ordernum);
+    const res = await axios.post('http://localhost:3001/deliver/sendOrder', ordernum);
     localStorage.setItem('order_sid', JSON.stringify(order_sid));
     await localStorage.setItem('deliver_order_sid', JSON.stringify(res.data[0].deliver_order_sid));
   }

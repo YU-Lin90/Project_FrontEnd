@@ -7,7 +7,6 @@ function PayConfirmed() {
 
   // 這裡要處理伺服器通知line pay已確認付款，為必要流程
   useEffect(() => {
-    // TODO: 除非為不需登入的交易，為提高安全性應檢查是否為會員登入狀態
 
     // 這裡要得到回到的交易id
     //?transactionId = 2022092200727626510
@@ -16,7 +15,6 @@ function PayConfirmed() {
 
     if (transactionId) {
       // 向server發送交易成功記錄
-      // TODO: 失敗處理
       axios
         .get(
           `http://${siteName}:3001/LinePay/confirm?transactionId=${transactionId}`

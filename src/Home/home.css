@@ -208,3 +208,15 @@
         }
 
         /* ※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※ */
+        .randomFlashingBox{
+            text-align: center;
+            animation: scale10 3s forwards;
+        }
+        @keyframes scale10 {
+            0%{
+                scale: 1;
+            }
+            100%{
+                scale: 10;
+            }
+        }
