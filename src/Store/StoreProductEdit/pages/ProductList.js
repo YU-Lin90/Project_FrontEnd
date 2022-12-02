@@ -3,7 +3,7 @@ import axios from 'axios';
 // import OptionGroup from '../components/OptionForm.js/OptionGroup';
 import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../Context/CartProvider';
-import OptionForm from '../components/OptionForm.js';
+import OptionForm from '../components/OptionForm/index';
 
 function ProductList() {
   const { addCart } = useCart();
