@@ -74,7 +74,7 @@ function MemberNav() {
   //連結
   const navList = [
     { text: '找店家', link: '/Shopping', index: 0 },
-    { text: '附近美食', link: '/', index: 1 },
+    { text: '附近美食', link: '/productList/?shop_sid=89', index: 1 },
     { text: '優惠券', link: '/Coupon', index: 2 },
   ];
 

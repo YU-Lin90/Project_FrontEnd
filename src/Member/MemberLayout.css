@@ -58,7 +58,7 @@
     border-top: none;
     /* height:var(--vh100NoNavHeight); */
     border-right: 1px #222 solid;
-    width: 30%;
+    width: 20%;
     max-height: var(--vh100NoNavHeight);
     min-height: 500px;
     position: sticky;
@@ -69,7 +69,7 @@
   }
 
   .memberCenterContent {
-    width: 70%;
+    width: 80%;
     min-height: var(--vh100NoNavHeight);
   }
 }
