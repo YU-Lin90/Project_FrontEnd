@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import OptionGroup from '../components/OptionGroup';
+// import OptionGroup from '../components/OptionForm.js/OptionGroup';
 import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../Context/CartProvider';
+import OptionForm from '../components/OptionForm.js';
 
 function ProductList() {
   const { addCart } = useCart();
@@ -209,7 +210,17 @@ function ProductList() {
             </div>
           </div>
         </div>
-        <div className={`option-form ${!selectedItem.sid ? 'noDisplay' : ''}`}>
+        <OptionForm
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          data={data}
+          details={details}
+          setDetails={setDetails}
+          amount={amount}
+          setAmount={setAmount}
+          intoCart={intoCart}
+        />
+        {/* <div className={`option-form ${!selectedItem.sid ? 'noDisplay' : ''}`}>
           <div className="row">
             <div className="product-img">
               <div
@@ -319,7 +330,7 @@ function ProductList() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
