@@ -5,6 +5,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../../Context/CartProvider';
 
 function OptionForm({
+  selectedSid,
   selectedItem,
   setSelectedItem,
   data,
@@ -15,7 +16,7 @@ function OptionForm({
   intoCart,
 }) {
   return (
-    <div className={`option-form ${!selectedItem.sid ? 'noDisplay' : ''}`}>
+    <div className={`option-form`}>
       <div className="row">
         <div className="product-img">
           <div
