@@ -15,11 +15,7 @@ export const CartProvider = ({ children }) => {
     price, //產品價格
     cuttedPrice, //產品特價後價格
     imageUrl, //產品圖片連結
-    details = [
-      { sid: 2, name: '珍珠', price: 15 },
-      { sid: 3, name: '耶果', price: 10 },
-      { sid: 4, name: '去冰', price: 0 },
-    ] //其他資訊(選擇等等)
+    details //其他資訊(選擇等等)
   ) {
     let localCart = JSON.parse(localStorage.getItem('cart'));
     if (!localCart) {
@@ -46,16 +42,12 @@ export const CartProvider = ({ children }) => {
     //沒設定過要設定商品資訊
     else {
       localCart.cartList[shopSid].list[productSid].amount = 1;
-      localCart.cartList[shopSid].list[productSid].name = productName;
-      localCart.cartList[shopSid].list[productSid].price = price;
-      localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
-      localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
-      localCart.cartList[shopSid].list[productSid].details = [
-        { sid: 2, name: '珍珠', price: 15 },
-        { sid: 3, name: '耶果', price: 10 },
-        { sid: 4, name: '去冰', price: 0 },
-      ];
     }
+    localCart.cartList[shopSid].list[productSid].name = productName;
+    localCart.cartList[shopSid].list[productSid].price = price;
+    localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
+    localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
+    localCart.cartList[shopSid].list[productSid].details = details;
     localCart.cartList[shopSid].shopTotal++;
 
     //店家總金額
@@ -243,23 +235,6 @@ export const CartProvider = ({ children }) => {
     imageUrl, //產品圖片連結
     details, //其他資訊(選擇等等)
     amount //數量
-    /* [
-  {
-    name: '加料',
-    sid: 1,
-    list: [
-      { sid: 2, name: '珍珠', price: 15 },
-      { sid: 3, name: '耶果', price: 10 },
-    ],
-  },
-   {
-    name: '溫度',
-    sid: 2,
-    list: [
-      { sid: 4, name: '去冰', price: 15 },
-    ],
-  },
-]; */
   ) {
     let localCart = JSON.parse(localStorage.getItem('cart'));
     if (!localCart) {
@@ -280,18 +255,22 @@ export const CartProvider = ({ children }) => {
       localCart.cartList[shopSid].list[productSid] = {};
     }
     //沒設定過要設定商品資訊
-    localCart.cartList[shopSid].list[productSid].amount = amount;
-    localCart.cartList[shopSid].list[productSid].name = productName;
-    localCart.cartList[shopSid].list[productSid].price = price;
-    localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
-    localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
-    localCart.cartList[shopSid].list[productSid].details = [
-      { sid: 2, name: '珍珠', price: 15 },
-      { sid: 3, name: '耶果', price: 10 },
-      { sid: 4, name: '去冰', price: 0 },
-    ];
-
-    localCart.cartList[shopSid].shopTotal += amount;
+    if (Number(amount) === 0) {
+      console.log(123);
+      delete localCart.cartList[shopSid].list[productSid];
+    } else if (Number(amount) > 0) {
+      //扣掉原本的 再加新的
+      localCart.cartList[shopSid].shopTotal =
+        localCart.cartList[shopSid].shopTotal -
+        localCart.cartList[shopSid].list[productSid].amount +
+        amount;
+      localCart.cartList[shopSid].list[productSid].amount = amount;
+      localCart.cartList[shopSid].list[productSid].name = productName;
+      localCart.cartList[shopSid].list[productSid].price = price;
+      localCart.cartList[shopSid].list[productSid].cuttedPrice = cuttedPrice;
+      localCart.cartList[shopSid].list[productSid].imageUrl = imageUrl;
+      localCart.cartList[shopSid].list[productSid].details = details;
+    }
 
     //店家總金額
     let shopPriceTotal = 0;
