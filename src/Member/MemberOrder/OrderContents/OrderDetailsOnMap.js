@@ -40,12 +40,12 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
                 {v.options.length === 0 ? null : (
                   <div
                     style={{ backgroundColor: '#ffeeee' }}
-                    className="disf jc-se ai-c padV5 borderBotGray3"
+                    className="disf  ai-c padV5 borderBotGray3 fw-w"
                   >
                     {/* 細節 */}
                     {v.options.map((element, i) => {
                       return (
-                        <span className="fw5" key={i}>
+                        <span className="fw5 w25p ta-c marV10" key={i}>
                           {element.options}
                         </span>
                       );

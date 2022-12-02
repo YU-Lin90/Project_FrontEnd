@@ -139,7 +139,7 @@ function OrederDetailForPay() {
         <p
           className="payPageButton"
           onClick={() => {
-            navi(`/StoreDetail?shopSid=${chooseedPayShop}`);
+            navi(`/productList/?shop_sid=${chooseedPayShop}`);
           }}
         >
           前往商店加購
