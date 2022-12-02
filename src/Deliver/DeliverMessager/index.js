@@ -10,12 +10,13 @@ function DeliverMessager() {
 
   return (
     <>
-      <button type='button'
-        onClick={()=>{
-          foodget()
+      <button
+        type="button"
+        onClick={() => {
+          foodget();
         }}
       >
-      已取餐
+        已取餐
       </button>
     </>
   );
