@@ -5,6 +5,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
+// import storeimage from './../../../../../Images/shopping/10002.jpeg';
 
 //距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
@@ -223,9 +224,6 @@ export default function ListTable() {
 
     // console.log('排序:', order);
 
-
-
-
     // 如果等待時間小於5，設置成5
     if (wait_time && wait_time < 5) {
       wait_time = 5;
@@ -248,8 +246,8 @@ export default function ListTable() {
     // console.log("指定地址",sendAddress)
 
     // 用空格("\s")同時搜尋多個字段，以","("%2C")取代
-    if(key){
-      key = key.trim().replace(/\s+/g,"%2C")
+    if (key) {
+      key = key.trim().replace(/\s+/g, '%2C');
     }
 
     let result = await axios.get(
@@ -370,7 +368,11 @@ export default function ListTable() {
           <div className="search_bar">
             {searchTotalRows ? (
               <>
-                {searchWord > 0 ? <p>{searchWord}的搜尋結果</p> : ''}
+                {searchWord && searchWord.length > 0 ? (
+                  <p>{searchWord}的搜尋結果</p>
+                ) : (
+                  ''
+                )}
                 <p>{searchTotalRows}個店家</p>
               </>
             ) : (
@@ -487,13 +489,17 @@ export default function ListTable() {
       </div>
 
       <div className="col_list">
-        <div className="subTitle"></div>
+        <div className="subTitle">小標題</div>
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
               <div key={index} className="shopCardBox">
                 <Link to={'productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
+                  <img
+                  src={`http://${siteName}:3001/images/shopping/${shop.src}.jpg`}
+                  alt={shop.name}
+                />
                     <div className="shopCard_conpon"></div>
                     <div className="shopCard_delivery_time">
                       等待時間{shop.wait_time}
