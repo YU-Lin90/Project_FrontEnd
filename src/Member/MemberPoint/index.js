@@ -3,7 +3,7 @@ import './Member_Point.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-const reasons = ['兌換優惠券', '消費獲得'];
+const reasons = ['兌換優惠券', '消費獲得','會員註冊獲得'];
 const siteName = window.location.hostname;
 
 function MemberPoint() {
@@ -39,6 +39,7 @@ function MemberPoint() {
       .then((res) => {
         // console.log(res);
         setproductData(res);
+        console.log(productData);
       });
   }
   useEffect(() => {

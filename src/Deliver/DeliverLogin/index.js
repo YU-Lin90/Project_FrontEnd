@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './index'
+import './index';
+import MemberLogin from '../../Components/MemberLogin';
 
 function DeliverLogin() {
-  const navi = useNavigate()
+  const navi = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -20,21 +21,24 @@ function DeliverLogin() {
   };
   /*-------------------------------------------------------------------------*/
   /*--------------發送axios出去成功(formData可以成為json格式輸出)----------------*/
-  const mySubmit = async (e) =>{
+  const mySubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post('http://localhost:3005/deliverlogin', formData)
-    if(data.success){
+    const { data } = await axios.post(
+      'http://localhost:3005/deliverlogin',
+      formData
+    );
+    if (data.success) {
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
       localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
       localStorage.setItem('onlie_state', JSON.stringify(data.success));
       navi('/Deliver/DeliverConfirmOrder');
-      alert("登入成功");
-    }else{
-      localStorage.removeItem('deliver_name');  //移除
+      alert('登入成功');
+    } else {
+      localStorage.removeItem('deliver_name'); //移除
       localStorage.removeItem('onlie_state');
-      alert("登入失敗")
+      alert('登入失敗');
     }
-  }
+  };
   /*-------------------------------------------------------------------------*/
 
   return (
