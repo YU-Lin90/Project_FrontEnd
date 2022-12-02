@@ -213,5 +213,9 @@ height: 100%;
 border: 1px solid #CCC;
 }
 
-
+.shopCard_score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 

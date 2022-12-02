@@ -44,7 +44,7 @@ export default function ListTable() {
 
   //連結，暫時無用
   const handleClick = (myLink) => () => {
-    // navigate = '/';
+    navigate = '/';
   };
 
   //錯誤用
@@ -68,6 +68,10 @@ export default function ListTable() {
 
       const response = await axios.get(`http://${siteName}:3001/Shopping?`);
 
+      //把總筆數和checkbox回歸初始狀態
+      setSearchTotalRows('');
+      setIsChecked(true);
+
       //---------------------------計算距離用-----------------------------
       if (sendAddress) {
         for (let element of response.data) {
@@ -82,7 +86,6 @@ export default function ListTable() {
 
           // 將結果放進result.distance
           element.distance = Math.round(gettedDistance);
-
         }
       }
       //-----------------------------------------------------------------
@@ -187,27 +190,27 @@ export default function ListTable() {
   };
 
   //不送出就搜尋(暫時無用)
-  const searchHandle = async (event) => {
-    let key = event.target.value;
+  // const searchHandle = async (event) => {
+  //   let key = event.target.value;
 
-    let result = await axios.get(
-      `http://${siteName}:3001/Shopping/?search=${key}`
-    );
+  //   let result = await axios.get(
+  //     `http://${siteName}:3001/Shopping/?search=${key}`
+  //   );
 
-    if (result) {
-      console.log(result);
-      setShop(result.data);
-      console.log(
-        '網址列搜尋字串:',
-        usp.get('search'),
-        '價格上限:',
-        // usp.get('price_max'),
-        usp.get('price_max'),
-        '價格下限:',
-        usp.get('price_min')
-      );
-    }
-  };
+  //   if (result) {
+  //     console.log(result);
+  //     setShop(result.data);
+  //     console.log(
+  //       '網址列搜尋字串:',
+  //       usp.get('search'),
+  //       '價格上限:',
+  //       // usp.get('price_max'),
+  //       usp.get('price_max'),
+  //       '價格下限:',
+  //       usp.get('price_min')
+  //     );
+  //   }
+  // };
 
   //送出後再統一做搜尋
   const submitHandle = async (event) => {
@@ -219,6 +222,9 @@ export default function ListTable() {
     let order = usp.get('order');
 
     // console.log('排序:', order);
+
+
+
 
     // 如果等待時間小於5，設置成5
     if (wait_time && wait_time < 5) {
@@ -240,6 +246,11 @@ export default function ListTable() {
 
     // 取地址
     // console.log("指定地址",sendAddress)
+
+    // 用空格("\s")同時搜尋多個字段，以","("%2C")取代
+    if(key){
+      key = key.replace(/\s/g,"%2C")
+    }
 
     let result = await axios.get(
       `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
@@ -263,7 +274,7 @@ export default function ListTable() {
         element.distance = Math.round(gettedDistance);
 
         // 如果排序=距離，把資料按distance由小到大排列
-        if(order === "distance"){
+        if (order === 'distance') {
           result.data.sort((a, b) => a.distance - b.distance);
         }
       }
@@ -321,23 +332,10 @@ export default function ListTable() {
       setNoResult('');
     }
 
+    //有搜尋店名or價格上限or下限才顯示筆數(等待時間沒有)
     if (key || price_max || price_min) {
       if (result.data.length > 0) {
         setSearchTotalRows(result.data[0].total_rows);
-
-        // console.log(calculateDistance(result.data[0].address,sendAddress).then((v)=>{
-        //   console.log("地址",v)
-        // }))
-
-        // if(sendAddress){
-        //   for (let element of result.data) {
-        //     const distance = await calculateDistance(sendAddress, element.address)
-        //     element.distance = distance
-
-        //   }
-        // }
-        // setCurrentDistance(currentDistance)
-        // console.log("currentDistance",currentDistance)
       }
     }
     console.log(
@@ -372,7 +370,7 @@ export default function ListTable() {
           <div className="search_bar">
             {searchTotalRows ? (
               <>
-                {searchWord ? <p>{searchWord}的搜尋結果</p> : ''}
+                {searchWord > 0 ? <p>{searchWord}的搜尋結果</p> : ''}
                 <p>{searchTotalRows}個店家</p>
               </>
             ) : (
@@ -493,7 +491,8 @@ export default function ListTable() {
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
-                <div key={index} className="shopCardBox">
+              <div key={index} className="shopCardBox">
+                <Link to={'productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <div className="shopCard_conpon"></div>
                     <div className="shopCard_delivery_time">
@@ -501,33 +500,34 @@ export default function ListTable() {
                     </div>
                   </div>
                   <span>SID {shop.sid}</span>
-                  <div className="shopCard_text" onClick={handleClick}>
-                    <span>{shop.distance} 公里</span>
-
+                  <div className="shopCard_text">
                     <div className="shopCard_text_name">
-                      {/* {submitHandle && <span>{shop.products_name}</span>} */}
                       <span>{shop.name}</span>
                       <div className="shopCard_score">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 40 37"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M20 0L24.4903 13.8197H39.0211L27.2654 22.3607L31.7557 36.1803L20 27.6393L8.2443 36.1803L12.7346 22.3607L0.97887 13.8197H15.5097L20 0Z"
-                            fill="#FFA500"
-                          />
-                        </svg>
+                        {shop.average_evaluation !== null ? (
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 40 37"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M20 0L24.4903 13.8197H39.0211L27.2654 22.3607L31.7557 36.1803L20 27.6393L8.2443 36.1803L12.7346 22.3607L0.97887 13.8197H15.5097L20 0Z"
+                              fill="#FFA500"
+                            />
+                          </svg>
+                        ) : (
+                          ''
+                        )}
                         {/* 資料庫結構: 小數點 */}
                         {shop.average_evaluation}
                       </div>
 
                       {/* TODO 距離 */}
                     </div>
-                    <span>{shop.food_type_sid}</span>
-                    <span>{shop.phone}</span>
+                    <span>{shop.type_name}</span>
+                    <span>{shop.distance} 公里</span>
                     <button
                       onClick={() => {
                         submit(shop.sid);
@@ -543,8 +543,9 @@ export default function ListTable() {
                       )}
                     </button>
                   </div>
-                </div>
-              ))
+                </Link>
+              </div>
+            ))
           ) : (
             <div>{noResult}</div>
           )}
