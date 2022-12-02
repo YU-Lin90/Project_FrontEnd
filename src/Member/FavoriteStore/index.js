@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 // import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { TiDelete } from 'react-icons/ti';
-import { FcSearch } from 'react-icons/fc';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -200,7 +200,7 @@ export default function FavoriteStore() {
             <div className="mf_imgbox">
               <img
                 className="mf_img"
-                src={`http://${siteName}:3001/uploads/d4801ba2-34a5-4709-a128-d2002ec355c6.jpg`}
+                src={`http://${siteName}:3001/uploads/1a4f5922-6e5d-404c-b848-e51cead3ba8f.jpg`}
               />
             </div>
             <h3 className="mf_font1">{v.name}</h3>
@@ -264,39 +264,6 @@ export default function FavoriteStore() {
   // });
   return (
     <>
-      <input
-        type="text"
-        value={inputKeyword}
-        onChange={(e) => {
-          setInputKeyword(e.target.value);
-        }}
-        onKeyPress={() => {
-          if (!inputKeyword) {
-            const a = user;
-            console.log(a);
-            getform();
-          } else {
-            const b = user.filter((v, i) => v.name.includes(inputKeyword));
-            setUser(b);
-          }
-        }}
-      />
-      <button
-        onClick={async () => {
-          // setSearchKeyWord(inputKeyword);
-          if (!inputKeyword) {
-            const a = user;
-            console.log(a);
-            getform();
-          } else {
-            const b = user.filter((v, i) => v.name.includes(inputKeyword));
-            console.log(b);
-            setUser(b);
-          }
-        }}
-      >
-        <FcSearch />
-      </button>
       {/* <button
         onClick={() => {
           const nextStatusIndex = myIndex === 0 ? 1 : 0;
@@ -308,9 +275,51 @@ export default function FavoriteStore() {
         {myIndex === 0 ? <AiOutlineHeart /> : <AiFillHeart />}
       </button> */}
       {/* <div className="con">{display2}</div> */}
-      <h2 className="mf_h2">最愛店家</h2>
+      {/* <h2 className="mf_h2">最愛店家</h2> */}
+
+      <div className="mf_search">
+        <input
+          className="mf_search_input"
+          type="text"
+          value={inputKeyword}
+          onChange={(e) => {
+            setInputKeyword(e.target.value);
+          }}
+          onKeyPress={() => {
+            if (!inputKeyword) {
+              const a = user;
+              console.log(a);
+              getform();
+            } else {
+              const b = user.filter((v, i) => v.name.includes(inputKeyword));
+              setUser(b);
+              console.log(123, user);
+            }
+          }}
+        />
+        <button
+          className="mf_search_button"
+          onClick={async () => {
+            // setSearchKeyWord(inputKeyword);
+            if (!inputKeyword) {
+              const a = user;
+              console.log(a);
+              getform();
+            } else {
+              const b = user.filter((v, i) => v.name.includes(inputKeyword));
+              console.log(b);
+              setUser(b);
+            }
+          }}
+        >
+          <AiOutlineSearch className="mf_search_icon" />
+        </button>
+      </div>
+      <br />
       <div className="mf_wrap">{display}</div>
-      <div>{user.length > 0 ? errormsg : '沒有此店家'}</div>
+      <div className="mf_errorfont">
+        {user.length > 0 ? errormsg : '沒有此店家'}
+      </div>
     </>
   );
 }
