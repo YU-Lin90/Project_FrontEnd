@@ -274,7 +274,14 @@ function Product() {
                 </label>
                 <div className="previewImg">
                   <div className="img">
-                    <img src={imgSrc} alt="" />
+                    <img
+                      src={
+                        imgSrc
+                          ? imgSrc
+                          : `http://localhost:3001/uploads/${formData.src}`
+                      }
+                      alt=""
+                    />
                   </div>
                   <div className="direction">
                     <p>餐點相片可協助顧客決定訂購哪些美食，進而提升銷售量。</p>
@@ -282,14 +289,14 @@ function Product() {
                       檔案規定：JPG、PNG、GIF 或 WEBP 格式，不可超過 10 MB。
                       所需的最低像素：寬度和高度為 320 x 320 像素。
                     </p>
-                  <label>
-                    <input
-                      className="imgInput"
-                      type="file"
-                      name="avatar"
-                      onChange={uploadImgHandler}
-                    />
-                  </label>
+                    <label>
+                      <input
+                        className="imgInput"
+                        type="file"
+                        name="avatar"
+                        onChange={uploadImgHandler}
+                      />
+                    </label>
                   </div>
                 </div>
 

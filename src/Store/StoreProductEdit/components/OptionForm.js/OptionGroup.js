@@ -24,7 +24,7 @@ function OptionGroup({ ot, data, details, setDetails }) {
         })
         .map((opt, i) => {
           return (
-            <>
+            <div className="opt-box">
               <label>
                 {max === 1 ? (
                   <input
@@ -95,13 +95,20 @@ function OptionGroup({ ot, data, details, setDetails }) {
                       }
                     }}
                     disabled={
-                      min > 1 && !checkState[i] && nowNum === max ? true : false
+                      !checkState[i] && nowNum === max
+                        ? // min > 1 && !checkState[i] && nowNum === max
+                          true
+                        : false
                     }
                   />
                 )}
-                {opt.name}
+
+                <div className="option-words">
+                  <p>{opt.name}</p>
+                  <p>{opt.price === 0 ? 'Free' : `$ ${opt.price}`}</p>
+                </div>
               </label>
-            </>
+            </div>
           );
         })}
     </>
