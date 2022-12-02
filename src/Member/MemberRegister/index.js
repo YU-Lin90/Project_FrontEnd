@@ -229,7 +229,6 @@ function MemberRegister() {
             />
             <span className="m_span">{fieldErrors.email}</span>
           </div>
-
           <div className="m_mar">
             <label className="m_label">密碼:</label>
             <input

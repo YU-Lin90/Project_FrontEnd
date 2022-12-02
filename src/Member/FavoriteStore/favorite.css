@@ -104,6 +104,11 @@
    cursor: pointer;
 }
 
+.mf_errorfont{
+    text-align: center;
+    font-size: 30px;
+}
+
 @media screen and (max-width:576px) {
     .mf_col {
         width: 100%;
