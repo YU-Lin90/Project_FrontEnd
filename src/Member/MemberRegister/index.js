@@ -16,7 +16,7 @@ function MemberRegister() {
   const [imgServerUrl, setImgServerUrl] = useState('');
 
   const forms = useRef(null);
-
+  const siteName = window.location.hostname;
   // 當選擇檔案更動時建立預覽圖
   useEffect(() => {
     if (!selectedFile) {
@@ -53,7 +53,7 @@ function MemberRegister() {
     formData.append('avatar', selectedFile);
 
     fetch(
-      'http://localhost:3001/upload-avatar', //server url
+      `http://${siteName}:3001/upload-avatar`, //server url
       {
         method: 'POST',
         body: formData,
@@ -62,7 +62,7 @@ function MemberRegister() {
       .then((response) => response.json())
       .then((result) => {
         console.log('Success:', result);
-        setImgServerUrl('http://localhost:3001/uploads/' + result.data.name);
+        setImgServerUrl(`http://${siteName}:3001/uploads/` + result.data.name);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -113,7 +113,7 @@ function MemberRegister() {
       // 對照server上的檔案名稱 req.files.avatar
       //fd.append('avatar', selectedFile);
       await axios
-        .post('http://localhost:3001/MemberLogin/add', fd)
+        .post(`http://${siteName}:3001/MemberLogin/add`, fd)
         .then((result) => {
           console.log(result);
           Swal.fire({
