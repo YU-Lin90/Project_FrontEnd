@@ -249,7 +249,7 @@ export default function ListTable() {
 
     // 用空格("\s")同時搜尋多個字段，以","("%2C")取代
     if(key){
-      key = key.replace(/\s/g,"%2C")
+      key = key.trim().replace(/\s+/g,"%2C")
     }
 
     let result = await axios.get(
