@@ -67,6 +67,11 @@ function Type() {
     const response = await axios.delete(
       `http://localhost:3001/store-admin/type/${sid}`
     );
+    setReload((v) => v + 1);
+    setEditType({
+      type_sid: '',
+      type_name: '',
+    });
   };
 
   return (

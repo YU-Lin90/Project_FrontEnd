@@ -28,6 +28,8 @@ function Product() {
     available: '',
   });
 
+  const [reload, setReload] = useState(0);
+
   const getData = async (shop_sid) => {
     console.log(shop_sid);
     const response = await axios.get(
@@ -42,7 +44,7 @@ function Product() {
     setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
     // 取得店家菜單資料
     getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
-  }, []);
+  }, [reload]);
 
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {
@@ -52,6 +54,8 @@ function Product() {
       `http://localhost:3001/store-admin/product/${myUserSid}`,
       fd
     );
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
 
   // 快速填入
@@ -74,6 +78,8 @@ function Product() {
       fd
     );
     console.log(response.data);
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
 
   const editBtnHandler = async (e) => {
@@ -84,6 +90,8 @@ function Product() {
       fd
     );
     console.log(response.data);
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
 
   const delBtnHandler = async (e) => {
@@ -91,6 +99,8 @@ function Product() {
     const response = await axios.delete(
       `http://localhost:3001/store-admin/product/${selectedItem}`
     );
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
 
   const uploadImgHandler = (e) => {

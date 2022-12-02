@@ -18,6 +18,7 @@ function Option() {
   const [optionData, setOptionData] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
   const [inputText, setInputText] = useState('');
+  const [reload, setReload] = useState(0);
 
   const getData = async (shop_sid) => {
     console.log(shop_sid);
@@ -33,7 +34,7 @@ function Option() {
     setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
     // 取得店家菜單資料
     getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
-  }, []);
+  }, [reload]);
 
   const insertBtnHandler = (e) => {
     e.preventDefault();
@@ -55,6 +56,8 @@ function Option() {
       { ...formData, optionData }
     );
     console.log(response.data);
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
 
   const editBtnHandler = async (e) => {
@@ -65,6 +68,8 @@ function Option() {
       { ...formData, optionData }
     );
     console.log(response.data);
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
 
   const delBtnHandler = async (e) => {
@@ -72,7 +77,10 @@ function Option() {
     const response = await axios.delete(
       `http://localhost:3001/store-admin/option/${selectedItem}`
     );
+    setReload((v) => v + 1);
+    setSelectedItem('');
   };
+
   return (
     <>
       <div className="store-admin">

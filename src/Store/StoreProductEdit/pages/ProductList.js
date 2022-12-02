@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
-import { useCart } from '../../../Context/CartProvider';
 import OptionForm from '../components/OptionForm/index';
 
 function ProductList() {
-  const { addCart } = useCart();
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
-  const [amount, setAmount] = useState(1);
   const [data, setData] = useState({
     shop: {},
     types: [],
@@ -16,20 +13,8 @@ function ProductList() {
     options_types: [],
     options: [],
   });
-  const [selectedItem, setSelectedItem] = useState({
-    sid: '',
-    name: '',
-    price: '',
-    src: '',
-    note: '',
-    min: '',
-    max: '',
-    finalPrice: '',
-  });
-  // 傳入localStorage所需要的State
-  const [details, setDetails] = useState([]);
-  // 決定"放入購物車"按鈕是否啟用的State
-  const [isAmountOK, setIsAmountOk] = useState(false);
+  // selectedSid
+  const [selectedSid, setSelectedSid] = useState('');
 
   const getData = async (shop_sid) => {
     const response = await axios.get(
@@ -48,35 +33,6 @@ function ProductList() {
     getData(shop_sid);
     // console.log(data);
   }, []);
-
-  const intoCart = (e) => {
-    e.preventDefault();
-    // 將details修改成傳進購物車的格式
-    let newDetails = [];
-    details.forEach((d) => {
-      newDetails = [...newDetails, ...d.list];
-    });
-    addCart(
-      data.shop.sid,
-      selectedItem.sid,
-      data.shop.name,
-      selectedItem.name,
-      selectedItem.price,
-      selectedItem.price,
-      selectedItem.src,
-      newDetails
-    );
-    console.log(
-      data.shop.sid,
-      selectedItem.sid,
-      data.shop.name,
-      selectedItem.name,
-      selectedItem.price,
-      selectedItem.price,
-      selectedItem.src,
-      newDetails
-    );
-  };
 
   return (
     <>
@@ -147,31 +103,8 @@ function ProductList() {
                                   <div
                                     className="product"
                                     onClick={() => {
-                                      const newSelectedItem = {
-                                        ...selectedItem,
-                                      };
-                                      newSelectedItem.sid = product.sid;
-                                      newSelectedItem.name = product.name;
-                                      newSelectedItem.price = product.price;
-                                      newSelectedItem.src = product.src;
-                                      newSelectedItem.note = product.note;
-                                      newSelectedItem.min = product.min;
-                                      newSelectedItem.max = product.max;
-
-                                      setSelectedItem(newSelectedItem);
-                                      // details
-                                      const newDetails = data.options_types
-                                        .filter((ot) => {
-                                          return ot.product_sid === product.sid;
-                                        })
-                                        .map((ot) => {
-                                          return {
-                                            sid: ot.sid,
-                                            name: ot.name,
-                                            list: [],
-                                          };
-                                        });
-                                      setDetails(newDetails);
+                                      // selectedSid
+                                      setSelectedSid(product.sid);
                                     }}
                                   >
                                     <div className="left">
@@ -209,135 +142,16 @@ function ProductList() {
             </div>
           </div>
         </div>
-        {selectedItem.sid ? (
+        {selectedSid ? (
           <>
             <OptionForm
-              selectedSid={selectedItem.sid}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-              data={data}
-              details={details}
-              setDetails={setDetails}
-              amount={amount}
-              setAmount={setAmount}
-              intoCart={intoCart}
+              selectedSid={selectedSid}
+              setSelectedSid={setSelectedSid}
             />
           </>
         ) : (
           <></>
         )}
-
-        {/* <div className={`option-form ${!selectedItem.sid ? 'noDisplay' : ''}`}>
-          <div className="row">
-            <div className="product-img">
-              <div
-                className="back-btn"
-                onClick={() => {
-                  setSelectedItem({
-                    sid: '',
-                    name: '',
-                    price: '',
-                    src: '',
-                    note: '',
-                    min: '',
-                    max: '',
-                    finalPrice: '',
-                  });
-                }}
-              >
-                <i className="fa-solid fa-arrow-left"></i>
-              </div>
-              <img
-                src={`http://localhost:3001/uploads/${[selectedItem.src]}`}
-                alt="餐點圖片"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="product-info">
-              <div className="top">
-                <h5>{selectedItem.name}</h5>
-                <p>$ {selectedItem.price}</p>
-              </div>
-              <div className="bottom">
-                <p>{selectedItem.note}</p>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="option-section">
-              <div className="option-box">
-                {data.options_types
-                  .filter((ot) => {
-                    return ot.product_sid === selectedItem.sid;
-                  })
-                  .map((ot) => {
-                    return (
-                      <div className="option-box">
-                        <div className="option-type">
-                          <div className="top">
-                            <h6>{ot.name}</h6>
-                            <p>{!ot.min ? '' : `${ot.min}必填`}</p>
-                          </div>
-                          <div className="bottom">
-                            <p>
-                              {ot.min === 1 && ot.max === 1
-                                ? '選擇1項'
-                                : ot.max > 1 && ot.min > 0
-                                ? `最多可選擇${ot.max}項(最少選擇${ot.min}項)`
-                                : ot.max > 1 && ot.min === 0
-                                ? `最多可選擇${ot.max}項(可不選擇)`
-                                : null}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="option-list">
-                          <OptionGroup
-                            ot={ot}
-                            data={data}
-                            details={details}
-                            setDetails={setDetails}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="amount-section">
-              <div className="left">
-                <i
-                  className={`fa-solid fa-minus ${
-                    amount <= 1 ? 'inActive' : ''
-                  }`}
-                  onClick={() => {
-                    if (amount > 1) setAmount(amount - 1);
-                  }}
-                ></i>
-                <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => {
-                    setAmount(e.target.value);
-                  }}
-                />
-                <i
-                  className="fa-solid fa-plus"
-                  onClick={() => {
-                    if (amount > 0) setAmount(amount + 1);
-                  }}
-                ></i>
-              </div>
-              <div className="right">
-                <div className="inActive" onClick={intoCart}>
-                  <p>放入購物車</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </>
   );
