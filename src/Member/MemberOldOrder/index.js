@@ -1,5 +1,5 @@
 //歷史訂單 第一層
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
 import OldOrderPerOrder from './OldOrderPerOrder';
 import './OldOrder.css';
@@ -36,9 +36,7 @@ function MemberOldOrder() {
         deliverScore
         shopScore
   } */
-  useEffect(() => {
-    getAllCompleteOrders();
-  }, []);
+
   useEffect(() => {
     getAllCompleteOrders();
   }, [reloading]);

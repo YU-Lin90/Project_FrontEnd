@@ -152,6 +152,7 @@ function PayButton({ orderSocket }) {
       setPayingOrderSid(res.orderSid);
       const totalPrice =
         Number(cartContents.cartList[chooseedPayShop].shopPriceTotal) -
+        Number(dailyCouponAmount) -
         Number(couponCutAmount) +
         Number(deliverFee);
       const params = new URLSearchParams({
