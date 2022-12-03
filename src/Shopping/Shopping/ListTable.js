@@ -382,7 +382,6 @@ export default function ListTable() {
               <p>搜尋店家及餐點</p>
             </div>
             <div className="search_bar_box">
-              {/* Link時 querystring資料要換成店家的querystring("sid" "name"之類的) */}
               <div className="search_bar_name">
                 <input
                   type="text"
@@ -483,7 +482,11 @@ export default function ListTable() {
                 </div>
               </div>
             </div>
-            <input type="submit" value="開始搜尋" />
+            <input 
+            type="submit" 
+            value="開始搜尋" 
+            className='search_bar_submit'
+            />
           </div>
         </form>
       </div>
@@ -494,7 +497,7 @@ export default function ListTable() {
           {shop.length > 0 ? (
             shop.map((shop, index) => (
               <div key={index} className="shopCardBox">
-                <Link to={'productList/?shop_sid=' + shop.sid}>
+                <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                   <img
                   src={`http://${siteName}:3001/images/shopping/${shop.src}.jpg`}
