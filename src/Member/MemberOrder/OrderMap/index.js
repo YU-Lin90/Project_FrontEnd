@@ -47,7 +47,6 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
   };
   const checkLocation = async (orderSid) => {
     //獲得現在位置 然後傳到裡面的函式
-    //TODO 這裡要改成訂單上面的位置
     const res = await loginCheckGetFetch(
       `MemberMapDetails/GetOrderAddress/?orderSid=${orderSid}`,
       'Member'
@@ -100,13 +99,8 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
     console.log({ selectedOrder });
     console.log({ datas });
     console.log({ step });
-
-    if (
-      datas.orderSid === 1 &&
-      datas.lat &&
-      datas.lng &&
-      step === 4
-    ) {
+    // TODO 這裡現在是寫死的 訂單編號要跟外送員那邊一樣
+    if (datas.orderSid === 1 && datas.lat && datas.lng && step === 4) {
       console.log('in');
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
     }

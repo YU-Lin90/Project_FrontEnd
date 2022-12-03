@@ -47,7 +47,6 @@ function PayCoupon() {
     setCouponSid(couponSid);
     setCouponCutAmount(cutAmount);
   };
-  //TODO: 選著的時候改價格變成沒選
   useEffect(() => {
     getCouponDetail();
   }, [cartContents]);

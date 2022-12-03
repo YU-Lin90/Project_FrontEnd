@@ -57,7 +57,6 @@ function OldOrderPerOrder({ orderData, setReloading }) {
           <div className="w40p disf fd-c ai-c jc-se gap10">
             <p className="fw6 fs18">${orderData.sale}</p>
             <div className="disf fd-c">
-              {/* TODO: 重新下單 */}
               <p
                 onClick={() => {
                   navi(`/productList/?shop_sid=${orderData.shop_sid}`);

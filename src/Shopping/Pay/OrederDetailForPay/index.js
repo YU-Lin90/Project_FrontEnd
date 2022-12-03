@@ -94,7 +94,6 @@ function OrederDetailForPay() {
           </p>
           <p className="w100p disf jc-sb marb10">
             <span>+ 外送服務費</span>
-            {/* TODO:外送服務費 */}
             <span>NT${deliverFee}</span>
           </p>
           {couponCutAmount > 0 ? (

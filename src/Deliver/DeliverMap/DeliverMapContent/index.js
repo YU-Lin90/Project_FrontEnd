@@ -20,7 +20,7 @@ function DeliverMapContent({
   //現在跟哪方對話
   side = 1,
   //現在的訂單SID
-  orderSid = 222,
+  orderSid = 1,
   //聊天室
   orderSocket,
   //會員SID
