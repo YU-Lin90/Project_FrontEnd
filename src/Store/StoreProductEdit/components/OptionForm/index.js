@@ -18,6 +18,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   });
   const [optionBoolean, setOptionBoolean] = useState([]);
   const [cartOptions, setCartOptions] = useState([]);
+  
 
   const getData = async (sid) => {
     const response = await axios.get(
@@ -41,7 +42,6 @@ function OptionForm({ selectedSid, setSelectedSid }) {
 
     // 點購物車的商品近來要取得該商品當前的資料
     const localCart = JSON.parse(localStorage.getItem('cart'));
-    console.log(localCart);
     if (
       localCart &&
       localCart.cartList &&
@@ -49,15 +49,12 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       localCart.cartList[data.shop.sid].list &&
       localCart.cartList[data.shop.sid].list[data.product.sid]
     ) {
-      console.log(
-        localCart.cartList[data.shop.sid].list[data.product.sid].details
-      );
       setCartOptions(
         localCart.cartList[data.shop.sid].list[data.product.sid].details
       );
     } else {
       console.log('Cannot find cartOptions');
-      setCartOptions([])
+      setCartOptions([]);
     }
   }, [data]);
 
@@ -83,11 +80,6 @@ function OptionForm({ selectedSid, setSelectedSid }) {
 
   const intoCart = (e) => {
     e.preventDefault();
-    // 將details修改成傳進購物車的格式
-    let newDetails = [];
-    details.forEach((d) => {
-      newDetails = [...newDetails, ...d.list];
-    });
 
     // test
     console.log(testDetails);
@@ -108,8 +100,6 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       data.product.price,
       data.product.price,
       data.product.src,
-      // test
-      // newDetails,
       testNewDetails,
       amount
     );
@@ -121,8 +111,6 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       data.product.price,
       data.product.price,
       data.product.src,
-      // test
-      // newDetails,
       testNewDetails,
       amount,
     ]);
@@ -185,16 +173,13 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                     <OptionGroup
                       ot={ot}
                       data={data}
-                      details={details}
-                      setDetails={setDetails}
                       optionBoolean={optionBoolean}
                       setOptionBoolean={setOptionBoolean}
                       otIndex={otIndex}
-                      cartOptions={cartOptions}
-                      setCartOptions={setCartOptions}
                       // test
                       testDetails={testDetails}
                       setTestDetails={setTestDetails}
+                      // 選項格式是否正確
                     />
                   </div>
                 </div>
