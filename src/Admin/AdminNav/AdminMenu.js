@@ -8,7 +8,7 @@ function AdminMenu({ setToggle, toggle }) {
     { text: '管理者首頁', link: '/Admin' },
     { text: '店家首頁', link: '/Store/StoreLogin' },
     { text: '會員首頁', link: '/' },
-    { text: '外送員首頁', link: '/Deliver' },
+    { text: '外送員首頁', link: '/Deliver/DeliverConfirmOrder' },
   ];
   return (
     <>
