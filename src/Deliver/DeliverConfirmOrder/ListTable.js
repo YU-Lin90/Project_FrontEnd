@@ -81,6 +81,14 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
             <p className='Dcooktitle'>距離</p>
             <p className='Dcooktext'>{}</p>    {/* 未完成 */}
           </div>
+          
+        </div>
+        {/* --------------------下拉式店家資訊----------------------- */}
+        {btn &&<div className="Dshopmore">
+        <i className="fa-solid fa-store Dicon"></i>
+        <div>
+          <p>{name}</p>
+          <p>{address}</p>
           {/* ----------------------接單按鈕----------------------- */}
           <button
             className={delivertake ? "Dbtn" : "Dbtn Dactive"}
@@ -93,13 +101,6 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
             接單
           </button>
           {/* ----------------------------------------------------- */}
-        </div>
-        {/* --------------------下拉式店家資訊----------------------- */}
-        {btn &&<div className="Dshopmore">
-        <i className="fa-solid fa-store Dicon"></i>
-        <div>
-          <p>{name}</p>
-          <p>{address}</p>
         </div>
         </div>}
         {/* ----------------------------------------------------- */}
