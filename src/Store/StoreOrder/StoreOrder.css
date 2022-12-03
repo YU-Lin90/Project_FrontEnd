@@ -81,6 +81,7 @@
 .storeConfirmOrder {
   display: flex;
   flex-direction: column;
+  width: 450px;
   /* justify-content: space-evenly; */
   /* padding: 20px; */
   /* gap: 10px; */
@@ -120,6 +121,7 @@
 
 .productDetails {
   background-color: #FEEEEE;
+  flex-wrap: wrap;
 }
 
 .shopMemos {

@@ -30,8 +30,14 @@ function NavAddress({ sendAddress, setSendAddress }) {
               onChange={(e) => {
                 setSendAddress(e.target.value);
               }}
+              autoFocus={true}
               className="w300 marH10"
               value={sendAddress}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setOpenSetAddress(false);
+                }
+              }}
             />
             <p
               onClick={() => {

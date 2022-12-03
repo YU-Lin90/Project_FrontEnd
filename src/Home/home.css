@@ -209,14 +209,28 @@
 
         /* ※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※ */
         .randomFlashingBox{
-            text-align: center;
-            animation: scale10 3s forwards;
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            translate: -50%;
+            z-index: 200;
         }
-        @keyframes scale10 {
+        .randomFlashingTexts{
+            animation: randomFlashingBoxScale 3s forwards;
+            text-align: center;
+        }
+        @keyframes randomFlashingBoxScale {
             0%{
                 scale: 1;
             }
             100%{
-                scale: 10;
+                scale: 5;
             }
+        }
+        .randomFlashingReturnButton{
+            
+        }
+        .homeStartRandomButtom.active{
+            background-color: #CD8C15;
+            color: #727272;
         }

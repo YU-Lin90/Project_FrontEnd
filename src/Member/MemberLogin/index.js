@@ -13,7 +13,6 @@ function MemberLogin() {
   const navi = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const location = useLocation();
   const [passwordFieldType, setPasswordFieldType] = useState('password');
   function login(email, password) {
     //如果其中一樣是空的
@@ -117,7 +116,7 @@ function MemberLogin() {
               )}
             </button>
           </div>
-          <div className='ml_buttonbox'>
+          <div className="ml_buttonbox">
             <button
               className="m_login_button"
               onClick={() => {

@@ -46,7 +46,7 @@
   .storeCenterList {
     position: sticky;
     top: var(--navHeight); 
-    width: 30%;
+    width: 20%;
     min-height: 500px;
     /* height: calc(100vh - 80px); */
     height: 100vh;
@@ -54,10 +54,11 @@
     flex-direction: column;
     z-index: 2;
     background-color: transparent;
+    gap:50px;
   }
 
   .storeContent {
-    width: 70%;
+    width: 80%;
     min-height: calc(100vh - 50px);
   }
 }

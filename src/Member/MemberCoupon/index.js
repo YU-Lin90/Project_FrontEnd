@@ -8,6 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 function MemberCoupon() {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
+  const siteName = window.location.hostname;
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
@@ -19,7 +20,7 @@ function MemberCoupon() {
     }
     try {
       const response = await axios.get(
-        `http://localhost:3001/MemberLogin/api5/${sid}`
+        `http://${siteName}:3001/MemberLogin/api5/${sid}`
       );
 
       console.log(localStorage.getItem('MemberSid'));

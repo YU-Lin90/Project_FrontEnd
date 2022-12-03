@@ -3,7 +3,9 @@ import { usePay } from '../../../Context/PayPageContext';
 import { useFunc } from '../../../Context/FunctionProvider';
 import PayTitleBlock from '../PayTitleBlock';
 import { useEffect, useState } from 'react';
+import { useGeo } from '../../../Context/GeoLocationProvider';
 function DeliveDetail() {
+  const { calculateDistance } = useGeo();
   const { notLoginGetFetch } = useFunc();
   //備註設定
   const {
@@ -17,6 +19,7 @@ function DeliveDetail() {
     setWaitTime,
     chooseedPayShop,
     cartContents,
+    setDeliverFee,
   } = usePay();
 
   const [editAddress, setEditAddress] = useState(false);
@@ -24,16 +27,33 @@ function DeliveDetail() {
   const [editShopMemo, setEditShopMemo] = useState(false);
 
   const [editDeliverMemo, setEditDeliverMemo] = useState(false);
-
+  //計算外送費 OK
+  const calculateDeliverFee = async (shopSid) => {
+    const storeAddress = await notLoginGetFetch(
+      `getStoreAddress/?shopSid=${shopSid}`
+    );
+    // console.log(storeAddress);
+    const distance = await calculateDistance(sendAddress, storeAddress);
+    // console.log(distance);
+    const fee = parseInt(distance / 5) * 10 + 30;
+    console.log(fee);
+    setDeliverFee(fee);
+  };
   const checkWaitTime = async () => {
     const time = await notLoginGetFetch(
       `PayGetWaitTime/?sid=${chooseedPayShop}`
     );
     setWaitTime(time);
   };
+
   useEffect(() => {
     checkWaitTime();
   }, []);
+  useEffect(() => {
+    if (!editAddress) {
+      calculateDeliverFee(chooseedPayShop);
+    }
+  }, [editAddress]);
   return (
     <>
       <div className="payDetailBox">
@@ -41,16 +61,22 @@ function DeliveDetail() {
 
         <div className="marb20 disf jc-sb ai-c">
           <div>
-            <p className="fs24 marb10">送達地址:</p>
+            <p className="fs24 fw5 marb15 ">送達地址:</p>
             {editAddress ? (
               <div>
                 <input
-                  className="w100p w300"
+                  className="w100p w300 padV5 fs18 padH5"
                   value={sendAddress}
                   onChange={(e) => {
                     setSendAddress(e.target.value);
                   }}
                   autoFocus={editAddress}
+                  onKeyDown={(e) => {
+                    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                      // calculateDeliverFee(Number(chooseedPayShop));
+                      setEditAddress(false);
+                    }
+                  }}
                 />
               </div>
             ) : (
@@ -68,16 +94,21 @@ function DeliveDetail() {
         </div>
         <div className="marb20 disf jc-sb ai-c">
           <div>
-            <p className="fs24 marb10">店家備註</p>
+            <p className="fs24 fw5 marb15">店家備註:</p>
             {editShopMemo ? (
               <div>
                 <input
-                  className="w300"
+                  className="w300 padV5 fs18 padH5"
                   value={storeMemo}
                   onChange={(e) => {
                     setStoreMemo(e.target.value);
                   }}
                   autoFocus={editShopMemo}
+                  onKeyDown={(e) => {
+                    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                      setEditShopMemo(false);
+                    }
+                  }}
                 />
               </div>
             ) : (
@@ -96,16 +127,21 @@ function DeliveDetail() {
         </div>
         <div className="marb20 disf jc-sb ai-c">
           <div>
-            <p className="fs24 marb10">外送員備註</p>
+            <p className="fs24 marb15 fw5">外送員備註:</p>
             {editDeliverMemo ? (
               <div>
                 <input
-                  className="w300"
+                  className="w300 padV5 fs18 padH5"
                   value={deliverMemo}
                   onChange={(e) => {
                     setDeliverMemo(e.target.value);
                   }}
                   autoFocus={editDeliverMemo}
+                  onKeyDown={(e) => {
+                    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                      setEditDeliverMemo(false);
+                    }
+                  }}
                 />
               </div>
             ) : (
@@ -123,7 +159,10 @@ function DeliveDetail() {
         </div>
         <div className="marb10 disf jc-sb ai-c">
           <p className="fs18">
-            店家現在等待時間:<span className="fw6">{waitTime}</span>
+            店家現在等待時間:
+            <span className={`fw6  ${waitTime >= 50 ? 'fontRed' : ''} `}>
+              {waitTime}
+            </span>
             分鐘
           </p>
         </div>

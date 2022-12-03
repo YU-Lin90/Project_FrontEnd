@@ -99,11 +99,12 @@ function PayButton({ orderSocket }) {
     deliverMemo,
     storeMemo,
     setPayingOrderSid,
-    payingOrderSid,
     cartContents,
     sendAddress,
     chooseedPayShop,
     waitTime,
+    dailyCouponSid, //每日優惠券SID
+    dailyCouponAmount, //每日優惠券額度
   } = usePay();
 
   //回傳要傳的資料 避免重複寫
@@ -120,6 +121,8 @@ function PayButton({ orderSocket }) {
       storeMemo: storeMemo,
       deliverMemo: deliverMemo,
       waitTime: waitTime,
+      dailyCouponSid: dailyCouponSid,
+      dailyCouponAmount: dailyCouponAmount,
     });
   };
   //現金
@@ -149,6 +152,7 @@ function PayButton({ orderSocket }) {
       setPayingOrderSid(res.orderSid);
       const totalPrice =
         Number(cartContents.cartList[chooseedPayShop].shopPriceTotal) -
+        Number(dailyCouponAmount) -
         Number(couponCutAmount) +
         Number(deliverFee);
       const params = new URLSearchParams({
@@ -160,7 +164,7 @@ function PayButton({ orderSocket }) {
       });
       const url =
         `http://${siteName}:3001/LinePay/reserve/?` + params.toString();
-      newWindow.current = PopupCenter(url, 'LinelogInPopup', 400, 600);
+      newWindow.current = PopupCenter(url, 'LinelogInPopup', 800, 600);
       // await loginCheckGetFetch(
       //   `LinePay/reserve/?${params.toString()}`,
       //   'Member'
@@ -222,7 +226,11 @@ function PayButton({ orderSocket }) {
     console.log(storeMemo);
     console.log('-----結帳方式-----');
     console.log(payWay === 0 ? '現金' : 'LinePay');
-    console.log('-----------------------------------------');
+    console.log('-----每日優惠券SID-----');
+    console.log(dailyCouponSid);
+    console.log('-----每日優惠券折扣金額-----');
+    console.log(dailyCouponAmount);
+    console.log('-------------------------------------------------');
   };
   return (
     <>
@@ -234,7 +242,6 @@ function PayButton({ orderSocket }) {
               let checkState = false;
               await confirmAlert
                 .fire({
-                  // TODO: 要加入等待時間
                   title: `等待時間超過${waitTime}分鐘，是否確定訂餐?`,
                   icon: 'warning',
                   showCancelButton: true,

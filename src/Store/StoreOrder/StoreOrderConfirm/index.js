@@ -159,11 +159,11 @@ function StoreOrderConfirm({
                     {Object.keys(value.detail).length !== 0 ? (
                       <>
                         <div className=" productDetails disf padV5">
-                          <div className="w100p">
+                          <div className="w100p disf fw-w">
                             {value.detail.map((element) => {
                               return (
                                 <>
-                                  <span className="w50p ta-c">
+                                  <span className="w25p marV5 ta-c">
                                     【{element.options}】
                                   </span>
                                 </>

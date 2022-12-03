@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-function OptionGroup({ ot, data, details, setDetails }) {
+function OptionGroup({
+  ot,
+  data,
+  details,
+  setDetails,
+  optionBoolean,
+  setOptionBoolean,
+  otIndex,
+}) {
+  const min = ot.min;
+  const max = ot.max;
+
   const [checkState, setCheckState] = useState([]);
   const [nowNum, setNowNum] = useState(0);
 
@@ -13,9 +24,15 @@ function OptionGroup({ ot, data, details, setDetails }) {
         return false;
       });
     setCheckState(newCheckState);
+    // 如果min為0的話將optionBoolean改成true
+    console.log(optionBoolean)
+    const newOptionBoolean = [...optionBoolean];
+    console.log(otIndex, min === 0);
+    newOptionBoolean[otIndex] = 123;
+    console.log(newOptionBoolean);
+    setOptionBoolean(newOptionBoolean);
   }, []);
-  const min = ot.min;
-  const max = ot.max;
+
   return (
     <>
       {data.options
@@ -24,7 +41,7 @@ function OptionGroup({ ot, data, details, setDetails }) {
         })
         .map((opt, i) => {
           return (
-            <>
+            <div className="opt-box">
               <label>
                 {max === 1 ? (
                   <input
@@ -95,13 +112,20 @@ function OptionGroup({ ot, data, details, setDetails }) {
                       }
                     }}
                     disabled={
-                      min > 1 && !checkState[i] && nowNum === max ? true : false
+                      !checkState[i] && nowNum === max
+                        ? // min > 1 && !checkState[i] && nowNum === max
+                          true
+                        : false
                     }
                   />
                 )}
-                {opt.name}
+
+                <div className="option-words">
+                  <p>{opt.name}</p>
+                  <p>{opt.price === 0 ? 'Free' : `$ ${opt.price}`}</p>
+                </div>
               </label>
-            </>
+            </div>
           );
         })}
     </>

@@ -47,7 +47,6 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
   };
   const checkLocation = async (orderSid) => {
     //獲得現在位置 然後傳到裡面的函式
-    //TODO 這裡要改成訂單上面的位置
     const res = await loginCheckGetFetch(
       `MemberMapDetails/GetOrderAddress/?orderSid=${orderSid}`,
       'Member'
@@ -97,13 +96,11 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
   function receiveMessage(e) {
     const datas = JSON.parse(e.data);
     console.log('收到外送員位置');
-    console.log(datas);
-    if (
-      datas.orderSid === selectedOrder &&
-      datas.lat &&
-      datas.lng &&
-      step === 4
-    ) {
+    console.log({ selectedOrder });
+    console.log({ datas });
+    console.log({ step });
+    // TODO 這裡現在是寫死的 訂單編號要跟外送員那邊一樣
+    if (datas.orderSid === 1 && datas.lat && datas.lng && step === 4) {
       console.log('in');
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
     }
@@ -115,7 +112,7 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
       orderSocket.removeEventListener('message', receiveMessage);
       console.log('closeListener');
     };
-  }, []);
+  }, [step, selectedOrder]);
   //===============================================分隔線================================================
   return (
     <>
@@ -124,7 +121,11 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
         // bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
-        center={positionNow}
+        center={
+          step === 4 && deliverPosition.lat !== 0 && deliverPosition.lng !== 0
+            ? deliverPosition
+            : positionNow
+        }
       >
         <SelfPositionIcon
           lat={positionNow.lat}

@@ -6,8 +6,13 @@ import PayPageCart from '../PayPageCart';
 function OrederDetailForPay() {
   //顯示商品列表用 只在這頁顯示
   const [productList, setProductList] = useState({});
-  const { couponCutAmount, deliverFee, cartContents, chooseedPayShop } =
-    usePay();
+  const {
+    couponCutAmount,
+    deliverFee,
+    cartContents,
+    chooseedPayShop,
+    dailyCouponAmount, //每日優惠券折扣額度
+  } = usePay();
   const navi = useNavigate();
   useEffect(() => {
     // setProductList(cartContents.cartList["89"].list);
@@ -88,15 +93,22 @@ function OrederDetailForPay() {
             </span>
           </p>
           <p className="w100p disf jc-sb marb10">
-            <span>+外送服務費</span>
-            {/* TODO:外送服務費 */}
+            <span>+ 外送服務費</span>
             <span>NT${deliverFee}</span>
           </p>
           {couponCutAmount > 0 ? (
             <>
               <p className="w100p disf jc-sb marb10">
-                <span>-優惠券</span>
-                <span>-NT${couponCutAmount}</span>
+                <span>- 優惠券</span>
+                <span>- NT${couponCutAmount}</span>
+              </p>
+            </>
+          ) : null}
+          {dailyCouponAmount > 0 ? (
+            <>
+              <p className="w100p disf jc-sb marb10">
+                <span>- 每日優惠券</span>
+                <span>- NT${dailyCouponAmount}</span>
               </p>
             </>
           ) : null}
@@ -106,7 +118,8 @@ function OrederDetailForPay() {
           <span>
             NT$
             {cartContents.cartList[chooseedPayShop].shopPriceTotal -
-              couponCutAmount +
+              couponCutAmount -
+              dailyCouponAmount +
               deliverFee}
           </span>
         </p>
@@ -115,7 +128,8 @@ function OrederDetailForPay() {
           <span>
             {parseInt(
               (cartContents.cartList[chooseedPayShop].shopPriceTotal -
-                couponCutAmount) /
+                couponCutAmount -
+                dailyCouponAmount) /
                 10
             )}
             點
@@ -124,7 +138,7 @@ function OrederDetailForPay() {
         <p
           className="payPageButton"
           onClick={() => {
-            navi(`/StoreDetail?shopSid=${chooseedPayShop}`);
+            navi(`/productList/?shop_sid=${chooseedPayShop}`);
           }}
         >
           前往商店加購

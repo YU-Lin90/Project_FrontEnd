@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import OptionGroup from '../components/OptionGroup';
 import { useLocation, Link } from 'react-router-dom';
-import { useCart } from '../../../Context/CartProvider';
+import OptionForm from '../components/OptionForm/index';
 
 function ProductList() {
-  const { addCart } = useCart();
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
-  const [amount, setAmount] = useState(1);
   const [data, setData] = useState({
     shop: {},
     types: [],
@@ -16,14 +13,9 @@ function ProductList() {
     options_types: [],
     options: [],
   });
-  const [selectedItem, setSelectedItem] = useState({
-    sid: '',
-    name: '',
-    price: '',
-    src: '',
-    finalPrice: '',
-  });
-  const [details, setDetails] = useState([]);
+  // selectedSid
+  const [selectedSid, setSelectedSid] = useState('');
+
   const getData = async (shop_sid) => {
     const response = await axios.get(
       `http://localhost:3001/store/?shop_sid=${shop_sid}`
@@ -39,143 +31,128 @@ function ProductList() {
     const shop_sid = usp.get('shop_sid');
     // 取得店家菜單資料
     getData(shop_sid);
-    console.log(data);
+    // console.log(data);
   }, []);
-
-  const intoCart = (e) => {
-    e.preventDefault();
-    addCart(
-      data.shop.sid,
-      selectedItem.sid,
-      data.shop.name,
-      selectedItem.name,
-      selectedItem.price,
-      selectedItem.price,
-      selectedItem.src,
-      details
-    );
-    console.log(
-      data.shop.sid,
-      selectedItem.sid,
-      data.shop.name,
-      selectedItem.name,
-      selectedItem.price,
-      selectedItem.price,
-      selectedItem.src,
-      details
-    );
-  };
 
   return (
     <>
-      <div className="shop-information">
-        <h1>{data.shop.sid}</h1>
-        <h1>{data.shop.name}</h1>
-        <h1>{data.shop.address}</h1>
-      </div>
-      <div className="type-nav">
-        <ul>
-          {data.types.map((type) => {
-            return (
-              <li>
-                <a href={`#${type.sid}`}>{type.name}</a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      {data.types.map((type) => {
-        return (
-          <>
-            <h1 key={type.sid} style={{ color: 'red' }} id={type.sid}>
-              {type.name}
-            </h1>
-            {data.products
-              .filter((product) => {
-                return product.products_type_sid === type.sid;
-              })
-              .map((product) => {
-                return (
-                  <>
-                    <h3
-                      onClick={() => {
-                        const newSelectedItem = { ...selectedItem };
-                        newSelectedItem.sid = product.sid;
-                        newSelectedItem.name = product.name;
-                        newSelectedItem.price = product.price;
-                        newSelectedItem.src = product.src;
-                        setSelectedItem(newSelectedItem);
-                        // details
-                        const newDetails = data.options_types
-                          .filter((ot) => {
-                            return ot.product_sid === product.sid;
-                          })
-                          .map((ot) => {
-                            return {
-                              sid: ot.sid,
-                              name: ot.name,
-                              list: [],
-                            };
-                          });
-                        setDetails(newDetails);
-                      }}
-                    >
-                      {[product.name]}
-                    </h3>
-                  </>
-                );
-              })}
-          </>
-        );
-      })}
-      {selectedItem.sid ? (
-        <form name="testForm" onSubmit={(e) => e.preventDefault()}>
-          <div>
-            {data.options_types
-              .filter((ot) => {
-                return ot.product_sid === selectedItem.sid;
-              })
-              .map((ot) => {
-                return (
-                  <div>
-                    <h2>{ot.name}</h2>
-                    <div>
-                      <OptionGroup
-                        ot={ot}
-                        data={data}
-                        details={details}
-                        setDetails={setDetails}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            <div>
-              <i
-                className="fa-solid fa-minus"
-                onClick={() => {
-                  setAmount(amount - 1);
-                }}
-              ></i>
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => {
-                  setAmount(e.target.value);
-                }}
-              />
-              <i
-                className="fa-solid fa-plus"
-                onClick={() => {
-                  if (amount > 0) setAmount(amount + 1);
-                }}
-              ></i>
-
-              <button onClick={intoCart}>放入購物車</button>
+      <div className="product-list">
+        <div className="product-container">
+          <div className="row">
+            <div className="shop-img">
+              <img src={data.shop.src} alt="店家圖片" />
             </div>
           </div>
-        </form>
-      ) : null}
+          <div className="row">
+            <div className="shop-info">
+              <div className="top">
+                <h1>{data.shop.name}</h1>
+              </div>
+
+              <div className="bottom">
+                <div className="rating">
+                  <i className="fa-solid fa-star"></i>
+                  <p>{data.shop.average_evaluation}</p>
+                </div>
+                <p>等待時間 : {data.shop.wait_time}</p>
+                <p>點選即可查看營業時間、資訊和更多內容</p>
+              </div>
+              {/* <h1>{data.shop.address}</h1> */}
+            </div>
+          </div>
+          <div className="row">
+            <div className="product-info">
+              <aside>
+                <div className="type-nav">
+                  <ul>
+                    {data.types.map((type) => {
+                      return (
+                        <li>
+                          <a href={`#${type.sid}`}>{type.name}</a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </aside>
+              <main>
+                {data.types.map((type) => {
+                  return (
+                    <>
+                      <div
+                        className={`product-type ${
+                          !data.products.find(
+                            (product) => product.products_type_sid === type.sid
+                          )
+                            ? 'noDisplay'
+                            : ''
+                        }
+                        `}
+                      >
+                        <h5 key={type.sid} id={type.sid}>
+                          {type.name}
+                        </h5>
+                        <div className="product-group">
+                          {data.products
+                            .filter((product) => {
+                              return product.products_type_sid === type.sid;
+                            })
+                            .map((product) => {
+                              return (
+                                <div className="product-box">
+                                  <div
+                                    className="product"
+                                    onClick={() => {
+                                      // selectedSid
+                                      setSelectedSid(product.sid);
+                                    }}
+                                  >
+                                    <div className="left">
+                                      <div className="top">
+                                        <p className="product-name">
+                                          {[product.name]}
+                                        </p>
+                                        <p className="product-note">
+                                          {[product.note]}
+                                        </p>
+                                      </div>
+
+                                      <p className="product-price">
+                                        $ {[product.price]}
+                                      </p>
+                                    </div>
+                                    <div className="right">
+                                      <img
+                                        src={`http://localhost:3001/uploads/${[
+                                          product.src,
+                                        ]}`}
+                                        alt="商品圖片"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
+              </main>
+            </div>
+          </div>
+        </div>
+        {selectedSid ? (
+          <>
+            <OptionForm
+              selectedSid={selectedSid}
+              setSelectedSid={setSelectedSid}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </>
   );
 }

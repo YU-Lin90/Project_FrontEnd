@@ -12,24 +12,24 @@ function OrderContents({ selectedOrder, orderSocket, setSelectedOrder }) {
   const { loginCheckGetFetch } = useFunc();
   //現在顯示的訂單編號
   const [orderShowNow, setOrderShowNow] = useState({});
-  //叫資料函式
-  const getOrderDetail = async (orderSid) => {
-    const res = await loginCheckGetFetch(
-      `MemberOrderCheck/OrderDetails?orderSid=${orderSid}`,
-      'Member'
-    );
-    //stepNow  1 店家還沒接單  2 店家還沒完成 3 店家完成外送員還沒取餐  4外送員已取餐還沒到
-    console.log(res);
-    setOrderShowNow(res);
-    setStep(res.stepNow);
-  };
 
   useEffect(() => {
+    //叫資料函式
+    const getOrderDetail = async (orderSid) => {
+      const res = await loginCheckGetFetch(
+        `MemberOrderCheck/OrderDetails?orderSid=${orderSid}`,
+        'Member'
+      );
+      //stepNow  1 店家還沒接單  2 店家還沒完成 3 店家完成外送員還沒取餐  4外送員已取餐還沒到
+      console.log(res);
+      setOrderShowNow(res);
+      setStep(res.stepNow);
+    };
     if (selectedOrder !== 0) {
       getOrderDetail(selectedOrder);
     }
     //這裡要叫資料
-  }, [selectedOrder]);
+  }, [selectedOrder , step]);
   return (
     <div className="w100p marHauto">
       <ProgessStep step={step} />

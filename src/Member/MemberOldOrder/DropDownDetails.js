@@ -12,7 +12,7 @@ function DropDownDetails({ orderSid, orderData }) {
       `MemberOldOrder/GetDropDetails?orderSid=${orderSid}`,
       'Member'
     );
-    // console.log(detailResult);
+    console.log(detailResult);
     setProductDetails(detailResult);
   };
   useEffect(() => {
@@ -56,13 +56,20 @@ function DropDownDetails({ orderSid, orderData }) {
                   <p>{v.name}</p>
                   <p>{v.product_price * v.amount}</p>
                 </div>
+                {v.options.length === 0 ? null : (
+                  <div className="disf ai-c jc-se">
+                    {v.options.map((val) => {
+                      return <span>{val.options.options}</span>;
+                    })}
+                  </div>
+                )}
               </>
             );
           })}
         </div>
         <div className="disf jc-sb marV15">
           <p>付款方式：{payMethod[orderData.pay_method]}</p>
-          {orderData.coupon_sid === 0 ? null : (
+          {!orderData.coupon_sid ? null : (
             <p>優惠券：{orderData.coupon_name}</p>
           )}
         </div>

@@ -11,8 +11,9 @@ function DeliverOrder() {
   const ordersid = localStorage.getItem('order_sid');
 
   async function getOrder() {
+    const deliverSid = localStorage.getItem('deliver_sid');
     const response = await axios.get(
-      `http://localhost:3001/deliver/deliverorder/${ordersid}`
+      `http://localhost:3001/deliver/deliverorder/${deliverSid}`
     );
     setOrderData(response.data.rows);
     setFoodData(response.data.food);
@@ -94,7 +95,7 @@ function DeliverOrder() {
                 <button
                   className="Dbbtn"
                   onClick={() => {
-                    navi('/Deliver/DeliverMessager'); //還要修正按鈕
+                    navi('/Deliver/DeliverMap'); //還要修正按鈕
                   }}
                 >
                   前往地圖

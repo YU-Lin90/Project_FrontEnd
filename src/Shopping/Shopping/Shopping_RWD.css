@@ -1,8 +1,4 @@
 
-
-
-@media screen and (min-width:768px) {
-
 .row{
     display: flex;
     width: 100%;
@@ -187,7 +183,7 @@ margin: 2vh 0;
 display: flex;
 flex-wrap: wrap;
 flex-direction: row;
-justify-content: flex-start;
+justify-content: center;
 align-items: center;
 width: 100%;
 margin: 0 auto;
@@ -196,7 +192,7 @@ margin: 0 auto;
 .shopCardBox{
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 100%;
     margin: 1%;
     border: 1px solid #CCC;
     background-color: #FFF;
@@ -226,11 +222,4 @@ border: 1px solid #CCC;
     align-items: center;
 }
 
-}
 
-
-.icon{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
