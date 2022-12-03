@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
-import InputHash from '../components/InputHash';
+// import InputHash from '../components/InputHash';
 
 function Option() {
   const [data, setData] = useState({

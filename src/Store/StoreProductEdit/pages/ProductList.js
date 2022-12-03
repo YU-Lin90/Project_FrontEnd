@@ -22,7 +22,6 @@ function ProductList() {
     );
     const rd = response.data;
     setData({ ...rd });
-    console.log(data.shop.sid);
   };
 
   useEffect(() => {
@@ -33,6 +32,18 @@ function ProductList() {
     getData(shop_sid);
     // console.log(data);
   }, []);
+
+  // useEffect(() => {
+  //   const localCart = JSON.parse(localStorage.getItem('cart'));
+  //   if (
+  //     !localCart &&
+  //     !localCart[data.shop.sid] &&
+  //     !localCart[data.shop.sid].list &&
+  //     !localCart[data.shop.sid].list[data.products.sid]
+  //   ) {
+      
+  //   }
+  // }, [data]);
 
   return (
     <>

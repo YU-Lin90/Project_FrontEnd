@@ -5,7 +5,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../../Context/CartProvider';
 
 function OptionForm({ selectedSid, setSelectedSid }) {
-  const { addCart, setCartWithAmount } = useCart();
+  const { setCartWithAmount } = useCart();
   const [amount, setAmount] = useState(1);
   const [details, setDetails] = useState([]);
   const [data, setData] = useState({
@@ -15,6 +15,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
     options: [],
   });
   const [optionBoolean, setOptionBoolean] = useState([]);
+  const [cartOptions, setCartOptions] = useState([]);
 
   const getData = async (sid) => {
     const response = await axios.get(
@@ -35,6 +36,26 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       })
     );
     setOptionBoolean(data.options_types.map((ot) => false));
+
+    // 點購物車的商品近來要取得該商品當前的資料
+    const localCart = JSON.parse(localStorage.getItem('cart'));
+    console.log()
+    if (
+      localCart &&
+      localCart.cartList &&
+      localCart.cartList[data.shop.sid] &&
+      localCart.cartList[data.shop.sid].list &&
+      localCart.cartList[data.shop.sid].list[data.product.sid]
+    ) {
+      console.log(
+        localCart.cartList[data.shop.sid].list[data.product.sid].details
+      );
+      setCartOptions(
+        localCart.cartList[data.shop.sid].list[data.product.sid].details
+      );
+    } else {
+      console.log('Cannot find cartOptions')
+    }
   }, [data]);
 
   const intoCart = (e) => {
@@ -131,6 +152,8 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                       optionBoolean={optionBoolean}
                       setOptionBoolean={setOptionBoolean}
                       otIndex={otIndex}
+                      cartOptions={cartOptions}
+                      setCartOptions={setCartOptions}
                     />
                   </div>
                 </div>

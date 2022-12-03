@@ -8,6 +8,8 @@ function OptionGroup({
   optionBoolean,
   setOptionBoolean,
   otIndex,
+  cartOptions,
+  setCartOptions,
 }) {
   const min = ot.min;
   const max = ot.max;
@@ -24,13 +26,13 @@ function OptionGroup({
         return false;
       });
     setCheckState(newCheckState);
-    // 如果min為0的話將optionBoolean改成true
-    console.log(optionBoolean)
-    let newOptionBoolean = [...optionBoolean];
-    console.log(newOptionBoolean)
-    // newOptionBoolean[otIndex] = 123;
-    // console.log(newOptionBoolean);
-    // setOptionBoolean(newOptionBoolean);
+
+    // 如果這個選項類別可以不用選的話，自動回報optionBoolean是正確的。
+    if (min === 0) {
+      let newOptionBoolean = [...optionBoolean];
+      newOptionBoolean[otIndex] = true;
+      setOptionBoolean(newOptionBoolean);
+    }
   }, []);
 
   return (
@@ -48,6 +50,14 @@ function OptionGroup({
                     type="radio"
                     value={opt.sid}
                     name={ot.name}
+                    // checked={
+                    //   cartOptions.findIndex((cp) => {
+                    //     return cp.sid === opt.sid;
+                    //   }) !== -1
+                    //     ? true
+                    //     : false
+                    // }
+
                     onChange={() => {
                       const thisIndex = details.findIndex((detail, index) => {
                         return detail.sid === ot.sid;
