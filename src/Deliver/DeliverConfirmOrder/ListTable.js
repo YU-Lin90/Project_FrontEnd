@@ -83,25 +83,49 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
           </div>
           
         </div>
-        {/* --------------------下拉式店家資訊----------------------- */}
-        {btn &&<div className="Dshopmore">
-        <i className="fa-solid fa-store Dicon"></i>
-        <div>
-          <p>{name}</p>
-          <p>{address}</p>
-          {/* ----------------------接單按鈕----------------------- */}
-          <button
-            className={delivertake ? "Dbtn" : "Dbtn Dactive"}
-            disabled={delivertake ? false : true} 
-            onClick={()=>{
-              chceklogin()
-              localStorage.setItem('delivertake',false);
-            }}
-          >
-            接單
-          </button>
-          {/* ----------------------------------------------------- */}
-        </div>
+        {/* --------------------下拉式資訊----------------------- */}
+        {btn &&
+        <div className="Dshopmore">
+          <div className='Dtext'>
+            <div className='Dlisttext'>
+              <div>
+                <i className="fa-regular fa-user Dicon"></i>
+              </div>
+              <div>
+                <p>dsafa</p>
+                <p>adsf</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className='Dtext'>
+              <div className='Dlisttext'>
+                <div>
+                  <i className="fa-solid fa-store Dicon"></i>
+                </div>
+                <div>
+                  <p>{name}</p>
+                  <p>{address}</p>
+                </div>
+              </div>
+              {/* ----------------------接單按鈕----------------------- */}
+              <button
+                className={delivertake ? "Dbtn" : "Dbtn Dactive"}
+                disabled={delivertake ? false : true} 
+                onClick={()=>{
+                  chceklogin()
+                  localStorage.setItem('delivertake',false);
+                }}
+              >
+                接單
+              </button>
+              {/* ----------------------------------------------------- */}
+            </div>
+            
+          </div>
+          
+
         </div>}
         {/* ----------------------------------------------------- */}
       </li>
