@@ -9,7 +9,7 @@ function DeliverLayout() {
       <div className="deliverContainer">
         <DeliverNav />
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
         <div className="w100p h50 smallHidden"></div>
         <BottomNav />
       </div>

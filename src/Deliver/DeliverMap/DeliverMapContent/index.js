@@ -114,6 +114,10 @@ function DeliverMapContent({
       clearInterval(intervals);
     };
   }, []);
+  useEffect(() => {}, []);
+  //近來頁面時獲得訂單狀態
+  const getOrderStep = async () => {};
+
   //位置有改變時傳送位置訊息
   //orderSocket memberSid
   //  JSON.stringify({position:true,lat:deliverPosition.lat,lng:deliverPosition.lng ,receiveSid:memberSid,receiveSide:side,orderSid:orderSid})
@@ -137,12 +141,15 @@ function DeliverMapContent({
   const ordersid = localStorage.getItem('order_sid');
   async function foodget() {
     await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
+    setSideNow(1);
   }
 
   async function foodreach() {
     await axios.put(
       `http://localhost:3001/deliver/finishdeliverorder/${ordersid}`
     );
+    //這裡看要到接單畫面還是歷史訂單
+    //記得要刪掉現在接單的資訊 LOCALSTORAGE
   }
 
   //====================================================================================================
@@ -167,12 +174,13 @@ function DeliverMapContent({
         />
       </GoogleMapReact>
       <button
+        className='deliverMapSendButton'
         disabled={buttonStatus}
         onClick={() => {
-          if (buttonText[side] === '取餐') {
+          if (sideNow === 2) {
             foodget();
           }
-          if (buttonText[side] === '送達') {
+          if (sideNow === 1) {
             foodreach();
           }
         }}
