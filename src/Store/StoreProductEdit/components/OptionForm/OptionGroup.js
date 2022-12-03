@@ -26,11 +26,11 @@ function OptionGroup({
     setCheckState(newCheckState);
     // 如果min為0的話將optionBoolean改成true
     console.log(optionBoolean)
-    const newOptionBoolean = [...optionBoolean];
-    console.log(otIndex, min === 0);
-    newOptionBoolean[otIndex] = 123;
-    console.log(newOptionBoolean);
-    setOptionBoolean(newOptionBoolean);
+    let newOptionBoolean = [...optionBoolean];
+    console.log(newOptionBoolean)
+    // newOptionBoolean[otIndex] = 123;
+    // console.log(newOptionBoolean);
+    // setOptionBoolean(newOptionBoolean);
   }, []);
 
   return (
