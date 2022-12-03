@@ -10,6 +10,8 @@ function Coupon() {
   const [user2, setUser2] = useState([]);
   const [user3, setUser3] = useState();
   const [text, setText] = useState([]);
+  //偵測更新
+  const [checkUpdate, setCheckUpdate] = useState(0);
   const forms = useRef(null);
   const forms2 = useRef(null);
   const forms3 = useRef(null);
@@ -71,6 +73,7 @@ function Coupon() {
     }
   };
   const get = async (e, shop_sid, use_point, expire) => {
+    e.preventDefault();
     if (user3 < 0) {
       e.preventDefault();
       Swal.fire({ icon: 'warning', title: '點數不足' });
@@ -96,6 +99,8 @@ function Coupon() {
         .then((res) => {
           if (res === 1) {
             // Swal.fire('領取成功');
+            
+            setCheckUpdate((v) => v + 1);
             console.log(res);
           } else {
             Swal.fire('領取失敗');
@@ -106,7 +111,7 @@ function Coupon() {
   };
   useEffect(() => {
     getform();
-  }, []);
+  }, [checkUpdate]);
   const display = user.map((v, i) => {
     return (
       <div className="sc_col" key={v.sid}>

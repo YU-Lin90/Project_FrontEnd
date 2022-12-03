@@ -35,7 +35,7 @@ export default function ListTable() {
   //抓網址變動
   useEffect(() => {
     submitHandle();
-  }, [location]);
+  }, [location,sendAddress]);
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -494,7 +494,7 @@ export default function ListTable() {
           {shop.length > 0 ? (
             shop.map((shop, index) => (
               <div key={index} className="shopCardBox">
-                <Link to={'productList/?shop_sid=' + shop.sid}>
+                <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                   <img
                   src={`http://${siteName}:3001/images/shopping/${shop.src}.jpg`}
