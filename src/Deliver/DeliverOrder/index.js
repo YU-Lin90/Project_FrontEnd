@@ -94,7 +94,7 @@ function DeliverOrder() {
                 <button
                   className="Dbbtn"
                   onClick={() => {
-                    navi('/Deliver/DeliverMessager'); //還要修正按鈕
+                    navi('/Deliver/DeliverMap'); //還要修正按鈕
                   }}
                 >
                   前往地圖

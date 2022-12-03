@@ -165,10 +165,10 @@ function DeliverMapContent({
       <button 
       disabled={buttonStatus}
       onClick={()=>{
-        if(buttonText[side] == '取餐'){
+        if(buttonText[side] === '取餐'){
           foodget()
         }
-        if(buttonText[side] == '取餐'){
+        if(buttonText[side] === '送達'){
           foodreach()
         }
       }}
