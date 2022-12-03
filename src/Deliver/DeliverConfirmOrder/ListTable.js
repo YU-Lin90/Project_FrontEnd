@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
   const [btn, setBtn] = useState(false);

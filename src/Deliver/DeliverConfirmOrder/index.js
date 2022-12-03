@@ -46,7 +46,7 @@ function DeliverConfirmOrder() {
               return <ListTable key={sid} {...value} />;
             })}
           </>
-        ) : <p>現在無訂單</p>}
+        ) : <div className='Dnothingorder'><p>暫無訂單</p></div>}
 
         {/* ---------------------------------------------- */}
       </ul>
