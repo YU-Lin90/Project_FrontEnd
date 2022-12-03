@@ -150,13 +150,6 @@ function DeliverMapContent({
     await axios.put(
       `http://localhost:3001/deliver/finishdeliverorder/${ordersid}`
     );
-    localStorage.removeItem('deliver_order_sid');
-    localStorage.removeItem('StoreName');
-    localStorage.removeItem('MemberName');
-    localStorage.removeItem('Store');
-    localStorage.removeItem('StoreDatas');
-    localStorage.removeItem('order_sid');
-    localStorage.setItem('dalivertake',true);
     //這裡看要到接單畫面還是歷史訂單
     //記得要刪掉現在接單的資訊 LOCALSTORAGE
   }
@@ -191,8 +184,15 @@ function DeliverMapContent({
           }
           if (sideNow === 1) {
             foodreach();
+            localStorage.removeItem('deliver_order_sid');
+            localStorage.removeItem('StoreName');
+            localStorage.removeItem('MemberName');
+            localStorage.removeItem('Store');
+            localStorage.removeItem('StoreDatas');
+            localStorage.removeItem('order_sid');
+            localStorage.setItem('delivertake',true);
             navi('/Deliver/DeliverConfirmOrder');
-          }
+          }         
         }}
       >
         {buttonText[side]}
