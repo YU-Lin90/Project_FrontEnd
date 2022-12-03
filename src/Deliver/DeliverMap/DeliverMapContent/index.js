@@ -5,6 +5,7 @@ import GoogleMapReact from 'google-map-react';
 import { useGeo } from '../../../Context/GeoLocationProvider';
 import keys from '../../../keys';
 import { useFunc } from '../../../Context/FunctionProvider';
+import { useNavigate } from 'react-router-dom';
 const Cycle = () => (
   <div>
     <i className="fs48 fa-solid fa-motorcycle fontMainColor mapTranslate cycleFontOnMap"></i>
@@ -138,6 +139,7 @@ function DeliverMapContent({
     checkArraive();
   }, [deliverPosition]);
   //===============================================分隔線================================================
+  const navi = useNavigate();
   const ordersid = localStorage.getItem('order_sid');
   async function foodget() {
     await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
@@ -148,6 +150,13 @@ function DeliverMapContent({
     await axios.put(
       `http://localhost:3001/deliver/finishdeliverorder/${ordersid}`
     );
+    localStorage.removeItem('deliver_order_sid');
+    localStorage.removeItem('StoreName');
+    localStorage.removeItem('MemberName');
+    localStorage.removeItem('Store');
+    localStorage.removeItem('StoreDatas');
+    localStorage.removeItem('order_sid');
+    localStorage.setItem('dalivertake',true);
     //這裡看要到接單畫面還是歷史訂單
     //記得要刪掉現在接單的資訊 LOCALSTORAGE
   }
@@ -182,6 +191,7 @@ function DeliverMapContent({
           }
           if (sideNow === 1) {
             foodreach();
+            navi('/Deliver/DeliverConfirmOrder');
           }
         }}
       >
