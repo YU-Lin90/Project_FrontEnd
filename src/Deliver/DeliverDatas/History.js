@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import dayjs from "dayjs"
+import dayjs from 'dayjs';
 
 function History({
   order_sid,
@@ -14,7 +14,7 @@ function History({
 }) {
   const [btn, setBtn] = useState(false);
   const [food, setFood] = useState([]);
-  // const day = 
+  // const day =
 
   async function foodmeun() {
     const repon = await axios.get(`http://localhost:3001/deliver/foodmeun/${order_sid}`);
@@ -24,16 +24,13 @@ function History({
   return (
     <li className="Dhistorylist">
       <div className="Dhistoryitem">
-        <div className="Dfristcontext">
-          <i
-            className={
-              btn ? 'fa-solid fa-angle-down' : 'fa-solid fa-angle-right'
-            }
-            onClick={() => {
+        <div className="Dfristcontext" 
+           onClick={() => {
               setBtn(!btn);
               foodmeun();
             }}
-          ></i>
+        >
+          <i className={ btn ? 'fa-solid fa-angle-down' : 'fa-solid fa-angle-right'}></i>
           <p>{"D" + dayjs(deliver_check_time).format('HHMMmm')}</p>
         </div>
         <div className="Dsecondtext">
@@ -67,13 +64,15 @@ function History({
             <div className="Dfoodmeun">
               <p className="Dfoodtop">餐點內容</p>
               <ul>
-                {food.map((val)=>{
-                    return(
-                        <li className="Dfoodcontext">
-                            <p>{val.amount}X {val.name}</p>
-                            <p>{val.price}</p>
-                        </li>
-                    )
+                {food.map((val) => {
+                  return (
+                    <li className="Dfoodcontext">
+                      <p>
+                        {val.amount}X {val.name}
+                      </p>
+                      <p>{val.price}</p>
+                    </li>
+                  );
                 })}
               </ul>
             </div>

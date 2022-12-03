@@ -77,7 +77,7 @@ function MemberDatas() {
     }
     try {
       const response = await axios.get(
-        `http://localhost:3001/MemberLogin/api2/${sid}`
+        `http://${siteName}:3001/MemberLogin/api2/${sid}`
       );
 
       console.log(localStorage.getItem('MemberSid'));
@@ -135,7 +135,7 @@ function MemberDatas() {
       // 對照server上的檔案名稱 req.files.avatar
       //fd.append('avatar', selectedFile);
       await axios
-        .put(`http://localhost:3001/MemberLogin/edit/${sid}`, fd)
+        .put(`http://${siteName}:3001/MemberLogin/edit/${sid}`, fd)
         .then((result) => {
           console.log(result);
           e.preventDefault();

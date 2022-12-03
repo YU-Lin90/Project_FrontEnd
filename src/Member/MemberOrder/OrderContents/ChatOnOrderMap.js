@@ -72,7 +72,7 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
   }, [openChat, newMSG]);
   return (
     <>
-      {/* TODO: 要改內容  階段4以前沒有聊天按鈕*/}
+      {/* TODO: 要改內容  階段4以前沒有聊天按鈕 或是直接放著不管?*/}
       <div
         onClick={() => {
           setOpenChat((v) => !v);

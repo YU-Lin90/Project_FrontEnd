@@ -1,5 +1,6 @@
 //外送員 地圖
 import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import GoogleMapReact from 'google-map-react';
 import { useGeo } from '../../../Context/GeoLocationProvider';
 import keys from '../../../keys';
@@ -19,7 +20,7 @@ function DeliverMapContent({
   //現在跟哪方對話
   side = 1,
   //現在的訂單SID
-  orderSid = 222,
+  orderSid = 1,
   //聊天室
   orderSocket,
   //會員SID
@@ -131,6 +132,16 @@ function DeliverMapContent({
     checkArraive();
   }, [deliverPosition]);
   //===============================================分隔線================================================
+    const ordersid = localStorage.getItem('order_sid');
+    async function foodget() {
+      await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
+    }
+
+    async function foodreach(){
+      await axios.put(`http://localhost:3001/deliver/finishdeliverorder/${ordersid}`);
+    }
+
+  //====================================================================================================
   return (
     <>
       <GoogleMapReact
@@ -151,7 +162,19 @@ function DeliverMapContent({
           text="My Marker"
         />
       </GoogleMapReact>
-      <button disabled={buttonStatus}>{buttonText[side]}</button>
+      <button 
+      disabled={buttonStatus}
+      onClick={()=>{
+        if(buttonText[side] == '取餐'){
+          foodget()
+        }
+        if(buttonText[side] == '取餐'){
+          foodreach()
+        }
+      }}
+      >
+      {buttonText[side]}
+      </button>
     </>
   );
 }

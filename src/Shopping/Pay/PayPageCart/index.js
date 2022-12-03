@@ -95,32 +95,34 @@ function PayPageCart() {
                   ]
               } */}
               </div>
-              <div
-                style={{ backgroundColor: '#ffeeee88' }}
-                className="disf ai-c jc-se padH5 padV5 borderBotGray3"
-              >
-                {prouducts[key].details.map((value) => {
-                  return (
-                    <>
-                      <div className="ta-c">
-                        <p className="marV5">【{value.name}】</p>
-                        <p className="marV5 marr5">
-                          {value.price !== 0 ? (
-                            <>
-                              ${value.price}{' '}
-                              <span className="fontRed">
-                                x{prouducts[key].amount}
-                              </span>
-                            </>
-                          ) : (
-                            <sapn className="fontTransparnt">0</sapn>
-                          )}
-                        </p>
-                      </div>
-                    </>
-                  );
-                })}
-              </div>
+              {prouducts[key].details.length > 0 ? (
+                <div
+                  style={{ backgroundColor: '#ffeeee88' }}
+                  className="disf ai-c jc-se padH5 padV5 borderBotGray3 fw-w"
+                >
+                  {prouducts[key].details.map((value) => {
+                    return (
+                      <>
+                        <div className="ta-c w25p">
+                          <p className="marV5">【{value.name}】</p>
+                          <p className="marV5 marr5">
+                            {value.price !== 0 ? (
+                              <>
+                                ${value.price}{' '}
+                                <span className="fontRed">
+                                  x{prouducts[key].amount}
+                                </span>
+                              </>
+                            ) : (
+                              <sapn className="fontTransparnt">0</sapn>
+                            )}
+                          </p>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+              ) : null}
             </>
           );
         })}

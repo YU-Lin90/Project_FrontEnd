@@ -15,9 +15,9 @@ function Menu({ setToggle, toggle }) {
     // { text: '會員中心', link: '/Member' },
     // { text: '會員登入', link: '/MemberLogin' },
     { text: '會員註冊', link: '/MemberRegister' },
-    { text: '測試購物車頁', link: '/CartTemp' },
+    // { text: '測試購物車頁', link: '/CartTemp' },
     { text: '店家首頁', link: '/Store/StoreLogin' },
-    { text: '外送員首頁', link: '/Deliver' },
+    { text: '外送員首頁', link: '/Deliver/DeliverConfirmOrder' },
     { text: '管理者首頁', link: '/Admin' },
   ];
 

@@ -127,29 +127,31 @@ function Cart({ setShowCart, setShowChooseShop, styles, secondStyles }) {
                   ]
               } */}
                 </div>
-                <div className="disf ai-c jc-se padH5 padV5 productDetails">
-                  {prouducts[key].details.map((value) => {
-                    return (
-                      <>
-                        <div className="ta-c">
-                          <p className="marb5">【{value.name}】</p>
-                          <p>
-                            {value.price !== 0 ? (
-                              <>
-                                ${value.price}{' '}
-                                <span className="fontRed">
-                                  x{prouducts[key].amount}
-                                </span>
-                              </>
-                            ) : (
-                              <sapn className="fontTransparnt">0</sapn>
-                            )}
-                          </p>
-                        </div>
-                      </>
-                    );
-                  })}
-                </div>
+                {prouducts[key].details.length > 0 ? (
+                  <div className="disf ai-c  padH5 padV5 productDetails">
+                    {prouducts[key].details.map((value) => {
+                      return (
+                        <>
+                          <div className="ta-c w25p marb10">
+                            <p className="marb5">【{value.name}】</p>
+                            <p>
+                              {value.price !== 0 ? (
+                                <>
+                                  ${value.price}{' '}
+                                  <span className="fontRed">
+                                    x{prouducts[key].amount}
+                                  </span>
+                                </>
+                              ) : (
+                                <sapn className="fontTransparnt">0</sapn>
+                              )}
+                            </p>
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                ) : null}
               </>
             );
           })}

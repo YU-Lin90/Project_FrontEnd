@@ -137,9 +137,6 @@ function MemberNav() {
           {/* 連結 */}
           <div className="navLinks">
             {navList.map((v, i) => {
-              if (v.index === 1 && sendAddress === '') {
-                return null;
-              }
               return (
                 <p key={i}>
                   {/* sendAddress */}

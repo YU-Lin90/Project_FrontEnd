@@ -42,6 +42,7 @@ function DeliverMap() {
         socketOpened={socketOpened}
       />
       <DeliverChat orderSocket={orderSocket} />
+
     </div>
   );
 }

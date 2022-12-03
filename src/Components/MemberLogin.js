@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './MemberLogin.css';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
+import Deliverlogin from './login';
 const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
 
-function MemberLogin() {
+
+function MemberLogin(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,11 +18,11 @@ function MemberLogin() {
           <h3
             className="mar"
             onClick={() => {
-              setEmail('abc1234000@gmail.com');
-              setPassword('Aa123456781');
+              setEmail(props.account);
+              setPassword(props.password);
             }}
           >
-            會員登入
+            {props.name}
           </h3>
           <div className="ml_email">
             <label className="m_login_label">帳號</label>
@@ -65,7 +65,9 @@ function MemberLogin() {
               )}
             </button>
           </div>
-          <div className="ml_buttonbox"></div>
+          <div className="ml_buttonbox">
+            <Deliverlogin account={email} password={password} kind={props.kind}/>
+          </div>  
         </div>
       </div>
     </div>

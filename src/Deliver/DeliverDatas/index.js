@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import History from './History'
-import "./history.css";
+import History from './History';
+import './history.css';
 
 function DeliverDatas() {
   const [history, setHistory] = useState([]);
@@ -13,16 +13,18 @@ function DeliverDatas() {
     console.log(reponset.data);
     setHistory(reponset.data);
   }
-  
+
   useEffect(() => {
     getOrder();
   }, []);
 
   return (
     <>
-      <ul className='Dhistoryul'>
-        {history.map((value , i)=>{
-          {/* const { order_sid } = value; */}
+      <ul className="Dhistoryul">
+        {history.map((value, i) => {
+          {
+            /* const { order_sid } = value; */
+          }
           return <History key={i} {...value} />;
         })}
       </ul>

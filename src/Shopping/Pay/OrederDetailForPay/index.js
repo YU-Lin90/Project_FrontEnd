@@ -94,7 +94,6 @@ function OrederDetailForPay() {
           </p>
           <p className="w100p disf jc-sb marb10">
             <span>+ 外送服務費</span>
-            {/* TODO:外送服務費 */}
             <span>NT${deliverFee}</span>
           </p>
           {couponCutAmount > 0 ? (
@@ -139,7 +138,7 @@ function OrederDetailForPay() {
         <p
           className="payPageButton"
           onClick={() => {
-            navi(`/StoreDetail?shopSid=${chooseedPayShop}`);
+            navi(`/productList/?shop_sid=${chooseedPayShop}`);
           }}
         >
           前往商店加購

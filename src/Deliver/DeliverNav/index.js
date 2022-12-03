@@ -79,6 +79,10 @@ function DeliverNav() {
               ? () => {
                   localStorage.removeItem('Deliver');
                   localStorage.removeItem('DeliverName');
+                  localStorage.removeItem('deliver_name');
+                  localStorage.removeItem('onlie_state');
+                  localStorage.removeItem('delivertake');
+                  localStorage.removeItem('deliver_sid');
                   setMemberName('');
                   setAuthDeliver(!authDeliver);
                 }

@@ -242,7 +242,6 @@ function PayButton({ orderSocket }) {
               let checkState = false;
               await confirmAlert
                 .fire({
-                  // TODO: 要加入等待時間
                   title: `等待時間超過${waitTime}分鐘，是否確定訂餐?`,
                   icon: 'warning',
                   showCancelButton: true,
