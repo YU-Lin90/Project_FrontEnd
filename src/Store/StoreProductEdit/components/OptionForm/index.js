@@ -114,6 +114,8 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       testNewDetails,
       amount,
     ]);
+
+    setSelectedSid('')
   };
 
   return (

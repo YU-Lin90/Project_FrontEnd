@@ -33,18 +33,6 @@ function ProductList() {
     // console.log(data);
   }, []);
 
-  // useEffect(() => {
-  //   const localCart = JSON.parse(localStorage.getItem('cart'));
-  //   if (
-  //     !localCart &&
-  //     !localCart[data.shop.sid] &&
-  //     !localCart[data.shop.sid].list &&
-  //     !localCart[data.shop.sid].list[data.products.sid]
-  //   ) {
-      
-  //   }
-  // }, [data]);
-
   return (
     <>
       <div className="product-list">
@@ -78,7 +66,15 @@ function ProductList() {
                   <ul>
                     {data.types.map((type) => {
                       return (
-                        <li>
+                        <li
+                          className={
+                            !data.products.find((p) => {
+                              return type.sid === p.products_type_sid;
+                            })
+                              ? 'noDisplay'
+                              : ''
+                          }
+                        >
                           <a href={`#${type.sid}`}>{type.name}</a>
                         </li>
                       );
@@ -119,14 +115,12 @@ function ProductList() {
                                     }}
                                   >
                                     <div className="left">
-                                      <div className="top">
-                                        <p className="product-name">
-                                          {[product.name]}
-                                        </p>
-                                        <p className="product-note">
-                                          {[product.note]}
-                                        </p>
-                                      </div>
+                                      <p className="product-name">
+                                        {[product.name]}
+                                      </p>
+                                      <p className="product-note">
+                                        {[product.note]}
+                                      </p>
 
                                       <p className="product-price">
                                         $ {[product.price]}
