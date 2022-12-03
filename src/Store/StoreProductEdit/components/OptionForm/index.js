@@ -8,6 +8,8 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   const { setCartWithAmount } = useCart();
   const [amount, setAmount] = useState(1);
   const [details, setDetails] = useState([]);
+  // test
+  const [testDetails, setTestDetails] = useState([]);
   const [data, setData] = useState({
     shop: {},
     product: {},
@@ -39,7 +41,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
 
     // 點購物車的商品近來要取得該商品當前的資料
     const localCart = JSON.parse(localStorage.getItem('cart'));
-    console.log()
+    console.log(localCart);
     if (
       localCart &&
       localCart.cartList &&
@@ -54,9 +56,30 @@ function OptionForm({ selectedSid, setSelectedSid }) {
         localCart.cartList[data.shop.sid].list[data.product.sid].details
       );
     } else {
-      console.log('Cannot find cartOptions')
+      console.log('Cannot find cartOptions');
+      setCartOptions([])
     }
   }, [data]);
+
+  // test
+  useEffect(() => {
+    const newTestDetails = data.options_types.map((ot) => {
+      return {
+        sid: ot.sid,
+        name: ot.name,
+        list: data.options
+          .filter((opt) => opt.options_type_sid === ot.sid)
+          .map((opt) => {
+            return cartOptions.findIndex((co) => {
+              return co.sid === opt.sid;
+            }) === -1
+              ? false
+              : { sid: opt.sid, name: opt.name, price: opt.price };
+          }),
+      };
+    });
+    setTestDetails(newTestDetails);
+  }, [cartOptions]);
 
   const intoCart = (e) => {
     e.preventDefault();
@@ -66,6 +89,17 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       newDetails = [...newDetails, ...d.list];
     });
 
+    // test
+    console.log(testDetails);
+    let testNewDetails = [];
+    testDetails.forEach((d) => {
+      const arr = d.list.filter((l) => {
+        return !!l === true;
+      });
+      testNewDetails = [...testNewDetails, ...arr];
+    });
+    console.log(testNewDetails);
+
     setCartWithAmount(
       data.shop.sid,
       selectedSid,
@@ -74,7 +108,9 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       data.product.price,
       data.product.price,
       data.product.src,
-      newDetails,
+      // test
+      // newDetails,
+      testNewDetails,
       amount
     );
     console.log([
@@ -85,7 +121,9 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       data.product.price,
       data.product.price,
       data.product.src,
-      newDetails,
+      // test
+      // newDetails,
+      testNewDetails,
       amount,
     ]);
   };
@@ -154,6 +192,9 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                       otIndex={otIndex}
                       cartOptions={cartOptions}
                       setCartOptions={setCartOptions}
+                      // test
+                      testDetails={testDetails}
+                      setTestDetails={setTestDetails}
                     />
                   </div>
                 </div>
