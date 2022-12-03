@@ -74,9 +74,10 @@
     left: 50%;
     z-index: 3;
     translate: -50%;
-
-    
-    width: 300px;
-    bottom: 20px;
+    font-size: 1.5em;
+    text-align: center;
+    height: 60px;
+    width: 65%;
+    bottom: 30px;
     
 }
