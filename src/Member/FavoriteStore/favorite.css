@@ -79,6 +79,36 @@
     font-size: 20px;
 }
 
+.mf_search{
+    display: flex;
+    justify-content: center;
+}
+
+.mf_search_input{
+    width: 250px;
+    height: 40px;
+    font-size: 26px;
+    border-radius: 5px;
+    border-color:#FFA500;
+}
+
+.mf_search_button{
+    width: 40px;
+    border-radius: 5px;
+    border-color:#FFA500;
+    background-color: #FFA500;
+}
+
+.mf_search_icon{
+   font-size: 25px;
+   cursor: pointer;
+}
+
+.mf_errorfont{
+    text-align: center;
+    font-size: 30px;
+}
+
 @media screen and (max-width:576px) {
     .mf_col {
         width: 100%;

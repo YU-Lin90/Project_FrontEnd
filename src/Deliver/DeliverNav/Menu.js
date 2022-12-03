@@ -5,7 +5,6 @@ function Menu({ setToggle, toggle }) {
 
   const navi = useNavigate();
 
-   
   const menuList = [
     { text: '外送員首頁', link: '/Deliver' },
     { text: '過往紀錄', link: '/Deliver/DeliverDatas' },
