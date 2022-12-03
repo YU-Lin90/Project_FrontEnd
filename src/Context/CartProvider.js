@@ -254,16 +254,25 @@ export const CartProvider = ({ children }) => {
     if (!localCart.cartList[shopSid].list[productSid]) {
       localCart.cartList[shopSid].list[productSid] = {};
     }
+    console.log({ amount });
     //沒設定過要設定商品資訊
     if (Number(amount) === 0) {
       console.log(123);
       delete localCart.cartList[shopSid].list[productSid];
     } else if (Number(amount) > 0) {
       //扣掉原本的 再加新的
-      localCart.cartList[shopSid].shopTotal =
-        localCart.cartList[shopSid].shopTotal -
-        localCart.cartList[shopSid].list[productSid].amount +
-        amount;
+      //如果已經有這項商品才重算總數
+      if (localCart.cartList[shopSid].list[productSid].amount > 0) {
+        localCart.cartList[shopSid].shopTotal =
+          localCart.cartList[shopSid].shopTotal -
+          localCart.cartList[shopSid].list[productSid].amount +
+          amount;
+        console.log('into >0');
+      } else {
+        localCart.cartList[shopSid].shopTotal += amount;
+        console.log('into 0');
+      }
+      console.log('into N>0');
       localCart.cartList[shopSid].list[productSid].amount = amount;
       localCart.cartList[shopSid].list[productSid].name = productName;
       localCart.cartList[shopSid].list[productSid].price = price;
@@ -283,9 +292,11 @@ export const CartProvider = ({ children }) => {
         if (Object.keys(dividedProduct.details).length) {
           // console.log(Object.keys(dividedProduct.details).length);
           for (let element of dividedProduct.details) {
-            shopPriceTotal += Number(element.price);
+            shopPriceTotal +=
+              Number(element.price) * Number(dividedProduct.amount);
           }
         }
+        //===============================================分隔線================================================
       }
     }
     localCart.cartList[shopSid].shopPriceTotal = shopPriceTotal;

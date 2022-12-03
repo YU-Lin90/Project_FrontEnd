@@ -29,7 +29,7 @@ function ChooseCart({ setShowChooseShop, setShowCart }) {
       setShopList(cartContents.cartList);
     } else {
       setCart(false);
-      setShowChooseShop(false);
+      // setShowChooseShop(false);
       setShopList({});
     }
   }, [cartTotal]);
