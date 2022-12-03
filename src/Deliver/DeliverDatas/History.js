@@ -24,16 +24,13 @@ function History({
   return (
     <li className="Dhistorylist">
       <div className="Dhistoryitem">
-        <div className="Dfristcontext">
-          <i
-            className={
-              btn ? 'fa-solid fa-angle-down' : 'fa-solid fa-angle-right'
-            }
-            onClick={() => {
+        <div className="Dfristcontext" 
+           onClick={() => {
               setBtn(!btn);
               foodmeun();
             }}
-          ></i>
+        >
+          <i className={ btn ? 'fa-solid fa-angle-down' : 'fa-solid fa-angle-right'}></i>
           <p>{"D" + dayjs(deliver_check_time).format('HHMMmm')}</p>
         </div>
         <div className="Dsecondtext">
