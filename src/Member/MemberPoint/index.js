@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Member_Point.css';
-const reasons = ['兌換優惠券', '消費獲得'];
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+const reasons = ['兌換優惠券', '消費獲得','會員註冊獲得'];
 const siteName = window.location.hostname;
+
 function MemberPoint() {
+  const navigate = useNavigate();
   const [productData, setproductData] = useState([
     {
       coupon_sid: 0,
@@ -13,6 +18,14 @@ function MemberPoint() {
     },
   ]);
   function getData() {
+    const sid = localStorage.getItem('MemberSid');
+    if (!sid) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
+      navigate('/MemberLogin');
+    }
     fetch(`http://${siteName}:3001/MemberPointApi`, {
       method: 'GET',
       mode: 'cors',
@@ -26,6 +39,7 @@ function MemberPoint() {
       .then((res) => {
         // console.log(res);
         setproductData(res);
+        console.log(productData);
       });
   }
   useEffect(() => {
@@ -35,34 +49,38 @@ function MemberPoint() {
   // getData()
   return (
     <>
-      <div>
-        <table className="memberPointTable">
+      <div className="mt_wrap">
+        <table className="mt_table">
           <thead>
-            <tr key={0}>
-              <th className="points">異動點數</th>
-              <th className="points">異動時間</th>
-              <th className="points">異動原因</th>
-              <th className="points">優惠券名稱</th>
+            <tr className="mt_tr" key={0}>
+              <th className="mt_th">異動點數</th>
+              <th className="mt_th">異動時間</th>
+              <th className="mt_th">異動原因</th>
+              <th className="mt_th">優惠券名稱</th>
             </tr>
           </thead>
-          <tbody>
-            {productData.map((value, i) => {
-              const {
-                coupon_sid,
-                point_amount,
-                point_change_time,
-                point_change_method,
-                coupon_name,
-              } = value;
-              return (
-                <tr key={i + 1}>
-                  <td className="points">{point_amount}</td>
-                  <td className="points">{point_change_time}</td>
-                  <td className="points">{reasons[point_change_method]}</td>
-                  <td className="points">{coupon_name}</td>
-                </tr>
-              );
-            })}
+          <tbody className="mt_body">
+            {productData
+              .sort(function (a, b) {
+                return a < b ? 1 : -1;
+              })
+              .map((value, i) => {
+                const {
+                  coupon_sid,
+                  point_amount,
+                  point_change_time,
+                  point_change_method,
+                  coupon_name,
+                } = value;
+                return (
+                  <tr className="mt_tr" key={i + 1}>
+                    <td className="mt_td">{point_amount}</td>
+                    <td className="mt_td">{point_change_time}</td>
+                    <td className="mt_td">{reasons[point_change_method]}</td>
+                    <td className="mt_td">{coupon_name}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

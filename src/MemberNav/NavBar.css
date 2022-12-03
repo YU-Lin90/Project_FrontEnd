@@ -9,9 +9,11 @@ nav.memberNav {
   justify-content: space-between;
   z-index: 10;
 }
-nav.memberNav>*{
+
+nav.memberNav>* {
   /* height: 100%; */
 }
+
 .menubtn {
   width: 30px;
   height: 30px;
@@ -62,7 +64,8 @@ nav.memberNav>*{
   transform: rotateZ(-45deg);
   width: 28px;
 }
-.navRight{
+
+.navRight {
   /* height: 100%; */
   display: flex;
   align-items: center;
@@ -71,16 +74,22 @@ nav.memberNav>*{
 }
 
 .logCheck {
-  background-color: #ccc;
+
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
   /* aspect-ratio: 1; */
-  height:100%;
+  height: 100%;
   text-align: center;
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
+
+}
+
+.logCheck.member {
+  background-color: var(--subColor);
+  color: var(--mainColor);
 }
 
 .cartButton {
@@ -153,6 +162,7 @@ nav.memberNav>*{
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .navAddressInputs {
   display: flex;
   position: fixed;
@@ -161,12 +171,14 @@ nav.memberNav>*{
   width: fit-content;
   left: 20%;
 }
+
 @media screen and (min-width:768px) {
   .navAddress {
     max-width: 400px;
     /* max-width: none; */
   }
-  .navAddressInputs{
-    left:initial;
+
+  .navAddressInputs {
+    left: initial;
   }
 }

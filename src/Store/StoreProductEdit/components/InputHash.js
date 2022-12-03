@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function InputHash() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   return (
     <div>
       <h3>Hashtag:</h3>
@@ -14,14 +14,12 @@ function InputHash() {
         }}
         onKeyDown={(e) => {
           const key = e.code;
-          if (key === "Enter") {
+          if (key === 'Enter') {
             e.preventDefault();
           }
         }}
       />
-      <div onClick={() => {
-        
-      }}>新增</div>
+      <div onClick={() => {}}>新增</div>
     </div>
   );
 }

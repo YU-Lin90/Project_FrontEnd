@@ -1,5 +1,5 @@
 //歷史訂單 第一層
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
 import OldOrderPerOrder from './OldOrderPerOrder';
 import './OldOrder.css';
@@ -36,9 +36,7 @@ function MemberOldOrder() {
         deliverScore
         shopScore
   } */
-  useEffect(() => {
-    getAllCompleteOrders();
-  }, []);
+
   useEffect(() => {
     getAllCompleteOrders();
   }, [reloading]);
@@ -49,7 +47,7 @@ function MemberOldOrder() {
       {orders.length === 0 ? (
         <p className="flexSetCenter w100p h500 fw7 fs36">無歷史訂單</p>
       ) : (
-        <div name="訂單整體外框">
+        <div name="訂單整體外框" className="disf fw-w jc-c ai-c">
           {/* 這邊MAP */}
           {/* //===============================================分隔線================================================ */}
           {/* 傳單筆資料進去 */}

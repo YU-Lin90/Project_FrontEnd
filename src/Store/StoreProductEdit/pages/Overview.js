@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import OptionGroup from '../components/OptionGroup';
+// import OptionGroup from '../components/OptionGroup';
+import OptionGroup from '../components/OptionForm/OptionGroup';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import ProductList from '../pages/ProductList';
 
 function Overview() {
   const [amount, setAmount] = useState(1);
@@ -30,73 +33,76 @@ function Overview() {
 
   return (
     <>
-      {data.types.map((type) => {
-        return (
-          <>
-            <h1 key={type.sid} style={{ color: 'red' }}>
-              {type.name}
-            </h1>
-            {data.products
-              .filter((product) => {
-                return product.products_type_sid === type.sid;
+      <div className="store-admin">
+        <Link to="/productList/?shop_sid=89">商品列表</Link>
+        {data.types.map((type) => {
+          return (
+            <>
+              <h1 key={type.sid} style={{ color: 'red' }}>
+                {type.name}
+              </h1>
+              {data.products
+                .filter((product) => {
+                  return product.products_type_sid === type.sid;
+                })
+                .map((product) => {
+                  return (
+                    <>
+                      <h3
+                        onClick={() => {
+                          setSelectedItem(product.sid);
+                        }}
+                      >
+                        {[product.name]}
+                      </h3>
+                    </>
+                  );
+                })}
+            </>
+          );
+        })}
+        {selectedItem ? (
+          <div>
+            {data.options_types
+              .filter((ot) => {
+                return ot.product_sid === selectedItem;
               })
-              .map((product) => {
+              .map((ot) => {
                 return (
-                  <>
-                    <h3
-                      onClick={() => {
-                        setSelectedItem(product.sid);
-                      }}
-                    >
-                      {[product.name]}
-                    </h3>
-                  </>
+                  <div>
+                    <h2>{ot.name}</h2>
+                    <div>
+                      <OptionGroup ot={ot} data={data} />
+                    </div>
+                  </div>
                 );
               })}
-          </>
-        );
-      })}
-      {selectedItem ? (
-        <div>
-          {data.options_types
-            .filter((ot) => {
-              return ot.product_sid === selectedItem;
-            })
-            .map((ot) => {
-              return (
-                <div>
-                  <h2>{ot.name}</h2>
-                  <div>
-                    <OptionGroup ot={ot} data={data} />
-                  </div>
-                </div>
-              );
-            })}
-          <div>
-            <i
-              class="fa-solid fa-plus"
-              onClick={() => {
-                if (amount > 0) setAmount(amount - 1);
-              }}
-            ></i>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => {
-                setAmount(e.target.value);
-              }}
-            />
-            <i
-              class="fa-solid fa-minus"
-              onClick={() => {
-                setAmount(amount + 1);
-              }}
-            ></i>
+            <div>
+              <i
+                class="fa-solid fa-plus"
+                onClick={() => {
+                  if (amount > 0) setAmount(amount - 1);
+                }}
+              ></i>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => {
+                  setAmount(e.target.value);
+                }}
+              />
+              <i
+                class="fa-solid fa-minus"
+                onClick={() => {
+                  setAmount(amount + 1);
+                }}
+              ></i>
+            </div>
           </div>
-        </div>
-      ) : (
-        ''
-      )}
+        ) : (
+          ''
+        )}
+      </div>
     </>
   );
 }

@@ -1,7 +1,7 @@
 //WS 第四層 有輸入框的頁面
 import { useEffect, useState } from 'react';
 import ChatContent from './ChatContent';
-
+const siteName = window.location.hostname;
 function ChattingBox({
   setChattingPerson,
   setChatting,
@@ -52,22 +52,29 @@ function ChattingBox({
   }
   return (
     <>
-      <div className="chattingBox">
+      <div
+        className="chattingBox"
+        style={{
+          background: `url(http://${siteName}:3001/images/chatroomBackground.jpg) center center / cover`,
+          boxShadow: '0 4px 12px  rgba(0,0,0,0.08)',
+        }}
+      >
         <ChatContent
           chattingPerson={chattingPerson}
           newContent={newContent}
           setNewContent={setNewContent}
         />
-        <div className="chatInputFrame">
+        <div className="chatInputFrame ai-c">
           <div
             className="pointer"
             onClick={() => {
               setChatting(false);
             }}
           >
-            X
+            <i className="fa-solid fa-circle-xmark fs24"></i>
           </div>
           <input
+            className="chattingRoomInput"
             autoFocus
             value={inputContent}
             onChange={(e) => {
@@ -81,14 +88,15 @@ function ChattingBox({
               }
             }}
           />
-          <button
+          <div
+            className="chattingRoomButton"
             onClick={() => {
               sendData(inputContent, side, sid);
               setInputContent('');
             }}
           >
-            send
-          </button>
+            傳送
+          </div>
         </div>
       </div>
       <div

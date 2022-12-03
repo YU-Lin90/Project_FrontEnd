@@ -37,6 +37,11 @@
 
 .payCouponFrame {
   width: 50%;
+  align-self: stretch;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width:768px) {
@@ -56,7 +61,7 @@
 }
 
 .payCoupons {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 1;
   background-color: var(--mainColor);
   cursor: pointer;
   display: flex;
@@ -66,7 +71,6 @@
   gap: 20px;
   width: 100%;
   height: auto;
-
 }
 
 .payCoupons.none {
@@ -88,8 +92,8 @@
 .payPageFrameLeft{
   width: 100%;
 }
-.OrederDetailForPay{
-  width: 100%;
+.OrederDetailForPay{  width: 100%;
+
 }
 @media screen and (min-width:768px){
   .payPageFrame{

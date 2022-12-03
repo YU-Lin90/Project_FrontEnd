@@ -1,7 +1,7 @@
 //結帳頁最外層 開Socket
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import Pay from './Pay';
 const siteName = window.location.hostname;
 //===============================================分隔線================================================
@@ -11,7 +11,7 @@ function PaySocket() {
   function sendToken() {
     const tokenString = localStorage.getItem('Member');
     if (!tokenString) {
-      window.alert('沒登入');
+      Swal.fire('沒登入');
       navi(`/MemberLogin`);
     }
     orderSocket.send(JSON.stringify({ token: tokenString }));

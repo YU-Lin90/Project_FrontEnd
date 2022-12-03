@@ -36,6 +36,11 @@ export const PaydetailProvider = ({ children }) => {
   const [payingOrderSid, setPayingOrderSid] = useState(0);
   //選擇的店家等待時間
   const [waitTime, setWaitTime] = useState(0);
+  //每日優惠券折扣額度
+  const [dailyCouponAmount, setDailyCouponAmount] = useState(0);
+  //每日優惠券SID
+  const [dailyCouponSid, setDailyCouponSid] = useState(0);
+
   //離開結帳頁的時候重設狀態
   const clearPayPageState = () => {
     setCouponCutAmount(0);
@@ -48,6 +53,7 @@ export const PaydetailProvider = ({ children }) => {
     setPayingOrderSid(0);
     setWaitTime(0);
     setChooseedPayShop(0);
+    setDailyCouponAmount(0);
   };
 
   return (
@@ -80,6 +86,10 @@ export const PaydetailProvider = ({ children }) => {
         waitTime,
         setWaitTime,
         clearPayPageState,
+        dailyCouponAmount,
+        setDailyCouponAmount,
+        dailyCouponSid,
+        setDailyCouponSid,
       }}
     >
       {children}

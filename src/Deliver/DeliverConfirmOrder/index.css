@@ -50,4 +50,37 @@
 .Dicon{
     font-size: 2.2em;
     margin-right: 10px;
+    color: #3893E8;
+}
+.Dcook{
+    text-align: center;
+}
+.Dcooktitle{
+    font-weight: bold;
+}
+.Dcooktext{
+    margin-top: 5px;
+}
+.DDown{
+    /* background-color: red; */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Donliestate{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Donlie{
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border-radius: 50px;
+    background-color: rgb(75, 203, 11);
+}
+.Donlie.active{
+    background-color: red;
 }

@@ -239,3 +239,9 @@ border: 1px solid #CCC;
 
 }
 
+
+.icon{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

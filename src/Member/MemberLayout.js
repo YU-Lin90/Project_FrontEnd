@@ -62,12 +62,12 @@ function MemberLayout() {
             return (
               <div
                 key={index}
-                className="disf fd-c jc-sb pointer"
+                className=" padV15 padH15  disf fd-c jc-sb pointer"
                 onClick={() => {
                   navi(value.link);
                 }}
               >
-                <p className="bigHidden">
+                <p className="bigHidden marb10">
                   {value.svg(
                     `${
                       value.link === location
@@ -87,7 +87,14 @@ function MemberLayout() {
             );
           })}
         </div>
-        <div className="memberCenterContent">{<Outlet />}</div>
+        <div className="memberCenterContent">
+          {location === '/Member/MemberService' ? (
+            <h2 className="ta-c w100p fs32 fontMainColor marb20 fw6 ">
+              客服中心
+            </h2>
+          ) : null}
+          <Outlet />
+        </div>
       </div>
     </>
   );

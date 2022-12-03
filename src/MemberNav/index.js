@@ -9,6 +9,8 @@ import Menu from './Menu';
 import ChooseCart from '../Shopping/ChooseCart';
 import Cart from '../Shopping/Cart';
 import MemberCenter from './MemberCenter';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 const siteName = window.location.hostname;
 //確認登入資訊
 function fetchLoginCheck(setfunc) {
@@ -71,9 +73,9 @@ function MemberNav() {
 
   //連結
   const navList = [
-    { text: '找店家', link: '/Shopping' },
-    { text: '附近美食', link: '/' },
-    { text: '優惠券', link: '/Coupon' },
+    { text: '找店家', link: '/Shopping', index: 0 },
+    { text: '附近美食', link: '/productList/?shop_sid=89', index: 1 },
+    { text: '優惠券', link: '/Coupon', index: 2 },
   ];
 
   //購物車檢查
@@ -137,6 +139,7 @@ function MemberNav() {
             {navList.map((v, i) => {
               return (
                 <p key={i}>
+                  {/* sendAddress */}
                   <Link to={v.link}>{v.text}</Link>
                 </p>
               );
@@ -177,17 +180,20 @@ function MemberNav() {
           )}
 
           {/* 會員中心按鈕 */}
-          <div
-            className="cartButton navUser"
-            onClick={() => {
-              setOpenMemberCenter((v) => !v);
-            }}
-          >
-            <i className="fa-solid fa-user"></i>
-          </div>
+          {authMember ? (
+            <div
+              className="cartButton navUser"
+              onClick={() => {
+                setOpenMemberCenter((v) => !v);
+              }}
+            >
+              <i className="fa-solid fa-user"></i>
+            </div>
+          ) : null}
+
           {/* 登入登出按鈕 */}
           <p
-            className="logCheck flexSetCenter"
+            className="logCheck member flexSetCenter"
             onClick={
               authMember
                 ? () => {
@@ -196,7 +202,8 @@ function MemberNav() {
                     localStorage.removeItem('MemberSid');
                     setMemberName('');
                     setAuthMember(!authMember);
-                    navi('/ ');
+                    Swal.fire('已登出');
+                    navi('/');
                   }
                 : () => {
                     navi('/MemberLogin ');
@@ -206,6 +213,16 @@ function MemberNav() {
           >
             {authMember ? '登出' : '登入'}
           </p>
+          {authMember ? null : (
+            <p
+              onClick={() => {
+                navi('/MemberRegister');
+              }}
+              className="logCheck member flexSetCenter bgcSubColor"
+            >
+              註冊
+            </p>
+          )}
         </div>
       </nav>
       {/* 目錄切換 */}

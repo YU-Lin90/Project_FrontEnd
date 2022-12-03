@@ -15,7 +15,7 @@ function NavAddress({ sendAddress, setSendAddress }) {
             setOpenSetAddress((v) => !v);
           }}
         >
-          <span>送到：</span>
+          <span className="fw6">送到：</span>
           <span style={{ color: '#FF7C7C' }}>
             <i className="fa-solid fa-location-crosshairs fs18 fw6"></i>
           </span>
@@ -30,8 +30,14 @@ function NavAddress({ sendAddress, setSendAddress }) {
               onChange={(e) => {
                 setSendAddress(e.target.value);
               }}
+              autoFocus={true}
               className="w300 marH10"
               value={sendAddress}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setOpenSetAddress(false);
+                }
+              }}
             />
             <p
               onClick={() => {

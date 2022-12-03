@@ -16,7 +16,7 @@ function MemberRegister() {
   const [imgServerUrl, setImgServerUrl] = useState('');
 
   const forms = useRef(null);
-
+  const siteName = window.location.hostname;
   // 當選擇檔案更動時建立預覽圖
   useEffect(() => {
     if (!selectedFile) {
@@ -53,7 +53,7 @@ function MemberRegister() {
     formData.append('avatar', selectedFile);
 
     fetch(
-      'http://localhost:3001/upload-avatar', //server url
+      `http://${siteName}:3001/upload-avatar`, //server url
       {
         method: 'POST',
         body: formData,
@@ -62,7 +62,7 @@ function MemberRegister() {
       .then((response) => response.json())
       .then((result) => {
         console.log('Success:', result);
-        setImgServerUrl('http://localhost:3001/uploads/' + result.data.name);
+        setImgServerUrl(`http://${siteName}:3001/uploads/` + result.data.name);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -108,18 +108,19 @@ function MemberRegister() {
       // const formData = new FormData();
       const fd = new FormData(e.target);
       console.log(fd);
+      console.log(e.target);
       // return
       // 對照server上的檔案名稱 req.files.avatar
       //fd.append('avatar', selectedFile);
       await axios
-        .post('http://localhost:3001/MemberLogin/add', fd)
+        .post(`http://${siteName}:3001/MemberLogin/add`, fd)
         .then((result) => {
           console.log(result);
           Swal.fire({
             icon: 'success',
             title: '註冊成功',
           });
-          navigate('/');
+          navigate('/MemberLogin');
         })
         .catch((e) => {
           console.log(e);
@@ -159,7 +160,7 @@ function MemberRegister() {
           }
         });
     } else {
-      Swal.fire('兩次密碼輸入不一致!');
+      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!' });
     }
   };
   // 得到輸入值的方式
@@ -201,7 +202,12 @@ function MemberRegister() {
           onInvalid={handleFormInvalid}
           onChange={handleFormChange}
         >
-          <input type="file" name="avatar" onChange={changeHandler} />
+          <input
+            className="m_input_img"
+            type="file"
+            name="avatar"
+            onChange={changeHandler}
+          />
           {selectedFile && (
             <div className="m_mar">
               預覽圖片:
@@ -223,7 +229,6 @@ function MemberRegister() {
             />
             <span className="m_span">{fieldErrors.email}</span>
           </div>
-
           <div className="m_mar">
             <label className="m_label">密碼:</label>
             <input

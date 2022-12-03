@@ -35,7 +35,7 @@ export default function ListTable() {
   //抓網址變動
   useEffect(() => {
     submitHandle();
-  }, [location]);
+  }, [location,sendAddress]);
 
   //表格資料
   const [shop, setShop] = useState([]);

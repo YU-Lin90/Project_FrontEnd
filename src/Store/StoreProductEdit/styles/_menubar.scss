@@ -1,0 +1,27 @@
+.store-admin {
+  .menubar {
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    border-bottom: 5px solid #e2e2e2;
+    li {
+      padding: 16px 16px;
+      a {
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+        padding: 16px 0px;
+
+        .active {
+          border-bottom: 5px solid black;
+        }
+      }
+
+      &:hover {
+        background-color: #ededed;
+      }
+    }
+  }
+}

@@ -4,9 +4,17 @@ import { useFunc } from '../../../Context/FunctionProvider';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../../Context/CartProvider';
-import Swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const siteName = window.location.hostname;
+const confirmAlert = Swal.mixin({
+  customClass: {
+    //classname
+    confirmButton: 'storeConfirmOrderAlertButton',
+    cancelButton: 'storeConfirmOrderAlertButton',
+  },
+  buttonsStyling: false,
+});
 //===============================================分隔線================================================
 // 開新視窗並置中的函式，facebook use it
 // https://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen
@@ -91,10 +99,12 @@ function PayButton({ orderSocket }) {
     deliverMemo,
     storeMemo,
     setPayingOrderSid,
-    payingOrderSid,
     cartContents,
     sendAddress,
     chooseedPayShop,
+    waitTime,
+    dailyCouponSid, //每日優惠券SID
+    dailyCouponAmount, //每日優惠券額度
   } = usePay();
 
   //回傳要傳的資料 避免重複寫
@@ -110,6 +120,9 @@ function PayButton({ orderSocket }) {
       details: cartContents.cartList[chooseedPayShop],
       storeMemo: storeMemo,
       deliverMemo: deliverMemo,
+      waitTime: waitTime,
+      dailyCouponSid: dailyCouponSid,
+      dailyCouponAmount: dailyCouponAmount,
     });
   };
   //現金
@@ -117,9 +130,14 @@ function PayButton({ orderSocket }) {
     const postData = dataCollection();
     const result = await loginCheckPostFetch('CashPay', 'Member', postData);
     console.log(result);
-    paidDeleteCartPart(chooseedPayShop);
-    window.alert('下訂成功');
-    navi('/Member/MemberOrder');
+    Swal.fire({
+      title: '下訂成功',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navi('/Member/MemberOrder');
+        paidDeleteCartPart(chooseedPayShop);
+      }
+    });
   };
   //LinePay
   const linePay = async () => {
@@ -134,6 +152,7 @@ function PayButton({ orderSocket }) {
       setPayingOrderSid(res.orderSid);
       const totalPrice =
         Number(cartContents.cartList[chooseedPayShop].shopPriceTotal) -
+        Number(dailyCouponAmount) -
         Number(couponCutAmount) +
         Number(deliverFee);
       const params = new URLSearchParams({
@@ -145,7 +164,7 @@ function PayButton({ orderSocket }) {
       });
       const url =
         `http://${siteName}:3001/LinePay/reserve/?` + params.toString();
-      newWindow.current = PopupCenter(url, 'LinelogInPopup', 400, 600);
+      newWindow.current = PopupCenter(url, 'LinelogInPopup', 800, 600);
       // await loginCheckGetFetch(
       //   `LinePay/reserve/?${params.toString()}`,
       //   'Member'
@@ -173,14 +192,14 @@ function PayButton({ orderSocket }) {
   useEffect(() => {
     if (paid) {
       // alert('已付款');
-      //TODO:這邊之後改成結帳完成頁(訂單成立頁)
-      //這一頁之後做成元件放在訂單頁
-      paidDeleteCartPart(chooseedPayShop);
-      window.alert('付款成功');
-      navi('/');
-      // setTimeout(() => {
-      //
-      // }, 3000);
+      Swal.fire({
+        title: '付款成功',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navi('/Member/MemberOrder');
+          paidDeleteCartPart(chooseedPayShop);
+        }
+      });
     }
     return;
   }, [paid]);
@@ -207,14 +226,38 @@ function PayButton({ orderSocket }) {
     console.log(storeMemo);
     console.log('-----結帳方式-----');
     console.log(payWay === 0 ? '現金' : 'LinePay');
-    console.log('-----------------------------------------');
+    console.log('-----每日優惠券SID-----');
+    console.log(dailyCouponSid);
+    console.log('-----每日優惠券折扣金額-----');
+    console.log(dailyCouponAmount);
+    console.log('-------------------------------------------------');
   };
   return (
     <>
       {/* setButtonLock */}
       <div
-        onClick={() => {
+        onClick={async () => {
           if (!buttonLock) {
+            if (waitTime >= 50) {
+              let checkState = false;
+              await confirmAlert
+                .fire({
+                  title: `等待時間超過${waitTime}分鐘，是否確定訂餐?`,
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: '確定',
+                  cancelButtonText: '取消',
+                })
+                .then((result) => {
+                  if (result.isConfirmed) {
+                    checkState = true;
+                  }
+                });
+              if (!checkState) {
+                return;
+              }
+            }
+
             orderSocket.send(
               JSON.stringify({
                 receiveSide: 2,

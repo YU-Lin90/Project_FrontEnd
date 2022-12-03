@@ -1,5 +1,6 @@
 //歷史訂單 第二層 各單項訂單
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DropDownDetails from './DropDownDetails';
 import OrderCommand from './OrderCommand';
 const siteName = window.location.hostname;
@@ -7,6 +8,7 @@ function OldOrderPerOrder({ orderData, setReloading }) {
   const [openDetail, setOpenDetail] = useState(false);
   const [openShopCommand, setOpenShopCommand] = useState(false);
   const [openDeliverCommand, setOpenDeliverCommand] = useState(false);
+  const navi = useNavigate();
   const SolidStar = () => {
     return <i className="fa-solid fa-star fs18 fontMainColor"></i>;
   };
@@ -33,30 +35,36 @@ function OldOrderPerOrder({ orderData, setReloading }) {
     "shopScore": null,
     "orderId": "M221122112",
     "order_date": "2022年11月22日"
+    src
 } */ //orderData.deliverScore       orderData.shopScore
   return (
     <>
       <div name="單個訂單外框" className="w100p marb20 oldOrderFrame bgcW">
         <div className="w100p  padV20 padH20 disf oldOrderTopDetail">
-          {/* TODO: 店家照片 */}
-          <div className="w20p as1 lh0 flexSetCenter padH10 padV10">
+          <div className="w20p marr20 as1 lh0 flexSetCenter padH10 padV10">
             <img
               className="oldOrderStoreImg"
-              src={` http://${siteName}:3001/images/store01.jpg`}
+              src={` http://${siteName}:3001/images/storeCover/${orderData.src}`}
               alt=""
             />
           </div>
-          <div className="w60p disf fd-c jc-se fw6 fs18">
+          <div className="w40p disf fd-c jc-se fw6 fs18">
             <p>訂單編號：{orderData.orderId}</p>
             <p>{orderData.shopName}</p>
             <p>外送員：{orderData.deliverName}</p>
             <p>{orderData.order_date}</p>
           </div>
-          <div className="w20p disf fd-c ai-c jc-se gap10">
+          <div className="w40p disf fd-c ai-c jc-se gap10">
             <p className="fw6 fs18">${orderData.sale}</p>
             <div className="disf fd-c">
-              {/* TODO: 重新下單 */}
-              <p className="oldOrderCommand marb10">重新下單</p>
+              <p
+                onClick={() => {
+                  navi(`/productList/?shop_sid=${orderData.shop_sid}`);
+                }}
+                className="oldOrderCommand marb10"
+              >
+                重新下單
+              </p>
               <div>
                 {orderData.shopScore ? (
                   <p className="ta-c marb10 fw5">
@@ -78,7 +86,7 @@ function OldOrderPerOrder({ orderData, setReloading }) {
               <div>
                 {orderData.deliverScore ? (
                   <p className="ta-c marb10 fw5">
-                    外送員評價：
+                    外送評價：
                     {orderData.deliverScore}
                     <SolidStar />
                   </p>

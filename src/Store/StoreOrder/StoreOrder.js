@@ -4,6 +4,7 @@ import './StoreOrder.css';
 import StoreOrderDetails from './StoreOrderDetails';
 import StoreOrderConfirm from './StoreOrderConfirm';
 import StoreSetWaitTime from './StoreSetWaitTime';
+import Swal from 'sweetalert2';
 const siteName = window.location.hostname;
 const fetchList = ['checkDisConfirm', 'checkConfirmed', 'checkCompleted'];
 
@@ -50,14 +51,40 @@ function StoreOrder({ orderSocket }) {
         // setShowDatas(res);
       });
   }
-
+  function receiveMessage(e) {
+    const datas = JSON.parse(e.data);
+    if (datas.step) {
+      Swal.fire('你有新訂單');
+      setTimeout(() => {
+        setPage(0);
+        if (page === 0) {
+          getData();
+        }
+      }, 1000);
+      setChangeTime(false);
+      setOpenDetail(false);
+    }
+    /*{
+    "receiveSide": 2,
+    "receiveSid": 89,
+    "step": 1
+} */
+    console.log(datas);
+  }
+  useEffect(() => {
+    orderSocket.addEventListener('message', receiveMessage);
+    console.log('openListener');
+    return () => {
+      orderSocket.removeEventListener('message', receiveMessage);
+      console.log('closeListener');
+    };
+  }, []);
   //===============================================分隔線================================================
   useEffect(() => {
     getData();
   }, [page]);
   //===============================================分隔線================================================
 
-  // TODO: 之後要在這裡加上偵測訂單
   return (
     <div>
       {/* <OrderSocket /> */}
@@ -98,6 +125,12 @@ function StoreOrder({ orderSocket }) {
           </span>
         </div>
       </div>
+      {datas.length === 0 ? (
+        <div className="flexSetCenter fs48 fw7 w100p h300">
+          無{options[page].name}訂單
+        </div>
+      ) : null}
+
       <StoreOrderDetails
         setOpenDetail={setOpenDetail}
         datas={datas}

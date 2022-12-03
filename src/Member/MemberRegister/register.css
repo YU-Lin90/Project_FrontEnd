@@ -1,132 +1,175 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-.m_img{
-    width: 250px;
-    height:250px;
+
+.m_img {
+    width: 280px;
+    height: 280px;
     border-radius: 50%;
-    object-fit:cover;
+    object-fit: cover;
     margin-bottom: 10px;
 }
-.m_iner{
+
+.m_iner {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
-    height: 750px;
+    height: 800px;
 }
-.m_label{
+
+.m_input_img {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    height: 40px;
+    font-size: 24px;
+}
+
+.m_label {
     font-size: 30px;
 }
-.m_email{
+
+.m_email {
     height: 40px;
     font-size: 30px;
 }
-.m_password{
+
+.m_password {
     height: 40px;
     font-size: 30px;
 }
-.m_doublepassword{
+
+.m_doublepassword {
     height: 40px;
     font-size: 30px;
 }
-.m_name{
+
+.m_name {
     height: 40px;
     font-size: 30px;
 }
-.m_phone{
+
+.m_phone {
     height: 40px;
     font-size: 30px;
 }
-.m_sb{
+
+.m_sb {
     font-size: 30px;
 }
-.m_clear{
+
+.m_clear {
     font-size: 30px;
 }
-.m_fast{
+
+.m_fast {
     font-size: 30px;
 }
-.m_clear{
+
+.m_clear {
     margin-left: 30px;
 }
-.m_fast{
+
+.m_fast {
     margin-left: 30px;
 }
-.m_mar{
-margin-bottom: 30px;
+
+.m_mar {
+    font-size: 30px;
+    margin-bottom: 30px;
 }
-.m_span{
+
+.m_span {
     font-size: 30px;
     color: red;
 }
-.m_icon_button{
+
+.m_icon_button {
     margin-left: 3px;
     width: 40px;
     height: 40px;
 }
-.m_icon{
+
+.m_icon {
     width: 25px;
     height: 25px;
 }
+
 @media screen and (max-width:576px) {
-    .m_label{
+    .m_label {
         font-size: 20px;
-    } 
-    .m_email{
+    }
+
+    .m_email {
         font-size: 20px;
         height: 30px;
     }
-    .m_password{
+
+    .m_password {
         height: 30px;
         font-size: 20px;
     }
-    .m_doublepassword{
+
+    .m_doublepassword {
         height: 30px;
         font-size: 20px;
     }
-    .m_name{
+
+    .m_name {
         height: 30px;
         font-size: 20px;
     }
-    .m_phone{
+
+    .m_phone {
         height: 30px;
         font-size: 20px;
     }
-    .m_sb{
+
+    .m_sb {
         font-size: 20px;
     }
-    .m_clear{
+
+    .m_clear {
         font-size: 20px;
     }
-    .m_fast{
+
+    .m_fast {
         font-size: 20px;
     }
-    .m_clear{
+
+    .m_clear {
         margin-left: 30px;
     }
-    .m_fast{
+
+    .m_fast {
         margin-left: 30px;
     }
-    .m_mar{
-    margin-bottom: 20px;
+
+    .m_mar {
+        margin-bottom: 20px;
     }
-    .m_span{
+
+    .m_span {
         font-size: 16px;
         color: red;
     }
-    .m_icon_button{
+
+    .m_icon_button {
         margin-left: 3px;
         width: 30px;
         height: 30px;
     }
-    .m_icon{
+
+    .m_icon {
         width: 20px;
         height: 20px;
     }
-    .m_iner{
+
+    .m_iner {
         height: 650px;
     }
+    .m_img{
+        width: 200px;
+        height: 200px;
+    }
 }
-
-

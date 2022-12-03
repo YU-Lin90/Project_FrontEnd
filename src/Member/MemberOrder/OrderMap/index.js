@@ -1,20 +1,39 @@
+//會員現在訂單 地圖層 這裡一個監聽器
 import { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import CycleContent from './CycleContent';
 import keys from '../../../keys';
 import { useGeo } from '../../../Context/GeoLocationProvider';
-const SelfPosition = () => (
+import { useFunc } from '../../../Context/FunctionProvider';
+const SelfPositionIcon = () => (
   <div>
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
-function OrderMap({ selectedOrder, orderShowNow }) {
-  const { calculateDistance } = useGeo();
-  const [position, setPosition] = useState({ lat: 25.03359, lng: 121.54349 });
-  const [deliverPosition, setDeliverPosition] = useState({
+const StorePositionIcon = () => (
+  <div>
+    <i className="fa-solid fa-store fontMainColor mapTranslate fs48"></i>
+  </div>
+);
+const DeliverPosition = () => (
+  <div>
+    <i className="fs48 fa-solid fa-motorcycle fontMainColor mapTranslate cycleFontOnMap"></i>
+  </div>
+);
+function OrderMap({ selectedOrder, orderSocket, step }) {
+  const { loginCheckGetFetch } = useFunc();
+  const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
+    useGeo();
+  //店家位置
+  const [storePosition, setStorePosition] = useState({
     lat: 25.03359,
     lng: 121.54349,
   });
+  //外送員位置
+  const [deliverPosition, setDeliverPosition] = useState({
+    lat: 0,
+    lng: 0,
+  });
+  //自己位置
   const [positionNow, setPositionNow] = useState({
     lat: 25.03359,
     lng: 121.54349,
@@ -26,69 +45,109 @@ function OrderMap({ selectedOrder, orderShowNow }) {
     },
     zoom: 15,
   };
-  const checkLocation = () => {
+  const checkLocation = async (orderSid) => {
     //獲得現在位置 然後傳到裡面的函式
-    navigator.geolocation.getCurrentPosition((location) => {
-      console.log(location.coords);
-      setDeliverPosition({
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      });
-    });
+    const res = await loginCheckGetFetch(
+      `MemberMapDetails/GetOrderAddress/?orderSid=${orderSid}`,
+      'Member'
+    );
+    console.log(res.receive_address);
+    const gettedOrderPosition = await getLatLngByAddress(res.receive_address);
+    console.log(gettedOrderPosition);
+    setPositionNow(gettedOrderPosition);
   };
-  // const intervalTest = setInterval(() => {
-  //   setDeliverPosition({
-  //     lat: deliverPosition.lat + 0.0001,
-  //     lng: deliverPosition.lng + 0.0001,
-  //   });
-  // }, 1000);
-  //25.03359696638214, 121.5434922509409
+
+  const getStoreLocation = async (orderSid) => {
+    const res = await loginCheckGetFetch(
+      `MemberMapDetails/GetStoreDetail/?orderSid=${orderSid}`,
+      'Member'
+    );
+    const gettedStorePosition = await getLatLngByAddress(res.address);
+    console.log({ gettedStorePosition });
+    console.log({ res });
+    setStorePosition(gettedStorePosition);
+  };
+
+  // useEffect(() => {
+  //   // setInterval(checkLocation, 1000);
+  //   //
+  //   getStoreLocation(selectedOrder);
+  //   return () => {
+  //     // clearInterval(intervalTest);
+  //   };
+  // }, []);
   useEffect(() => {
-    // setInterval(checkLocation, 1000);
-    checkLocation();
-    return () => {
-      // clearInterval(intervalTest);
-    };
-  }, []);
+    checkLocation(selectedOrder);
+    getStoreLocation(selectedOrder);
+  }, [selectedOrder]);
   /* location.coords.longitude
   location.coords.latitude
    */
+  //===============================================分隔線================================================
+  //訊息監聽
+  /* {
+    "position": true,
+    "lat": 25.012723125816077,
+    "lng": 121.51290893554688,
+    "receiveSid": 1,
+    "receiveSide": 1,
+    "orderSid": 1
+  } */
+  function receiveMessage(e) {
+    const datas = JSON.parse(e.data);
+    console.log('收到外送員位置');
+    console.log({ selectedOrder });
+    console.log({ datas });
+    console.log({ step });
+    // TODO 這裡現在是寫死的 訂單編號要跟外送員那邊一樣
+    if (datas.orderSid === 1 && datas.lat && datas.lng && step === 4) {
+      console.log('in');
+      setDeliverPosition({ lat: datas.lat, lng: datas.lng });
+    }
+  }
+  useEffect(() => {
+    orderSocket.addEventListener('message', receiveMessage);
+    console.log('openListener');
+    return () => {
+      orderSocket.removeEventListener('message', receiveMessage);
+      console.log('closeListener');
+    };
+  }, [step, selectedOrder]);
+  //===============================================分隔線================================================
   return (
     <>
       <GoogleMapReact
-        // TODO 之後再打開 不然會浪費額度
         bootstrapURLKeys={{ key: keys.gmap }}
         // bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
-        center={deliverPosition}
+        center={
+          step === 4 && deliverPosition.lat !== 0 && deliverPosition.lng !== 0
+            ? deliverPosition
+            : positionNow
+        }
       >
-        <SelfPosition
+        <SelfPositionIcon
           lat={positionNow.lat}
           lng={positionNow.lng}
-          text="My Marker"
+          text="Member"
         />
-        <CycleContent
-          lat={deliverPosition.lat}
-          lng={deliverPosition.lng}
-          text="My Marker"
+        {step === 4 &&
+        deliverPosition.lat !== 0 &&
+        deliverPosition.lng !== 0 ? (
+          <DeliverPosition
+            lat={deliverPosition.lat}
+            lng={deliverPosition.lng}
+            text="Deliver"
+          />
+        ) : null}
+
+        <StorePositionIcon
+          lat={storePosition.lat}
+          lng={storePosition.lng}
+          text="Store"
         />
       </GoogleMapReact>
-
-      <button
-        onClick={() => {
-          // setDeliverPosition({
-          //   lat: deliverPosition.lat + 1.0001,
-          //   lng: deliverPosition.lng + 1.0001,
-          // });
-
-          calculateDistance('台北市信義路一段1號', '台北市復興南路一段390號');
-
-          // setPosition({ lat: 25.18309, lng: 121.44458 });
-        }}
-      >
-        test
-      </button>
     </>
   );
 }

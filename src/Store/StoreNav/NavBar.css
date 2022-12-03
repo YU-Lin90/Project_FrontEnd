@@ -12,9 +12,7 @@ nav.storeNav {
   z-index: 10;
 }
 
-.logCheck {
-  background-color: #ccc;
-  padding: 5px;
-  border-radius: 10px;
-  cursor: pointer;
+.logCheck.store {
+  background-color: var(--mainColor);
+  color: var(--subColor);
 }

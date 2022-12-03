@@ -4,6 +4,8 @@ import axios from 'axios';
 import './memberdatas.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 function MemberDatas() {
   // 選擇的檔案
   const [selectedFile, setSelectedFile] = useState(null);
@@ -34,9 +36,8 @@ function MemberDatas() {
 
   const navigate = useNavigate();
 
-  // true = 呈現密碼 / false = 隱藏密碼
-  const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
+  const [passwordFieldType, setPasswordFieldType] = useState('password');
+  const [passwordFieldType2, setPasswordFieldType2] = useState('password');
 
   const handleFieldChange = (e) => {
     //console.log(e.target.type, e.target.name, e.target.value)
@@ -68,12 +69,15 @@ function MemberDatas() {
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
-      Swal.fire('請先登入會員');
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入會員',
+      });
       navigate('/MemberLogin');
     }
     try {
       const response = await axios.get(
-        `http://localhost:3001/MemberLogin/api2/${sid}`
+        `http://${siteName}:3001/MemberLogin/api2/${sid}`
       );
 
       console.log(localStorage.getItem('MemberSid'));
@@ -131,100 +135,140 @@ function MemberDatas() {
       // 對照server上的檔案名稱 req.files.avatar
       //fd.append('avatar', selectedFile);
       await axios
-        .put(`http://localhost:3001/MemberLogin/edit/${sid}`, fd)
+        .put(`http://${siteName}:3001/MemberLogin/edit/${sid}`, fd)
         .then((result) => {
           console.log(result);
-          Swal.fire('修改成功');
-          navigate('/');
+          e.preventDefault();
+
+          Swal.fire({
+            icon: 'success',
+            title: '修改成功',
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          // navigate('/');
         })
         .catch((e) => {
           console.log(e);
           console.log(e.response);
+          e.preventDefault();
           // console.log(e.response.request.responseText);
           Swal.fire('修改失敗!');
         });
     } else if (user.password !== user.doublepassword) {
-      Swal.fire('兩次密碼輸入不一致!');
+      e.preventDefault();
+      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!' });
     }
   };
 
   const display = (
-    <div>
+    <div className="mb_container">
       <form
         name="avatar"
         onSubmit={handleFormSubmit}
         onInvalid={handleFormInvalid}
         onChange={handleFormChange}
       >
-        <div>
-          <input type="file" name="avatar" onChange={changeHandler} />
+        <div className="mb_imgbox">
+          大頭貼:
           <img
-            className="m_img"
+            className="mb_img"
             src={` http://${siteName}:3001/uploads/${user.image}`}
             alt=""
           />
+        </div>
+        <div className="mb_mar">
+          <input
+            className="mb_input_img"
+            type="file"
+            name="avatar"
+            onChange={changeHandler}
+          />
           {selectedFile && (
-            <div>
-              預覽圖片:
-              <img className="m_img" src={preview} alt="" />
+            <div className="mb_imgbox">
+              更改後大頭貼:
+              <img className="mb_img" src={preview} alt="" />
             </div>
           )}
-          <br />
-          <br />
-          <label>帳號(Email):{user.email}</label>
-          <br />
-          <label>密碼</label>
+        </div>
+        <div className="mb_mar">
+          <label className="mb_label">帳號(Email):{user.email}</label>
+        </div>
+        <div className="mb_mar">
+          <label className="mb_label">密碼:</label>
           <input
-            type={show ? 'text' : 'password'}
+            className="mb_input"
+            type={passwordFieldType}
             name="password"
             value={user.password}
             onChange={handleFieldChange}
             required
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
           />
-          <span>{fieldErrors.password}</span>
-          <input
-            type="checkbox"
-            name="show"
-            checked={show}
-            onChange={() => {
-              setShow(!show);
+
+          <button
+            className="mb_icon_button"
+            type="button"
+            onClick={() => {
+              setPasswordFieldType(
+                passwordFieldType === 'text' ? 'password' : 'text'
+              );
             }}
-          />
-          <label>顯示密碼</label>
-          <br />
-          <label>再次輸入密碼</label>
+          >
+            {passwordFieldType === 'text' ? (
+              <FaRegEyeSlash className="mb_icon" />
+            ) : (
+              <FaRegEye className="mb_icon" />
+            )}
+          </button>
+          <span className="mb_span">{fieldErrors.password}</span>
+        </div>
+        <div className="mb_mar">
+          <label className="mb_label">再次輸入密碼:</label>
           <input
-            type={show1 ? 'text' : 'password'}
+            className="mb_input"
+            type={passwordFieldType2}
             name="doublepassword"
             value={user.doublepassword}
             onChange={handleFieldChange}
             required
             // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
           />
-          <span>{fieldErrors.doublepassword}</span>
-          <input
-            type="checkbox"
-            name="show1"
-            checked={show1}
-            onChange={() => {
-              setShow1(!show1);
+
+          <button
+            className="mb_icon_button"
+            type="button"
+            onClick={() => {
+              setPasswordFieldType2(
+                passwordFieldType2 === 'text' ? 'password' : 'text'
+              );
             }}
-          />
-          <label>顯示密碼</label>
-          <br />
-          <label>名子</label>
+          >
+            {passwordFieldType2 === 'text' ? (
+              <FaRegEyeSlash className="mb_icon" />
+            ) : (
+              <FaRegEye className="mb_icon" />
+            )}
+          </button>
+          <span className="mb_span">{fieldErrors.doublepassword}</span>
+        </div>
+        <div className="mb_mar">
+          <label className="mb_label">名子:</label>
           <input
+            className="mb_input"
             type="text"
             name="name"
             value={user.name}
             onChange={handleFieldChange}
             required
           />
-          <span>{fieldErrors.name}</span>
-          <br />
-          <label>手機</label>
+          <span className="mb_span">{fieldErrors.name}</span>
+        </div>
+        <div className="mb_mar">
+          <label className="mb_label">手機:</label>
           <input
+            className="mb_input"
             type="text"
             name="phone"
             value={user.phone}
@@ -232,16 +276,32 @@ function MemberDatas() {
             required
             pattern="09\d{2}\d{6}"
           />
-          <span>{fieldErrors.phone}</span>
+          <span className="mb_span">{fieldErrors.phone}</span>
         </div>
-        <br />
-        <button type="submit">送出</button>
+        <button className="mb_button" type="submit">
+          送出
+        </button>
+        <button
+          type="button"
+          className="mb_clear"
+          onClick={() => {
+            setUser({
+              email: '',
+              password: '',
+              doublepassword: '',
+              name: '',
+              phone: '',
+            });
+          }}
+        >
+          清空
+        </button>
       </form>
     </div>
   );
   return (
     <>
-      <button onClick={getform}>按鈕</button>
+      {/* <button onClick={getform}>按鈕</button> */}
       {display}
     </>
   );

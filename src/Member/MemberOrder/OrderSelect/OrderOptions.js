@@ -42,7 +42,6 @@ function OrderOptions({
               <p className="w50p disf">
                 <span className="smallHidden">訂單編號:</span>
                 <span>{v.orderId}</span>
-                
               </p>
             </div>
           );

@@ -5,7 +5,7 @@ import OrderContents from './OrderContents';
 import OrderSelect from './OrderSelect';
 import './MemberOrder.css';
 
-function MemberOrder() {
+function MemberOrder({ orderSocket }) {
   const { loginCheckGetFetch } = useFunc();
   //訂單概覽列表
   const [orderList, setOrderList] = useState([]);
@@ -39,7 +39,11 @@ function MemberOrder() {
           />
           <div className="w100p">
             <p className="fs32 fw6 marb20">你的訂單狀態</p>
-            <OrderContents selectedOrder={selectedOrder} />
+            <OrderContents
+              selectedOrder={selectedOrder}
+              orderSocket={orderSocket}
+              setSelectedOrder={setSelectedOrder}
+            />
           </div>
         </div>
       )}

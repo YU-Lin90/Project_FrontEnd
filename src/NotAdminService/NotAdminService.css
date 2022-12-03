@@ -1,5 +1,5 @@
-.notAdminChattingBox{
-  width:100%;
+.notAdminChattingBox {
+  width: 100%;
   height: 70%;
   position: relative;
   /* top: 20%; */
@@ -16,6 +16,7 @@
   overflow-x: hidden;
 
 }
+
 .notAdminChatInputFrame {
   position: relative;
   /* bottom: 0; */
@@ -25,6 +26,7 @@
   display: flex;
   justify-content: space-evenly;
 }
+
 .notAdminChatContent {
   flex-direction: column-reverse;
   flex-wrap: nowrap;
@@ -34,25 +36,54 @@
   /* padding: 10px; */
   padding-bottom: 50px;
 }
+
 /* 對話內容大框 */
 .notAdminChatBlocks {
   /* border: 1px red solid; */
   padding: 5px;
   max-width: 50%;
-  word-wrap:break-word;
+  word-wrap: break-word;
   flex-grow: 1;
   flex-shrink: 1;
   /* flex-basis: 0; */
 }
-.notAdminTexts{
+
+.notAdminTexts {
   margin-bottom: 5px;
-  word-wrap:break-word;
+  word-wrap: break-word;
   line-height: 1.8;
   padding: 5px;
 }
-.notAdminTimes{
+
+.notAdminTimes {
   text-align: right;
   color: #999;
 }
 
 
+.chattingRoomButton {
+  background-color: var(--mainColor);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.chattingRoomButton:hover{
+  background-color: var(--subColor);
+  box-shadow: 0 5px 14px  rgba(51, 102, 255, 0.24);
+}
+.chattingRoomInput {
+  border-radius: 15px;
+  padding-inline-start: 15px;
+  padding-inline-end: 15px;
+  border: 1px solid blue;
+  line-height: 28px;
+  font-size: 24px;
+}
+
+.chattingRoomInput:focus {
+  box-shadow: -10px -10px 28px 0 rgba(2, 2, 255, 0.2), 10px 10px 29px rgba(2, 2, 255, 0.2);
+}

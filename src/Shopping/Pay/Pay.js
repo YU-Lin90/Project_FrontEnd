@@ -6,21 +6,23 @@ import ProfileData from './ProfileData';
 import PayCoupon from './PayCoupon';
 import Payment from './Payment';
 import { usePay } from '../../Context/PayPageContext';
+import { useAuth } from '../../Context/AuthProvider';
+import Swal from 'sweetalert2';
 import './Pay.css';
 //結帳頁 全體
 function Pay({ orderSocket }) {
-  const { chooseedPayShop, clearPayPageState } = usePay();
-
+  const { chooseedPayShop , clearPayPageState, cartTotal } = usePay();
+  const { authMember } = useAuth();
   const navi = useNavigate();
   // 製作中先關掉 做完再打開(空白選擇阻擋)
   useEffect(() => {
-    //沒選擇直接擋掉
-    // if (!chooseedPayShop > 1) {
+    // //沒選擇直接擋掉
+    // if (!cartTotal) {
     //   alert('尚未選擇店家!!');
     //   navi('/');
     // }
     return () => {
-      clearPayPageState();
+      // clearPayPageState();
     };
   }, []);
   return (

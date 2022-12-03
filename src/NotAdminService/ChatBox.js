@@ -48,8 +48,9 @@ function ChatBox({ socket, sideName }) {
           sideName={sideName}
         />
       </div>
-      <div className="notAdminChatInputFrame">
+      <div className=" padV15 notAdminChatInputFrame">
         <input
+          className="chattingRoomInput"
           autoFocus
           value={inputContent}
           onChange={(e) => {
@@ -63,14 +64,15 @@ function ChatBox({ socket, sideName }) {
             }
           }}
         />
-        <button
+        <div
+          className="chattingRoomButton"
           onClick={() => {
             sendData(inputContent, side, sid);
             setInputContent('');
           }}
         >
           傳送
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,16 @@
 //接單/完成畫面
 
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 const siteName = window.location.hostname;
 const fetchList = [
   'checkDisConfirmDetail',
   'checkConfirmedDetail',
   'checkCompletedDetail',
 ];
-const buttonContent = ['確認接單', '完成訂單'];
+const buttonContent = ['確認', '完成'];
+const alertContent = ['接單', '完成訂單'];
+const confirmedMessage = ['接單成功', '訂單完成'];
 
 function StoreOrderConfirm({
   setOpenDetail,
@@ -100,17 +103,31 @@ function StoreOrderConfirm({
         "memberName": "ゆう",
         "orderNumber": "S3891"
     },
-    "productDetails": [
-        {
-            "sid": 1,
-            "order_sid": 3,
-            "product_sid": 1117,
-            "product_price": 90,
-            "amount": 5,
-            "productName": "橄欖油蒜味辣椒麵 "
+    "productDetails": [{
+            "sid": 463,
+            "order_sid": 189,
+            "product_sid": 1111,
+            "product_price": 135,
+            "amount": 1,
+            "productName": "奶油蔬菜鮭魚麵",
+            "detail":{
+                        "option_detail_sid": 1,
+                        "options": "加起司",
+                        "option_price": 10
+                    }
         }
     ]
 }*/
+  //===============================================分隔線================================================
+  const confirmAlert = Swal.mixin({
+    customClass: {
+      //classname
+      confirmButton: 'storeConfirmOrderAlertButton',
+      cancelButton: 'storeConfirmOrderAlertButton',
+    },
+    buttonsStyling: false,
+  });
+  //===============================================分隔線================================================
 
   useEffect(() => {
     getData(choosedOrderSid);
@@ -139,15 +156,25 @@ function StoreOrderConfirm({
                       <p className="w15p fontMainColor ">{value.amount}x</p>
                       <p className="w85p">{value.productName}</p>
                     </div>
-                    {/* TODO:加上選項 */}
-                    <div className=" productDetails disf padV5">
-                      <div className="w100p">
-                        <span className="w50p ta-c">【去冰】</span>
-                        <span className="w50p ta-c">【去冰】</span>
-                        <span className="w50p ta-c">【去冰】</span>
-                        <span className="w50p ta-c">【去冰】</span>
-                      </div>
-                    </div>
+                    {Object.keys(value.detail).length !== 0 ? (
+                      <>
+                        <div className=" productDetails disf padV5">
+                          <div className="w100p disf fw-w">
+                            {value.detail.map((element) => {
+                              return (
+                                <>
+                                  <span className="w25p marV5 ta-c">
+                                    【{element.options}】
+                                  </span>
+                                </>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 );
               })}
@@ -173,32 +200,48 @@ function StoreOrderConfirm({
               <div
                 className="storeConfirmOrderButton"
                 onClick={async () => {
-                  if (page === 0) {
-                    //接單  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 2,}
-                    orderSocket.send(
-                      JSON.stringify({
-                        receiveSide: 1,
-                        receiveSid: orderDetail.member_sid,
-                        step: 2,
-                        orderSid: orderDetail.sid,
-                      })
-                    );
-                    await setOrder(orderDetail.sid, orderDetail.member_sid);
-                    setPage(1);
-                  } else if (page === 1) {
-                    //完成  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 3}
-                    orderSocket.send(
-                      JSON.stringify({
-                        receiveSide: 1,
-                        receiveSid: orderDetail.member_sid,
-                        step: 3,
-                        orderSid: orderDetail.sid,
-                      })
-                    );
-                    await completeOrder(orderDetail.store_order_sid);
-                    setPage(2);
-                  }
-                  setOpenDetail(false);
+                  confirmAlert
+                    .fire({
+                      title: `是否確定${alertContent[page]}?`,
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonText: '確定',
+                      cancelButtonText: '取消',
+                    })
+                    .then(async (result) => {
+                      if (result.isConfirmed) {
+                        if (page === 0) {
+                          //接單  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 2,}
+                          orderSocket.send(
+                            JSON.stringify({
+                              receiveSide: 1,
+                              receiveSid: orderDetail.member_sid,
+                              step: 2,
+                              orderSid: orderDetail.sid,
+                            })
+                          );
+                          await setOrder(
+                            orderDetail.sid,
+                            orderDetail.member_sid
+                          );
+                          setPage(1);
+                        } else if (page === 1) {
+                          //完成  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 3}
+                          orderSocket.send(
+                            JSON.stringify({
+                              receiveSide: 1,
+                              receiveSid: orderDetail.member_sid,
+                              step: 3,
+                              orderSid: orderDetail.sid,
+                            })
+                          );
+                          completeOrder(orderDetail.store_order_sid);
+                          setPage(2);
+                        }
+                        setOpenDetail(false);
+                        confirmAlert.fire(confirmedMessage[page]);
+                      }
+                    });
                 }}
               >
                 {buttonContent[page]}
