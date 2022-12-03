@@ -1,5 +1,5 @@
 function DeliverStatistics() {
-  return <>外送員統計</>;
+  return <>外送員統計123</>;
 }
 
 export default DeliverStatistics;
