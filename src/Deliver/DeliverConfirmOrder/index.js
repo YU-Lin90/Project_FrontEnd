@@ -19,6 +19,7 @@ function DeliverConfirmOrder() {
       'http://localhost:3001/deliver/deliverlist'
     );
     setListData(response.data.rows1);
+    console.log(listData);
   }
 
   useEffect(() => {

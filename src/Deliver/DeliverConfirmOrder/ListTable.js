@@ -2,11 +2,29 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+/* --------------------------------------- */
+import { useGeo } from '../../Context/GeoLocationProvider';
+/* --------------------------------------- */
+
 
 function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
   const [btn, setBtn] = useState(false);
   const [delivertake, setDelivertake] = useState(true);
+  const [addmap, setAppmap] = useState();
   // const [dosid, setDosid] = useState([]);
+  /* -----------------距離用---------------------- */
+  const { calculateDistance } = useGeo();
+
+  async function map(){
+    const shopAddress = address;
+    const selfLocation = "台北市大安區復興南路一段390號2樓";  //獲取自己位置
+    // 計算("店家地址","送達地址")間的直線距離
+    const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+    const mapapp = gettedDistance.toFixed(1)
+    console.log(mapapp);
+    setAppmap(mapapp)
+    }
+  /* --------------------------------------- */
 
   const navi = useNavigate();
   /* -----------後端動作--------------------- */
@@ -58,6 +76,7 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
   
   useEffect(()=>{
     take();
+    map();
   },[])
   /* -------------------------------- */
 
@@ -79,7 +98,7 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
           
           <div className='Dcook'>
             <p className='Dcooktitle'>距離</p>
-            <p className='Dcooktext'>{}</p>    {/* 未完成 */}
+            <p className='Dcooktext'>{addmap+"km"}</p>    {/* 未完成 */}
           </div>
           
         </div>
