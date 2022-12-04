@@ -11,19 +11,31 @@ function ListTable({receive_address, client, cook_time, member_sid, shop_sid, si
   const [btn, setBtn] = useState(false);
   const [delivertake, setDelivertake] = useState(true);
   const [addmap, setAppmap] = useState();
-  // const [dosid, setDosid] = useState([]);
+  //自己位置
+  const [deliverPosition, setDeliverPosition] = useState("25.03086247511344, 121.53130788356066");
+
   /* -----------------距離用---------------------- */
   const { calculateDistance } = useGeo();
 
-  async function map(){
-    const shopAddress = address;
-    const selfLocation = "台北市大安區復興南路一段390號2樓";  //獲取自己位置
+  const checkMyLocation = async () => {
+    //獲得現在位置 然後傳到裡面的函式
+    navigator.geolocation.getCurrentPosition((location) => {
+      console.log(location.coords);
+      console.log(`${location.coords.latitude}, ${location.coords.longitude}`);
+      const deliverself = `${location.coords.latitude}, ${location.coords.longitude}`;
+      setDeliverPosition(deliverself);
+    });
+  };
+
+  const map = async () => {  
     // 計算("店家地址","送達地址")間的直線距離
-    const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+    const gettedDistance = await calculateDistance(address, deliverPosition);
     const mapapp = gettedDistance.toFixed(1)
-    console.log(mapapp);
     setAppmap(mapapp)
-    }
+    
+  }
+
+  
   /* --------------------------------------- */
 
   const navi = useNavigate();
@@ -73,11 +85,11 @@ function ListTable({receive_address, client, cook_time, member_sid, shop_sid, si
     const addtake = JSON.parse(localStorage.getItem('delivertake'));
     setDelivertake(addtake)
   }
-  
   useEffect(()=>{
+    checkMyLocation();
     take();
     map();
-  },[])
+  },[deliverPosition])
   /* -------------------------------- */
 
   return (
