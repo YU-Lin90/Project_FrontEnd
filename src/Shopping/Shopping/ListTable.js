@@ -59,6 +59,8 @@ export default function ListTable() {
   const getShop = async () => {
     const sid = localStorage.getItem('MemberSid');
 
+    let order = usp.get('order');
+
     try {
       // const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
@@ -67,6 +69,10 @@ export default function ListTable() {
       //把總筆數和checkbox回歸初始狀態
       setSearchTotalRows('');
       setIsChecked(true);
+      // 如果排序=距離，把資料按distance由小到大排列
+      if (order === 'distance') {
+        response.data.sort((a, b) => a.distance - b.distance);
+      }
 
       //---------------------------計算距離用-----------------------------
       if (sendAddress) {
@@ -82,6 +88,18 @@ export default function ListTable() {
 
           // 將結果放進result.distance
           element.distance = Math.round(gettedDistance);
+
+          // 超過30公里，每5公里加10元外送費
+          if (gettedDistance > 30) {
+            const cost = Math.floor(gettedDistance);
+            const cost2 = cost - 30;
+            const cost3 = cost2 / 5;
+            const cost4 = Math.ceil(cost3);
+            const cost5 = cost4 * 10;
+            element.fees = 30 + cost5;
+          } else if (gettedDistance > 0 && gettedDistance <= 30) {
+            element.fees = 30;
+          }
         }
       }
       //-----------------------------------------------------------------
@@ -264,7 +282,18 @@ export default function ListTable() {
         const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
-        element.distance = Math.round(gettedDistance);
+        element.distance = gettedDistance;
+
+        // 超過30公里，每5公里加10元外送費
+        if (gettedDistance > 30) {
+          const cost2 = Math.ceil(gettedDistance - 30);
+          const cost3 = cost2 / 5;
+          const cost4 = Math.ceil(cost3);
+          const cost5 = cost4 * 10;
+          element.fees = 30 + cost5;
+        } else if (gettedDistance > 0 && gettedDistance <= 30) {
+          element.fees = 30;
+        }
 
         // 如果排序=距離，把資料按distance由小到大排列
         if (order === 'distance') {
@@ -528,6 +557,7 @@ export default function ListTable() {
                     </div>
                     <span>{shop.type_name}</span>
                     <span>{shop.distance} 公里</span>
+                    <span>外送費{shop.fees}元</span>
                   </div>
                 </Link>
                 <button
