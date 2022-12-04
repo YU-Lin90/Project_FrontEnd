@@ -5,16 +5,20 @@ import GoogleMapReact from 'google-map-react';
 import { useGeo } from '../../../Context/GeoLocationProvider';
 import keys from '../../../keys';
 import { useFunc } from '../../../Context/FunctionProvider';
+import TargetPositionIcon from './TargetPositionIcon';
+import './DeliverMaps.css';
 const Cycle = () => (
   <div>
     <i className="fs48 fa-solid fa-motorcycle fontMainColor mapTranslate cycleFontOnMap"></i>
   </div>
 );
-const TargetPosition = () => (
-  <div>
-    <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
-  </div>
-);
+// const TargetPosition = ({ targetName, targetAddress }) => (
+//   <div className="w200 bgcW">
+//     <span>{targetName}</span>
+//     <span>{targetAddress}</span>
+//     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
+//   </div>
+// );
 
 const buttonText = ['', '送達', '取餐'];
 function DeliverMapContent({
@@ -29,10 +33,14 @@ function DeliverMapContent({
   //聊天室開啟狀態
   socketOpened,
 }) {
+  //店家/客戶名稱
+  const [targetName, setTargetName] = useState('');
+  //現在是誰  2 店家 1 客戶
   const [sideNow, setSideNow] = useState(2);
   const { loginCheckGetFetch } = useFunc();
   const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
     useGeo();
+  //按鈕狀態  是否鎖定  靠近才可以取餐/送達
   const [buttonStatus, setButtonStatus] = useState(true);
   //目標位置
   const [targetPosition, setTargetPosition] = useState({
@@ -71,14 +79,18 @@ function DeliverMapContent({
   };
   //獲得對方位置函式
   const getAddress = async () => {
+    const orderSid = localStorage.getItem('order_sid');
+    console.log(123);
+    console.log({ orderSid });
     if (orderSid === 0) {
       return;
     }
     const res = await loginCheckGetFetch(
+      //這邊SIDE沒用到 就放著
       `deliving/GetAddress?side=${side}&orderSid=${orderSid}`,
       'Deliver'
     );
-    console.log(res);
+    // console.log({res});
     //  side
     /* {
     "receive_address": "台北市信義路一段1號",
@@ -87,19 +99,21 @@ function DeliverMapContent({
     "memberName": "ゆう"
     } */
     //依照是哪方設定地址
-    const address = side === 1 ? res.receive_address : res.address;
-    console.log(address);
+    const address = sideNow === 1 ? res.receive_address : res.address;
+    const gettedName = sideNow === 1 ? res.memberName : res.shopName;
+    // console.log(address);
     //由地址獲得座標
     const coordinate = await getLatLngByAddress(address);
     console.log(coordinate);
     setTargetPosition(coordinate);
     setTargetAddress(address);
+    setTargetName(gettedName);
   };
   //===============================================分隔線================================================
   const checkMyLocation = async () => {
     //獲得現在位置 然後傳到裡面的函式
     navigator.geolocation.getCurrentPosition((location) => {
-      console.log(location.coords);
+      // console.log(location.coords);
       setDeliverPosition({
         lat: location.coords.latitude,
         lng: location.coords.longitude,
@@ -109,19 +123,38 @@ function DeliverMapContent({
   //每秒定位 OK 1126/2315
   useEffect(() => {
     const intervals = setInterval(checkMyLocation, 1000);
-    getAddress();
+
     return () => {
       clearInterval(intervals);
     };
   }, []);
-  useEffect(() => {}, []);
+  //sideNow
+  useEffect(() => {
+    getAddress();
+    getOrderStep();
+  }, [sideNow]);
   //近來頁面時獲得訂單狀態
-  const getOrderStep = async () => {};
+  const getOrderStep = async () => {
+    const orderSid = localStorage.getItem('order_sid');
+    //沒有就不設定
+    if (!orderSid) {
+      return;
+    }
+    const res = await loginCheckGetFetch(
+      `deliving/GetDeliveStep/?orderSid=${orderSid}`,
+      'Deliver'
+    );
+    console.log(res);
+    const stateList = [2, 1];
+    setSideNow(stateList[res]);
+    //res 0 還沒取餐 1 已經取餐
+  };
 
   //位置有改變時傳送位置訊息
   //orderSocket memberSid
   //  JSON.stringify({position:true,lat:deliverPosition.lat,lng:deliverPosition.lng ,receiveSid:memberSid,receiveSide:side,orderSid:orderSid})
   //    {position:true,lat:deliverPosition.lat,lng:deliverPosition.lng ,receiveSid:memberSid,receiveSide:side,orderSid:orderSid}
+  //這邊只發給會員 所以SIDE不管
   useEffect(() => {
     if (socketOpened) {
       orderSocket.send(
@@ -130,7 +163,7 @@ function DeliverMapContent({
           lat: deliverPosition.lat,
           lng: deliverPosition.lng,
           receiveSid: memberSid,
-          receiveSide: side,
+          receiveSide: 1,
           orderSid: 1,
         })
       );
@@ -138,13 +171,14 @@ function DeliverMapContent({
     checkArraive();
   }, [deliverPosition]);
   //===============================================分隔線================================================
-  const ordersid = localStorage.getItem('order_sid');
+
   async function foodget() {
+    const ordersid = localStorage.getItem('order_sid');
     await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
-    setSideNow(1);
   }
 
   async function foodreach() {
+    const ordersid = localStorage.getItem('order_sid');
     await axios.put(
       `http://localhost:3001/deliver/finishdeliverorder/${ordersid}`
     );
@@ -162,10 +196,13 @@ function DeliverMapContent({
         defaultZoom={defaultProps.zoom}
         center={deliverPosition}
       >
-        <TargetPosition
+        <TargetPositionIcon
           lat={targetPosition.lat}
           lng={targetPosition.lng}
           text="target"
+          targetName={targetName}
+          targetAddress={targetAddress}
+          sideNow={sideNow}
         />
         <Cycle
           lat={deliverPosition.lat}
@@ -174,18 +211,38 @@ function DeliverMapContent({
         />
       </GoogleMapReact>
       <button
-        className='deliverMapSendButton'
+        className="deliverMapSendButton"
         disabled={buttonStatus}
         onClick={() => {
           if (sideNow === 2) {
             foodget();
+            setSideNow(1);
+            const orderSid = localStorage.getItem('order_sid');
+            orderSocket.send(
+              JSON.stringify({
+                receiveSide: 1,
+                receiveSid: 1,
+                step: 4,
+                orderSid: Number(orderSid),
+              })
+            );
           }
           if (sideNow === 1) {
             foodreach();
+            const orderSid = localStorage.getItem('order_sid');
+            orderSocket.send(
+              JSON.stringify({
+                receiveSide: 1,
+                receiveSid: 1,
+                step: 5,
+                orderSid: Number(orderSid),
+              })
+            );
           }
         }}
       >
-        {buttonText[side]}
+        {/* 這邊不會跟著跳?? */}
+        {sideNow === 2 ? '取餐' : '送達'}
       </button>
     </>
   );
