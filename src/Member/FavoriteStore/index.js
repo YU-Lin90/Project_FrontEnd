@@ -301,32 +301,32 @@ export default function FavoriteStore() {
           onChange={(e) => {
             setInputKeyword(e.target.value);
           }}
-          onKeyPress={() => {
-            if (!inputKeyword) {
-              const a = user;
-              console.log(a);
-              getform();
-            } else {
-              const b = user.filter((v, i) => v.name.includes(inputKeyword));
-              setUser(b);
-              console.log(123, user);
-            }
-          }}
+          // onKeyPress={() => {
+          //   if (!inputKeyword) {
+          //     const a = user;
+          //     console.log(a);
+          //     getform();
+          //   } else {
+          //     const b = user.filter((v, i) => v.name.includes(inputKeyword));
+          //     setUser(b);
+          //     console.log(123, user);
+          //   }
+          // }}
         />
         <button
           className="mf_search_button"
-          onClick={async () => {
-            // setSearchKeyWord(inputKeyword);
-            if (!inputKeyword) {
-              const a = user;
-              console.log(a);
-              getform();
-            } else {
-              const b = user.filter((v, i) => v.name.includes(inputKeyword));
-              console.log(b);
-              setUser(b);
-            }
-          }}
+          // onClick={async () => {
+          //   // setSearchKeyWord(inputKeyword);
+          //   if (!inputKeyword) {
+          //     const a = user;
+          //     console.log(a);
+          //     getform();
+          //   } else {
+          //     const b = user.filter((v, i) => v.name.includes(inputKeyword));
+          //     console.log(b);
+          //     setUser(b);
+          //   }
+          // }}
         >
           <AiOutlineSearch className="mf_search_icon" />
         </button>
