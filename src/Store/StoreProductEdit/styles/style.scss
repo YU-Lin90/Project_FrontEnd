@@ -13,6 +13,98 @@
     padding: 0px 16px;
     position: relative;
   }
+  .product-area {
+    width: 100%;
+    p {
+      font-size: 16px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 16px;
+      padding-right: 32px;
+      border-bottom: 2px solid rgb(224, 224, 224);
+
+      .left {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i {
+          color: rgb(204, 204, 204);
+          font-size: 16px;
+          margin-right: 16px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+      .right {
+      }
+      p {
+      }
+    }
+    .middle {
+      
+      .product-box {
+        padding: 8px 32px;
+        padding-right: 80px;
+        border-bottom: 1px solid rgb(224, 224, 224);
+        display: flex;
+        justify-content: space-between;
+        .left {
+          display: flex;
+          align-items: center;
+          i {
+            color: rgb(204, 204, 204);
+            font-size: 16px;
+            margin-right: 16px;
+          }
+          img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            margin-right: 16px;
+          }
+          p {
+          }
+        }
+        .right {
+          align-self: center;
+          input[type='number'] {
+            display: block;
+            border: none;
+            line-height: 20px;
+            padding-bottom: 6px;
+            cursor: text;
+            background-color: rgb(238, 238, 238);
+            border-radius: 8px;
+          }
+          input[type='number']::-webkit-inner-spin-button,
+          input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+          }
+          .number-input {
+            position: relative;
+            div {
+              position: absolute;
+              left: 5px;
+              top: 50%;
+              transform: translateY(-52%);
+            }
+            input {
+              width: 96px;
+              padding: 6px 0px;
+              padding-left: 36px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+    }
+  }
 
   h4 {
     font-size: 28px;
