@@ -13,8 +13,8 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
   const [lengthNow, setLengthNow] = useState(0);
   return (
     <>
-      <div>
-        <p className="fs24 fw6 ta-c">拒絕選項</p>
+      <div className="randomCheckBoxFrame">
+        <p className="fs24 fw6 ta-c">請選擇種類</p>
         <div className="disf jc-se w500 marHauto  padV20 padH20">
           {typeList.map((v) => (
             <div key={v.sid} className="disf">
@@ -47,6 +47,24 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
               />
             </div>
           ))}
+        </div>
+        <div className="disf jc-se">
+          <p
+            onClick={() => {
+              setRejectedTypes(Array(6).fill(true));
+            }}
+            className="bgcMain bradi10 padV10 padH10 fs18 fw5 pointer"
+          >
+            全部選取
+          </p>
+          <p
+            onClick={() => {
+              setRejectedTypes(Array(6).fill(false));
+            }}
+            className="bgcMain bradi10 padV10 padH10 fs18 fw5 pointer"
+          >
+            全部清空
+          </p>
         </div>
       </div>
     </>
