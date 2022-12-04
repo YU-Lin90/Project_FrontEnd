@@ -61,7 +61,14 @@ function DeliveDetail() {
 
         <div className="marb20 disf jc-sb ai-c">
           <div>
-            <p className="fs24 fw5 marb15 ">送達地址:</p>
+            <p
+              onClick={() => {
+                setSendAddress('台北市大安區復興南路一段390號2樓');
+              }}
+              className="fs24 fw5 marb15 "
+            >
+              送達地址:
+            </p>
             {editAddress ? (
               <div>
                 <input
@@ -94,7 +101,14 @@ function DeliveDetail() {
         </div>
         <div className="marb20 disf jc-sb ai-c">
           <div>
-            <p className="fs24 fw5 marb15">店家備註:</p>
+            <p
+              onClick={() => {
+                setStoreMemo('全部餐點都不要辣');
+              }}
+              className="fs24 fw5 marb15"
+            >
+              店家備註:
+            </p>
             {editShopMemo ? (
               <div>
                 <input
@@ -127,7 +141,14 @@ function DeliveDetail() {
         </div>
         <div className="marb20 disf jc-sb ai-c">
           <div>
-            <p className="fs24 marb15 fw5">外送員備註:</p>
+            <p
+              onClick={() => {
+                setDeliverMemo('放在櫃檯就好');
+              }}
+              className="fs24 marb15 fw5"
+            >
+              外送員備註:
+            </p>
             {editDeliverMemo ? (
               <div>
                 <input
