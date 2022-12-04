@@ -35,7 +35,7 @@ function DeliverMap() {
   return (
     <div
       className="po-r"
-      style={{ width: '100%', minHeight: '500px', height: '600px' }}
+      style={{ width: '100%', minHeight: '500px', height: 'calc(100vh - 160px)' }}
     >
       <DeliverMapContent
         orderSocket={orderSocket}

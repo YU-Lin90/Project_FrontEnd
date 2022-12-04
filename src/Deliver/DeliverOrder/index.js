@@ -8,9 +8,10 @@ function DeliverOrder() {
   const [orderData, setOrderData] = useState([]);
   const [foodData, setFoodData] = useState([]);
   const [total, setTotal] = useState([]);
-  const ordersid = localStorage.getItem('order_sid');
+  // const ordersid = localStorage.getItem('order_sid');
 
   async function getOrder() {
+    const ordersid = localStorage.getItem('order_sid');
     const response = await axios.get(
       `http://localhost:3001/deliver/deliverorder/${ordersid}`
     );
