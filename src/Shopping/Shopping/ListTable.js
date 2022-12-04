@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
-// import storeimage from './../../../../../Images/shopping/10002.jpeg';
 
 //距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
@@ -35,18 +34,13 @@ export default function ListTable() {
   //抓網址變動
   useEffect(() => {
     submitHandle();
-  }, [location,sendAddress]);
+  }, [location, sendAddress]);
 
   //表格資料
   const [shop, setShop] = useState([]);
 
   //checkbox用
   const [isChecked, setIsChecked] = useState(true);
-
-  //連結，暫時無用
-  const handleClick = (myLink) => () => {
-    navigate = '/';
-  };
 
   //錯誤用
   const [errorMsg, setErrorMsg] = useState('');
@@ -64,6 +58,7 @@ export default function ListTable() {
   //取得所有店家
   const getShop = async () => {
     const sid = localStorage.getItem('MemberSid');
+
     try {
       // const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
@@ -385,8 +380,6 @@ export default function ListTable() {
               <div className="search_bar_name">
                 <input
                   type="text"
-                  //req.query.search
-                  //:3001/Shopping/?search=
                   name="search"
                   className="search_bar_name_input"
                   placeholder="以店名或餐點名搜尋"
@@ -466,7 +459,7 @@ export default function ListTable() {
                     name="wait_time"
                     id="wait_time"
                     min="0"
-                    max="120"
+                    max="80"
                     step="5"
                     value={searchWaitTime || 120}
                     onChange={waitTime_handleChange}
@@ -474,18 +467,18 @@ export default function ListTable() {
                   />
                   <div className="sliderticks">
                     <p>5</p>
-                    <p>30</p>
+                    <p>20</p>
+                    <p>40</p>
                     <p>60</p>
-                    <p>90</p>
-                    <p>120</p>
+                    <p>80</p>
                   </div>
                 </div>
               </div>
             </div>
-            <input 
-            type="submit" 
-            value="開始搜尋" 
-            className='search_bar_submit'
+            <input
+              type="submit"
+              value="開始搜尋"
+              className="search_bar_submit"
             />
           </div>
         </form>
@@ -499,10 +492,10 @@ export default function ListTable() {
               <div key={index} className="shopCardBox">
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
-                  <img
-                  src={`http://${siteName}:3001/images/shopping/${shop.src}.jpg`}
-                  alt={shop.name}
-                />
+                    <img
+                      src={`http://${siteName}:3001/images/shopping/storeCover1.jpg`}
+                      alt={shop.name}
+                    />
                     <div className="shopCard_conpon"></div>
                     <div className="shopCard_delivery_time">
                       等待時間{shop.wait_time}
@@ -532,27 +525,21 @@ export default function ListTable() {
                         {/* 資料庫結構: 小數點 */}
                         {shop.average_evaluation}
                       </div>
-
-                      {/* TODO 距離 */}
                     </div>
                     <span>{shop.type_name}</span>
                     <span>{shop.distance} 公里</span>
-                    <button
-                      onClick={() => {
-                        submit(shop.sid);
-                        const oldState = myIndex[shop.sid];
-                        setMyIndex({ ...myIndex, [shop.sid]: !oldState });
-                      }}
-                      // className="icon"
-                    >
-                      {!myIndex[shop.sid] ? (
-                        <AiOutlineHeart />
-                      ) : (
-                        <AiFillHeart />
-                      )}
-                    </button>
                   </div>
                 </Link>
+                <button
+                  onClick={() => {
+                    submit(shop.sid);
+                    const oldState = myIndex[shop.sid];
+                    setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                  }}
+                  // className="icon"
+                >
+                  {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
+                </button>
               </div>
             ))
           ) : (
