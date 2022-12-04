@@ -7,7 +7,7 @@ import { useGeo } from '../../Context/GeoLocationProvider';
 /* --------------------------------------- */
 
 
-function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
+function ListTable({client, cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
   const [btn, setBtn] = useState(false);
   const [delivertake, setDelivertake] = useState(true);
   const [addmap, setAppmap] = useState();
@@ -111,7 +111,7 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
                 <i className="fa-regular fa-user Dicon"></i>
               </div>
               <div>
-                <p>dsafa</p>
+                <p>{client}</p>
                 <p>adsf</p>
               </div>
             </div>
