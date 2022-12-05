@@ -164,7 +164,17 @@ margin: 2vh 0;
 }
 
 
-
+.search_bar_submit{
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    padding: 8px 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
 
 .col_list{
     display: flex;
@@ -191,6 +201,7 @@ justify-content: flex-start;
 align-items: center;
 width: 100%;
 margin: 0 auto;
+padding-left: 2em;
 }
 
 .shopCardBox{
