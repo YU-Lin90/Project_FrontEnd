@@ -602,6 +602,73 @@
           appearance: auto;
   accent-color: orange;
 }
+.store-admin .menu-container .edit-form form .option-box .amount-area {
+  margin: 24px 0px;
+}
+.store-admin .menu-container .edit-form form .option-box .amount-area .amount-box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 4px 0px;
+}
+.store-admin .menu-container .edit-form form .option-box .amount-area .amount-box p {
+  text-align: center;
+}
+.store-admin .menu-container .edit-form form .option-box .amount-area .amount-box input {
+  width: 40px;
+  padding: 4px 0px;
+  padding-left: 8px;
+  margin-left: 8px;
+}
+.store-admin .menu-container .edit-form form .option-box .amount-area .amount-box input[type=number]::-webkit-inner-spin-button,
+.store-admin .menu-container .edit-form form .option-box .amount-area .amount-box input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: auto;
+}
+.store-admin .menu-container .edit-form form .option-group-area h6 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.store-admin .menu-container .edit-form form .option-group-area .option-enter-box {
+  display: flex;
+  align-items: center;
+}
+.store-admin .menu-container .edit-form form .option-group-area .option-enter-box input {
+  width: auto;
+  padding: 0px 8px;
+  display: block;
+  border: none;
+  margin: 16px 0px;
+  margin-right: 8px;
+  cursor: text;
+  background-color: rgb(238, 238, 238);
+  border-radius: 8px;
+}
+.store-admin .menu-container .edit-form form .option-group-area .option-enter-box .sm-black-btn {
+  border: none;
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .thead .tr .th:nth-child(1) {
+  width: 210px;
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .fa-equals {
+  padding: 0px 8px;
+  font-size: smaller;
+  color: rgb(204, 204, 204);
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td input {
+  margin: 8px 0px;
+  margin-right: 16px;
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td input[type=text] {
+  width: auto;
+  line-height: 20px;
+  padding: 4px 8px;
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .price-box {
+  margin: 0px;
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .price-box .number-input div {
+  transform: translateY(-46%);
+}
 .store-admin .top-edit-bar {
   padding-top: 32px;
   width: 100%;

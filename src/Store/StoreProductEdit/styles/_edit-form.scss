@@ -198,7 +198,6 @@
             }
           }
         }
-
         .avail-box {
           label {
             padding: 12px 16px;
@@ -209,9 +208,9 @@
             align-self: center;
             .fa-question {
               font-size: 8px;
-              align-self:center;
-              text-align:start;
-              vertical-align:top;
+              align-self: center;
+              text-align: start;
+              vertical-align: top;
             }
             input {
               transform: translateY(-0.075em);
@@ -230,6 +229,108 @@
               &:checked {
                 appearance: auto;
                 accent-color: orange;
+              }
+            }
+          }
+        }
+
+        .option-box {
+          .amount-area {
+            margin: 24px 0px;
+            .amount-box {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+              padding: 4px 0px;
+              p {
+                text-align: center;
+              }
+              input {
+                width: 40px;
+                padding: 4px 0px;
+                padding-left: 8px;
+                margin-left: 8px;
+              }
+              input[type='number']::-webkit-inner-spin-button,
+              input[type='number']::-webkit-outer-spin-button {
+                -webkit-appearance: auto;
+              }
+            }
+          }
+
+          .table {
+            .thead {
+              .tr {
+                .th {
+                }
+              }
+            }
+          }
+        }
+        .option-group-area {
+          h6 {
+            font-size: 16px;
+            font-weight: 700;
+          }
+          .option-enter-box {
+            display: flex;
+            align-items: center;
+            input {
+              width: auto;
+              padding: 0px 8px;
+              display: block;
+              border: none;
+              margin: 16px 0px;
+              margin-right: 8px;
+              cursor: text;
+              background-color: rgb(238, 238, 238);
+              border-radius: 8px;
+            }
+            .sm-black-btn {
+              border: none;
+            }
+          }
+          .table {
+            .thead {
+              .tr {
+                .th {
+                  &:nth-child(1) {
+                    width: 210px;
+                  }
+                  &:nth-child(2) {
+                  }
+                }
+              }
+            }
+            .tbody {
+              // padding: 0px 24px;
+              tr {
+                td {
+                  // width: 200px;
+                  .fa-equals {
+                    padding: 0px 8px;
+                    font-size: smaller;
+                    color: rgb(204, 204, 204);
+                  }
+                  input {
+                    margin: 8px 0px;
+                    margin-right: 16px;
+                  }
+                  input[type='text'] {
+                    width: auto;
+                    line-height: 20px;
+                    padding: 4px 8px;
+                  }
+                  
+                  .price-box {
+                    margin: 0px;
+                    .number-input {
+                      div{
+                        transform: translateY(-46%);
+                      }
+                    }
+                  }
+                }
               }
             }
           }

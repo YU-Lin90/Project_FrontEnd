@@ -207,90 +207,133 @@ function Option() {
               <div className="row">
                 <div className="edit-form">
                   <form action="" name="form1">
-                    <input
-                      type="number"
-                      name="sid"
-                      value={selectedItem ? formData.sid : ''}
-                      hidden
-                    />
-                    <label>
-                      選項群組名稱:
-                      <input
-                        type="text"
-                        name="name"
-                        value={!(selectedItem === '') ? formData.name : ''}
-                        onChange={(e) => {
-                          setFormData({ ...formData, name: e.target.value });
-                        }}
-                      />
-                    </label>
-                    <label>
-                      顧客最少必須選擇幾個客製化項目?
-                      <input
-                        type="number"
-                        name="min"
-                        value={!(selectedItem === '') ? formData.min : ''}
-                        onChange={(e) => {
-                          setFormData({ ...formData, min: e.target.value });
-                        }}
-                      />
-                    </label>
-                    <label>
-                      顧客最多可以選擇幾個客製化項目?
-                      <input
-                        type="number"
-                        name="max"
-                        value={!(selectedItem === '') ? formData.max : ''}
-                        onChange={(e) => {
-                          setFormData({ ...formData, max: e.target.value });
-                        }}
-                      />
-                    </label>
-                    <div>
-                      <br />
-                      <h3>選項:</h3>
-                      <input
-                        type="text"
-                        value={inputText}
-                        onChange={(e) => {
-                          setInputText(e.target.value);
-                        }}
-                      />
-                      <button onClick={insertBtnHandler}>新增</button>
-                      <div className="table">
-                        {optionData.map((opt, index) => {
-                          return (
-                            <>
-                              <tr>
-                                <td>
-                                  <label>
-                                    sid:
-                                    <input
-                                      type="number"
-                                      name="option_sid"
-                                      value={opt.sid}
-                                    />
-                                  </label>
-                                </td>
-                                <td>
-                                  <label>
-                                    name:
-                                    <input
-                                      type="text"
-                                      name="name"
-                                      value={opt.name}
-                                      onChange={(e) => {
-                                        const newOptionData = [...optionData];
-                                        newOptionData[index].name =
-                                          e.target.value;
-                                        setOptionData(newOptionData);
-                                      }}
-                                    />
-                                  </label>
-                                </td>
-                                <td>
-                                  <label>
-                                    price:
+                    <div className="option-box">
+                      <label hidden>
+                        <input
+                          type="number"
+                          name="sid"
+                          value={selectedItem ? formData.sid : ''}
+                        />
+                      </label>
+
+                      <label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={!(selectedItem === '') ? formData.name : ''}
+                          onChange={(e) => {
+                            setFormData({ ...formData, name: e.target.value });
+                          }}
+                        />
+                      </label>
+                      <div className="amount-area">
+                        <div className="amount-box">
+                          <p>顧客最少必須選擇幾個客製化項目?</p>
+                          <input
+                            type="number"
+                            name="min"
+                            value={!(selectedItem === '') ? formData.min : ''}
+                            onChange={(e) => {
+                              setFormData({ ...formData, min: e.target.value });
+                            }}
+                          />
+                        </div>
+                        <div className="amount-box">
+                          <p>顧客最多可以選擇幾個客製化項目?</p>
+
+                          <input
+                            type="number"
+                            name="max"
+                            value={!(selectedItem === '') ? formData.max : ''}
+                            onChange={(e) => {
+                              setFormData({ ...formData, max: e.target.value });
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="option-group-area">
+                        <h6>客製化選項</h6>
+                        <div className="option-enter-box">
+                          <input
+                            type="text"
+                            value={inputText}
+                            onChange={(e) => {
+                              setInputText(e.target.value);
+                            }}
+                          />
+                          <button
+                            className="sm-black-btn"
+                            onClick={insertBtnHandler}
+                          >
+                            新增
+                          </button>
+                        </div>
+
+                        <div className="table">
+                          <div className="thead">
+                            <div className="tr">
+                              <div className="th">選項名稱</div>
+                              <div className="th">價格</div>
+                            </div>
+                          </div>
+                          <div className="tbody">
+                            {optionData.map((opt, index) => {
+                              return (
+                                <>
+                                  <tr>
+                                    <td hidden>
+                                      <label>
+                                        sid:
+                                        <input
+                                          type="number"
+                                          name="option_sid"
+                                          value={opt.sid}
+                                        />
+                                      </label>
+                                    </td>
+
+                                    <td>
+                                      <i className="fa-solid fa-equals"></i>
+                                    </td>
+
+                                    <td>
+                                      <label>
+                                        <input
+                                          type="text"
+                                          name="name"
+                                          value={opt.name}
+                                          onChange={(e) => {
+                                            const newOptionData = [
+                                              ...optionData,
+                                            ];
+                                            newOptionData[index].name =
+                                              e.target.value;
+                                            setOptionData(newOptionData);
+                                          }}
+                                        />
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <div className="price-box">
+                                        <div className="number-input">
+                                          <div>NT$</div>
+                                          <input
+                                            type="number"
+                                            name="price"
+                                            value={opt.price}
+                                            onChange={(e) => {
+                                              const newOptionData = [
+                                                ...optionData,
+                                              ];
+                                              newOptionData[index].price =
+                                                e.target.value;
+                                              setOptionData(newOptionData);
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                      {/* <label>
                                     <input
                                       type="number"
                                       name="price"
@@ -302,22 +345,24 @@ function Option() {
                                         setOptionData(newOptionData);
                                       }}
                                     />
-                                  </label>
-                                </td>
-                                <td>
-                                  <i
-                                    class="fa-solid fa-xmark"
-                                    onClick={() => {
-                                      const newOptionData = [...optionData];
-                                      newOptionData.splice(index, 1);
-                                      setOptionData(newOptionData);
-                                    }}
-                                  ></i>
-                                </td>
-                              </tr>
-                            </>
-                          );
-                        })}
+                                  </label> */}
+                                    </td>
+                                    <td>
+                                      <i
+                                        className="fa-solid fa-trash"
+                                        onClick={() => {
+                                          const newOptionData = [...optionData];
+                                          newOptionData.splice(index, 1);
+                                          setOptionData(newOptionData);
+                                        }}
+                                      ></i>
+                                    </td>
+                                  </tr>
+                                </>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </form>
