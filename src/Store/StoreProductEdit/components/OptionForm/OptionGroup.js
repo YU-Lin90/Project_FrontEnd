@@ -15,7 +15,6 @@ function OptionGroup({
 
   useEffect(() => {
     // 如果這個選項類別可以不用選的話，自動回報optionBoolean是正確的。
-    
     // let newOptionBoolean = [...optionBoolean];
     // newOptionBoolean[otIndex] = 123;
     // setOptionBoolean(newOptionBoolean);
@@ -112,7 +111,7 @@ function OptionGroup({
                     }
                   />
                 )}
-                    
+
                 <div className="option-words">
                   <p>{opt.name}</p>
                   <p>{opt.price === 0 ? 'Free' : `$ ${opt.price}`}</p>

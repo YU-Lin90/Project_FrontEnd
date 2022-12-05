@@ -456,22 +456,6 @@
                   border: 5.5px solid orange;
                 }
               }
-              .option-words {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-left: 16px;
-              }
-              &:hover {
-                background-color: rgb(247, 247, 247);
-                input {
-                  border: 1.5px solid rgb(237, 154, 0);
-                }
-                p {
-                  color: rgb(237, 154, 0);
-                }
-              }
             }
           }
         }

@@ -45,7 +45,7 @@ function Product() {
     setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
     // 取得店家菜單資料
     getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
-  }, [reload]);
+  }, [selectedItem]);
 
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {

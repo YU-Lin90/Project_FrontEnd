@@ -43,10 +43,12 @@
           padding: 10px 0px;
           margin-bottom: 16px;
         }
+
         .previewImg {
           width: 78%;
           display: flex;
-          margin: 15px 0px;
+          margin: 16px 0px;
+          margin-bottom: 32px;
           justify-content: flex-start;
           align-items: flex-start;
           .img {
@@ -80,8 +82,36 @@
             }
           }
         }
-        .price-box {
+        .note-box {
+          margin: 16px 0px;
           p {
+            margin: 8px 0px;
+          }
+        }
+        .type-box {
+          margin: 16px 0px;
+
+          p {
+            margin: 8px 0px;
+          }
+          select {
+            display: block;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            background-color: rgb(238, 238, 238);
+            border-radius: 8px;
+            option {
+              appearance: none;
+              cursor: pointer;
+            }
+          }
+        }
+        .price-box {
+          margin: 16px 0px;
+
+          p {
+            margin: 8px 0px;
           }
           .number-input {
             position: relative;
@@ -94,6 +124,113 @@
             input {
               padding: 6px 0px;
               padding-left: 36px;
+            }
+          }
+        }
+        .ot-box {
+          width: 100%;
+          margin: 32px 0px;
+
+          // padding: 12px 0px;
+          p.top {
+            font-size: 16px;
+            font-weight: 700;
+          }
+          .table {
+            margin-top: 16px;
+          }
+          .th {
+            color: rgb(107, 107, 107);
+            padding: 10px 0px;
+            &:nth-child(1) {
+              width: calc(30% + 16px);
+            }
+          }
+          label {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            transition: all 0.2s cubic-bezier(0, 0, 1, 1);
+            input {
+              transform: translateY(-0.075em);
+              width: 18px;
+              height: 18px;
+              // border: 1.5px solid orange;
+              border: 1.5px solid rgb(107, 107, 107);
+            }
+            input[type='checkbox'] {
+              appearance: none;
+              background-color: #fff;
+              margin: 0;
+              font: inherit;
+              color: orange;
+              border-radius: 0.15em;
+              &:checked {
+                appearance: auto;
+                accent-color: orange;
+              }
+            }
+
+            .option-words {
+              width: 100%;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              margin-left: 16px;
+              p {
+                &:nth-child(1) {
+                  width: 30%;
+                }
+                &:nth-child(2) {
+                }
+              }
+            }
+
+            &:hover {
+              background-color: rgb(247, 247, 247);
+              input {
+                border: 1.5px solid rgb(237, 154, 0);
+              }
+              p {
+                // color: rgb(237, 154, 0);
+              }
+            }
+          }
+        }
+
+        .avail-box {
+          label {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            transition: all 0.2s cubic-bezier(0, 0, 1, 1);
+            align-self: center;
+            .fa-question {
+              font-size: 8px;
+              align-self:center;
+              text-align:start;
+              vertical-align:top;
+            }
+            input {
+              transform: translateY(-0.075em);
+              width: 18px;
+              height: 18px;
+              // border: 1.5px solid orange;
+              border: 1.5px solid rgb(107, 107, 107);
+            }
+            input[type='checkbox'] {
+              appearance: none;
+              background-color: #fff;
+              margin: 0;
+              font: inherit;
+              color: orange;
+              border-radius: 0.15em;
+              &:checked {
+                appearance: auto;
+                accent-color: orange;
+              }
             }
           }
         }

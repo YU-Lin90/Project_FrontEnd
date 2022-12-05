@@ -224,9 +224,9 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
               </div>
 
               <div className="note-box">
-                <p>說明</p>
+                <p>說明 (選填)</p>
                 <textarea
-                  name=""
+                  name="note"
                   id=""
                   cols="30"
                   rows="3"
@@ -238,18 +238,22 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                 ></textarea>
               </div>
 
-              <select
-                name="type"
-                id=""
-                value={!(selectedItem === '') ? formData.type : ''}
-                onChange={(e) => {
-                  setFormData({ ...formData, type: e.target.value });
-                }}
-              >
-                {data.types.map((type) => {
-                  return <option value={type.sid}>{type.name}</option>;
-                })}
-              </select>
+              <div className="type-box">
+                <p>類別</p>
+
+                <select
+                  name="type"
+                  id=""
+                  value={!(selectedItem === '') ? formData.type : ''}
+                  onChange={(e) => {
+                    setFormData({ ...formData, type: e.target.value });
+                  }}
+                >
+                  {data.types.map((type) => {
+                    return <option value={type.sid}>{type.name}</option>;
+                  })}
+                </select>
+              </div>
 
               <div className="price-box">
                 <p>價格</p>
@@ -266,7 +270,19 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                 </div>
               </div>
 
-              <div>
+              <div className="ot-box">
+                <p className="top">選項類別</p>
+                <div className="table">
+                  <div className="thead">
+                    <div className="tr">
+                      <div className="th">名稱</div>
+                      <div className="th" hidden>
+                        選項數量
+                      </div>
+                      <div className="th">可選項目</div>
+                    </div>
+                  </div>
+                </div>
                 {data.only_options_types.map((ot) => {
                   return (
                     <label>
@@ -289,25 +305,32 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                           setFormData(newData);
                         }}
                       />
-                      {ot.name}
+                      <div className="option-words">
+                        <p>{ot.name}</p>
+                        <p hidden>
+                          {
+                            data.options.filter((opt) => {
+                              return opt.options_type_sid === ot.sid;
+                            }).length
+                          }
+                        </p>
+                        <p>
+                          {data.options
+                            .filter((opt) => {
+                              return opt.options_type_sid === ot.sid;
+                            })
+                            .map((opt) => {
+                              return opt.name;
+                            })
+                            .join()}
+                        </p>
+                      </div>
                     </label>
                   );
                 })}
               </div>
 
-              {/* <label>
-                餐點說明:
-                <input
-                  type="text"
-                  name="note"
-                  value={!(selectedItem === '') ? formData.note : ''}
-                  onChange={(e) => {
-                    setFormData({ ...formData, note: e.target.value });
-                  }}
-                />
-              </label> */}
-
-              <label>
+              <label hidden>
                 折扣後價格:
                 <input
                   type="number"
@@ -322,21 +345,24 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                   hidden
                 />
               </label>
-
-              <label>
-                是否上架:
-                <input
-                  type="checkbox"
-                  name="available"
-                  checked={!(selectedItem === '') ? !!formData.available : true}
-                  onChange={(e) => {
-                    setFormData({
-                      ...formData,
-                      available: e.target.checked ? 1 : 0,
-                    });
-                  }}
-                />
-              </label>
+              <div className="avail-box">
+                <label>
+                  是否上架<i className="fa-solid fa-question"></i>
+                  <input
+                    type="checkbox"
+                    name="available"
+                    checked={
+                      !(selectedItem === '') ? !!formData.available : true
+                    }
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        available: e.target.checked ? 1 : 0,
+                      });
+                    }}
+                  />
+                </label>
+              </div>
             </form>
           </div>
         </div>
