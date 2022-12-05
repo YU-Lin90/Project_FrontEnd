@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import StoreMenu from './StoreMenu';
 import { useSVG } from '../../Context/SVGProvider';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss'
 // import { Link } from 'react-router-dom';
 const siteName = window.location.hostname;
 
@@ -92,10 +94,15 @@ function StoreNav() {
           onClick={
             authStore
               ? () => {
+               
+                
                   localStorage.removeItem('Store');
                   localStorage.removeItem('StoreName');
+                  localStorage.removeItem('StoreDatas');
                   setStoreName('');
                   setAuthStore(!authStore);
+                  Swal.fire('已登出');
+                  navi('/Store');
                 }
               : () => {
                   navi('/Store/StoreLogin');

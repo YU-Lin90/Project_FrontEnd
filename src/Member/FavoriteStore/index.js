@@ -13,8 +13,6 @@ export default function FavoriteStore() {
   const [myIndex, setMyIndex] = useState({});
   // const [index, setIndex] = useState();
   const [errormsg, setErrorMsg] = useState('');
-  const [change, setChange] = useState(1);
-  const [user3, setUser3] = useState([]);
   const siteName = window.location.hostname;
   const navigate = useNavigate();
   const forms = useRef(null);
@@ -141,9 +139,9 @@ export default function FavoriteStore() {
     }
   };
 
-  const del2 = async (a, shopSid) => {
-    a.preventDefault();
-    // console.log(forms.current.value);
+  const del2 = async (shopSid) => {
+    // e.preventDefault();
+    console.log(forms.current.value);
     const sid = localStorage.getItem('MemberSid');
     let FD = JSON.stringify({
       shop: shopSid,
@@ -156,10 +154,7 @@ export default function FavoriteStore() {
       })
         .then((r) => r.json())
         .then((res) => {
-          // e.preventDefault();
-
           console.log(res);
-          setChange((v) => v + 1);
           // Swal.fire('刪除成功');
         });
     } catch (e) {
@@ -168,22 +163,13 @@ export default function FavoriteStore() {
     }
   };
 
-  // useEffect(() => {
-  //   setUser3()
-  // }, [change]);
-
   useEffect(() => {
     if (!inputKeyword) {
       getform();
-      setUser3(user);
-      setChange((v) => v + 1);
-    } else {
-      getform();
-      const b = user.filter((v, i) => v.name.includes(inputKeyword));
-      setUser3(b);
-      setChange((v) => v + 1);
+      // getform();
+      // get2();
     }
-  }, [inputKeyword, change]);
+  }, [inputKeyword]);
 
   const submit = async (shopSid) => {
     // e.preventDefault();
@@ -201,14 +187,14 @@ export default function FavoriteStore() {
   //   setMyIndex(nextStatusIndex);
   //   // setIndex(nextIndex);
   // };
-  const display = user3.map((v, i) => {
+  const display = user.map((v, i) => {
     return (
       <div className="mf_col" key={v.sid}>
         <div className="mf_card">
           <form
             key={v.sid}
-            onSubmit={(e) => {
-              del2(e, v.shop_sid);
+            onSubmit={() => {
+              del2(v.shop_sid);
             }}
           >
             <div className="mf_imgbox">
@@ -299,32 +285,32 @@ export default function FavoriteStore() {
           onChange={(e) => {
             setInputKeyword(e.target.value);
           }}
-          // onKeyPress={() => {
-          //   if (!inputKeyword) {
-          //     const a = user;
-          //     console.log(a);
-          //     getform();
-          //   } else {
-          //     const b = user.filter((v, i) => v.name.includes(inputKeyword));
-          //     setUser(b);
-          //     console.log(123, user);
-          //   }
-          // }}
+          onKeyPress={() => {
+            if (!inputKeyword) {
+              const a = user;
+              console.log(a);
+              getform();
+            } else {
+              const b = user.filter((v, i) => v.name.includes(inputKeyword));
+              setUser(b);
+              console.log(123, user);
+            }
+          }}
         />
         <button
           className="mf_search_button"
-          // onClick={async () => {
-          //   // setSearchKeyWord(inputKeyword);
-          //   if (!inputKeyword) {
-          //     const a = user;
-          //     console.log(a);
-          //     getform();
-          //   } else {
-          //     const b = user.filter((v, i) => v.name.includes(inputKeyword));
-          //     console.log(b);
-          //     setUser(b);
-          //   }
-          // }}
+          onClick={async () => {
+            // setSearchKeyWord(inputKeyword);
+            if (!inputKeyword) {
+              const a = user;
+              console.log(a);
+              getform();
+            } else {
+              const b = user.filter((v, i) => v.name.includes(inputKeyword));
+              console.log(b);
+              setUser(b);
+            }
+          }}
         >
           <AiOutlineSearch className="mf_search_icon" />
         </button>
@@ -332,7 +318,7 @@ export default function FavoriteStore() {
       <br />
       <div className="mf_wrap">{display}</div>
       <div className="mf_errorfont">
-        {user3.length > 0 ? errormsg : '沒有此店家'}
+        {user.length > 0 ? errormsg : '沒有此店家'}
       </div>
     </>
   );
