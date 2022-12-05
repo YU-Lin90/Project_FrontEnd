@@ -13,7 +13,7 @@ function BottomNav() {
     { text: '訂單', icon:'fa-solid fa-list Dnavicon', link: '/Deliver/DeliverOrder' },
     { text: '地圖', icon:'fa-sharp fa-solid fa-map Dnavicon', link: '/Deliver/DeliverMap' },
     { text: '過往紀錄', icon:'fa-regular fa-clock Dnavicon', link: '/Deliver/DeliverDatas' },
-    { text: '統計 ', icon:'fa-solid fa-chart-simple Dnavicon', link: '/Deliver/DeliverStatistics' },
+    { text: '統計 ', icon:'fa-solid fa-chart-simple Dnavicon', link: '/Deliver/DeliverMessager' },
   ];
 
   return (
