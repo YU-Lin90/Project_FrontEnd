@@ -10,8 +10,8 @@ function Coupon() {
   const [user2, setUser2] = useState([]);
   const [user3, setUser3] = useState();
   const [text, setText] = useState([]);
-  //偵測更新
-  const [checkUpdate, setCheckUpdate] = useState(0);
+  const [change, setChange] = useState(1);
+
   const forms = useRef(null);
   const forms2 = useRef(null);
   const forms3 = useRef(null);
@@ -99,8 +99,10 @@ function Coupon() {
         .then((res) => {
           if (res === 1) {
             // Swal.fire('領取成功');
-            
-            setCheckUpdate((v) => v + 1);
+
+            setChange((v) => v + 1)
+            e.preventDefault();
+
             console.log(res);
           } else {
             Swal.fire('領取失敗');
@@ -111,7 +113,7 @@ function Coupon() {
   };
   useEffect(() => {
     getform();
-  }, [checkUpdate]);
+  }, [change]);
   const display = user.map((v, i) => {
     return (
       <div className="sc_col" key={v.sid}>
