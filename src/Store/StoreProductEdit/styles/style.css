@@ -423,7 +423,7 @@
   margin-bottom: 16px;
 }
 .store-admin .menu-container .edit-form form .previewImg {
-  width: 80%;
+  width: 78%;
   display: flex;
   margin: 15px 0px;
   justify-content: flex-start;
@@ -437,6 +437,7 @@
      object-fit: cover;
 }
 .store-admin .menu-container .edit-form form .previewImg .direction {
+  text-align: justify;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

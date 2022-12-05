@@ -44,7 +44,7 @@
           margin-bottom: 16px;
         }
         .previewImg {
-          width: 80%;
+          width: 78%;
           display: flex;
           margin: 15px 0px;
           justify-content: flex-start;
@@ -59,6 +59,7 @@
           }
 
           .direction {
+            text-align: justify;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
