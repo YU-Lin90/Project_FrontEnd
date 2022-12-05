@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
-// import ProductEditForm from '../components/PorductEditForm.js';
+import ProductEditForm from '../components/ProductEditForm';
 
 function Product() {
   const [data, setData] = useState({
@@ -17,7 +17,6 @@ function Product() {
   const [imgSrc, setImgSrc] = useState('');
 
   // 目前正在編輯的商品的sid，sid=0就是新增商品。
-  const [selectedSid, setSelectedSid] = useState('')
   const [selectedItem, setSelectedItem] = useState('');
   const [formData, setFormData] = useState({
     src: '',
@@ -235,12 +234,11 @@ function Product() {
           <></>
         ) : (
           <>
-            {/* <ProductEditForm
+            <ProductEditForm
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
-              setImgSrc={setImgSrc}
-            /> */}
-            <div className={`menu-container`}>
+            />
+            {/* <div className={`menu-container`}>
               <div className="row">
                 <div className="top-edit-bar">
                   <div className="left-btn-group">
@@ -452,7 +450,7 @@ function Product() {
                   </form>
                 </div>
               </div>
-            </div>
+            </div> */}
           </>
         )}
       </div>
