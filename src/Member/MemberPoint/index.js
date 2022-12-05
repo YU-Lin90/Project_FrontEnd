@@ -3,6 +3,7 @@ import './Member_Point.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import log from 'eslint-plugin-react/lib/util/log';
 const reasons = ['兌換優惠券', '消費獲得', '會員註冊獲得'];
 const siteName = window.location.hostname;
 
