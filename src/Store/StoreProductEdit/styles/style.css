@@ -413,10 +413,11 @@
   overflow-wrap: break-word;
 }
 .store-admin .menu-container .edit-form form input[type=text] {
+  font-weight: 700;
   display: block;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1.5px solid rgb(224, 224, 224);
   line-height: 36px;
   padding: 10px 0px;
   margin-bottom: 16px;
