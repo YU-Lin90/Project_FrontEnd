@@ -17,7 +17,7 @@ function Random() {
   折價額度 使用期限 使用店家 
   做一個元件 可以放在店家搜尋列的
   */
-  const { loginCheckGetFetch } = useFunc();
+  const { loginCheckGetFetch, notLoginGetFetch } = useFunc();
   //不要的種類 checkBox用
   const [rejectedTypes, setRejectedTypes] = useState(Array(6).fill(true));
   //得到的商店名稱 只有第一間
@@ -34,6 +34,9 @@ function Random() {
   const [flashingEnd, setFlashingEnd] = useState(true);
   //按了幾次
   const [pressedTimes, setPressedTimes] = useState(0);
+  //拿到的sid
+  const [gettedSid, setGettedSid] = useState(0);
+
   const navi = useNavigate();
   // const [todayTimes, setTodayTimes] = useState(0);
 
@@ -47,7 +50,15 @@ function Random() {
 
   return (
     <div>
-      <p className="homePageLogos">推薦</p>
+      {/* deleteAllDailyCoupon */}
+      <p
+        onClick={async () => {
+          await notLoginGetFetch('deleteAllDailyCoupon');
+        }}
+        className="homePageLogos"
+      >
+        推薦
+      </p>
       {/* {pressedTimes > 0 && flashingEnd ? <DailyTimeCounter /> : null} */}
 
       <div className="ta-c fs32 fw6 disf jc-c ai-c randomFrameHome">
@@ -106,7 +117,7 @@ function Random() {
                     className="homeStartRandomButton ta-c pointer bgcMain"
                     onClick={() => {
                       if (flashingEnd && pressedTimes !== 0) {
-                        navi('/productList/?shop_sid=89');
+                        navi(`/productList/?shop_sid=${gettedSid}`);
                       }
                     }}
                   >
@@ -126,6 +137,7 @@ function Random() {
                   setFlashingEnd={setFlashingEnd}
                   pressedTimes={pressedTimes}
                   setPressedTimes={setPressedTimes}
+                  setGettedSid={setGettedSid}
                 />
               </div>
 
