@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../Context/AuthProvider';
 export default function Btn(props){
+  const {setAuthDeliver }= useAuth()
     const navi = useNavigate();
 
     const mySubmit = async () => {
@@ -23,6 +24,7 @@ export default function Btn(props){
       localStorage.setItem('onlie_state', JSON.stringify(data.success));
       localStorage.setItem('delivertake', true);
       localStorage.setItem('Deliver', data.tokenYU);
+      setAuthDeliver(true)
       navi('/Deliver/DeliverConfirmOrder');
     }else{
       Swal.fire({

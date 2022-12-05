@@ -15,9 +15,10 @@ const TargetPosition = () => (
     <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
+
 const buttonText = ['', '送達', '取餐'];
 function DeliverMapContent({
-  //現在跟哪方對話
+  //現在跟哪方對話  1是會員 2是店家
   side = 1,
   //現在的訂單SID
   orderSid = 1,
@@ -28,6 +29,7 @@ function DeliverMapContent({
   //聊天室開啟狀態
   socketOpened,
 }) {
+  const [sideNow, setSideNow] = useState(2);
   const { loginCheckGetFetch } = useFunc();
   const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
     useGeo();
@@ -132,14 +134,16 @@ function DeliverMapContent({
     checkArraive();
   }, [deliverPosition]);
   //===============================================分隔線================================================
-    const ordersid = localStorage.getItem('order_sid');
-    async function foodget() {
-      await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
-    }
+  const ordersid = localStorage.getItem('order_sid');
+  async function foodget() {
+    await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
+  }
 
-    async function foodreach(){
-      await axios.put(`http://localhost:3001/deliver/finishdeliverorder/${ordersid}`);
-    }
+  async function foodreach() {
+    await axios.put(
+      `http://localhost:3001/deliver/finishdeliverorder/${ordersid}`
+    );
+  }
 
   //====================================================================================================
   return (
@@ -162,18 +166,18 @@ function DeliverMapContent({
           text="My Marker"
         />
       </GoogleMapReact>
-      <button 
-      disabled={buttonStatus}
-      onClick={()=>{
-        if(buttonText[side] === '取餐'){
-          foodget()
-        }
-        if(buttonText[side] === '送達'){
-          foodreach()
-        }
-      }}
+      <button
+        disabled={buttonStatus}
+        onClick={() => {
+          if (buttonText[side] === '取餐') {
+            foodget();
+          }
+          if (buttonText[side] === '送達') {
+            foodreach();
+          }
+        }}
       >
-      {buttonText[side]}
+        {buttonText[side]}
       </button>
     </>
   );
