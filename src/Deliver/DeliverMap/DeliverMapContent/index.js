@@ -171,7 +171,7 @@ function DeliverMapContent({
       );
     }
     checkArraive();
-  }, [deliverPosition]);
+  }, [deliverPosition, sideNow]);
   //===============================================分隔線================================================
   const navi = useNavigate();
 
