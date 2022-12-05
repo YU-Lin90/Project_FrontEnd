@@ -13,12 +13,108 @@
     padding: 0px 16px;
     position: relative;
   }
+  .product-area {
+    width: 100%;
+    p {
+      font-size: 16px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 16px;
+      padding-right: 32px;
+      border-bottom: 2px solid rgb(224, 224, 224);
+
+      .left {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i {
+          color: rgb(204, 204, 204);
+          font-size: 16px;
+          margin-right: 16px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+      .right {
+      }
+      p {
+      }
+    }
+    .middle {
+      
+      .product-box {
+        padding: 8px 32px;
+        padding-right: 80px;
+        border-bottom: 1px solid rgb(224, 224, 224);
+        display: flex;
+        justify-content: space-between;
+        .left {
+          display: flex;
+          align-items: center;
+          i {
+            color: rgb(204, 204, 204);
+            font-size: 16px;
+            margin-right: 16px;
+          }
+          img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            margin-right: 16px;
+          }
+          p {
+          }
+        }
+        .right {
+          align-self: center;
+          input[type='number'] {
+            display: block;
+            border: none;
+            line-height: 20px;
+            padding-bottom: 6px;
+            cursor: text;
+            background-color: rgb(238, 238, 238);
+            border-radius: 8px;
+          }
+          input[type='number']::-webkit-inner-spin-button,
+          input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+          }
+          .number-input {
+            position: relative;
+            div {
+              position: absolute;
+              left: 5px;
+              top: 50%;
+              transform: translateY(-52%);
+            }
+            input {
+              width: 96px;
+              padding: 6px 0px;
+              padding-left: 36px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+    }
+  }
 
   h4 {
     font-size: 28px;
     font-weight: 700;
     padding: 0;
   }
+
+  // p {
+  //   font-size: 14px;
+  // }
 
   .menu-title {
     height: 110px;
@@ -39,6 +135,7 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    cursor: pointer;
 
     i {
       font-size: 16px;
@@ -57,6 +154,8 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    cursor: pointer;
+
     i {
       font-size: 16px;
       margin-right: 12px;
@@ -75,6 +174,8 @@
     align-items: center;
     justify-content: space-between;
     text-align: center;
+    cursor: pointer;
+
     i {
       font-size: 16px;
       margin-right: 12px;
@@ -92,6 +193,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
     i {
       font-size: 16px;
       margin-right: 12px;
@@ -102,14 +204,17 @@
   .table {
     width: 100%;
     height: auto;
-    padding: 0px 16px;
+    // padding: 0px 16px;
     border: none;
     display: flex;
     flex-direction: column;
+    font-size: 14px;
+    line-height: 17.5px;
     .thead {
       .tr {
         display: flex;
         border-bottom: 2px solid rgb(224, 224, 224);
+        padding: 0px 30px;
         .th {
           padding: 20px 0px;
         }
@@ -123,6 +228,7 @@
       .tr-type {
         display: flex;
         border-bottom: 2px solid rgb(224, 224, 224);
+        padding: 0px 30px;
         .th {
           padding: 20px 0px;
 
@@ -144,9 +250,31 @@
         justify-content: space-between;
         align-items: center;
         height: 72px;
+        padding: 0px 30px;
         .th {
           width: 12.5%;
           // vertical-align: middle;
+          &:nth-child(1) {
+            width: 7.5%;
+          }
+          &:nth-child(2) {
+            width: 15%;
+          }
+          &:nth-child(3) {
+            width: 12.5%;
+          }
+          &:nth-child(4) {
+            width: 12.5%;
+          }
+          &:nth-child(5) {
+            width: 10%;
+          }
+          &:nth-child(6) {
+            width: 15%;
+          }
+          &:nth-child(7) {
+            width: 12.5%;
+          }
         }
       }
     }
@@ -154,6 +282,7 @@
       .tr {
         display: flex;
         border-bottom: 1px solid rgb(224, 224, 224);
+        padding: 0px 30px;
         .td {
           padding: 20px 0px;
           white-space: nowrap;
@@ -170,6 +299,7 @@
       .tr-type {
         display: flex;
         border-bottom: 1px solid rgb(224, 224, 224);
+        padding: 0px 30px;
         .td {
           padding: 20px 0px;
           white-space: nowrap;
@@ -193,12 +323,34 @@
         align-items: center;
         vertical-align: middle;
         height: 72px;
+        padding: 0px 30px;
         .td {
           width: 12.5%;
           img {
             width: 40px;
             height: 40px;
             object-fit: cover;
+          }
+          &:nth-child(1) {
+            width: 7.5%;
+          }
+          &:nth-child(2) {
+            width: 15%;
+          }
+          &:nth-child(3) {
+            width: 12.5%;
+          }
+          &:nth-child(4) {
+            width: 12.5%;
+          }
+          &:nth-child(5) {
+            width: 10%;
+          }
+          &:nth-child(6) {
+            width: 15%;
+          }
+          &:nth-child(7) {
+            width: 12.5%;
           }
         }
       }
@@ -212,6 +364,24 @@
   .row {
     display: flex;
     width: 100%;
+  }
+
+  .line-1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .line-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .w20 {
+    width: 20%;
+  }
+  .w10 {
+    width: 10%;
   }
 }
 
