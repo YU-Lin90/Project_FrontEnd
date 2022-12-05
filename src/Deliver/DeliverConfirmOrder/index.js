@@ -19,6 +19,7 @@ function DeliverConfirmOrder() {
       'http://localhost:3001/deliver/deliverlist'
     );
     setListData(response.data.rows1);
+    console.log(listData);
   }
 
   useEffect(() => {
@@ -46,7 +47,7 @@ function DeliverConfirmOrder() {
               return <ListTable key={sid} {...value} />;
             })}
           </>
-        ) : <p>現在無訂單</p>}
+        ) : <div className='Dnothingorder'><p>暫無訂單</p></div>}
 
         {/* ---------------------------------------------- */}
       </ul>
