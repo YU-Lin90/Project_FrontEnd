@@ -64,7 +64,18 @@ function OrderCommand({
             {/* <SolidStar />
             <EmptyStar /> */}
           </div>
-          <p className="ta-c padV20 padH20 fw6 fs32">給予評價</p>
+          <p
+            onClick={() => {
+              //快速填入
+              const commandMsg = side === 2 ? '餐點有點太鹹了' : '湯都漏出來了';
+              const getStar = side === 2 ? 3 : 2;
+              setStars(getStar);
+              setCommand(commandMsg);
+            }}
+            className="ta-c padV20 padH20 fw6 fs32"
+          >
+            給予評價
+          </p>
           <div className="flexSetCenter">
             <textarea
               style={{ resize: 'none' }}
