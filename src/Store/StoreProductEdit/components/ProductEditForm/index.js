@@ -23,11 +23,21 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   });
 
   const getData = async (sid) => {
-    const response = await axios.get(
-      `http://localhost:3001/store-admin/product/edit-form?sid=${sid}`
-    );
-    const rd = response.data;
-    setData({ ...rd });
+    if (sid) {
+      const response = await axios.get(
+        `http://localhost:3001/store-admin/product/edit-form?sid=${sid}`
+      );
+      const rd = response.data;
+      setData({ ...rd });
+    } else {
+      const shop_sid = JSON.parse(localStorage.getItem('StoreDatas')).sid;
+      console.log(shop_sid);
+      const response = await axios.get(
+        `http://localhost:3001/store-admin/product/add-form/?shop_sid=${shop_sid}`
+      );
+      const rd = response.data;
+      setData({ ...rd });
+    }
   };
 
   useEffect(() => {
@@ -35,23 +45,27 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   }, []);
 
   useEffect(() => {
-    setFormData({
-      sid: data.product.sid,
-      src: data.product.src,
-      name: data.product.name,
-      price: data.product.price,
-      type: data.product.products_type_sid,
-      options_types: data.options_types
-        .filter((ot) => {
-          return data.product.sid === ot.product_sid;
-        })
-        .map((ot) => {
-          return ot.sid;
-        }),
-      note: data.product.note,
-      discount: data.product.discount,
-      available: data.product.available,
-    });
+    if (selectedItem) {
+      console.log('data.product !== {}', data.product !== {});
+      console.log('data.product is not undefined.');
+      setFormData({
+        sid: data.product.sid,
+        src: data.product.src,
+        name: data.product.name,
+        price: data.product.price,
+        type: data.product.products_type_sid,
+        options_types: data.options_types
+          .filter((ot) => {
+            return data.product.sid === ot.product_sid;
+          })
+          .map((ot) => {
+            return ot.sid;
+          }),
+        note: data.product.note,
+        discount: data.product.discount,
+        available: data.product.available,
+      });
+    }
   }, [data]);
 
   const fillOutForm = () => {
