@@ -3,8 +3,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliverMapContent from './DeliverMapContent';
 import DeliverChat from './DeliverChat';
+import Swal from 'sweetalert2';
 const siteName = window.location.hostname;
 function DeliverMap() {
+  const navi = useNavigate();
   const [socketOpened, setSocketOpened] = useState(false);
   const settedState = true;
   // const navi = useNavigate();
@@ -15,7 +17,10 @@ function DeliverMap() {
   function sendToken(sever) {
     const tokenString = localStorage.getItem('Deliver');
     if (!tokenString) {
-      window.alert('沒登入');
+      Swal.fire('請先登入').then(() => {
+        navi('/Deliver/DeliverLogin');
+        return;
+      });
     }
     sever.send(JSON.stringify({ token: tokenString }));
     // orderChatSocket.send(JSON.stringify({ token: tokenString }))
@@ -35,14 +40,17 @@ function DeliverMap() {
   return (
     <div
       className="po-r"
-      style={{ width: '100%', minHeight: '500px', height: 'calc(100vh - 160px)' }}
+      style={{
+        width: '100%',
+        minHeight: '500px',
+        height: 'calc(100vh - 160px)',
+      }}
     >
       <DeliverMapContent
         orderSocket={orderSocket}
         socketOpened={socketOpened}
       />
       <DeliverChat orderSocket={orderSocket} />
-
     </div>
   );
 }
