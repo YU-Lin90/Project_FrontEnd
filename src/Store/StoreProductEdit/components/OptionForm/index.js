@@ -18,7 +18,6 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   });
   const [optionBoolean, setOptionBoolean] = useState([]);
   const [cartOptions, setCartOptions] = useState([]);
-  
 
   const getData = async (sid) => {
     const response = await axios.get(
@@ -51,6 +50,9 @@ function OptionForm({ selectedSid, setSelectedSid }) {
     ) {
       setCartOptions(
         localCart.cartList[data.shop.sid].list[data.product.sid].details
+      );
+      setAmount(
+        localCart.cartList[data.shop.sid].list[data.product.sid].amount
       );
     } else {
       console.log('Cannot find cartOptions');
@@ -115,7 +117,9 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       amount,
     ]);
 
-    setSelectedSid('')
+    // 重置State
+    setSelectedSid('');
+    setAmount(1);
   };
 
   return (
@@ -127,6 +131,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
             onClick={() => {
               // 應該後來要改成setSelectedSid
               setSelectedSid('');
+              setAmount(0);
             }}
           >
             <i className="fa-solid fa-arrow-left"></i>
@@ -214,7 +219,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
             ></i>
           </div>
           <div className="right">
-            <div className="inActive" onClick={intoCart}>
+            <div className="" onClick={intoCart}>
               <p>放入購物車</p>
             </div>
           </div>
