@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGeo } from '../../Context/GeoLocationProvider';
 //地址用----------------------------------------------------------------
 import { usePay } from '../../Context/PayPageContext';
+import { clearConfigCache } from 'prettier';
 
 export default function ListTable() {
   const siteName = window.location.hostname;
@@ -282,7 +283,7 @@ export default function ListTable() {
         const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
-        element.distance = gettedDistance;
+        element.distance = Math.round(gettedDistance * 10) / 10;
 
         // 超過30公里，每5公里加10元外送費
         if (gettedDistance > 30) {
@@ -385,9 +386,43 @@ export default function ListTable() {
     }
   };
 
+  const [toggle, setToggle] = useState(true);
+
+  function useWindowSize() {
+    const [size, setSize] = useState([window.innerWidth]);
+    useEffect(() => {
+      const handleResize = () => {
+        setSize([window.innerWidth]);
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+    return size;
+  }
+
+  //const [width] = useWindowSize();
+
+  // useEffect(() => {
+  //   width < 768 && style();
+  // }, [width]);
+
+  const [isDisplay, setIsDisplay] = useState(false);
+  const switchDisplay = () => {
+    setIsDisplay(!isDisplay);
+  };
+
+  const style = {
+    '@media(max-width:768px)': {
+      padding: '800px',
+    },
+  };
+
   return (
     <>
-      <div className="col_bar">
+      {/* {toggle ? ( */}
+      <div className="col_bar" style={style}>
         <form className="table">
           <div className="search_bar">
             {searchTotalRows ? (
@@ -512,6 +547,9 @@ export default function ListTable() {
           </div>
         </form>
       </div>
+      {/* ) : ( */}
+      {/* '' */}
+      {/* )} */}
 
       <div className="col_list">
         <div className="subTitle">小標題</div>
@@ -522,15 +560,17 @@ export default function ListTable() {
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <img
-                      src={`http://${siteName}:3001/images/shopping/storeCover1.jpg`}
+                      src={`http://${siteName}:3001/images/shop/${shop.src}.webp`}
                       alt={shop.name}
+                      className="shopCard_cover"
                     />
                     <div className="shopCard_conpon"></div>
                     <div className="shopCard_delivery_time">
-                      等待時間{shop.wait_time}
+                      {shop.wait_time}
+                      <div className="shopCard_delivery_time_text">分鐘</div>
                     </div>
                   </div>
-                  <span>SID {shop.sid}</span>
+                  {/* <span>SID {shop.sid}</span> */}
                   <div className="shopCard_text">
                     <div className="shopCard_text_name">
                       <span>{shop.name}</span>
@@ -577,6 +617,18 @@ export default function ListTable() {
           )}
         </div>
       </div>
+      <div
+        onClick={() => {
+          setToggle(!toggle);
+          console.log(toggle);
+        }}
+        className="search_bar_toggle"
+        id="bar_switch"
+      ></div>
     </>
   );
 }
+
+//TODO: sidebar 在正常下display flex RWD下display none
+//TODO: toggle 在正常下display none RWD下display flex
+//TODO: toggle 可以切換sidebar的display flex
