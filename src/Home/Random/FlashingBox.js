@@ -6,12 +6,15 @@ function FlashingBox({
   setStartFlashing,
   startFlashing,
   setFlashingEnd,
+  flashingEnd,
+  pressedTimes,
+  gettedShopName,
 }) {
   const [count, setCount] = useState(0);
   const interVals = () => {
     setCount((v) => {
-      if (v <= 30) return v + 1;
-      else return 0;
+      if (v < 30) return v + 1;
+      else return 1;
     });
   };
   useEffect(() => {
@@ -33,19 +36,13 @@ function FlashingBox({
   }, []);
   return (
     <>
-      <div className="randomFlashingBox w100p">
+      <div className="randomFlashingBox h200 w100p of-h flexSetCenter">
         <p className="randomFlashingTexts">
-          {radomArrays[count] ? radomArrays[count].name : radomArrays[0].name}
+          {/* pressedTimes */}
+          {radomArrays[count] && !flashingEnd
+            ? radomArrays[count].name
+            : gettedShopName}
         </p>
-        <div
-          onClick={() => {
-            setStartFlashing(false);
-          }}
-          className="randomFlashingReturnButton ta-c fs24"
-          style={{ marginTop: '200px' }}
-        >
-          return
-        </div>
       </div>
     </>
   );

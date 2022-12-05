@@ -217,10 +217,13 @@
 .boxShadow{
   box-shadow: 5px 5px 5px #bbbb;
 }
+.bradi10{
+  border-radius: 10px;
+}
 
 body{
-  background: url(../public/eatfont.svg) center center / 20% no-repeat fixed;
-  background: url(../public/foodBG.jpg) center center /cover no-repeat fixed;
+  /* background: url(../public/eatfont.svg) center center / 20% no-repeat fixed; */
+  background: url(/public/foodBG.jpg) center center /cover no-repeat fixed;
   min-width: 320px;
   overflow-x: hidden;
 }

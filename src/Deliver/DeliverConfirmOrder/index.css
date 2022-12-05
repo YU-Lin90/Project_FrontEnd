@@ -27,12 +27,24 @@
 }
 .Dshopmore{
     border-top: 1px solid #c1c1c1;
-    height: 70px;
+    /* height: 70px; */
+    display: flex;
+    /* align-items: center; */
+    justify-content: flex-start;
+    padding: 15px 45px;
+    flex-direction:column;
+}
+.Dtext{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 0 35px;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
+.Dlisttext{
+    display: flex;
+    align-items: center;
+}
+
 .Dbtn{
     font-size: 1em;
     border-radius: 5px;
@@ -83,4 +95,13 @@
 }
 .Donlie.active{
     background-color: red;
+}
+.Dnothingorder{
+    font-size: 3em;
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 10px;
 }

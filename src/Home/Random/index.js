@@ -6,6 +6,8 @@ import FlashingBox from './FlashingBox';
 import { useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
 import DailyTimeCounter from '../DailyTimeCounter';
+import { useNavigate } from 'react-router-dom';
+const siteName = window.location.hostname;
 function Random() {
   /*
   點開隨機=>選取分類=>隨機=>顯示第一次=>倒數時間、顯示獲得的內容 店家名稱、優惠額度=>不要=>第二次=>
@@ -13,17 +15,11 @@ function Random() {
   第三次.....
   50/30/10  2HR       ?
   折價額度 使用期限 使用店家 
-
-
   做一個元件 可以放在店家搜尋列的
-
-
-
-
   */
   const { loginCheckGetFetch } = useFunc();
   //不要的種類 checkBox用
-  const [rejectedTypes, setRejectedTypes] = useState(Array(6).fill(false));
+  const [rejectedTypes, setRejectedTypes] = useState(Array(6).fill(true));
   //得到的商店名稱 只有第一間
   const [gettedShopName, setGettedShopName] = useState('');
   //商店列表
@@ -36,8 +32,10 @@ function Random() {
   const [openWindow, setOpenWindow] = useState(false);
   //閃爍結束
   const [flashingEnd, setFlashingEnd] = useState(true);
-
-  const [todayTimes, setTodayTimes] = useState(0);
+  //按了幾次
+  const [pressedTimes, setPressedTimes] = useState(0);
+  const navi = useNavigate();
+  // const [todayTimes, setTodayTimes] = useState(0);
 
   const checkTimes = async () => {
     const countToday = await loginCheckGetFetch(
@@ -50,56 +48,90 @@ function Random() {
   return (
     <div>
       <p className="homePageLogos">推薦</p>
-      <DailyTimeCounter/>
-      <div
-        className="ta-c pointer fs48 fw6"
-        onClick={() => {
-          setOpenWindow((v) => !v);
-        }}
-      >
-        開啟抽選
+      {/* {pressedTimes > 0 && flashingEnd ? <DailyTimeCounter /> : null} */}
+
+      <div className="ta-c fs32 fw6 disf jc-c ai-c randomFrameHome">
+        <div className="flexSetCenter">
+          <p className="ta-c w70p lh48">
+            想來想去還是不知道要吃什麼？試試隨饗！
+          </p>
+        </div>
+        <div className="flexSetCenter">
+          <p
+            onClick={() => {
+              setOpenWindow((v) => !v);
+            }}
+            className="randomButtonOnHome flexSetCenter"
+          >
+            <img
+              className="w40p"
+              src={`http://${siteName}:3001/images/logo_V.svg`}
+              alt="eatFreedom"
+            />
+          </p>
+        </div>
       </div>
       {openWindow ? (
         <>
           <div
             onClick={(e) => {
               // console.log(e.target.id)
-              if (e.target.id === 'forCheckIdForRandomBack') {
+              if (e.target.id === 'forCheckIdForRandomBack' && flashingEnd) {
                 setOpenWindow((v) => !v);
               }
             }}
-            className="grayBack padV10 padH10"
+            className="grayBack padV10 padH10 "
             id="forCheckIdForRandomBack"
           >
-            <div className="onGrayBack padV10 padH10">
+            <div className="onGrayBack padV10 padH10 of-h">
               {/* checkBox */}
               <TypeChecks
                 rejectedTypes={rejectedTypes}
                 setRejectedTypes={setRejectedTypes}
               />
-              {/* 確認按鈕 */}
-              <RandomButton
-                rejectedTypes={rejectedTypes}
-                setGettedShopName={setGettedShopName}
-                setRadomArrays={setRadomArrays}
-                setStartFlashing={setStartFlashing}
-                todayOver={todayOver}
-                setTodayOver={setTodayOver}
-                startFlashing={startFlashing}
-                flashingEnd={flashingEnd}
-                setFlashingEnd={setFlashingEnd}
-              />
+              {startFlashing ? (
+                <FlashingBox
+                  radomArrays={radomArrays}
+                  setStartFlashing={setStartFlashing}
+                  startFlashing={startFlashing}
+                  setFlashingEnd={setFlashingEnd}
+                  flashingEnd={flashingEnd}
+                  pressedTimes={pressedTimes}
+                  gettedShopName={gettedShopName}
+                />
+              ) : null}
+              <div className="disf jc-se">
+                {pressedTimes > 0 && flashingEnd ? (
+                  <p
+                    className="homeStartRandomButton ta-c pointer bgcMain"
+                    onClick={() => {
+                      if (flashingEnd && pressedTimes !== 0) {
+                        navi('/productList/?shop_sid=89');
+                      }
+                    }}
+                  >
+                    前往店家
+                  </p>
+                ) : null}
+                {/* 確認按鈕 */}
+                <RandomButton
+                  rejectedTypes={rejectedTypes}
+                  setGettedShopName={setGettedShopName}
+                  setRadomArrays={setRadomArrays}
+                  setStartFlashing={setStartFlashing}
+                  todayOver={todayOver}
+                  setTodayOver={setTodayOver}
+                  startFlashing={startFlashing}
+                  flashingEnd={flashingEnd}
+                  setFlashingEnd={setFlashingEnd}
+                  pressedTimes={pressedTimes}
+                  setPressedTimes={setPressedTimes}
+                />
+              </div>
+
               {/* <ShowBox gettedShopName={gettedShopName} /> */}
             </div>
           </div>
-          {startFlashing ? (
-            <FlashingBox
-              radomArrays={radomArrays}
-              setStartFlashing={setStartFlashing}
-              startFlashing={startFlashing}
-              setFlashingEnd={setFlashingEnd}
-            />
-          ) : null}
         </>
       ) : null}
     </div>

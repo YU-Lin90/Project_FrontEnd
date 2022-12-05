@@ -147,8 +147,10 @@ function MemberNav() {
           </div>
         </div>
 
-        {/* 名稱顯示 暫放 */}
-        {window.location.pathname === '/Pay' ? (
+        {/* 送達地址 */}
+        {/* 結帳頁或首頁 不顯示 */}
+        {window.location.pathname === '/Pay' ||
+        window.location.pathname === '/' ? (
           <></>
         ) : (
           <NavAddress

@@ -14,8 +14,7 @@ export const PaydetailProvider = ({ children }) => {
   //=>    cartContents.cartList[chooseedPayShop]
   // const [chooseedPayShopContents, setChooseedPayShopContents] = useState({});
   //送達地址
-  const [sendAddress, setSendAddress] =
-    useState('台北市大安區復興南路一段390號2樓');
+  const [sendAddress, setSendAddress] = useState('');
   //===============================================分隔線================================================
   //結帳頁用
   //優惠券折扣金額 只傳金額

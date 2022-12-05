@@ -12,6 +12,8 @@ function RandomButton({
   startFlashing,
   flashingEnd,
   setFlashingEnd,
+  pressedTimes,
+  setPressedTimes,
 }) {
   const { loginCheckPostFetch } = useFunc();
 
@@ -24,6 +26,10 @@ function RandomButton({
       postData
     );
     console.log(res);
+    //TODO 展示用 改這裡會改顯示結果 這樣寫只有第三次一定是要的店家
+    if (pressedTimes !== 2) {
+      res.shopList.shift();
+    }
     //開始閃爍
     setStartFlashing(true);
     //放進資料列
@@ -47,17 +53,22 @@ function RandomButton({
           const rejectedTypesWithNumber = [];
           rejectedTypes.forEach((v, i) => {
             //這裡有!是正向選擇(選要的)   沒有!是反向選擇(選不要的)
-            if (v) rejectedTypesWithNumber.push(i + 1);
+            if (!v) rejectedTypesWithNumber.push(i + 1);
           });
+          if (rejectedTypesWithNumber.length === 6) {
+            Swal.fire('選項不可為空');
+            return;
+          }
           // console.log(rejectedTypesWithNumber);
           setFlashingEnd(false);
           getDailyCoupon(rejectedTypesWithNumber);
+          setPressedTimes((v) => v + 1);
         }}
-        className={`homeStartRandomButtom ta-c  fs48 fw7 pointer bgcMain  ${
+        className={`homeStartRandomButton ta-c pointer bgcMain  ${
           flashingEnd ? '' : 'active'
         }`}
       >
-        Random
+        {pressedTimes === 0 ? '隨饗' : '再次抽選'}
       </div>
     </>
   );
