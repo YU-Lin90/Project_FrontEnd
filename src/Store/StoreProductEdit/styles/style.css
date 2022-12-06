@@ -825,9 +825,9 @@
   height: 100vh;
   z-index: 150;
   overflow: auto;
-  background-color: rgba(100, 100, 100, 0.2);
+  background-color: rgba(52, 52, 52, 0.5);
 }
-.product-list .option-form-area .option-form {
+.product-list .option-form-area .option-form-section .option-form {
   width: 600px;
   position: absolute;
   background-color: #fff;
@@ -836,19 +836,20 @@
   transform: translateX(-50%);
   z-index: 200;
   border-radius: 8px;
+  margin: 40px 0px;
 }
-.product-list .option-form-area .option-form p {
+.product-list .option-form-area .option-form-section .option-form p {
   font-size: 14px;
   color: #767676;
 }
-.product-list .option-form-area .option-form .row {
+.product-list .option-form-area .option-form-section .option-form .row {
   width: 100%;
 }
-.product-list .option-form-area .option-form .row .product-img {
+.product-list .option-form-area .option-form-section .option-form .row .product-img {
   width: 100%;
   position: relative;
 }
-.product-list .option-form-area .option-form .row .product-img img {
+.product-list .option-form-area .option-form-section .option-form .row .product-img img {
   display: block;
   width: 100%;
   height: 300px;
@@ -856,7 +857,7 @@
      object-fit: cover;
   background-color: #ccc;
 }
-.product-list .option-form-area .option-form .row .product-img .back-btn {
+.product-list .option-form-area .option-form-section .option-form .row .product-img .back-btn {
   width: 30px;
   height: 30px;
   display: flex;
@@ -868,60 +869,60 @@
   border-radius: 50%;
   background-color: orange;
 }
-.product-list .option-form-area .option-form .row .product-img .back-btn i {
+.product-list .option-form-area .option-form-section .option-form .row .product-img .back-btn i {
   font-size: 20px;
 }
-.product-list .option-form-area .option-form .row .product-info {
+.product-list .option-form-area .option-form-section .option-form .row .product-info {
   width: 100%;
   padding: 16px 16px;
 }
-.product-list .option-form-area .option-form .row .product-info .top {
+.product-list .option-form-area .option-form-section .option-form .row .product-info .top {
   display: flex;
   justify-content: space-between;
 }
-.product-list .option-form-area .option-form .row .product-info .top h5 {
+.product-list .option-form-area .option-form-section .option-form .row .product-info .top h5 {
   font-size: 24px;
   font-weight: 700;
   color: #333333;
 }
-.product-list .option-form-area .option-form .row .product-info .bottom {
+.product-list .option-form-area .option-form-section .option-form .row .product-info .bottom {
   line-height: 21px;
   padding-bottom: 16px;
   padding-top: 8px;
   border-bottom: 1px solid #ebebeb;
 }
-.product-list .option-form-area .option-form .row .option-section {
+.product-list .option-form-area .option-form-section .option-form .row .option-section {
   width: 100%;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-type {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-type {
   padding: 16px 16px;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-type .top {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-type .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-type .top h6 {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-type .top h6 {
   font-size: 18px;
   font-weight: 700;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box {
   width: 100%;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label {
   padding: 12px 16px;
   display: flex;
   justify-content: start;
   align-items: center;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label input {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label input {
   transform: translateY(-0.075em);
   width: 18px;
   height: 18px;
   border: 1.5px solid orange;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label input[type=checkbox] {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label input[type=checkbox] {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -931,13 +932,13 @@
   color: orange;
   border-radius: 0.15em;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label input[type=checkbox]:checked {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label input[type=checkbox]:checked {
   -webkit-appearance: auto;
      -moz-appearance: auto;
           appearance: auto;
   accent-color: orange;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label input[type=radio] {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label input[type=radio] {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -945,52 +946,52 @@
   background-clip: content-box;
   padding: 3px;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label input[type=radio]:checked {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label input[type=radio]:checked {
   border: 5.5px solid orange;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label .option-words {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label .option-words {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: 16px;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label:hover {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover {
   background-color: rgb(247, 247, 247);
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label:hover input {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover input {
   border: 1.5px solid rgb(237, 154, 0);
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
   color: rgb(237, 154, 0);
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
   border-color: #cacaca;
 }
-.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box .inActive .option-words p {
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive .option-words p {
   color: #cacaca;
 }
-.product-list .option-form-area .option-form .row .amount-section {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section {
   width: 100%;
   display: flex;
   align-items: center;
   padding: 16px;
   box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.1);
 }
-.product-list .option-form-area .option-form .row .amount-section .left {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .left {
   display: flex;
   justify-content: start;
   align-items: center;
   margin-right: 12px;
 }
-.product-list .option-form-area .option-form .row .amount-section .left i {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .left i {
   color: orange;
   font-size: 20px;
 }
-.product-list .option-form-area .option-form .row .amount-section .left .inActive {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .left .inActive {
   color: #ccc;
 }
-.product-list .option-form-area .option-form .row .amount-section .left input {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .left input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -1004,13 +1005,13 @@
   line-height: 18px;
   padding: 10px 0px;
 }
-.product-list .option-form-area .option-form .row .amount-section .left input::-webkit-inner-spin-button, .product-list .option-form-area .option-form .row .amount-section .left input::-webkit-outer-spin-button {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .left input::-webkit-inner-spin-button, .product-list .option-form-area .option-form-section .option-form .row .amount-section .left input::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
-.product-list .option-form-area .option-form .row .amount-section .right {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .right {
   width: 100%;
 }
-.product-list .option-form-area .option-form .row .amount-section .right div {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .right div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1018,12 +1019,12 @@
   background-color: orange;
   border-radius: 8px;
 }
-.product-list .option-form-area .option-form .row .amount-section .right div p {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .right div p {
   font-size: 14px;
   font-weight: 600;
   color: white;
 }
-.product-list .option-form-area .option-form .row .amount-section .right .inActive {
+.product-list .option-form-area .option-form-section .option-form .row .amount-section .right .inActive {
   background-color: #ccc;
   color: white;
 }
@@ -1039,7 +1040,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
-  border: 5px solid black;
+  overflow: hidden;
   border-radius: 8px;
 }
 .option-form p {
