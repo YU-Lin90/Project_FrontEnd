@@ -22,7 +22,7 @@ export default function ListTable() {
 
   //儲存搜尋時呈現的訊息用
   const [noResult, setNoResult] = useState('正在搜尋中');
-  const [disResult , setDisResult] = useState('計算中');
+  const [disResult, setDisResult] = useState('計算中');
   //檢查是否為城市頁
   const [isCity, setIsCity] = useState(false);
   const pathname = window.location.pathname;
@@ -143,7 +143,7 @@ export default function ListTable() {
   //   // console.log(errorMsg);
   // };
 
-// --------------------最愛店家用-------------------------
+  // --------------------最愛店家用-------------------------
 
   const add = async (shopSid) => {
     const sid = localStorage.getItem('MemberSid');
@@ -190,8 +190,11 @@ export default function ListTable() {
       setIndex(nextIndex);
     }
   };
-// -------------------------------------------------------
+  // -------------------------------------------------------
 
+  // 是否為所有店家
+  const [allShop, setAllShop] = useState(false);
+  
   // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
@@ -213,12 +216,12 @@ export default function ListTable() {
   //現在無submit
   const searchShop = async (event) => {
     const sid = localStorage.getItem('MemberSid');
-    let key = formData.search ? formData.search : "";
+    let key = formData.search ? formData.search : '';
     let price_max = formData.price_max; // 未輸入為0，寫在後端API
     let price_min = formData.price_min; // 未輸入為0，寫在後端API
     let wait_time = searchWaitTime;
     let order = isChecked;
-    console.log("form",formData)
+    console.log('form', formData);
 
     // console.log('排序:', order);
 
@@ -231,6 +234,8 @@ export default function ListTable() {
     if (order && order === 'distance') {
       setIsChecked(!isChecked);
     }
+
+    if(!key){setAllShop(true)}
 
     setSearchWord(key);
     setSearchPriceMax(price_max);
@@ -259,13 +264,15 @@ export default function ListTable() {
         const gettedDistance = await calculateDistance(
           shopAddress,
           selfLocation
-        )
+        );
 
         // 測試用，隨機亂數
         // const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
-        element.distance = gettedDistance ? Math.round(gettedDistance * 10) / 10 : "沒有結果";
+        element.distance = gettedDistance
+          ? Math.round(gettedDistance * 10) / 10
+          : '沒有結果';
         // 超過30公里，每5公里加10元外送費
         element.fees = parseInt(gettedDistance / 5) * 10 + 30;
 
@@ -403,7 +410,7 @@ export default function ListTable() {
           }}
         >
           <div className="search_bar">
-            {searchTotalRows ? (
+            {!allShop ? (
               <>
                 {searchWord && searchWord.length > 0 ? (
                   <p>{searchWord}的搜尋結果</p>
@@ -604,10 +611,13 @@ export default function ListTable() {
                       </div>
                     </div>
                     <span className="shopcontext">
-                      {shop.distance ? shop.distance : disResult} km,{shop.type_name}
+                      {shop.distance ? shop.distance : disResult} km,
+                      {shop.type_name}
                     </span>
                     {/* <span>{shop.distance} 公里</span> */}
-                    <span className="shopcontext" >外送費{shop.fees ? shop.fees : disResult}元</span>
+                    <span className="shopcontext">
+                      外送費{shop.fees ? shop.fees : disResult}元
+                    </span>
                   </div>
                 </Link>
               </div>
