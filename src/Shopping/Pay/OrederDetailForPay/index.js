@@ -21,12 +21,12 @@ function OrederDetailForPay() {
   return (
     <div className=" topUnderNav padV20 flexSetCenter of-a OrederDetailForPay">
       <div
-        className="disf jc-c fd-c ai-c w80p gap20 padV20 padH5"
+        className="disf jc-c fd-c ai-c w80p gap20 padV20 padH5 OrederDetailListForPay"
         style={{
           boxShadow: '0 0 15px 1px rgba( 234,216,202 , 1 )',
         }}
       >
-        <p className="fs36 fw6 ta-c marb15">你的訂單</p>
+        <p className="fs36 fw6 ta-c marb15">您的訂單</p>
         <PayPageCart />
         {/* <p className="fs24 fw5">
           {cartContents.cartList[chooseedPayShop].shopName}

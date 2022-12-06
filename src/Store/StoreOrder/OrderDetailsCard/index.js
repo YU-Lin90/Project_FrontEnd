@@ -5,7 +5,7 @@ import '../StoreOrder.css';
 
 function OrderDetailsCard({ datas, page, setOpenDetail, setChoosedOrderSid }) {
   return (
-    <div className="orderDetailsCardCol padH5">
+    <div className="orderDetailsCardCol padH5 ai-s">
       <div
         className={`orderDetailsCard color${page}`}
         onClick={() => {

@@ -131,6 +131,11 @@ function StoreOrderConfirm({
 
   useEffect(() => {
     getData(choosedOrderSid);
+    const bodyQs = document.querySelector('body');
+    bodyQs.style.overflow = 'hidden';
+    return () => {
+      bodyQs.style.overflow = 'auto';
+    };
   }, []);
   return (
     <>

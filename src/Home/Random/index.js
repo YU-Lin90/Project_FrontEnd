@@ -5,9 +5,10 @@ import ShowBox from './ShowBox';
 import FlashingBox from './FlashingBox';
 import { useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
-import DailyTimeCounter from '../DailyTimeCounter';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
+import { useAuth } from '../../Context/AuthProvider';
 const siteName = window.location.hostname;
 function Random() {
   /*
@@ -18,6 +19,7 @@ function Random() {
   折價額度 使用期限 使用店家 
   做一個元件 可以放在店家搜尋列的
   */
+  const { authMember } = useAuth();
   const { loginCheckGetFetch, notLoginGetFetch } = useFunc();
   //不要的種類 checkBox用
   const [rejectedTypes, setRejectedTypes] = useState(Array(6).fill(true));
@@ -37,9 +39,12 @@ function Random() {
   const [pressedTimes, setPressedTimes] = useState(0);
   //拿到的sid
   const [gettedSid, setGettedSid] = useState(0);
+  //今天拿了幾次
+  const [todayTimes, setTodayTimes] = useState(0);
+  //折扣的額度
+  const [cutAmount, setCutAmount] = useState(0);
 
   const navi = useNavigate();
-  // const [todayTimes, setTodayTimes] = useState(0);
 
   const checkTimes = async () => {
     const countToday = await loginCheckGetFetch(
@@ -47,7 +52,13 @@ function Random() {
       'Member'
     );
     console.log(countToday);
+    setTodayTimes(countToday);
   };
+  useEffect(() => {
+    if (authMember) {
+      checkTimes();
+    }
+  }, [authMember]);
 
   return (
     <div>
@@ -99,6 +110,10 @@ function Random() {
             id="forCheckIdForRandomBack"
           >
             <div className="onGrayBack padV10 padH10 of-h">
+              <p className="ta-c fs24 fw6 marb20">
+                {authMember ? <>今日剩餘次數:{3 - todayTimes}</> : '隨機推薦'}
+              </p>
+
               {/* checkBox */}
               <TypeChecks
                 rejectedTypes={rejectedTypes}
@@ -142,10 +157,13 @@ function Random() {
                   pressedTimes={pressedTimes}
                   setPressedTimes={setPressedTimes}
                   setGettedSid={setGettedSid}
+                  todayTimes={todayTimes}
+                  setTodayTimes={setTodayTimes}
+                  setCutAmount={setCutAmount}
                 />
               </div>
 
-              {/* <ShowBox gettedShopName={gettedShopName} /> */}
+              <ShowBox radomArrays={radomArrays} cutAmount={cutAmount} />
             </div>
           </div>
         </>

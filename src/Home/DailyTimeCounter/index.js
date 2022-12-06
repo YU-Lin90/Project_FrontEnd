@@ -94,8 +94,9 @@ function DailyTimeCounter() {
                     navi(`/productList/?shop_sid=${v.shop_sid}`);
                   }}
                   className="b33s100 padH20 marb20"
+                  key={v.sid}
                 >
-                  <div key={v.sid} className=" dailyCouponShowCard">
+                  <div className=" dailyCouponShowCard">
                     <p>${v.cut_amount}折扣</p>
                     <p>{v.name}</p>
                     <p>

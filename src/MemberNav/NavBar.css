@@ -133,12 +133,17 @@ nav.memberNav>* {
 .navLinks {
   display: none;
 }
-
+.cartButton.navUser{
+  display: none;
+}
 @media screen and (min-width:768px) {
   .navLinks {
     display: flex;
     color: var(--subColor);
     gap: 20px;
+  }
+  .cartButton.navUser{
+    display: inherit;
   }
 }
 
@@ -154,7 +159,7 @@ nav.memberNav>* {
 
 
 .navAddress {
-  max-width: 200px;
+  max-width: 100px;
   word-break: break-all;
   text-overflow: ellipsis;
   display: -webkit-box;
