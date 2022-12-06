@@ -3,6 +3,7 @@ import axios from 'axios';
 import OptionGroup from './OptionGroup';
 import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../../Context/CartProvider';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function OptionForm({ selectedSid, setSelectedSid }) {
   const { setCartWithAmount } = useCart();
@@ -37,7 +38,14 @@ function OptionForm({ selectedSid, setSelectedSid }) {
         return { sid: ot.sid, name: ot.name, list: [] };
       })
     );
-    setOptionBoolean(data.options_types.map((ot) => false));
+    setOptionBoolean(
+      data.options_types.map((ot) => {
+        if (ot.min === 0) {
+          return true;
+        }
+        return false;
+      })
+    );
 
     // 點購物車的商品近來要取得該商品當前的資料
     const localCart = JSON.parse(localStorage.getItem('cart'));
@@ -81,45 +89,100 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   }, [cartOptions]);
 
   const intoCart = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
-    // test
-    console.log(testDetails);
-    let testNewDetails = [];
-    testDetails.forEach((d) => {
-      const arr = d.list.filter((l) => {
-        return !!l === true;
-      });
-      testNewDetails = [...testNewDetails, ...arr];
+    // // test
+    // console.log(testDetails);
+    // let testNewDetails = [];
+    // testDetails.forEach((d) => {
+    //   const arr = d.list.filter((l) => {
+    //     return !!l === true;
+    //   });
+    //   testNewDetails = [...testNewDetails, ...arr];
+    // });
+    // console.log(testNewDetails);
+
+    // setCartWithAmount(
+    //   data.shop.sid,
+    //   selectedSid,
+    //   data.shop.name,
+    //   data.product.name,
+    //   data.product.price,
+    //   data.product.price,
+    //   data.product.src,
+    //   testNewDetails,
+    //   amount
+    // );
+    // console.log([
+    //   data.shop.sid,
+    //   selectedSid,
+    //   data.shop.name,
+    //   data.product.name,
+    //   data.product.price,
+    //   data.product.price,
+    //   data.product.src,
+    //   testNewDetails,
+    //   amount,
+    // ]);
+
+    // // 重置State
+    // setSelectedSid('');
+    // setAmount(1);
+
+    // alert
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.preventDefault();
+
+        // test
+        console.log(testDetails);
+        let testNewDetails = [];
+        testDetails.forEach((d) => {
+          const arr = d.list.filter((l) => {
+            return !!l === true;
+          });
+          testNewDetails = [...testNewDetails, ...arr];
+        });
+        console.log(testNewDetails);
+
+        setCartWithAmount(
+          data.shop.sid,
+          selectedSid,
+          data.shop.name,
+          data.product.name,
+          data.product.price,
+          data.product.price,
+          data.product.src,
+          testNewDetails,
+          amount
+        );
+        console.log([
+          data.shop.sid,
+          selectedSid,
+          data.shop.name,
+          data.product.name,
+          data.product.price,
+          data.product.price,
+          data.product.src,
+          testNewDetails,
+          amount,
+        ]);
+
+        // 重置State
+        setSelectedSid('');
+        setAmount(1);
+
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
     });
-    console.log(testNewDetails);
-
-    setCartWithAmount(
-      data.shop.sid,
-      selectedSid,
-      data.shop.name,
-      data.product.name,
-      data.product.price,
-      data.product.price,
-      data.product.src,
-      testNewDetails,
-      amount
-    );
-    console.log([
-      data.shop.sid,
-      selectedSid,
-      data.shop.name,
-      data.product.name,
-      data.product.price,
-      data.product.price,
-      data.product.src,
-      testNewDetails,
-      amount,
-    ]);
-
-    // 重置State
-    setSelectedSid('');
-    setAmount(1);
   };
 
   return (
@@ -219,7 +282,22 @@ function OptionForm({ selectedSid, setSelectedSid }) {
             ></i>
           </div>
           <div className="right">
-            <div className="" onClick={intoCart}>
+            <div
+              className={
+                optionBoolean.findIndex((v) => {
+                  return !!v === false;
+                }) === -1
+                  ? ''
+                  : 'inActive'
+              }
+              onClick={
+                optionBoolean.findIndex((v) => {
+                  return !!v === false;
+                }) === -1
+                  ? intoCart
+                  : ''
+              }
+            >
               <p>放入購物車</p>
             </div>
           </div>

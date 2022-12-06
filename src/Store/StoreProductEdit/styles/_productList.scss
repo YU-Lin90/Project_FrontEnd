@@ -499,6 +499,7 @@
       .right {
         width: 100%;
         div {
+          cursor: pointer;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -514,6 +515,7 @@
         .inActive {
           background-color: #ccc;
           color: white;
+          cursor: auto;
         }
       }
     }
