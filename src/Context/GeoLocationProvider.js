@@ -4,7 +4,6 @@ import keys from '../keys';
 const GeoContext = createContext(null);
 // https://www.npmjs.com/package/react-geocode
 export const GeoLocationProvider = ({ children }) => {
-
   Geocode.setApiKey(keys.gmap);
   // Geocode.setApiKey('456465465132156456456');
   Geocode.setLanguage('zh-tw');
@@ -93,12 +92,35 @@ export const GeoLocationProvider = ({ children }) => {
     return locate;
   };
   //===============================================分隔線================================================
+  //由位置獲得地址
+  const getAddressByLatLng = async () => {
+    const positions = { lat: 0, lng: 0, address: '' };
+    await navigator.geolocation.getCurrentPosition((getPosition) => {
+      const lat = getPosition.coords.latitude;
+      const lng = getPosition.coords.longitude;
+      positions.lat = lat;
+      positions.lng = lng;
+    });
+    await Geocode.fromLatLng(positions.lat, positions.lng).then(
+      (response) => {
+        const address = response.results[0].formatted_address;
+        positions.address = address;
+        // console.log(address);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    return positions;
+  };
+  //===============================================分隔線================================================
   return (
     <GeoContext.Provider
       value={{
         calculateDistance,
         calculateDistanceByLatLng,
         getLatLngByAddress,
+        getAddressByLatLng,
       }}
     >
       {children}

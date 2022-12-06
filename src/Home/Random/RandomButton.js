@@ -14,6 +14,7 @@ function RandomButton({
   setFlashingEnd,
   pressedTimes,
   setPressedTimes,
+  setGettedSid,
 }) {
   const { loginCheckPostFetch } = useFunc();
 
@@ -27,15 +28,17 @@ function RandomButton({
     );
     console.log(res);
     //TODO 展示用 改這裡會改顯示結果 這樣寫只有第三次一定是要的店家
-    if (pressedTimes !== 2) {
-      res.shopList.shift();
-    }
+    // if (pressedTimes !== 2) {
+    //   res.shopList.shift();
+    // }
     //開始閃爍
     setStartFlashing(true);
     //放進資料列
     setRadomArrays(res.shopList);
     //放進第0個
     setGettedShopName(res.shopList[0].name);
+    //設定SID
+    setGettedSid(res.shopList[0].sid);
     //今天超過次數的狀態
     if (res.over) {
       setTodayOver(true);

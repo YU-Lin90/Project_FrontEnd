@@ -270,10 +270,6 @@ function DeliverMapContent({
                 foodreach();
                 const orderSid = localStorage.getItem('order_sid');
                 localStorage.removeItem('deliver_order_sid');
-                localStorage.removeItem('StoreName');
-                localStorage.removeItem('MemberName');
-                localStorage.removeItem('Store');
-                localStorage.removeItem('StoreDatas');
                 localStorage.removeItem('order_sid');
                 localStorage.setItem('delivertake',true); 
                 orderSocket.send(
@@ -289,7 +285,6 @@ function DeliverMapContent({
           }         
         }}
       >
-
         {sideNow === 2 ? '取餐' : '送達'}
       </button>
     </>

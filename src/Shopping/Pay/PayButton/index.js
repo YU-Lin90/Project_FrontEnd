@@ -237,6 +237,10 @@ function PayButton({ orderSocket }) {
       {/* setButtonLock */}
       <div
         onClick={async () => {
+          if (!deliverFee) {
+            Swal.fire('送達地址不可為空');
+            return;
+          }
           if (!buttonLock) {
             if (waitTime >= 50) {
               let checkState = false;
