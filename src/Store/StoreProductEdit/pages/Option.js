@@ -81,297 +81,349 @@ function Option() {
     setSelectedItem('');
   };
 
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    ) {
+      return;
+    }
+    const newOptionData = [...optionData];
+    // newOptionData.push({
+    //   sid: 0,
+    //   name: inputText,
+    //   price: 0,
+    // });
+    const firstOptionData = newOptionData[source.index];
+    const secondOptionData = newOptionData[destination.index];
+    newOptionData[source.index] = secondOptionData;
+    newOptionData[destination.index] = firstOptionData;
+    setOptionData(newOptionData);
+  };
+
   return (
     <>
-      <div className="store-admin">
-        {!(selectedItem === '') ? (
-          <></>
-        ) : (
-          <>
-            <div className={`menu-container`}>
-              <div className="row">
-                <div className="menu-title">
-                  <h4>客製化選項</h4>
-                  <div
-                    className="bg-black-btn"
-                    onClick={() => {
-                      setSelectedItem(0);
-                      setFormData({
-                        sid: '',
-                        name: '',
-                        min: '',
-                        max: '',
-                      });
-                      setOptionData([]);
-                    }}
-                  >
-                    <i class="fa-solid fa-plus btn-icon"></i>
-                    <p>新增選項類別群組</p>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="table">
-                  <div className="thead">
-                    <div className="tr">
-                      <div className="th th-3">名稱</div>
-                      <div className="th th-3">包含選項</div>
-                      <div className="th th-3">說明</div>
-                    </div>
-                  </div>
-                  <div className="tbody">
-                    {data.options_types.map((ot) => {
-                      return (
-                        <div
-                          className="tr"
-                          onClick={() => {
-                            setSelectedItem(ot.sid);
-                            setFormData({
-                              sid: ot.sid,
-                              name: ot.name,
-                              min: ot.min,
-                              max: ot.max,
-                            });
-                            const newOptionData = data.options
-                              .filter((opt) => {
-                                return opt.options_type_sid === ot.sid;
-                              })
-                              .map((opt) => {
-                                return {
-                                  sid: opt.sid,
-                                  name: opt.name,
-                                  price: opt.price,
-                                };
-                              });
-                            console.log(newOptionData);
-                            setOptionData(newOptionData);
-                          }}
-                        >
-                          <div className="td td-3">{ot.name}</div>
-                          <div className="td td-3">
-                            {data.options
-                              .filter((opt) => {
-                                return opt.options_type_sid === ot.sid;
-                              })
-                              .map((opt) => {
-                                return opt.name;
-                              })
-                              .join()}
-                          </div>
-                          <div className="td td-3">
-                            至少選{ot.min}項，至多選{ot.max}項
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-
-        {selectedItem === '' ? (
-          <></>
-        ) : (
-          <>
-            <div className={`menu-container`}>
-              <div className="row">
-                <div className="top-edit-bar">
-                  <div className="left-btn-group">
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="store-admin">
+          {!(selectedItem === '') ? (
+            <></>
+          ) : (
+            <>
+              <div className={`menu-container`}>
+                <div className="row">
+                  <div className="menu-title">
+                    <h4>客製化選項</h4>
                     <div
-                      onClick={(e) => {
-                        setSelectedItem('');
+                      className="bg-black-btn"
+                      onClick={() => {
+                        setSelectedItem(0);
+                        setFormData({
+                          sid: '',
+                          name: '',
+                          min: '',
+                          max: '',
+                        });
+                        setOptionData([]);
                       }}
                     >
-                      <i className="fa-solid fa-arrow-left"></i>
-                    </div>
-                  </div>
-                  <div className="right-btn-group">
-                    {selectedItem ? (
-                      <div className="sm-white-btn" onClick={delBtnHandler}>
-                        刪除
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                    <div
-                      className="sm-black-btn"
-                      onClick={selectedItem ? editBtnHandler : addBtnHandler}
-                    >
-                      儲存
+                      <i class="fa-solid fa-plus btn-icon"></i>
+                      <p>新增選項類別群組</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="edit-form">
-                  <form action="" name="form1">
-                    <div className="option-box">
-                      <label hidden>
-                        <input
-                          type="number"
-                          name="sid"
-                          value={selectedItem ? formData.sid : ''}
-                        />
-                      </label>
-
-                      <label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={!(selectedItem === '') ? formData.name : ''}
-                          onChange={(e) => {
-                            setFormData({ ...formData, name: e.target.value });
-                          }}
-                        />
-                      </label>
-                      <div className="amount-area">
-                        <div className="amount-box">
-                          <p>顧客最少必須選擇幾個客製化項目?</p>
-                          <input
-                            type="number"
-                            name="min"
-                            value={!(selectedItem === '') ? formData.min : ''}
-                            onChange={(e) => {
-                              setFormData({ ...formData, min: e.target.value });
-                            }}
-                          />
-                        </div>
-                        <div className="amount-box">
-                          <p>顧客最多可以選擇幾個客製化項目?</p>
-
-                          <input
-                            type="number"
-                            name="max"
-                            value={!(selectedItem === '') ? formData.max : ''}
-                            onChange={(e) => {
-                              setFormData({ ...formData, max: e.target.value });
-                            }}
-                          />
-                        </div>
+                <div className="row">
+                  <div className="table">
+                    <div className="thead">
+                      <div className="tr">
+                        <div className="th th-3">名稱</div>
+                        <div className="th th-3">包含選項</div>
+                        <div className="th th-3">說明</div>
                       </div>
-
-                      <div className="option-group-area">
-                        <h6>客製化選項</h6>
-                        <div className="option-enter-box">
-                          <input
-                            type="text"
-                            value={inputText}
-                            onChange={(e) => {
-                              setInputText(e.target.value);
+                    </div>
+                    <div className="tbody">
+                      {data.options_types.map((ot) => {
+                        return (
+                          <div
+                            className="tr"
+                            onClick={() => {
+                              setSelectedItem(ot.sid);
+                              setFormData({
+                                sid: ot.sid,
+                                name: ot.name,
+                                min: ot.min,
+                                max: ot.max,
+                              });
+                              const newOptionData = data.options
+                                .filter((opt) => {
+                                  return opt.options_type_sid === ot.sid;
+                                })
+                                .map((opt) => {
+                                  return {
+                                    sid: opt.sid,
+                                    name: opt.name,
+                                    price: opt.price,
+                                  };
+                                });
+                              console.log(newOptionData);
+                              setOptionData(newOptionData);
                             }}
-                          />
-                          <button
-                            className="sm-black-btn"
-                            onClick={insertBtnHandler}
                           >
-                            新增
-                          </button>
-                        </div>
-
-                        <div className="table">
-                          <div className="thead">
-                            <div className="tr">
-                              <div className="th">選項名稱</div>
-                              <div className="th">價格</div>
+                            <div className="td td-3">{ot.name}</div>
+                            <div className="td td-3">
+                              {data.options
+                                .filter((opt) => {
+                                  return opt.options_type_sid === ot.sid;
+                                })
+                                .map((opt) => {
+                                  return opt.name;
+                                })
+                                .join()}
+                            </div>
+                            <div className="td td-3">
+                              至少選{ot.min}項，至多選{ot.max}項
                             </div>
                           </div>
-                          <div className="tbody">
-                            {optionData.map((opt, index) => {
-                              return (
-                                <>
-                                  <tr>
-                                    <td hidden>
-                                      <label>
-                                        sid:
-                                        <input
-                                          type="number"
-                                          name="option_sid"
-                                          value={opt.sid}
-                                        />
-                                      </label>
-                                    </td>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
 
-                                    <td>
-                                      <i className="fa-solid fa-equals"></i>
-                                    </td>
+          {selectedItem === '' ? (
+            <></>
+          ) : (
+            <>
+              <div className={`menu-container`}>
+                <div className="row">
+                  <div className="top-edit-bar">
+                    <div className="left-btn-group">
+                      <div
+                        onClick={(e) => {
+                          setSelectedItem('');
+                        }}
+                      >
+                        <i className="fa-solid fa-arrow-left"></i>
+                      </div>
+                    </div>
+                    <div className="right-btn-group">
+                      {selectedItem ? (
+                        <div className="sm-white-btn" onClick={delBtnHandler}>
+                          刪除
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                      <div
+                        className="sm-black-btn"
+                        onClick={selectedItem ? editBtnHandler : addBtnHandler}
+                      >
+                        儲存
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="edit-form">
+                    <form action="" name="form1">
+                      <div className="option-box">
+                        <label hidden>
+                          <input
+                            type="number"
+                            name="sid"
+                            value={selectedItem ? formData.sid : ''}
+                          />
+                        </label>
 
-                                    <td>
-                                      <label>
-                                        <input
-                                          type="text"
-                                          name="name"
-                                          value={opt.name}
-                                          onChange={(e) => {
-                                            const newOptionData = [
-                                              ...optionData,
-                                            ];
-                                            newOptionData[index].name =
-                                              e.target.value;
-                                            setOptionData(newOptionData);
-                                          }}
-                                        />
-                                      </label>
-                                    </td>
-                                    <td>
-                                      <div className="price-box">
-                                        <div className="number-input">
-                                          <div>NT$</div>
-                                          <input
-                                            type="number"
-                                            name="price"
-                                            value={opt.price}
-                                            onChange={(e) => {
-                                              const newOptionData = [
-                                                ...optionData,
-                                              ];
-                                              newOptionData[index].price =
-                                                e.target.value;
-                                              setOptionData(newOptionData);
-                                            }}
-                                          />
-                                        </div>
-                                      </div>
-                                      {/* <label>
-                                    <input
-                                      type="number"
-                                      name="price"
-                                      value={opt.price}
-                                      onChange={(e) => {
-                                        const newOptionData = [...optionData];
-                                        newOptionData[index].price =
-                                          e.target.value;
-                                        setOptionData(newOptionData);
-                                      }}
-                                    />
-                                  </label> */}
-                                    </td>
-                                    <td>
-                                      <i
-                                        className="fa-solid fa-trash"
-                                        onClick={() => {
-                                          const newOptionData = [...optionData];
-                                          newOptionData.splice(index, 1);
-                                          setOptionData(newOptionData);
-                                        }}
-                                      ></i>
-                                    </td>
-                                  </tr>
-                                </>
-                              );
-                            })}
+                        <label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={!(selectedItem === '') ? formData.name : ''}
+                            onChange={(e) => {
+                              setFormData({
+                                ...formData,
+                                name: e.target.value,
+                              });
+                            }}
+                          />
+                        </label>
+                        <div className="amount-area">
+                          <div className="amount-box">
+                            <p>顧客最少必須選擇幾個客製化項目?</p>
+                            <input
+                              type="number"
+                              name="min"
+                              value={!(selectedItem === '') ? formData.min : ''}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  min: e.target.value,
+                                });
+                              }}
+                            />
+                          </div>
+                          <div className="amount-box">
+                            <p>顧客最多可以選擇幾個客製化項目?</p>
+
+                            <input
+                              type="number"
+                              name="max"
+                              value={!(selectedItem === '') ? formData.max : ''}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  max: e.target.value,
+                                });
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="option-group-area">
+                          <h6>客製化選項</h6>
+                          <div className="option-enter-box">
+                            <input
+                              type="text"
+                              value={inputText}
+                              onChange={(e) => {
+                                setInputText(e.target.value);
+                              }}
+                            />
+                            <button
+                              className="sm-black-btn"
+                              onClick={insertBtnHandler}
+                            >
+                              新增
+                            </button>
+                          </div>
+
+                          <div className="table">
+                            <div className="thead">
+                              <div className="tr">
+                                <div className="th">選項名稱</div>
+                                <div className="th">價格</div>
+                              </div>
+                            </div>
+                            <Droppable droppableId="drop-id">
+                              {(provided) => (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.droppableProps}
+                                >
+                                  <div className="tbody">
+                                    {optionData.map((opt, index) => {
+                                      return (
+                                        <Draggable
+                                          draggableId={`opt${index}`}
+                                          index={index}
+                                        >
+                                          {(provided) => (
+                                            <tr
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              ref={provided.innerRef}
+                                            >
+                                              <td hidden>
+                                                <label>
+                                                  sid:
+                                                  <input
+                                                    type="number"
+                                                    name="option_sid"
+                                                    value={opt.sid}
+                                                  />
+                                                </label>
+                                              </td>
+
+                                              <td>
+                                                <i className="fa-solid fa-equals"></i>
+                                              </td>
+
+                                              <td>
+                                                <label>
+                                                  <input
+                                                    type="text"
+                                                    name="name"
+                                                    value={opt.name}
+                                                    onChange={(e) => {
+                                                      const newOptionData = [
+                                                        ...optionData,
+                                                      ];
+                                                      newOptionData[
+                                                        index
+                                                      ].name = e.target.value;
+                                                      setOptionData(
+                                                        newOptionData
+                                                      );
+                                                    }}
+                                                  />
+                                                </label>
+                                              </td>
+                                              <td>
+                                                <div className="price-box">
+                                                  <div className="number-input">
+                                                    <div>NT$</div>
+                                                    <input
+                                                      type="number"
+                                                      name="price"
+                                                      value={opt.price}
+                                                      onChange={(e) => {
+                                                        const newOptionData = [
+                                                          ...optionData,
+                                                        ];
+                                                        newOptionData[
+                                                          index
+                                                        ].price =
+                                                          e.target.value;
+                                                        setOptionData(
+                                                          newOptionData
+                                                        );
+                                                      }}
+                                                    />
+                                                  </div>
+                                                </div>
+                                              </td>
+                                              <td>
+                                                <i
+                                                  className="fa-solid fa-trash"
+                                                  onClick={() => {
+                                                    const newOptionData = [
+                                                      ...optionData,
+                                                    ];
+                                                    newOptionData.splice(
+                                                      index,
+                                                      1
+                                                    );
+                                                    setOptionData(
+                                                      newOptionData
+                                                    );
+                                                  }}
+                                                ></i>
+                                              </td>
+                                            </tr>
+                                          )}
+                                        </Draggable>
+                                      );
+                                    })}
+                                  </div>
+                                  {provided.placeholder}
+                                </div>
+                              )}
+                            </Droppable>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
+      </DragDropContext>
     </>
   );
 }
