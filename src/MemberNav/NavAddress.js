@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
+import { useGeo } from '../Context/GeoLocationProvider';
 //NAV 地址
 function NavAddress({ sendAddress, setSendAddress }) {
-  const location = useLocation();
   const [openSetAddress, setOpenSetAddress] = useState(false);
+  const { getAddressByLatLng } = useGeo();
+  const getAddress = async () => {
+    const address = await getAddressByLatLng();
+    // console.log(address);
+    setSendAddress(address.address);
+    localStorage.setItem('DeliveAddress', address.address);
+  };
   return (
     <>
       <div className="po-r padH20">
@@ -16,7 +21,12 @@ function NavAddress({ sendAddress, setSendAddress }) {
           }}
         >
           <span className="fw6">{sendAddress === '' ? '' : '送到：'}</span>
-          <span style={{ color: '#FF7C7C' }}>
+          <span
+            style={{ color: '#FF7C7C' }}
+            onClick={() => {
+              getAddress();
+            }}
+          >
             <i className="fa-solid fa-location-crosshairs fs18 fw6"></i>
           </span>
           <span style={{ color: '#FF7C7C' }} className="fs18 fw6">
