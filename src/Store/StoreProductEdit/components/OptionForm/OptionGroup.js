@@ -15,9 +15,12 @@ function OptionGroup({
 
   useEffect(() => {
     // 如果這個選項類別可以不用選的話，自動回報optionBoolean是正確的。
-    // let newOptionBoolean = [...optionBoolean];
-    // newOptionBoolean[otIndex] = 123;
-    // setOptionBoolean(newOptionBoolean);
+    // if (data.options_types.length === 0) {
+    //   const newOptionBoolean = [...optionBoolean];
+    //   console.log(newOptionBoolean);
+    //   newOptionBoolean[otIndex] = true;
+    //   setOptionBoolean(newOptionBoolean);
+    // }
   }, []);
 
   return (
@@ -58,6 +61,20 @@ function OptionGroup({
                         price: opt.price,
                       };
                       setTestDetails(testNewDetails);
+
+                      // 檢測數量
+                      if (
+                        testDetails[otIndex].list.filter((v) => {
+                          return !!v === true;
+                        }).length >= min ||
+                        testDetails[otIndex].list.filter((v) => {
+                          return !!v === true;
+                        }).length <= max
+                      ) {
+                        const newOptionBoolean = [...optionBoolean];
+                        newOptionBoolean[otIndex] = true;
+                        setOptionBoolean(newOptionBoolean);
+                      }
                     }}
                   />
                 ) : (
@@ -88,6 +105,24 @@ function OptionGroup({
                           price: opt.price,
                         };
                         setTestDetails(testNewDetails);
+
+                        // 檢測目前所選數量
+                        if (
+                          (testDetails[otIndex] &&
+                            !testDetails[otIndex].list[i] &&
+                            testDetails[otIndex].list.filter((v) => {
+                              return !!v === true;
+                            }).length >= min) ||
+                          (testDetails[otIndex] &&
+                            !testDetails[otIndex].list[i] &&
+                            testDetails[otIndex].list.filter((v) => {
+                              return !!v === true;
+                            }).length <= max)
+                        ) {
+                          const newOptionBoolean = [...optionBoolean];
+                          newOptionBoolean[otIndex] = true;
+                          setOptionBoolean(newOptionBoolean);
+                        }
                       } else {
                         // test
                         const testThisIndex = testDetails.findIndex(

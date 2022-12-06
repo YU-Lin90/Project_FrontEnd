@@ -3,6 +3,7 @@ import axios from 'axios';
 import OptionGroup from './OptionGroup';
 import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../../Context/CartProvider';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function OptionForm({ selectedSid, setSelectedSid }) {
   const { setCartWithAmount } = useCart();
@@ -29,6 +30,10 @@ function OptionForm({ selectedSid, setSelectedSid }) {
 
   useEffect(() => {
     getData(selectedSid);
+    document.querySelector('body').style.overflow = 'hidden';
+    return () => {
+      document.querySelector('body').style.overflow = 'auto';
+    };
   }, []);
 
   useEffect(() => {
@@ -37,7 +42,14 @@ function OptionForm({ selectedSid, setSelectedSid }) {
         return { sid: ot.sid, name: ot.name, list: [] };
       })
     );
-    setOptionBoolean(data.options_types.map((ot) => false));
+    setOptionBoolean(
+      data.options_types.map((ot) => {
+        if (ot.min === 0) {
+          return true;
+        }
+        return false;
+      })
+    );
 
     // 點購物車的商品近來要取得該商品當前的資料
     const localCart = JSON.parse(localStorage.getItem('cart'));
@@ -81,146 +93,218 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   }, [cartOptions]);
 
   const intoCart = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
-    // test
-    console.log(testDetails);
-    let testNewDetails = [];
-    testDetails.forEach((d) => {
-      const arr = d.list.filter((l) => {
-        return !!l === true;
-      });
-      testNewDetails = [...testNewDetails, ...arr];
+    // // test
+    // console.log(testDetails);
+    // let testNewDetails = [];
+    // testDetails.forEach((d) => {
+    //   const arr = d.list.filter((l) => {
+    //     return !!l === true;
+    //   });
+    //   testNewDetails = [...testNewDetails, ...arr];
+    // });
+    // console.log(testNewDetails);
+
+    // setCartWithAmount(
+    //   data.shop.sid,
+    //   selectedSid,
+    //   data.shop.name,
+    //   data.product.name,
+    //   data.product.price,
+    //   data.product.price,
+    //   data.product.src,
+    //   testNewDetails,
+    //   amount
+    // );
+    // console.log([
+    //   data.shop.sid,
+    //   selectedSid,
+    //   data.shop.name,
+    //   data.product.name,
+    //   data.product.price,
+    //   data.product.price,
+    //   data.product.src,
+    //   testNewDetails,
+    //   amount,
+    // ]);
+
+    // // 重置State
+    // setSelectedSid('');
+    // setAmount(1);
+
+    // alert
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.preventDefault();
+
+        // test
+        console.log(testDetails);
+        let testNewDetails = [];
+        testDetails.forEach((d) => {
+          const arr = d.list.filter((l) => {
+            return !!l === true;
+          });
+          testNewDetails = [...testNewDetails, ...arr];
+        });
+        console.log(testNewDetails);
+
+        setCartWithAmount(
+          data.shop.sid,
+          selectedSid,
+          data.shop.name,
+          data.product.name,
+          data.product.price,
+          data.product.price,
+          data.product.src,
+          testNewDetails,
+          amount
+        );
+        console.log([
+          data.shop.sid,
+          selectedSid,
+          data.shop.name,
+          data.product.name,
+          data.product.price,
+          data.product.price,
+          data.product.src,
+          testNewDetails,
+          amount,
+        ]);
+
+        // 重置State
+        setSelectedSid('');
+        setAmount(1);
+
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
     });
-    console.log(testNewDetails);
-
-    setCartWithAmount(
-      data.shop.sid,
-      selectedSid,
-      data.shop.name,
-      data.product.name,
-      data.product.price,
-      data.product.price,
-      data.product.src,
-      testNewDetails,
-      amount
-    );
-    console.log([
-      data.shop.sid,
-      selectedSid,
-      data.shop.name,
-      data.product.name,
-      data.product.price,
-      data.product.price,
-      data.product.src,
-      testNewDetails,
-      amount,
-    ]);
-
-    // 重置State
-    setSelectedSid('');
-    setAmount(1);
   };
 
   return (
-    <div className={`option-form`}>
-      <div className="row">
-        <div className="product-img">
-          <div
-            className="back-btn"
-            onClick={() => {
-              // 應該後來要改成setSelectedSid
-              setSelectedSid('');
-              setAmount(0);
-            }}
-          >
-            <i className="fa-solid fa-arrow-left"></i>
-          </div>
-          <img
-            src={`http://localhost:3001/uploads/${data.product.src}`}
-            alt="餐點圖片"
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="product-info">
-          <div className="top">
-            <h5>{data.product.name}</h5>
-            <p>$ {data.product.price}</p>
-          </div>
-          <div className="bottom">
-            <p>{data.product.note}</p>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="option-section">
-          <div className="option-box">
-            {data.options_types.map((ot, otIndex) => {
-              return (
-                <div className="option-box">
-                  <div className="option-type">
-                    <div className="top">
-                      <h6>{ot.name}</h6>
-                      <p>{!ot.min ? '' : `${ot.min}必填`}</p>
-                    </div>
-                    <div className="bottom">
-                      <p>
-                        {ot.min === 1 && ot.max === 1
-                          ? '選擇1項'
-                          : ot.max > 1 && ot.min > 0
-                          ? `最多可選擇${ot.max}項(最少選擇${ot.min}項)`
-                          : ot.max > 1 && ot.min === 0
-                          ? `最多可選擇${ot.max}項(可不選擇)`
-                          : null}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="option-list">
-                    <OptionGroup
-                      ot={ot}
-                      data={data}
-                      optionBoolean={optionBoolean}
-                      setOptionBoolean={setOptionBoolean}
-                      otIndex={otIndex}
-                      // test
-                      testDetails={testDetails}
-                      setTestDetails={setTestDetails}
-                      // 選項格式是否正確
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="amount-section">
-          <div className="left">
-            <i
-              className={`fa-solid fa-minus ${amount <= 1 ? 'inActive' : ''}`}
+    <div className="option-form-area">
+      <div className={`option-form`}>
+        <div className="row">
+          <div className="product-img">
+            <div
+              className="back-btn"
               onClick={() => {
-                if (amount > 1) setAmount(amount - 1);
+                // 應該後來要改成setSelectedSid
+                setSelectedSid('');
+                setAmount(0);
               }}
-            ></i>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => {
-                setAmount(e.target.value);
-              }}
+            >
+              <i className="fa-solid fa-arrow-left"></i>
+            </div>
+            <img
+              src={`http://localhost:3001/uploads/${data.product.src}`}
+              alt="餐點圖片"
             />
-            <i
-              className="fa-solid fa-plus"
-              onClick={() => {
-                if (amount > 0) setAmount(amount + 1);
-              }}
-            ></i>
           </div>
-          <div className="right">
-            <div className="" onClick={intoCart}>
-              <p>放入購物車</p>
+        </div>
+        <div className="row">
+          <div className="product-info">
+            <div className="top">
+              <h5>{data.product.name}</h5>
+              <p>$ {data.product.price}</p>
+            </div>
+            <div className="bottom">
+              <p>{data.product.note}</p>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="option-section">
+            <div className="option-box">
+              {data.options_types.map((ot, otIndex) => {
+                return (
+                  <div className="option-box">
+                    <div className="option-type">
+                      <div className="top">
+                        <h6>{ot.name}</h6>
+                        <p>{!ot.min ? '' : `${ot.min}必填`}</p>
+                      </div>
+                      <div className="bottom">
+                        <p>
+                          {ot.min === 1 && ot.max === 1
+                            ? '選擇1項'
+                            : ot.max > 1 && ot.min > 0
+                            ? `最多可選擇${ot.max}項(最少選擇${ot.min}項)`
+                            : ot.max > 1 && ot.min === 0
+                            ? `最多可選擇${ot.max}項(可不選擇)`
+                            : null}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="option-list">
+                      <OptionGroup
+                        ot={ot}
+                        data={data}
+                        optionBoolean={optionBoolean}
+                        setOptionBoolean={setOptionBoolean}
+                        otIndex={otIndex}
+                        // test
+                        testDetails={testDetails}
+                        setTestDetails={setTestDetails}
+                        // 選項格式是否正確
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="amount-section">
+            <div className="left">
+              <i
+                className={`fa-solid fa-minus ${amount <= 1 ? 'inActive' : ''}`}
+                onClick={() => {
+                  if (amount > 1) setAmount(amount - 1);
+                }}
+              ></i>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => {
+                  setAmount(e.target.value);
+                }}
+              />
+              <i
+                className="fa-solid fa-plus"
+                onClick={() => {
+                  if (amount > 0) setAmount(amount + 1);
+                }}
+              ></i>
+            </div>
+            <div className="right">
+              <div
+                className={
+                  optionBoolean.findIndex((v) => {
+                    return !!v === false;
+                  }) === -1
+                    ? ''
+                    : 'inActive'
+                }
+                onClick={
+                  optionBoolean.findIndex((v) => {
+                    return !!v === false;
+                  }) === -1
+                    ? intoCart
+                    : ''
+                }
+              >
+                <p>放入購物車</p>
+              </div>
             </div>
           </div>
         </div>
