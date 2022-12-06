@@ -9,16 +9,24 @@ function Menu({ setToggle, toggle }) {
     // { text: '店家內商品列表', link: '/StoreDetail' },
     // { text: '結帳頁', link: '/Pay' },
     // { text: '台北市', link: '/City/Taipei' },
-    // { text: '附近美食', link: '/' },
+    { text: '附近美食', link: '/productList/?shop_sid=89' },
     // { text: '找餐點', link: '/' },
-    // { text: '優惠券', link: '/Coupon' },
-    // { text: '會員中心', link: '/Member' },
+    { text: '優惠券', link: '/Coupon' },
+    { text: '會員中心', link: '/Member' },
+    { text: '現在訂單', link: '/Member/MemberOrder' },
+    { text: '歷史訂單', link: '/Member/MemberOldOrder' },
+    { text: '紅利明細', link: '/Member/MemberPoint' },
+    { text: '客服中心', link: '/Member/MemberService' },
+    // { text: '', link: '/Member' },
+
+
+
     // { text: '會員登入', link: '/MemberLogin' },
-    { text: '會員註冊', link: '/MemberRegister' },
+    // { text: '會員註冊', link: '/MemberRegister' },
     // { text: '測試購物車頁', link: '/CartTemp' },
-    { text: '店家首頁', link: '/Store/StoreLogin' },
-    { text: '外送員首頁', link: '/Deliver/DeliverConfirmOrder' },
-    { text: '管理者首頁', link: '/Admin' },
+    // { text: '店家首頁', link: '/Store/StoreLogin' },
+    // { text: '外送員首頁', link: '/Deliver/DeliverConfirmOrder' },
+    // { text: '管理者首頁', link: '/Admin' },
   ];
 
   const checkClose = (e) => {

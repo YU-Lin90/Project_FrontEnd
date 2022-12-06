@@ -20,6 +20,7 @@
   background-color: #eeee;
   width: 100%;
   z-index: 10;
+  gap: 10px;
 }
 .storeCenterButton {
   /* border: 1px red solid; */
@@ -30,6 +31,7 @@
   font-size: 18px;
   text-align: center;
   color: var(--mainColor);
+  padding: 5px;
 }
 
 .storeContent {

@@ -23,5 +23,22 @@
   background-color: var(--subColor);
 }
 .oldOrderStoreImg{
-  object-fit:cover;
+  width: 100%;
+  /* object-fit:cover; */
+}
+.orderCommandBox{
+  border-radius: 10px;
+  background-color: #EFE587;;
+  /* margin: 0 auto 0;  */
+  /* max-height:600px ; */
+  /* width: 80%; */
+}
+.orderCommandBox textarea{
+  background-color: #ddc;
+}
+@media screen and (min-width:768px){
+  .orderCommandBox{
+  /* width: inherit; */
+
+  }
 }

@@ -38,7 +38,7 @@ function OrderCommand({
   return (
     <>
       <div className="grayBack">
-        <div className="onGrayBack bgcW padV20 padH20">
+        <div className="onGrayBack bgcW padV20 padH20 orderCommandBox">
           <p className="ta-c borderBotGray3 padV20 padH20 fw6 fs32">
             {sideList[side]}評價
           </p>

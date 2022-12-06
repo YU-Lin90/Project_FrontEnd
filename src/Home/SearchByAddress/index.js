@@ -12,7 +12,7 @@ function SearchByAddress() {
     localStorage.setItem('DeliveAddress', address.address);
   };
   return (
-    <div className="homeAddressSlogan">
+    <div className="homeAddressFrame">
       <p
         onClick={() => {
           localStorage.setItem(
@@ -21,9 +21,9 @@ function SearchByAddress() {
           );
           setSendAddress('台北市大安區復興南路一段390號2樓');
         }}
-        className="fs36 fw5 marb20"
+        className="fs36 fw5 marb20 homeAddressSlogan"
       >
-        各式美食 馬上點馬上到
+        各式美食 上千種商品 馬上點馬上到
       </p>
       <div className="padV20 padH20 homeAddressInputsFrame">
         <div className="w75p marr10">
@@ -51,7 +51,7 @@ function SearchByAddress() {
               onClick={() => {
                 getAddress();
               }}
-              className="fa-solid fa-location-crosshairs fs18 fw6 pointer"
+              className="fa-solid fontMainColor fa-location-crosshairs fs18 fw6 pointer"
             ></i>
           </div>
 

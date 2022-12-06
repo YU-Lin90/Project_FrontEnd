@@ -34,7 +34,7 @@ function OrderOptions({
               }}
               value={v.sid}
               key={v.sid}
-              className={`w100p disf padV5 jc-sb ai-c h100p openedOptions  ${
+              className={`w100p disf marb10 padV5 jc-sb ai-c h100p openedOptions  ${
                 selectedOrder === v.sid ? 'active' : ''
               }`}
             >

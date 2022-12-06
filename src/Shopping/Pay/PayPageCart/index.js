@@ -17,7 +17,7 @@ function PayPageCart() {
   }, [cartContents]);
   return (
     <div className="lh24 w100p">
-      <h3 className="chooseCartH3">
+      <h3 className="chooseCartH3 lh36">
         {cartContents.cartList[chooseedPayShop].shopName}
       </h3>
       <div>

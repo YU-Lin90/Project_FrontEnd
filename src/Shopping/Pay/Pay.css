@@ -57,7 +57,7 @@
 
 .payPageButton.locked {
   opacity: 0.7;
-  cursor:not-allowed;
+  cursor: not-allowed;
 }
 
 .payCoupons {
@@ -85,25 +85,70 @@
 .payCoupons.active {
   outline: 3px red solid;
 }
-.payPageFrame{
+
+.payPageFrame {
   flex-direction: column-reverse;
   background-color: #eee5;
 }
-.payPageFrameLeft{
+
+.payPageFrameLeft {
   width: 100%;
 }
-.OrederDetailForPay{  width: 100%;
+
+.OrederDetailForPay {
+  width: 100%;
 
 }
-@media screen and (min-width:768px){
-  .payPageFrame{
+
+.OrederDetailListForPay {
+  border: var(--mainColor) 5px solid;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+}
+
+.OrederDetailListForPay::before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 60%;
+  height: 15px;
+  background: linear-gradient(to bottom, var(--mainColor), var(--mainColor) 100%, var(--subColor) 70%, var(--subColor) 100%);
+  top: -10px;
+  left: 50%;
+  translate: -50%;
+  z-index: 2;
+}
+
+.OrederDetailListForPay::after {
+  z-index: 1;
+  position: absolute;
+  display: block;
+  content: '';
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ccc, #ccc 30%, var(--mainColor) 30%, var(--mainColor) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 0 60%);
+  top: -25px;
+  left: 50%;
+  translate: -50%;
+}
+
+@media screen and (min-width:768px) {
+  .payPageFrame {
 
     flex-direction: row;
   }
-  .payPageFrameLeft{
+
+  .payPageFrameLeft {
     width: 70%;
   }
-  .OrederDetailForPay{
+
+  .OrederDetailForPay {
     width: 30%;
   }
+
+  .OrederDetailListForPay {}
 }
