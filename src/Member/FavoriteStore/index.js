@@ -326,7 +326,7 @@ export default function FavoriteStore() {
       <br />
       <div className="mf_wrap">{display}</div>
       <div className="mf_errorfont">
-        {user3.length > 0 ? errormsg : '沒有此店家'}
+        {user.length > 0 ? errormsg : '沒有此店家'}
       </div>
     </>
   );
