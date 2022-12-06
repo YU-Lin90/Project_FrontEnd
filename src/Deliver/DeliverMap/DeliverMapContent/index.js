@@ -225,31 +225,32 @@ function DeliverMapContent({
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
               confirmButtonText: '確定',
-              cancelButtonText: '取消'
+              cancelButtonText: '取消',
             }).then((result) => {
               if (result.isConfirmed) {
                 Swal.fire({
                   title: '收到你的取餐訊息',
                   icon: 'success',
                   showConfirmButton: false,
-                  timer: 1500
-                })
+                  timer: 1500,
+                });
                 foodget();
+                setSideNow(1);
+                orderSocket.send(
+                  JSON.stringify({
+                    receiveSide: 1,
+                    receiveSid: 1,
+                    step: 4,
+                    orderSid: Number(orderSid),
+                  })
+                );
               }
-            })
+            });
             setSideNow(1);
             const orderSid = localStorage.getItem('order_sid');
-            orderSocket.send(
-              JSON.stringify({
-                receiveSide: 1,
-                receiveSid: 1,
-                step: 4,
-                orderSid: Number(orderSid),
-                
-              })
-            );
           }
           if (sideNow === 1) {
+            const orderSid = localStorage.getItem('order_sid');
             Swal.fire({
               title: '確定已送達?',
               icon: 'warning',
@@ -257,21 +258,10 @@ function DeliverMapContent({
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
               confirmButtonText: '確定',
-              cancelButtonText: '取消'
+              cancelButtonText: '取消',
             }).then((result) => {
               if (result.isConfirmed) {
-                Swal.fire({
-                  title:'收到你送達回覆',
-                  icon: 'success',
-                  showConfirmButton: true,
-                }).then((result)=>{
-                  navi('/Deliver/DeliverConfirmOrder');
-                })
                 foodreach();
-                const orderSid = localStorage.getItem('order_sid');
-                localStorage.removeItem('deliver_order_sid');
-                localStorage.removeItem('order_sid');
-                localStorage.setItem('delivertake',true); 
                 orderSocket.send(
                   JSON.stringify({
                     receiveSide: 1,
@@ -280,9 +270,19 @@ function DeliverMapContent({
                     orderSid: Number(orderSid),
                   })
                 );
+                Swal.fire({
+                  title: '收到你送達回覆',
+                  icon: 'success',
+                  showConfirmButton: true,
+                }).then((result) => {
+                  navi('/Deliver/DeliverConfirmOrder');
+                });
+                localStorage.removeItem('deliver_order_sid');
+                localStorage.removeItem('order_sid');
+                localStorage.setItem('delivertake', true);
               }
-            })
-          }         
+            });
+          }
         }}
       >
         {sideNow === 2 ? '取餐' : '送達'}
