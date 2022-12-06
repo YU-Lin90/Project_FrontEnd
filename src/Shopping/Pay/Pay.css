@@ -37,7 +37,7 @@
 
 .payCouponFrame {
   width: 50%;
-  align-self: stretch;
+  /* align-self: stretch; */
   min-height: 200px;
   display: flex;
   justify-content: center;

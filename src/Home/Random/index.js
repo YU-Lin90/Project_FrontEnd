@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
 import DailyTimeCounter from '../DailyTimeCounter';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const siteName = window.location.hostname;
 function Random() {
   /*
@@ -51,9 +52,12 @@ function Random() {
   return (
     <div>
       {/* deleteAllDailyCoupon */}
+      {/* TODO: 這裡要刪掉 開發時要刪除假資料用 */}
       <p
         onClick={async () => {
-          await notLoginGetFetch('deleteAllDailyCoupon');
+          Swal.fire('刪除全部每日資料').then(async () => {
+            await notLoginGetFetch('deleteAllDailyCoupon');
+          });
         }}
         className="homePageLogos"
       >
