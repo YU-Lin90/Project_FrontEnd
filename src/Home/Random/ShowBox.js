@@ -1,8 +1,12 @@
-//只顯示一筆名子
 import { useEffect } from 'react';
 
-function ShowBox({ gettedShopName }) {
+function ShowBox({ radomArrays, cutAmount }) {
+  //radomArrays[0]
   useEffect(() => {});
-  return <div>{gettedShopName}</div>;
+  return (
+    <div>
+      <p>{cutAmount !== 0 ? <>折價金額:{cutAmount}</> : null}</p>
+    </div>
+  );
 }
 export default ShowBox;

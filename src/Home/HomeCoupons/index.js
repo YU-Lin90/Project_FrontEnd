@@ -5,7 +5,7 @@ function HomeCoupons() {
   const [couponDatas, setCouponDatas] = useState([]);
   const getCoupons = async () => {
     const res = await notLoginGetFetch('HomePageGetCoupon');
-    console.log(res);
+    // console.log(res);
     setCouponDatas(res);
   };
   useEffect(() => {
