@@ -5,6 +5,7 @@ import './MemberLogin.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
+import axios from 'axios';
 const siteName = window.location.hostname;
 //登入函式   傳入要登入哪個帳號  帳號 密碼
 
@@ -14,6 +15,19 @@ function MemberLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordFieldType, setPasswordFieldType] = useState('password');
+
+  const login2 = async () => {
+    try {
+      const response = await axios.get(
+        `http://${siteName}:3001/MemberLogin/api6`
+      );
+      setEmail(response.data[0].email);
+      setPassword(response.data[0].password);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
   function login(email, password) {
     //如果其中一樣是空的
     if (!email.trim() || !password.trim()) {
@@ -76,7 +90,9 @@ function MemberLogin() {
             會員登入
           </h3>
           <div className="ml_email">
-            <label className="m_login_label">帳號</label>
+            <label className="m_login_label" onClick={login2}>
+              帳號
+            </label>
             <br />
             <input
               className="m_login_email"

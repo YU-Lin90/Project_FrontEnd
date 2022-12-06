@@ -79,6 +79,7 @@ function Product() {
     );
     console.log(response.data);
     setReload((v) => v + 1);
+    setImgSrc('');
     setSelectedItem('');
   };
 
@@ -91,6 +92,7 @@ function Product() {
     );
     console.log(response.data);
     setReload((v) => v + 1);
+    setImgSrc('');
     setSelectedItem('');
   };
 
@@ -100,6 +102,7 @@ function Product() {
       `http://localhost:3001/store-admin/product/${selectedItem}`
     );
     setReload((v) => v + 1);
+    setImgSrc('');
     setSelectedItem('');
   };
 
@@ -238,6 +241,7 @@ function Product() {
                       onClick={(e) => {
                         e.preventDefault();
                         setSelectedItem('');
+                        setImgSrc('');
                       }}
                     >
                       <i className="fa-solid fa-arrow-left"></i>

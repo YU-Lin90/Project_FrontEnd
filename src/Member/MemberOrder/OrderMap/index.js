@@ -100,7 +100,7 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
     console.log({ datas });
     console.log({ step });
     // TODO 這裡現在是寫死的 訂單編號要跟外送員那邊一樣
-    if (datas.orderSid === 1 && datas.lat && datas.lng && step === 4) {
+    if (datas.orderSid === 1 && datas.lat && datas.lng && step > 2) {
       console.log('in');
       setDeliverPosition({ lat: datas.lat, lng: datas.lng });
     }

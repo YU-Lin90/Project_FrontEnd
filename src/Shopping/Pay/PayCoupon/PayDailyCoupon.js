@@ -3,7 +3,12 @@ import { usePay } from '../../../Context/PayPageContext';
 import { useFunc } from '../../../Context/FunctionProvider';
 import moment from 'moment/moment';
 function PayDailyCoupon() {
-  const { setDailyCouponAmount, dailyCouponSid, setDailyCouponSid } = usePay();
+  const {
+    setDailyCouponAmount,
+    dailyCouponSid,
+    setDailyCouponSid,
+    chooseedPayShop,
+  } = usePay();
   const { loginCheckGetFetch } = useFunc();
   const [hasDailyCoupon, setHasDailyCoupon] = useState(false);
   const [showDailyCoupon, setShowDailyCoupon] = useState({
@@ -15,12 +20,13 @@ function PayDailyCoupon() {
     cut_amount: 0,
     is_used: 0,
   });
+  //這裡要改成對應店家SID
   const checkDailyCouponNotUse = async () => {
     const res = await loginCheckGetFetch(
-      'DailyCoupon/CheckTodayNotUse',
+      `DailyCoupon/CheckDailyCouponWithShopSid/?shopSid=${chooseedPayShop}`,
       'Member'
     );
-    console.log(res);
+    console.log({ res });
     if (!res.count) {
       return;
     }
@@ -41,7 +47,7 @@ function PayDailyCoupon() {
   };
   useEffect(() => {
     checkDailyCouponNotUse();
-  }, []);
+  }, [chooseedPayShop]);
   return (
     <>
       {hasDailyCoupon ? (

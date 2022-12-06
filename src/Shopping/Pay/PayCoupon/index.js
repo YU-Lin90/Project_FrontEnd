@@ -77,7 +77,7 @@ function PayCoupon() {
         ) : (
           <>
             <div
-              className=" disf fw-w ai-c"
+              className=" disf fw-w"
               style={{ backgroundColor: '#eee9' }}
             >
               <div key={0} className="payCouponFrame padV10 padH10">

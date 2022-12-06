@@ -91,6 +91,10 @@ function MemberNav() {
   useEffect(() => {
     checkCartAmount();
     fetchLoginCheck(setAuthMember);
+    const localAddress = localStorage.getItem('DeliveAddress');
+    if (localAddress) {
+      setSendAddress(localAddress);
+    }
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);

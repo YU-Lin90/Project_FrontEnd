@@ -64,6 +64,7 @@ function DeliveDetail() {
             <p
               onClick={() => {
                 setSendAddress('台北市大安區復興南路一段390號2樓');
+                localStorage.setItem('DeliveAddress', '台北市大安區復興南路一段390號2樓');
               }}
               className="fs24 fw5 marb15 "
             >
@@ -76,6 +77,7 @@ function DeliveDetail() {
                   value={sendAddress}
                   onChange={(e) => {
                     setSendAddress(e.target.value);
+                    localStorage.setItem('DeliveAddress', e.target.value);
                   }}
                   autoFocus={editAddress}
                   onKeyDown={(e) => {

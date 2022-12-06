@@ -159,7 +159,7 @@ export default function FavoriteStore() {
           // e.preventDefault();
 
           console.log(res);
-          setChange((v) => v + 1)
+          setChange((v) => v + 1);
           // Swal.fire('刪除成功');
         });
     } catch (e) {
@@ -172,20 +172,18 @@ export default function FavoriteStore() {
   //   setUser3()
   // }, [change]);
 
-
   useEffect(() => {
     if (!inputKeyword) {
       getform();
-      setUser3(user)
-      setChange((v) => v + 1)
+      setUser3(user);
+      setChange((v) => v + 1);
     } else {
       getform();
       const b = user.filter((v, i) => v.name.includes(inputKeyword));
       setUser3(b);
-      setChange((v) => v + 1)
+      setChange((v) => v + 1);
     }
   }, [inputKeyword, change]);
-
 
   const submit = async (shopSid) => {
     // e.preventDefault();
