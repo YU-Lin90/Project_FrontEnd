@@ -3,34 +3,22 @@ import React, { useEffect, useState } from 'react';
 function OptionGroup({
   ot,
   data,
-  details,
-  setDetails,
   optionBoolean,
   setOptionBoolean,
   otIndex,
+  // test
+  testDetails,
+  setTestDetails,
 }) {
   const min = ot.min;
   const max = ot.max;
 
-  const [checkState, setCheckState] = useState([]);
-  const [nowNum, setNowNum] = useState(0);
-
   useEffect(() => {
-    const newCheckState = data.options
-      .filter((opt) => {
-        return opt.options_type_sid === ot.sid;
-      })
-      .map((opt) => {
-        return false;
-      });
-    setCheckState(newCheckState);
-    // 如果min為0的話將optionBoolean改成true
-    console.log(optionBoolean)
-    const newOptionBoolean = [...optionBoolean];
-    console.log(otIndex, min === 0);
-    newOptionBoolean[otIndex] = 123;
-    console.log(newOptionBoolean);
-    setOptionBoolean(newOptionBoolean);
+    // 如果這個選項類別可以不用選的話，自動回報optionBoolean是正確的。
+    
+    // let newOptionBoolean = [...optionBoolean];
+    // newOptionBoolean[otIndex] = 123;
+    // setOptionBoolean(newOptionBoolean);
   }, []);
 
   return (
@@ -48,16 +36,29 @@ function OptionGroup({
                     type="radio"
                     value={opt.sid}
                     name={ot.name}
+                    checked={
+                      testDetails[otIndex]
+                        ? !!testDetails[otIndex].list[i]
+                        : false
+                    }
                     onChange={() => {
-                      const thisIndex = details.findIndex((detail, index) => {
+                      // test
+                      const testThisIndex = testDetails.findIndex((detail) => {
                         return detail.sid === ot.sid;
                       });
-                      const newDetails = [...details];
-                      newDetails[thisIndex].list = [
-                        { sid: opt.sid, name: opt.name, price: opt.price },
-                      ];
-                      setDetails(newDetails);
-                      console.log(details);
+                      const testNewDetails = [...testDetails];
+                      if (!testNewDetails[testThisIndex]) {
+                        return;
+                      }
+                      testNewDetails[testThisIndex].list.forEach((v, index) => {
+                        testNewDetails[testThisIndex].list[index] = false;
+                      });
+                      testNewDetails[testThisIndex].list[i] = {
+                        sid: opt.sid,
+                        name: opt.name,
+                        price: opt.price,
+                      };
+                      setTestDetails(testNewDetails);
                     }}
                   />
                 ) : (
@@ -65,61 +66,53 @@ function OptionGroup({
                     type="checkbox"
                     name={ot.name}
                     value={opt.name}
-                    checked={checkState[i]}
+                    checked={
+                      testDetails[otIndex]
+                        ? !!testDetails[otIndex].list[i]
+                        : false
+                    }
                     onChange={(e) => {
-                      const newCheckState = [...checkState];
+                      // check-test
+                      const testNewCheckState = [...testDetails[otIndex].list];
 
-                      if (!newCheckState[i]) {
-                        newCheckState[i] = true;
-                        setNowNum(nowNum + 1);
-                        setCheckState(newCheckState);
-
-                        // details
-                        const thisIndex = details.findIndex((detail) => {
-                          return detail.sid === ot.sid;
-                        });
-                        const newDetails = [...details];
-                        if (!newDetails[thisIndex].list) {
-                          newDetails[thisIndex].list = [];
-                        }
-                        newDetails[thisIndex].list.push({
+                      if (!testNewCheckState[i]) {
+                        // test
+                        const testThisIndex = testDetails.findIndex(
+                          (detail) => {
+                            return detail.sid === ot.sid;
+                          }
+                        );
+                        const testNewDetails = [...testDetails];
+                        testNewDetails[testThisIndex].list[i] = {
                           sid: opt.sid,
                           name: opt.name,
                           price: opt.price,
-                        });
-                        setDetails(newDetails);
-                        console.log(details);
+                        };
+                        setTestDetails(testNewDetails);
                       } else {
-                        newCheckState[i] = false;
-                        setNowNum(nowNum - 1);
-                        setCheckState(newCheckState);
-                        // details
-                        const thisIndex = details.findIndex((detail) => {
-                          return detail.sid === ot.sid;
-                        });
-                        const newDetails = [...details];
-                        if (!newDetails[thisIndex].list) {
-                          newDetails[thisIndex].list = [];
-                        }
-                        const listIndex = details[thisIndex].list.findIndex(
-                          (l) => {
-                            return l.sid === opt.sid;
+                        // test
+                        const testThisIndex = testDetails.findIndex(
+                          (detail) => {
+                            return detail.sid === ot.sid;
                           }
                         );
-                        newDetails[thisIndex].list.splice(listIndex, 1);
-                        setDetails(newDetails);
-                        console.log(details);
+                        const testNewDetails = [...testDetails];
+                        testNewDetails[testThisIndex].list[i] = false;
+                        setTestDetails(testNewDetails);
                       }
                     }}
                     disabled={
-                      !checkState[i] && nowNum === max
-                        ? // min > 1 && !checkState[i] && nowNum === max
-                          true
+                      testDetails[otIndex] &&
+                      !testDetails[otIndex].list[i] &&
+                      testDetails[otIndex].list.filter((v) => {
+                        return !!v === true;
+                      }).length === max
+                        ? true
                         : false
                     }
                   />
                 )}
-
+                    
                 <div className="option-words">
                   <p>{opt.name}</p>
                   <p>{opt.price === 0 ? 'Free' : `$ ${opt.price}`}</p>

@@ -13,7 +13,6 @@ export default function Btn(props){
     const { data } = await axios.post('http://localhost:3001/deliverlogin', formData)
     if(data.success){
       Swal.fire({
-        position: 'top-end',
         icon: 'success',
         title: '登入成功',
         showConfirmButton: false,
@@ -28,7 +27,6 @@ export default function Btn(props){
       navi('/Deliver/DeliverConfirmOrder');
     }else{
       Swal.fire({
-        position: 'top-end',
         icon: 'error',
         title: '登入失敗',
         showConfirmButton: false,

@@ -57,7 +57,7 @@ function History({
                 </div>
               </div>
               <div>
-                <p>接單時間&nbsp;&nbsp;&nbsp;{dayjs(deliver_take_time).format('HH:mm')}</p>
+                <p>接單時間&nbsp;&nbsp;&nbsp;{dayjs(deliver_check_time).format('HH:mm')}</p>
                 <p className='Dhistorytext'>取餐時間&nbsp;&nbsp;&nbsp;{dayjs(complete_time).format('HH:mm')}</p>
               </div>
             </div>

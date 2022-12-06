@@ -8,12 +8,12 @@ function DeliverOrder() {
   const [orderData, setOrderData] = useState([]);
   const [foodData, setFoodData] = useState([]);
   const [total, setTotal] = useState([]);
-  const ordersid = localStorage.getItem('order_sid');
+  // const ordersid = localStorage.getItem('order_sid');
 
   async function getOrder() {
-    const deliverSid = localStorage.getItem('deliver_sid');
+    const ordersid = localStorage.getItem('order_sid');
     const response = await axios.get(
-      `http://localhost:3001/deliver/deliverorder/${deliverSid}`
+      `http://localhost:3001/deliver/deliverorder/${ordersid}`
     );
     setOrderData(response.data.rows);
     setFoodData(response.data.food);
@@ -41,7 +41,7 @@ function DeliverOrder() {
                   </div>
                   <div>
                     <p>{ddate.name}</p>
-                    <p className="Dcontext">客戶地址</p>
+                    <p className="Dcontext">{ddate.receive_address}</p>
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@ function DeliverOrder() {
                     <p className="Dcontext">{ddate.address}</p>
                   </div>
                 </div>
-                <i className="Dsimgicon fa-solid fa-phone-flip"></i>
+                {/* <i className="Dsimgicon fa-solid fa-phone-flip"></i> */}
               </div>
 
               <div className="Dinfodata">
@@ -75,7 +75,7 @@ function DeliverOrder() {
                 </div>
                 <div>
                   {foodData.map((v, i) => {
-                    return <p key={i}>{v.product_price}</p>; //這有問題之後處理
+                    return <p key={i}>{v.product_price}</p>;
                   })}
                 </div>
               </div>

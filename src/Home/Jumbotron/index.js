@@ -6,7 +6,7 @@ function Jumbotron() {
   useEffect(() => {}, []);
   return (
     <>
-      <div className="w100p h500 ta-c padV50 padH50 of-h zi10">
+      <div className="w100p h350 ta-c padV50 padH50 of-h zi10">
         <div className="outterFrame h100p">
           <div className="pa_frame h100p">
             <div className="card_plate">

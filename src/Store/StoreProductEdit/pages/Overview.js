@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import OptionGroup from '../components/OptionGroup';
 import OptionGroup from '../components/OptionForm/OptionGroup';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import ProductList from '../pages/ProductList';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 function Overview() {
   const [amount, setAmount] = useState(1);
@@ -32,78 +31,68 @@ function Overview() {
   }, []);
 
   return (
-    <>
+    <DragDropContext>
       <div className="store-admin">
         <Link to="/productList/?shop_sid=89">商品列表</Link>
         {data.types.map((type) => {
           return (
-            <>
-              <h1 key={type.sid} style={{ color: 'red' }}>
-                {type.name}
-              </h1>
-              {data.products
-                .filter((product) => {
-                  return product.products_type_sid === type.sid;
-                })
-                .map((product) => {
-                  return (
-                    <>
-                      <h3
-                        onClick={() => {
-                          setSelectedItem(product.sid);
-                        }}
-                      >
-                        {[product.name]}
-                      </h3>
-                    </>
-                  );
-                })}
-            </>
+            <div className="product-area">
+              <div className="top">
+                <div className="left">
+                  <i className="fa-solid fa-equals"></i>
+                  <p key={type.sid}>{type.name}</p>
+                </div>
+                <div className="right">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+              </div>
+              <div className="middle">
+                {data.products
+                  .filter((product) => {
+                    return product.products_type_sid === type.sid;
+                  })
+                  .map((product) => {
+                    return (
+                      <div className="product-box">
+                        <div className="left">
+                          <i class="fa-solid fa-equals"></i>
+                          <img
+                            src={`http://localhost:3001/uploads/${product.src}`}
+                            alt=""
+                          />
+                          <p
+                            onClick={() => {
+                              setSelectedItem(product.sid);
+                            }}
+                          >
+                            {[product.name]}
+                          </p>
+                        </div>
+                        <div className="right">
+                          <div className="number-input">
+                            <div>NT$</div>
+                            <input
+                              type="number"
+                              name="price"
+                              value={product.price}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+              <div className="bottom">
+                <div className="sm-white-btn">
+                  <i></i>
+                  <p></p>
+                </div>
+              </div>
+            </div>
           );
         })}
-        {selectedItem ? (
-          <div>
-            {data.options_types
-              .filter((ot) => {
-                return ot.product_sid === selectedItem;
-              })
-              .map((ot) => {
-                return (
-                  <div>
-                    <h2>{ot.name}</h2>
-                    <div>
-                      <OptionGroup ot={ot} data={data} />
-                    </div>
-                  </div>
-                );
-              })}
-            <div>
-              <i
-                class="fa-solid fa-plus"
-                onClick={() => {
-                  if (amount > 0) setAmount(amount - 1);
-                }}
-              ></i>
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => {
-                  setAmount(e.target.value);
-                }}
-              />
-              <i
-                class="fa-solid fa-minus"
-                onClick={() => {
-                  setAmount(amount + 1);
-                }}
-              ></i>
-            </div>
-          </div>
-        ) : (
-          ''
-        )}
       </div>
-    </>
+    </DragDropContext>
   );
 }
 

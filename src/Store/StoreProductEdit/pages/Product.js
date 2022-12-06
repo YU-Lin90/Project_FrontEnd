@@ -193,16 +193,16 @@ function Product() {
                             });
                           }}
                         >
-                          <div className="td">
+                          <div className="td w10">
                             <img
                               src={`http://localhost:3001/uploads/${product.src}`}
                               alt=""
                             />
                           </div>
-                          <div className="td">{product.name}</div>
-                          <div className="td">{product.price}</div>
+                          <div className="td line-1">{product.name}</div>
+                          <div className="td">NT${product.price}.00</div>
                           <div className="td">{product.type_name}</div>
-                          <div className="td">
+                          <div className="td line-2">
                             {data.options_types
                               .filter((ot) => {
                                 return ot.product_sid === product.sid;
@@ -212,7 +212,7 @@ function Product() {
                               })
                               .join()}
                           </div>
-                          <div className="td">{product.note}</div>
+                          <div className="td line-2">{product.note}</div>
                           <div className="td">
                             {product.available ? '上架中' : '未上架'}
                           </div>
@@ -306,7 +306,7 @@ function Product() {
                           檔案規定：JPG、PNG、GIF 或 WEBP 格式，不可超過 10 MB。
                           所需的最低像素：寬度和高度為 320 x 320 像素。
                         </p>
-                        <label>
+                        <label hidden>
                           <input
                             className="imgInput"
                             type="file"
@@ -314,20 +314,26 @@ function Product() {
                             onChange={uploadImgHandler}
                           />
                         </label>
+                        <div
+                          onClick={() => {
+                            document.form1.avatar.click();
+                          }}
+                        >
+                          <div className="sm-black-btn">新增相片</div>
+                        </div>
                       </div>
                     </div>
 
-                    <label>
-                      餐點價格:
-                      <input
-                        type="number"
-                        name="price"
-                        value={!(selectedItem === '') ? formData.price : ''}
-                        onChange={(e) => {
-                          setFormData({ ...formData, price: e.target.value });
-                        }}
-                      />
-                    </label>
+                    <div className="note-box">
+                      <p>說明</p>
+                      <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="3"
+                        placeholder="輸入說明"
+                      ></textarea>
+                    </div>
 
                     <select
                       name="type"
@@ -341,6 +347,21 @@ function Product() {
                         return <option value={type.sid}>{type.name}</option>;
                       })}
                     </select>
+
+                    <div className="price-box">
+                      <p>價格</p>
+                      <div className="number-input">
+                        <div>NT$</div>
+                        <input
+                          type="number"
+                          name="price"
+                          value={!(selectedItem === '') ? formData.price : ''}
+                          onChange={(e) => {
+                            setFormData({ ...formData, price: e.target.value });
+                          }}
+                        />
+                      </div>
+                    </div>
 
                     <div>
                       {data.only_options_types.map((ot) => {

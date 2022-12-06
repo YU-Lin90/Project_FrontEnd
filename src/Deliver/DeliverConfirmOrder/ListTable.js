@@ -1,12 +1,42 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+/* --------------------------------------- */
+import { useGeo } from '../../Context/GeoLocationProvider';
+/* --------------------------------------- */
 
-function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
+
+function ListTable({receive_address, client, cook_time, member_sid, shop_sid, sid, name, address, order_sid, deliver_memo, deliver_fee}) {
   const [btn, setBtn] = useState(false);
   const [delivertake, setDelivertake] = useState(true);
-  // const [dosid, setDosid] = useState([]);
+  const [addmap, setAppmap] = useState();
+  //自己位置
+  const [deliverPosition, setDeliverPosition] = useState("25.03086247511344, 121.53130788356066");
+
+  /* -----------------距離用---------------------- */
+  const { calculateDistance } = useGeo();
+
+  const checkMyLocation = async () => {
+    //獲得現在位置 然後傳到裡面的函式
+    navigator.geolocation.getCurrentPosition((location) => {
+      console.log(location.coords);
+      console.log(`${location.coords.latitude}, ${location.coords.longitude}`);
+      const deliverself = `${location.coords.latitude}, ${location.coords.longitude}`;
+      setDeliverPosition(deliverself);
+    });
+  };
+
+  const map = async () => {  
+    // 計算("店家地址","送達地址")間的直線距離
+    const gettedDistance = await calculateDistance(address, deliverPosition);
+    const mapapp = gettedDistance.toFixed(1)
+    setAppmap(mapapp)
+    
+  }
+
+  
+  /* --------------------------------------- */
 
   const navi = useNavigate();
   /* -----------後端動作--------------------- */
@@ -55,10 +85,11 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
     const addtake = JSON.parse(localStorage.getItem('delivertake'));
     setDelivertake(addtake)
   }
-  
   useEffect(()=>{
+    checkMyLocation();
     take();
-  },[])
+    map();
+  },[deliverPosition])
   /* -------------------------------- */
 
   return (
@@ -79,28 +110,53 @@ function ListTable({ cook_time, member_sid, shop_sid, sid, name, address, order_
           
           <div className='Dcook'>
             <p className='Dcooktitle'>距離</p>
-            <p className='Dcooktext'>{}</p>    {/* 未完成 */}
+            <p className='Dcooktext'>{addmap+"km"}</p>    {/* 未完成 */}
           </div>
-          {/* ----------------------接單按鈕----------------------- */}
-          <button
-            className={delivertake ? "Dbtn" : "Dbtn Dactive"}
-            disabled={delivertake ? false : true} 
-            onClick={()=>{
-              chceklogin()
-              localStorage.setItem('delivertake',false);
-            }}
-          >
-            接單
-          </button>
-          {/* ----------------------------------------------------- */}
+          
         </div>
-        {/* --------------------下拉式店家資訊----------------------- */}
-        {btn &&<div className="Dshopmore">
-        <i className="fa-solid fa-store Dicon"></i>
-        <div>
-          <p>{name}</p>
-          <p>{address}</p>
-        </div>
+        {/* --------------------下拉式資訊----------------------- */}
+        {btn &&
+        <div className="Dshopmore">
+          <div className='Dtext'>
+            <div className='Dlisttext'>
+              <div>
+                <i className="fa-regular fa-user Dicon"></i>
+              </div>
+              <div>
+                <p>{client}</p>
+                <p>{receive_address}</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className='Dtext'>
+              <div className='Dlisttext'>
+                <div>
+                  <i className="fa-solid fa-store Dicon"></i>
+                </div>
+                <div>
+                  <p>{name}</p>
+                  <p>{address}</p>
+                </div>
+              </div>
+              {/* ----------------------接單按鈕----------------------- */}
+              <button
+                className={delivertake ? "Dbtn" : "Dbtn Dactive"}
+                disabled={delivertake ? false : true} 
+                onClick={()=>{
+                  chceklogin()
+                  localStorage.setItem('delivertake',false);
+                }}
+              >
+                接單
+              </button>
+              {/* ----------------------------------------------------- */}
+            </div>
+            
+          </div>
+          
+
         </div>}
         {/* ----------------------------------------------------- */}
       </li>

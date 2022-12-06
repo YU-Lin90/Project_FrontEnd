@@ -3,7 +3,14 @@ import { useEffect, useState } from 'react';
 import { useSVG } from '../../../Context/SVGProvider';
 import Swal from 'sweetalert2';
 import OrderChat from '../../../OrderChat';
-const alertMessages = ['', '', '店家已接單', '店家已完成', '外送員已取餐'];
+const alertMessages = [
+  '',
+  '',
+  '店家已接單',
+  '店家已完成',
+  '外送員已取餐',
+  '外送員已送達',
+];
 function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
   const { chatSVG } = useSVG();
   //開啟聊天室

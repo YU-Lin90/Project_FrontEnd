@@ -5,9 +5,11 @@ import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../../../Context/CartProvider';
 
 function OptionForm({ selectedSid, setSelectedSid }) {
-  const { addCart, setCartWithAmount } = useCart();
+  const { setCartWithAmount } = useCart();
   const [amount, setAmount] = useState(1);
   const [details, setDetails] = useState([]);
+  // test
+  const [testDetails, setTestDetails] = useState([]);
   const [data, setData] = useState({
     shop: {},
     product: {},
@@ -15,6 +17,8 @@ function OptionForm({ selectedSid, setSelectedSid }) {
     options: [],
   });
   const [optionBoolean, setOptionBoolean] = useState([]);
+  const [cartOptions, setCartOptions] = useState([]);
+  
 
   const getData = async (sid) => {
     const response = await axios.get(
@@ -35,15 +39,58 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       })
     );
     setOptionBoolean(data.options_types.map((ot) => false));
+
+    // 點購物車的商品近來要取得該商品當前的資料
+    const localCart = JSON.parse(localStorage.getItem('cart'));
+    if (
+      localCart &&
+      localCart.cartList &&
+      localCart.cartList[data.shop.sid] &&
+      localCart.cartList[data.shop.sid].list &&
+      localCart.cartList[data.shop.sid].list[data.product.sid]
+    ) {
+      setCartOptions(
+        localCart.cartList[data.shop.sid].list[data.product.sid].details
+      );
+    } else {
+      console.log('Cannot find cartOptions');
+      setCartOptions([]);
+    }
   }, [data]);
+
+  // test
+  useEffect(() => {
+    const newTestDetails = data.options_types.map((ot) => {
+      return {
+        sid: ot.sid,
+        name: ot.name,
+        list: data.options
+          .filter((opt) => opt.options_type_sid === ot.sid)
+          .map((opt) => {
+            return cartOptions.findIndex((co) => {
+              return co.sid === opt.sid;
+            }) === -1
+              ? false
+              : { sid: opt.sid, name: opt.name, price: opt.price };
+          }),
+      };
+    });
+    setTestDetails(newTestDetails);
+  }, [cartOptions]);
 
   const intoCart = (e) => {
     e.preventDefault();
-    // 將details修改成傳進購物車的格式
-    let newDetails = [];
-    details.forEach((d) => {
-      newDetails = [...newDetails, ...d.list];
+
+    // test
+    console.log(testDetails);
+    let testNewDetails = [];
+    testDetails.forEach((d) => {
+      const arr = d.list.filter((l) => {
+        return !!l === true;
+      });
+      testNewDetails = [...testNewDetails, ...arr];
     });
+    console.log(testNewDetails);
 
     setCartWithAmount(
       data.shop.sid,
@@ -53,7 +100,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       data.product.price,
       data.product.price,
       data.product.src,
-      newDetails,
+      testNewDetails,
       amount
     );
     console.log([
@@ -64,9 +111,11 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       data.product.price,
       data.product.price,
       data.product.src,
-      newDetails,
+      testNewDetails,
       amount,
     ]);
+
+    setSelectedSid('')
   };
 
   return (
@@ -126,11 +175,13 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                     <OptionGroup
                       ot={ot}
                       data={data}
-                      details={details}
-                      setDetails={setDetails}
                       optionBoolean={optionBoolean}
                       setOptionBoolean={setOptionBoolean}
                       otIndex={otIndex}
+                      // test
+                      testDetails={testDetails}
+                      setTestDetails={setTestDetails}
+                      // 選項格式是否正確
                     />
                   </div>
                 </div>
