@@ -28,6 +28,8 @@ export default function ListTable() {
 
   const navigate = useNavigate();
 
+  const [isFake, setIsFake] = useState(0);
+
   //-------------------------計算距離用------------------------------------
 
   //距離用
@@ -41,7 +43,7 @@ export default function ListTable() {
   useEffect(() => {
     setNoResult('正在搜尋中');
     submitHandle();
-  }, [location, sendAddress]);
+  }, [sendAddress, isFake]);
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -77,7 +79,6 @@ export default function ListTable() {
       if (order === 'distance') {
         response.data.sort((a, b) => a.distance - b.distance);
       }
-
       //---------------------------計算距離用-----------------------------
       if (sendAddress) {
         for (let element of response.data) {
@@ -86,16 +87,16 @@ export default function ListTable() {
 
           setNoResult('正在搜尋中');
           // 計算("店家地址","送達地址")間的直線距離
-          // const gettedDistance = await calculateDistance(
-          //   shopAddress,
-          //   selfLocation
-          // );
+          const gettedDistance = await calculateDistance(
+            shopAddress,
+            selfLocation
+          );
 
           // 測試用，隨機亂數資料
-          const gettedDistance = Math.random() * 50;
+          // const gettedDistance = Math.random() * 50;
 
           // 將結果放進result.distance
-          element.distance = Math.round(gettedDistance);
+          element.distance = Math.round(gettedDistance * 10) / 10;
           // 超過30公里，每5公里加10元外送費
           element.fees = parseInt(gettedDistance / 5) * 10 + 30;
         }
@@ -139,14 +140,6 @@ export default function ListTable() {
       setErrorMsg(e.message);
     }
     // console.log(errorMsg);
-    if (pathname == '/City/Taipei' && !isCity) {
-      // await setIsCity(true);
-      console.log('是城市嗎', isCity);
-      const response = await axios.get(
-        // `http://${siteName}:3001/Shopping/?search=披薩&wait_time=80`
-      );
-      setShop(response.data);
-    }
   };
 
   const add = async (shopSid) => {
@@ -197,49 +190,37 @@ export default function ListTable() {
   };
 
   // 等待時間的改變事件
+  const word_handleChange = (event) => {
+    let value = event.target.value;
+    setSearchWord(value);
+  };
+  // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
     setSearchWaitTime(value);
   };
-
   // checkedBox的改變事件
   const checkedBox_handleChange = (event) => {
     if (event.target.checked) {
       setIsChecked(!isChecked);
     }
   };
+  const [formData, setFormData] = useState({});
 
-  //不送出就搜尋(暫時無用)
-  // const searchHandle = async (event) => {
-  //   let key = event.target.value;
-
-  //   let result = await axios.get(
-  //     `http://${siteName}:3001/Shopping/?search=${key}`
-  //   );
-
-  //   if (result) {
-  //     console.log(result);
-  //     setShop(result.data);
-  //     console.log(
-  //       '網址列搜尋字串:',
-  //       usp.get('search'),
-  //       '價格上限:',
-  //       // usp.get('price_max'),
-  //       usp.get('price_max'),
-  //       '價格下限:',
-  //       usp.get('price_min')
-  //     );
-  //   }
-  // };
+  const form_handleChange = (e) => {
+    const dataIN = { ...formData, [e.target.name]: e.target.value };
+    setFormData(dataIN);
+  };
 
   //送出後再統一做搜尋
   const submitHandle = async (event) => {
     const sid = localStorage.getItem('MemberSid');
-    let key = usp.get('search');
-    let price_max = usp.get('price_max');
-    let price_min = usp.get('price_min');
-    let wait_time = usp.get('wait_time');
-    let order = usp.get('order');
+    let key = formData.search;
+    let price_max = formData.price_max;
+    let price_min = formData.price_min;
+    let wait_time = searchWaitTime;
+    let order = isChecked;
+    console.log("form",formData)
 
     // console.log('排序:', order);
 
@@ -258,9 +239,6 @@ export default function ListTable() {
     setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
 
-    // 距離計算
-    console.log(calculateDistance(sendAddress, ''));
-
     // 取地址
     // console.log("指定地址",sendAddress)
 
@@ -273,6 +251,7 @@ export default function ListTable() {
       `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
+    setShop(result.data);
 
     //---------------------------計算距離用-----------------------------
 
@@ -374,15 +353,15 @@ export default function ListTable() {
     console.log('usp:', usp.toString());
 
     //如果什麼都沒輸入 找全店家列表
-    if (
-      !usp.get('search') &&
-      !usp.get('price_max') &&
-      !usp.get('price_min') &&
-      !usp.get('wait_time') &&
-      !usp.get('order')
-    ) {
-      getShop();
-    }
+    // if (
+    //   !usp.get('search') &&
+    //   !usp.get('price_max') &&
+    //   !usp.get('price_min') &&
+    //   !usp.get('wait_time') &&
+    //   !usp.get('order')
+    // ) {
+    //   getShop();
+    // }
   };
 
   const [toggle, setToggle] = useState(true);
@@ -422,7 +401,12 @@ export default function ListTable() {
     <>
       {/* {toggle ? ( */}
       <div className="col_bar" style={style}>
-        <form className="table">
+        <form
+          className="table"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <div className="search_bar">
             {searchTotalRows ? (
               <>
@@ -449,6 +433,10 @@ export default function ListTable() {
                   // onChange={searchHandle}
                   defaultValue={searchWord}
                   autoFocus
+                  value={formData.search}
+                  onChange={(e) => {
+                    form_handleChange(e);
+                  }}
                 />
               </div>
               <div className="search_bar_price">
@@ -461,6 +449,10 @@ export default function ListTable() {
                     className="search_bar_price_max_input"
                     min="0"
                     defaultValue={searchPriceMax || ''}
+                    value={formData.price_max}
+                    onChange={(e) => {
+                      form_handleChange(e);
+                    }}
                   />
                 </div>
                 <div className="search_bar_price_min">
@@ -471,6 +463,10 @@ export default function ListTable() {
                     className="search_bar_price_min_input"
                     min="0"
                     defaultValue={searchPriceMin || ''}
+                    value={formData.price_min}
+                    onChange={(e) => {
+                      form_handleChange(e);
+                    }}
                   />
                 </div>
               </div>
@@ -539,6 +535,9 @@ export default function ListTable() {
               </div>
             </div>
             <input
+              onClick={() => {
+                submitHandle();
+              }}
               type="submit"
               value="開始搜尋"
               className="search_bar_submit"
@@ -551,7 +550,7 @@ export default function ListTable() {
       {/* )} */}
 
       <div className="col_list">
-        <div className="subTitle">小標題</div>
+        <div className="subTitle">所有餐廳</div>
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
@@ -563,16 +562,32 @@ export default function ListTable() {
                       alt={shop.name}
                       className="shopCard_cover"
                     />
-                    <div className="shopCard_conpon"></div>
+                    <div className="shopCard_conpon">aaaaaaa</div>
                     <div className="shopCard_delivery_time">
                       {shop.wait_time}
                       <div className="shopCard_delivery_time_text">分鐘</div>
                     </div>
+                    <button
+                      className="shopbtn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        submit(shop.sid);
+                        const oldState = myIndex[shop.sid];
+                        setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                      }}
+                      // className="icon"
+                    >
+                      {!myIndex[shop.sid] ? (
+                        <AiOutlineHeart />
+                      ) : (
+                        <AiFillHeart />
+                      )}
+                    </button>
                   </div>
                   {/* <span>SID {shop.sid}</span> */}
                   <div className="shopCard_text">
                     <div className="shopCard_text_name">
-                      <span>{shop.name}</span>
+                      <h3 className="shoptitle">{shop.name}</h3>
                       <div className="shopCard_score">
                         {shop.average_evaluation !== null ? (
                           <svg
@@ -591,24 +606,16 @@ export default function ListTable() {
                           ''
                         )}
                         {/* 資料庫結構: 小數點 */}
-                        {shop.average_evaluation}
+                        <p>{shop.average_evaluation}</p>
                       </div>
                     </div>
-                    <span>{shop.type_name}</span>
-                    <span>{shop.distance} 公里</span>
-                    <span>外送費{shop.fees}元</span>
+                    <span className="shopcontext">
+                      {shop.distance} km,{shop.type_name}
+                    </span>
+                    {/* <span>{shop.distance} 公里</span> */}
+                    <span className="shopcontext">外送費{shop.fees}元</span>
                   </div>
                 </Link>
-                <button
-                  onClick={() => {
-                    submit(shop.sid);
-                    const oldState = myIndex[shop.sid];
-                    setMyIndex({ ...myIndex, [shop.sid]: !oldState });
-                  }}
-                  // className="icon"
-                >
-                  {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
-                </button>
               </div>
             ))
           ) : (
