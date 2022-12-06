@@ -559,16 +559,28 @@ export default function ListTable() {
                       alt={shop.name}
                       className="shopCard_cover"
                     />
-                    <div className="shopCard_conpon"></div>
+                    <div className="shopCard_conpon">aaaaaaa</div>
                     <div className="shopCard_delivery_time">
                       {shop.wait_time}
                       <div className="shopCard_delivery_time_text">分鐘</div>
                     </div>
+                    <button
+                      className='shopbtn'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        submit(shop.sid);
+                        const oldState = myIndex[shop.sid];
+                        setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                      }}
+                      // className="icon"
+                    >
+                      {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
+                    </button>
                   </div>
                   {/* <span>SID {shop.sid}</span> */}
                   <div className="shopCard_text">
                     <div className="shopCard_text_name">
-                      <span>{shop.name}</span>
+                      <h3 className='shoptitle'>{shop.name}</h3>
                       <div className="shopCard_score">
                         {shop.average_evaluation !== null ? (
                           <svg
@@ -587,24 +599,14 @@ export default function ListTable() {
                           ''
                         )}
                         {/* 資料庫結構: 小數點 */}
-                        {shop.average_evaluation}
+                        <p>{shop.average_evaluation}</p>
                       </div>
                     </div>
-                    <span>{shop.type_name}</span>
-                    <span>{shop.distance} 公里</span>
-                    <span>外送費{shop.fees}元</span>
+                    <span className='shopcontext'>{shop.distance} km,{shop.type_name}</span>
+                    {/* <span>{shop.distance} 公里</span> */}
+                    <span className='shopcontext'>外送費{shop.fees}元</span>
                   </div>
                 </Link>
-                <button
-                  onClick={() => {
-                    submit(shop.sid);
-                    const oldState = myIndex[shop.sid];
-                    setMyIndex({ ...myIndex, [shop.sid]: !oldState });
-                  }}
-                  // className="icon"
-                >
-                  {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
-                </button>
               </div>
             ))
           ) : (
