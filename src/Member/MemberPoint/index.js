@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Member_Point.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-import log from 'eslint-plugin-react/lib/util/log';
 const reasons = ['兌換優惠券', '消費獲得', '會員註冊獲得'];
 const siteName = window.location.hostname;
 
@@ -19,6 +19,7 @@ function MemberPoint() {
       coupon_name: '',
     },
   ]);
+  const [user, setUser] = useState([]);
   function getData() {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
@@ -44,18 +45,37 @@ function MemberPoint() {
         console.log(productData);
       });
   }
+
+  const getMember = async () => {
+    const sid = localStorage.getItem('MemberSid');
+    try {
+      const response = await axios.get(
+        `http://${siteName}:3001/MemberLogin/api2/${sid}`
+      );
+      console.log(response.data);
+      setUser(response.data);
+      console.log(user);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
   useEffect(() => {
     getData();
+    getMember();
     // LoginCheck(1, '/', null, getData);
   }, []);
   // getData()
   return (
     <>
+      {user.map((v, i) => {
+        return <h2 className="mt_h2">當前紅利點數:{v.point}</h2>;
+      })}
+      <br />
       <div className="mt_wrap">
         <table className="mt_table">
           <thead>
             <tr className="mt_tr" key={0}>
-              <th className="mt_th">現在點數</th>
               <th className="mt_th">異動點數</th>
               <th className="mt_th">異動時間</th>
               <th className="mt_th">異動原因</th>
@@ -78,7 +98,6 @@ function MemberPoint() {
                 } = value;
                 return (
                   <tr className="mt_tr" key={i + 1}>
-                    <td className="mt_td">{point}</td>
                     <td className="mt_td">{point_amount}</td>
                     <td className="mt_td">{point_change_time}</td>
                     <td className="mt_td">{reasons[point_change_method]}</td>
