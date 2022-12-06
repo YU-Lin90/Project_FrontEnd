@@ -95,10 +95,9 @@ function Option() {
     //   name: inputText,
     //   price: 0,
     // });
-    const firstOptionData = newOptionData[source.index];
-    const secondOptionData = newOptionData[destination.index];
-    newOptionData[source.index] = secondOptionData;
-    newOptionData[destination.index] = firstOptionData;
+    const [spliceOptionData] = newOptionData.splice(source.index, 1);
+    console.log(spliceOptionData);
+    newOptionData.splice(destination.index, 0, spliceOptionData);
     setOptionData(newOptionData);
   };
 
