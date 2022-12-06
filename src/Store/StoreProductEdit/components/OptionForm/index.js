@@ -190,7 +190,14 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   };
 
   return (
-    <div className="option-form-area">
+    <div
+      className="option-form-area"
+      onClick={() => {
+        // 應該後來要改成setSelectedSid
+        setSelectedSid('');
+        setAmount(0);
+      }}
+    >
       <div className={`option-form`}>
         <div className="row">
           <div className="product-img">
