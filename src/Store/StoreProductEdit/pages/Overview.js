@@ -33,7 +33,7 @@ function Overview() {
   return (
     <DragDropContext>
       <div className="store-admin">
-        <Link to="/productList/?shop_sid=89">商品列表</Link>
+        <Link to="/productList/?shop_sid=70">商品列表</Link>
         {data.types.map((type) => {
           return (
             <div className="product-area">

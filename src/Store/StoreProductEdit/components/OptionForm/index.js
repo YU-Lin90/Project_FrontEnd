@@ -52,7 +52,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
         localCart.cartList[data.shop.sid].list[data.product.sid].details
       );
       setAmount(
-        localCart.cartList[data.shop.sid].list[data.product.sid].amount
+        Number(localCart.cartList[data.shop.sid].list[data.product.sid].amount)
       );
     } else {
       console.log('Cannot find cartOptions');
