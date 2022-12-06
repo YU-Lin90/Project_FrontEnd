@@ -34,8 +34,9 @@ export default function ListTable() {
 
   //抓網址變動
   useEffect(() => {
+    setNoResult('正在搜尋中')
     submitHandle();
-  }, [location, sendAddress]);
+  }, [location, sendAddress ]);
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -52,6 +53,8 @@ export default function ListTable() {
   const [searchPriceMin, setSearchPriceMin] = useState('');
   const [searchWaitTime, setSearchWaitTime] = useState('');
   const [searchTotalRows, setSearchTotalRows] = useState('');
+  const [gettedDistance , setGettedDistance] = useState(0);
+  const [deliveryPosition , setDeliveryPostion] = useState("25.03086247511344 , 121.53130788356066")
 
   //儲存搜尋時呈現的訊息用
   const [noResult, setNoResult] = useState('正在搜尋中');
@@ -65,7 +68,7 @@ export default function ListTable() {
     try {
       // const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
-      const response = await axios.get(`http://${siteName}:3001/Shopping?`);
+      const response = await axios.get(`http://localhost:3001/Shopping?`);
 
       //把總筆數和checkbox回歸初始狀態
       setSearchTotalRows('');
@@ -82,25 +85,16 @@ export default function ListTable() {
           const selfLocation = sendAddress;
 
           // 計算("店家地址","送達地址")間的直線距離
-          // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+          const gettedDistance = await calculateDistance(shopAddress, selfLocation).finally(setNoResult("正在搜尋中"));
+
+          // setGettedDistance(await calculateDistance(shopAddress , deliveryPosition).then((v)=>{setNoResult("正在搜尋中")}))
 
           // 測試用，隨機亂數資料
-          const gettedDistance = Math.random() * 50;
+          // const gettedDistance = Math.random() * 50;
 
           // 將結果放進result.distance
           element.distance = Math.round(gettedDistance);
-
-          // 超過30公里，每5公里加10元外送費
-          if (gettedDistance > 30) {
-            const cost = Math.floor(gettedDistance);
-            const cost2 = cost - 30;
-            const cost3 = cost2 / 5;
-            const cost4 = Math.ceil(cost3);
-            const cost5 = cost4 * 10;
-            element.fees = 30 + cost5;
-          } else if (gettedDistance > 0 && gettedDistance <= 30) {
-            element.fees = 30;
-          }
+          element.fees = parseInt(gettedDistance / 5) * 10 + 30 ;
         }
       }
       //-----------------------------------------------------------------
@@ -254,7 +248,7 @@ export default function ListTable() {
     setSearchWaitTime(wait_time);
 
     // 距離計算
-    // console.log(calculateDistance(sendAddress, ""));
+    console.log(calculateDistance(sendAddress, ""));
 
     // 取地址
     // console.log("指定地址",sendAddress)
@@ -277,10 +271,10 @@ export default function ListTable() {
         const selfLocation = sendAddress;
 
         // 計算("店家地址","送達地址")間的直線距離
-        // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+        const gettedDistance = await calculateDistance(shopAddress, selfLocation);
 
         // 測試用，隨機亂數
-        const gettedDistance = Math.random() * 50;
+        // const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
         element.distance = Math.round(gettedDistance * 10) / 10;
@@ -301,6 +295,7 @@ export default function ListTable() {
           result.data.sort((a, b) => a.distance - b.distance);
         }
       }
+      
     }
     //-----------------------------------------------------------------
 
@@ -349,11 +344,11 @@ export default function ListTable() {
     // setShop(result.data);
 
     //如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
-    if (!shop.length) {
-      setNoResult('無法找到您想要的餐點');
-    } else {
-      setNoResult('');
-    }
+    // if (!shop.length) {
+    //   setNoResult('無法找到您想要的餐點');
+    // } else {
+    //   setNoResult('');
+    // }
 
     //有搜尋店名or價格上限or下限才顯示筆數(等待時間沒有)
     if (key || price_max || price_min) {
@@ -414,7 +409,7 @@ export default function ListTable() {
   };
 
   const style = {
-    '@media(max-width:768px)': {
+    '@media(maxWidth:768px)': {
       padding: '800px',
     },
   };
@@ -560,7 +555,7 @@ export default function ListTable() {
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <img
-                      src={`http://${siteName}:3001/images/shop/${shop.src}.webp`}
+                      src={`http://${siteName}:3001/images/shop/storeCover1.webp`}
                       alt={shop.name}
                       className="shopCard_cover"
                     />
