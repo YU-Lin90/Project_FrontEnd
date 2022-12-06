@@ -42,14 +42,6 @@ function OptionForm({ selectedSid, setSelectedSid }) {
         return { sid: ot.sid, name: ot.name, list: [] };
       })
     );
-    setOptionBoolean(
-      data.options_types.map((ot) => {
-        if (ot.min === 0) {
-          return true;
-        }
-        return false;
-      })
-    );
 
     // 點購物車的商品近來要取得該商品當前的資料
     const localCart = JSON.parse(localStorage.getItem('cart'));
@@ -66,9 +58,25 @@ function OptionForm({ selectedSid, setSelectedSid }) {
       setAmount(
         Number(localCart.cartList[data.shop.sid].list[data.product.sid].amount)
       );
+      setOptionBoolean(
+        data.options_types.map((ot) => {
+          // if (ot.min === 0) {
+          //   return true;
+          // }
+          return true;
+        })
+      );
     } else {
       console.log('Cannot find cartOptions');
       setCartOptions([]);
+      setOptionBoolean(
+        data.options_types.map((ot) => {
+          if (ot.min === 0) {
+            return true;
+          }
+          return false;
+        })
+      );
     }
   }, [data]);
 
@@ -192,10 +200,13 @@ function OptionForm({ selectedSid, setSelectedSid }) {
   return (
     <div
       className="option-form-area"
-      onClick={() => {
+      onClick={(e) => {
         // 應該後來要改成setSelectedSid
-        setSelectedSid('');
-        setAmount(0);
+        console.log(e.target === e.currentTarget);
+        if (e.target === e.currentTarget) {
+          setSelectedSid('');
+          setAmount(0);
+        }
       }}
     >
       <div className={`option-form`}>

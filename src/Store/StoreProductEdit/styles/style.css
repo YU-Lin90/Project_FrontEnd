@@ -872,6 +872,7 @@
   font-size: 20px;
 }
 .product-list .option-form-area .option-form .row .product-info {
+  width: 100%;
   padding: 16px 16px;
 }
 .product-list .option-form-area .option-form .row .product-info .top {
@@ -962,6 +963,12 @@
 }
 .product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
   color: rgb(237, 154, 0);
+}
+.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
+  border-color: #cacaca;
+}
+.product-list .option-form-area .option-form .row .option-section .option-box .option-list .opt-box .inActive .option-words p {
+  color: #cacaca;
 }
 .product-list .option-form-area .option-form .row .amount-section {
   width: 100%;
@@ -1203,4 +1210,45 @@
   background-color: #ccc;
   color: white;
   cursor: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .product-list .product-container .row .shop-info {
+    margin-bottom: 0;
+  }
+  .product-list .product-container .row .product-info {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-list .product-container .row .product-info aside {
+    top: 80px;
+    width: 100%;
+    overflow: scroll;
+    z-index: 70;
+    background-color: #fff;
+    box-shadow: 0px 10px 20px 0px rgba(100, 100, 100, 0.2);
+  }
+  .product-list .product-container .row .product-info aside .type-nav {
+    width: auto;
+  }
+  .product-list .product-container .row .product-info aside .type-nav ul {
+    display: flex;
+    align-items: center;
+  }
+  .product-list .product-container .row .product-info aside .type-nav ul li {
+    flex-shrink: 0;
+    margin: 0;
+  }
+  .product-list .product-container .row .product-info aside .type-nav ul li a {
+    display: block;
+    padding: 8px 16px;
+  }
+  .product-list .product-container .row .product-info main {
+    width: 100%;
+  }
+  .product-list .product-container .row .product-info main .product-type .product-group .product-box {
+    padding: 0px 16px;
+    width: 100%;
+  }
 }/*# sourceMappingURL=style.css.map */

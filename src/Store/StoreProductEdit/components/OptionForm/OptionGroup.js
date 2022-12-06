@@ -32,7 +32,17 @@ function OptionGroup({
         .map((opt, i) => {
           return (
             <div className="opt-box">
-              <label>
+              <label
+                className={
+                  testDetails[otIndex] &&
+                  !testDetails[otIndex].list[i] &&
+                  testDetails[otIndex].list.filter((v) => {
+                    return !!v === true;
+                  }).length === max
+                    ? 'inActive'
+                    : ''
+                }
+              >
                 {max === 1 ? (
                   <input
                     type="radio"
@@ -108,16 +118,12 @@ function OptionGroup({
 
                         // 檢測目前所選數量
                         if (
-                          (testDetails[otIndex] &&
-                            !testDetails[otIndex].list[i] &&
-                            testDetails[otIndex].list.filter((v) => {
-                              return !!v === true;
-                            }).length >= min) ||
-                          (testDetails[otIndex] &&
-                            !testDetails[otIndex].list[i] &&
-                            testDetails[otIndex].list.filter((v) => {
-                              return !!v === true;
-                            }).length <= max)
+                          testDetails[otIndex].list.filter((v) => {
+                            return !!v === true;
+                          }).length >= min &&
+                          testDetails[otIndex].list.filter((v) => {
+                            return !!v === true;
+                          }).length <= max
                         ) {
                           const newOptionBoolean = [...optionBoolean];
                           newOptionBoolean[otIndex] = true;
@@ -133,6 +139,24 @@ function OptionGroup({
                         const testNewDetails = [...testDetails];
                         testNewDetails[testThisIndex].list[i] = false;
                         setTestDetails(testNewDetails);
+
+                        // 檢測目前所選數量
+                        if (
+                          testDetails[otIndex].list.filter((v) => {
+                            return !!v === true;
+                          }).length >= min &&
+                          testDetails[otIndex].list.filter((v) => {
+                            return !!v === true;
+                          }).length <= max
+                        ) {
+                          // const newOptionBoolean = [...optionBoolean];
+                          // newOptionBoolean[otIndex] = true;
+                          // setOptionBoolean(newOptionBoolean);
+                        } else {
+                          const newOptionBoolean = [...optionBoolean];
+                          newOptionBoolean[otIndex] = false;
+                          setOptionBoolean(newOptionBoolean);
+                        }
                       }
                     }}
                     disabled={
