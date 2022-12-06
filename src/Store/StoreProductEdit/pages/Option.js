@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
-// import InputHash from '../components/InputHash';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 function Option() {
   const [data, setData] = useState({
