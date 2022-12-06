@@ -13,7 +13,7 @@
 
 .m_form{
     margin: 0 auto;
-    /* width: 350px; */
+    width: 420px;
 }
 
 .m_iner {
@@ -23,7 +23,7 @@
     justify-content:space-between;
     width: 1440x;
     /* margin: 0 auto; */
-    height: 800px;
+    height: 1000px;
 }
 
 .m_input_img {
@@ -133,6 +133,10 @@
 }
 
 @media screen and (max-width:576px) {
+    .m_form{
+        margin: 0 auto;
+        width: 320px;
+    }
     .m_label {
         font-size: 20px;
     }
@@ -207,7 +211,7 @@
     }
 
     .m_iner {
-        height: 780px;
+        height: 950px;
     }
     .m_img{
         width: 200px;
