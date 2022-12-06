@@ -22,6 +22,7 @@ export default function ListTable() {
 
   //儲存搜尋時呈現的訊息用
   const [noResult, setNoResult] = useState('正在搜尋中');
+  const [disResult , setDisResult] = useState('計算中');
   //檢查是否為城市頁
   const [isCity, setIsCity] = useState(false);
   const pathname = window.location.pathname;
@@ -42,7 +43,7 @@ export default function ListTable() {
   //抓網址變動
   useEffect(() => {
     setNoResult('正在搜尋中');
-    submitHandle();
+    searchShop();
   }, [sendAddress, isFake]);
 
   //表格資料
@@ -58,93 +59,94 @@ export default function ListTable() {
   const [searchWord, setSearchWord] = useState('');
   const [searchPriceMax, setSearchPriceMax] = useState('');
   const [searchPriceMin, setSearchPriceMin] = useState('');
-  const [searchWaitTime, setSearchWaitTime] = useState('');
+  const [searchWaitTime, setSearchWaitTime] = useState('80');
   const [searchTotalRows, setSearchTotalRows] = useState('');
 
   //取得所有店家
-  const getShop = async () => {
-    const sid = localStorage.getItem('MemberSid');
+  // const getShop = async () => {
+  //   const sid = localStorage.getItem('MemberSid');
 
-    console.log('path', pathname);
+  //   console.log('path', pathname);
 
-    let order = usp.get('order');
+  //   let order = usp.get('order');
 
-    try {
-      const response = await axios.get(`http://${siteName}:3001/Shopping`);
+  //   try {
+  //     const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
-      //把總筆數和checkbox回歸初始狀態
-      setSearchTotalRows('');
-      setIsChecked(true);
-      // 如果排序=距離，把資料按distance由小到大排列
-      if (order === 'distance') {
-        response.data.sort((a, b) => a.distance - b.distance);
-      }
-      //---------------------------計算距離用-----------------------------
-      if (sendAddress) {
-        for (let element of response.data) {
-          const shopAddress = element.address;
-          const selfLocation = sendAddress;
+  //     //把總筆數和checkbox回歸初始狀態
+  //     setSearchTotalRows('');
+  //     setIsChecked(true);
+  //     // 如果排序=距離，把資料按distance由小到大排列
+  //     if (order === 'distance') {
+  //       response.data.sort((a, b) => a.distance - b.distance);
+  //     }
+  //     //---------------------------計算距離用-----------------------------
+  //     if (sendAddress) {
+  //       for (let element of response.data) {
+  //         const shopAddress = element.address;
+  //         const selfLocation = sendAddress;
 
-          setNoResult('正在搜尋中');
-          // 計算("店家地址","送達地址")間的直線距離
-          const gettedDistance = await calculateDistance(
-            shopAddress,
-            selfLocation
-          );
+  //         setNoResult('正在搜尋中');
+  //         // 計算("店家地址","送達地址")間的直線距離
+  //         const gettedDistance = await calculateDistance(
+  //           shopAddress,
+  //           selfLocation
+  //         );
 
-          // 測試用，隨機亂數資料
-          // const gettedDistance = Math.random() * 50;
+  //         // 測試用，隨機亂數資料
+  //         // const gettedDistance = Math.random() * 50;
 
-          // 將結果放進result.distance
-          element.distance = Math.round(gettedDistance * 10) / 10;
-          // 超過30公里，每5公里加10元外送費
-          element.fees = parseInt(gettedDistance / 5) * 10 + 30;
-        }
-      }
-      //-----------------------------------------------------------------
+  //         // 將結果放進result.distance
+  //         element.distance = Math.round(gettedDistance * 10) / 10;
+  //         // 超過30公里，每5公里加10元外送費
+  //         element.fees = parseInt(gettedDistance / 5) * 10 + 30;
+  //       }
+  //     }
+  //     //-----------------------------------------------------------------
 
-      // setShop(result.data);
+  //     // setShop(result.data);
 
-      try {
-        const response_favorite = await axios.get(
-          `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
-        );
+  //     try {
+  //       const response_favorite = await axios.get(
+  //         `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+  //       );
 
-        console.log(response_favorite.data);
-        setUser(response_favorite.data);
-        // const arr = { ...response_favorite.data };
-        const obj = {};
-        response_favorite.data.forEach((el) => {
-          obj[el.shop_sid] = true;
-        });
-        console.log(obj);
-        //myIndex, setMyIndex
-        let newIndex = { ...myIndex };
-        response.data.forEach((element) => {
-          if (obj[element.sid]) {
-            newIndex = { ...newIndex, [element.sid]: true };
-            element.favor = true;
-            return;
-          }
-          newIndex = { ...newIndex, [element.sid]: false };
-          element.favor = false;
-        });
-        setMyIndex(newIndex);
-        setShop(response.data);
-        console.log(response.data);
-      } catch (e) {
-        console.error(e.message);
-        return e.message;
-      }
-    } catch (e) {
-      setErrorMsg(e.message);
-    }
-    // console.log(errorMsg);
-  };
+  //       console.log(response_favorite.data);
+  //       setUser(response_favorite.data);
+  //       // const arr = { ...response_favorite.data };
+  //       const obj = {};
+  //       response_favorite.data.forEach((el) => {
+  //         obj[el.shop_sid] = true;
+  //       });
+  //       console.log(obj);
+  //       //myIndex, setMyIndex
+  //       let newIndex = { ...myIndex };
+  //       response.data.forEach((element) => {
+  //         if (obj[element.sid]) {
+  //           newIndex = { ...newIndex, [element.sid]: true };
+  //           element.favor = true;
+  //           return;
+  //         }
+  //         newIndex = { ...newIndex, [element.sid]: false };
+  //         element.favor = false;
+  //       });
+  //       setMyIndex(newIndex);
+  //       setShop(response.data);
+  //       console.log(response.data);
+  //     } catch (e) {
+  //       console.error(e.message);
+  //       return e.message;
+  //     }
+  //   } catch (e) {
+  //     setErrorMsg(e.message);
+  //   }
+  //   // console.log(errorMsg);
+  // };
+
+// --------------------最愛店家用-------------------------
 
   const add = async (shopSid) => {
     const sid = localStorage.getItem('MemberSid');
-    // const fd = new FormData({ input });
 
     try {
       const response = await axios.post(
@@ -188,12 +190,8 @@ export default function ListTable() {
       setIndex(nextIndex);
     }
   };
+// -------------------------------------------------------
 
-  // 等待時間的改變事件
-  const word_handleChange = (event) => {
-    let value = event.target.value;
-    setSearchWord(value);
-  };
   // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
@@ -212,12 +210,12 @@ export default function ListTable() {
     setFormData(dataIN);
   };
 
-  //送出後再統一做搜尋
-  const submitHandle = async (event) => {
+  //現在無submit
+  const searchShop = async (event) => {
     const sid = localStorage.getItem('MemberSid');
-    let key = formData.search;
-    let price_max = formData.price_max;
-    let price_min = formData.price_min;
+    let key = formData.search ? formData.search : "";
+    let price_max = formData.price_max; // 未輸入為0，寫在後端API
+    let price_min = formData.price_min; // 未輸入為0，寫在後端API
     let wait_time = searchWaitTime;
     let order = isChecked;
     console.log("form",formData)
@@ -238,9 +236,6 @@ export default function ListTable() {
     setSearchPriceMax(price_max);
     setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
-
-    // 取地址
-    // console.log("指定地址",sendAddress)
 
     // 用空格("\s")同時搜尋多個字段，以","("%2C")取代
     if (key) {
@@ -264,13 +259,13 @@ export default function ListTable() {
         const gettedDistance = await calculateDistance(
           shopAddress,
           selfLocation
-        );
+        )
 
         // 測試用，隨機亂數
         // const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
-        element.distance = Math.round(gettedDistance * 10) / 10;
+        element.distance = gettedDistance ? Math.round(gettedDistance * 10) / 10 : "沒有結果";
         // 超過30公里，每5公里加10元外送費
         element.fees = parseInt(gettedDistance / 5) * 10 + 30;
 
@@ -431,9 +426,8 @@ export default function ListTable() {
                   className="search_bar_name_input"
                   placeholder="以店名或餐點名搜尋"
                   // onChange={searchHandle}
-                  defaultValue={searchWord}
                   autoFocus
-                  value={formData.search}
+                  value={formData.search || ''}
                   onChange={(e) => {
                     form_handleChange(e);
                   }}
@@ -536,7 +530,7 @@ export default function ListTable() {
             </div>
             <input
               onClick={() => {
-                submitHandle();
+                searchShop();
               }}
               type="submit"
               value="開始搜尋"
@@ -610,10 +604,10 @@ export default function ListTable() {
                       </div>
                     </div>
                     <span className="shopcontext">
-                      {shop.distance} km,{shop.type_name}
+                      {shop.distance ? shop.distance : disResult} km,{shop.type_name}
                     </span>
                     {/* <span>{shop.distance} 公里</span> */}
-                    <span className="shopcontext">外送費{shop.fees}元</span>
+                    <span className="shopcontext" >外送費{shop.fees ? shop.fees : disResult}元</span>
                   </div>
                 </Link>
               </div>
