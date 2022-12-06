@@ -3,7 +3,8 @@ import './Member_Point.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-const reasons = ['兌換優惠券', '消費獲得','會員註冊獲得'];
+import log from 'eslint-plugin-react/lib/util/log';
+const reasons = ['兌換優惠券', '消費獲得', '會員註冊獲得'];
 const siteName = window.location.hostname;
 
 function MemberPoint() {
@@ -11,6 +12,7 @@ function MemberPoint() {
   const [productData, setproductData] = useState([
     {
       coupon_sid: 0,
+      point: 0,
       point_amount: 0,
       point_change_time: null,
       point_change_method: 0,
@@ -53,6 +55,7 @@ function MemberPoint() {
         <table className="mt_table">
           <thead>
             <tr className="mt_tr" key={0}>
+              <th className="mt_th">現在點數</th>
               <th className="mt_th">異動點數</th>
               <th className="mt_th">異動時間</th>
               <th className="mt_th">異動原因</th>
@@ -67,6 +70,7 @@ function MemberPoint() {
               .map((value, i) => {
                 const {
                   coupon_sid,
+                  point,
                   point_amount,
                   point_change_time,
                   point_change_method,
@@ -74,6 +78,7 @@ function MemberPoint() {
                 } = value;
                 return (
                   <tr className="mt_tr" key={i + 1}>
+                    <td className="mt_td">{point}</td>
                     <td className="mt_td">{point_amount}</td>
                     <td className="mt_td">{point_change_time}</td>
                     <td className="mt_td">{reasons[point_change_method]}</td>

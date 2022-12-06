@@ -9,21 +9,19 @@ function StoreSellAnalyze() {
   const [salesData, setSalesData] = useState([]);
 
   const getData = async () => {
-    const Analyze_token = localStorage.getItem('StoreDatas');
-    const result = await axios.get(`http://${siteName}:3001/StoreSellAnalyze`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Store')[0],
-      },
-    });
+    const sid = JSON.parse(localStorage.getItem('StoreDatas')).sid;
+
+    const result = await axios.get(
+      `http://${siteName}:3001/StoreSellAnalyze/${sid}`
+    );
     // const sid = result.data.map((data) => data.sid);
     // console.log(sid);
+
     console.log(result.data);
-    setShopData(result.data.map((data) => data.sid));
+    setShopData(result.data.map((data) => data.order_time));
     setSalesData(result.data.map((data) => data.order_total));
 
-    
-    console.log(Analyze_token);
+    console.log(sid);
   };
 
   useEffect(() => {

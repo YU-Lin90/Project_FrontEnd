@@ -19,6 +19,7 @@ function SearchPart({ setOpen }) {
             placeholder="請輸入欲送達的地址"
             value={sendAddress}
             onChange={(e) => {
+              localStorage.setItem('DeliveAddress', e.target.value);
               setSendAddress(e.target.value);
             }}
           />

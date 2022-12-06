@@ -1,6 +1,7 @@
 //外送員 地圖
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import GoogleMapReact from 'google-map-react';
 import { useGeo } from '../../../Context/GeoLocationProvider';
 import keys from '../../../keys';
@@ -170,7 +171,7 @@ function DeliverMapContent({
       );
     }
     checkArraive();
-  }, [deliverPosition]);
+  }, [deliverPosition, sideNow]);
   //===============================================分隔線================================================
   const navi = useNavigate();
 
@@ -217,42 +218,73 @@ function DeliverMapContent({
         disabled={buttonStatus}
         onClick={() => {
           if (sideNow === 2) {
-            foodget();
+            Swal.fire({
+              title: '確定要取餐?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: '確定',
+              cancelButtonText: '取消',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: '收到你的取餐訊息',
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                foodget();
+                setSideNow(1);
+                orderSocket.send(
+                  JSON.stringify({
+                    receiveSide: 1,
+                    receiveSid: 1,
+                    step: 4,
+                    orderSid: Number(orderSid),
+                  })
+                );
+              }
+            });
             setSideNow(1);
             const orderSid = localStorage.getItem('order_sid');
-            orderSocket.send(
-              JSON.stringify({
-                receiveSide: 1,
-                receiveSid: 1,
-                step: 4,
-                orderSid: Number(orderSid),
-              })
-            );
           }
           if (sideNow === 1) {
-            foodreach();
             const orderSid = localStorage.getItem('order_sid');
-            localStorage.removeItem('deliver_order_sid');
-            localStorage.removeItem('StoreName');
-            localStorage.removeItem('MemberName');
-            localStorage.removeItem('Store');
-            localStorage.removeItem('StoreDatas');
-            localStorage.removeItem('order_sid');
-            localStorage.setItem('delivertake',true);           
-            
-            orderSocket.send(
-              JSON.stringify({
-                receiveSide: 1,
-                receiveSid: 1,
-                step: 5,
-                orderSid: Number(orderSid),
-              })
-            );
-            navi('/Deliver/DeliverConfirmOrder');
-          }         
+            Swal.fire({
+              title: '確定已送達?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: '確定',
+              cancelButtonText: '取消',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                foodreach();
+                orderSocket.send(
+                  JSON.stringify({
+                    receiveSide: 1,
+                    receiveSid: 1,
+                    step: 5,
+                    orderSid: Number(orderSid),
+                  })
+                );
+                Swal.fire({
+                  title: '收到你送達回覆',
+                  icon: 'success',
+                  showConfirmButton: true,
+                }).then((result) => {
+                  navi('/Deliver/DeliverConfirmOrder');
+                });
+                localStorage.removeItem('deliver_order_sid');
+                localStorage.removeItem('order_sid');
+                localStorage.setItem('delivertake', true);
+              }
+            });
+          }
         }}
       >
-
         {sideNow === 2 ? '取餐' : '送達'}
       </button>
     </>

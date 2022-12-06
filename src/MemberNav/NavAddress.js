@@ -29,6 +29,7 @@ function NavAddress({ sendAddress, setSendAddress }) {
               placeholder="請輸入地址"
               onChange={(e) => {
                 setSendAddress(e.target.value);
+                localStorage.setItem('DeliveAddress', e.target.value);
               }}
               autoFocus={true}
               className="w300 marH10"

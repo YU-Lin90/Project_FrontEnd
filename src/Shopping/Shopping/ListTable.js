@@ -20,6 +20,12 @@ export default function ListTable() {
   const [myIndex, setMyIndex] = useState({});
   const [index, setIndex] = useState();
 
+  //儲存搜尋時呈現的訊息用
+  const [noResult, setNoResult] = useState('正在搜尋中');
+  //檢查是否為城市頁
+  const [isCity, setIsCity] = useState(false);
+  const pathname = window.location.pathname;
+
   const navigate = useNavigate();
 
   //-------------------------計算距離用------------------------------------
@@ -33,6 +39,7 @@ export default function ListTable() {
 
   //抓網址變動
   useEffect(() => {
+    setNoResult('正在搜尋中');
     submitHandle();
   }, [location, sendAddress]);
 
@@ -52,19 +59,16 @@ export default function ListTable() {
   const [searchWaitTime, setSearchWaitTime] = useState('');
   const [searchTotalRows, setSearchTotalRows] = useState('');
 
-  //儲存搜尋時呈現的訊息用
-  const [noResult, setNoResult] = useState('正在搜尋中');
-
   //取得所有店家
   const getShop = async () => {
     const sid = localStorage.getItem('MemberSid');
 
+    console.log('path', pathname);
+
     let order = usp.get('order');
 
     try {
-      // const response = await axios.get(`http://${siteName}:3001/Shopping`);
-
-      const response = await axios.get(`http://${siteName}:3001/Shopping?`);
+      const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
       //把總筆數和checkbox回歸初始狀態
       setSearchTotalRows('');
@@ -80,26 +84,20 @@ export default function ListTable() {
           const shopAddress = element.address;
           const selfLocation = sendAddress;
 
+          setNoResult('正在搜尋中');
           // 計算("店家地址","送達地址")間的直線距離
-          // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+          // const gettedDistance = await calculateDistance(
+          //   shopAddress,
+          //   selfLocation
+          // );
 
           // 測試用，隨機亂數資料
           const gettedDistance = Math.random() * 50;
 
           // 將結果放進result.distance
           element.distance = Math.round(gettedDistance);
-
           // 超過30公里，每5公里加10元外送費
-          if (gettedDistance > 30) {
-            const cost = Math.floor(gettedDistance);
-            const cost2 = cost - 30;
-            const cost3 = cost2 / 5;
-            const cost4 = Math.ceil(cost3);
-            const cost5 = cost4 * 10;
-            element.fees = 30 + cost5;
-          } else if (gettedDistance > 0 && gettedDistance <= 30) {
-            element.fees = 30;
-          }
+          element.fees = parseInt(gettedDistance / 5) * 10 + 30;
         }
       }
       //-----------------------------------------------------------------
@@ -141,6 +139,14 @@ export default function ListTable() {
       setErrorMsg(e.message);
     }
     // console.log(errorMsg);
+    if (pathname == '/City/Taipei' && !isCity) {
+      // await setIsCity(true);
+      console.log('是城市嗎', isCity);
+      const response = await axios.get(
+        // `http://${siteName}:3001/Shopping/?search=披薩&wait_time=80`
+      );
+      setShop(response.data);
+    }
   };
 
   const add = async (shopSid) => {
@@ -253,7 +259,7 @@ export default function ListTable() {
     setSearchWaitTime(wait_time);
 
     // 距離計算
-    // console.log(calculateDistance(sendAddress, ""));
+    console.log(calculateDistance(sendAddress, ''));
 
     // 取地址
     // console.log("指定地址",sendAddress)
@@ -276,24 +282,18 @@ export default function ListTable() {
         const selfLocation = sendAddress;
 
         // 計算("店家地址","送達地址")間的直線距離
-        // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+        const gettedDistance = await calculateDistance(
+          shopAddress,
+          selfLocation
+        );
 
         // 測試用，隨機亂數
-        const gettedDistance = Math.random() * 50;
+        // const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
-        element.distance = gettedDistance;
-
+        element.distance = Math.round(gettedDistance * 10) / 10;
         // 超過30公里，每5公里加10元外送費
-        if (gettedDistance > 30) {
-          const cost2 = Math.ceil(gettedDistance - 30);
-          const cost3 = cost2 / 5;
-          const cost4 = Math.ceil(cost3);
-          const cost5 = cost4 * 10;
-          element.fees = 30 + cost5;
-        } else if (gettedDistance > 0 && gettedDistance <= 30) {
-          element.fees = 30;
-        }
+        element.fees = parseInt(gettedDistance / 5) * 10 + 30;
 
         // 如果排序=距離，把資料按distance由小到大排列
         if (order === 'distance') {
@@ -347,7 +347,7 @@ export default function ListTable() {
     // //搜尋後結果存入shop
     // setShop(result.data);
 
-    //如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
+    // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
     if (!shop.length) {
       setNoResult('無法找到您想要的餐點');
     } else {
@@ -385,9 +385,43 @@ export default function ListTable() {
     }
   };
 
+  const [toggle, setToggle] = useState(true);
+
+  function useWindowSize() {
+    const [size, setSize] = useState([window.innerWidth]);
+    useEffect(() => {
+      const handleResize = () => {
+        setSize([window.innerWidth]);
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+    return size;
+  }
+
+  //const [width] = useWindowSize();
+
+  // useEffect(() => {
+  //   width < 768 && style();
+  // }, [width]);
+
+  const [isDisplay, setIsDisplay] = useState(false);
+  const switchDisplay = () => {
+    setIsDisplay(!isDisplay);
+  };
+
+  const style = {
+    '@media(maxWidth:768px)': {
+      padding: '800px',
+    },
+  };
+
   return (
     <>
-      <div className="col_bar">
+      {/* {toggle ? ( */}
+      <div className="col_bar" style={style}>
         <form className="table">
           <div className="search_bar">
             {searchTotalRows ? (
@@ -512,6 +546,9 @@ export default function ListTable() {
           </div>
         </form>
       </div>
+      {/* ) : ( */}
+      {/* '' */}
+      {/* )} */}
 
       <div className="col_list">
         <div className="subTitle">小標題</div>
@@ -522,15 +559,17 @@ export default function ListTable() {
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <img
-                      src={`http://${siteName}:3001/images/shopping/storeCover1.jpg`}
+                      src={`http://${siteName}:3001/images/shop/storeCover1.webp`}
                       alt={shop.name}
+                      className="shopCard_cover"
                     />
                     <div className="shopCard_conpon"></div>
                     <div className="shopCard_delivery_time">
-                      等待時間{shop.wait_time}
+                      {shop.wait_time}
+                      <div className="shopCard_delivery_time_text">分鐘</div>
                     </div>
                   </div>
-                  <span>SID {shop.sid}</span>
+                  {/* <span>SID {shop.sid}</span> */}
                   <div className="shopCard_text">
                     <div className="shopCard_text_name">
                       <span>{shop.name}</span>
@@ -577,6 +616,18 @@ export default function ListTable() {
           )}
         </div>
       </div>
+      <div
+        onClick={() => {
+          setToggle(!toggle);
+          console.log(toggle);
+        }}
+        className="search_bar_toggle"
+        id="bar_switch"
+      ></div>
     </>
   );
 }
+
+//TODO: sidebar 在正常下display flex RWD下display none
+//TODO: toggle 在正常下display none RWD下display flex
+//TODO: toggle 可以切換sidebar的display flex
