@@ -1,6 +1,7 @@
 //按鈕
 import { useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
+import { useAuth } from '../../Context/AuthProvider';
 import Swal from 'sweetalert2';
 function RandomButton({
   rejectedTypes,
@@ -15,22 +16,38 @@ function RandomButton({
   pressedTimes,
   setPressedTimes,
   setGettedSid,
+  todayTimes,
+  setTodayTimes,
+  setCutAmount,
 }) {
-  const { loginCheckPostFetch } = useFunc();
+  const { loginCheckPostFetch, notLoginPostFetch } = useFunc();
+  const { authMember } = useAuth();
 
   //獲得店家函式 輸入不要的種類(陣列) 回傳1筆店家
   const getDailyCoupon = async (types) => {
     const postData = JSON.stringify(types);
-    const res = await loginCheckPostFetch(
-      `DailyCoupon/GetRandomStoreWithType`,
-      'Member',
-      postData
-    );
+
+    const res = authMember
+      ? await loginCheckPostFetch(
+          `DailyCoupon/GetRandomStoreWithType`,
+          'Member',
+          postData
+        )
+      : await notLoginPostFetch(`RandomWithoutLogin`, postData);
     console.log(res);
     //TODO 展示用 改這裡會改顯示結果 這樣寫只有第三次一定是要的店家
     // if (pressedTimes !== 2) {
     //   res.shopList.shift();
     // }
+    if (res.cutamount) {
+      setCutAmount(res.cutamount);
+    }
+    else{
+      setCutAmount(0);
+      
+    }
+
+    //res.cutamount  折價金額
     //開始閃爍
     setStartFlashing(true);
     //放進資料列
@@ -61,6 +78,9 @@ function RandomButton({
           if (rejectedTypesWithNumber.length === 6) {
             Swal.fire('選項不可為空');
             return;
+          }
+          if (todayTimes < 3) {
+            setTodayTimes((v) => v + 1);
           }
           // console.log(rejectedTypesWithNumber);
           setFlashingEnd(false);

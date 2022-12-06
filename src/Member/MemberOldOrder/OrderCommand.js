@@ -78,7 +78,8 @@ function OrderCommand({
           </p>
           <div className="flexSetCenter">
             <textarea
-              style={{ resize: 'none' }}
+              autoFocus={true}
+              style={{ resize: 'none',paddingInlineStart:'5px' }}
               className="w250 h200 fs24 fw6"
               value={command}
               onChange={(e) => {
