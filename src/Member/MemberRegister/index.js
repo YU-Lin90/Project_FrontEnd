@@ -197,6 +197,7 @@ function MemberRegister() {
     <>
       <div className="m_iner">
         <form
+          className="m_form"
           name="avatar"
           onSubmit={handleFormSubmit}
           onInvalid={handleFormInvalid}
@@ -214,9 +215,23 @@ function MemberRegister() {
               <img className="m_img" src={preview} alt="" />
             </div>
           )}
-
+          <br />
+          <label
+            className="m_label"
+            onClick={(e) => {
+              e.preventDefault();
+              setUser({
+                email: 'abc1234@gmail.com',
+                password: 'Aa123456789',
+                doublepassword: 'Aa123456789',
+                name: '王大明',
+                phone: '0912345678',
+              });
+            }}
+          >
+            帳號(Email)
+          </label>
           <div className="m_mar">
-            <label className="m_label">帳號(Email):</label>
             <input
               className="m_email"
               type="email"
@@ -229,8 +244,8 @@ function MemberRegister() {
             />
             <span className="m_span">{fieldErrors.email}</span>
           </div>
+          <label className="m_label">密碼</label>
           <div className="m_mar">
-            <label className="m_label">密碼:</label>
             <input
               type={passwordFieldType}
               className="m_password"
@@ -258,9 +273,8 @@ function MemberRegister() {
             </button>
             <span className="m_span">{fieldErrors.password}</span>
           </div>
-
+          <label className="m_label">再次輸入密碼</label>
           <div className="m_mar">
-            <label className="m_label">再次輸入密碼:</label>
             <input
               type={passwordFieldType2}
               name="doublepassword"
@@ -288,9 +302,8 @@ function MemberRegister() {
             </button>
             <span className="m_span">{fieldErrors.doublepassword}</span>
           </div>
-
+          <label className="m_label">名子</label>
           <div className="m_mar">
-            <label className="m_label">名子:</label>
             <input
               type="text"
               name="name"
@@ -302,9 +315,8 @@ function MemberRegister() {
             />
             <span className="m_span">{fieldErrors.name}</span>
           </div>
-
+          <label className="m_label">手機</label>
           <div className="m_mar">
-            <label className="m_label">手機:</label>
             <input
               type="text"
               name="phone"
@@ -335,21 +347,6 @@ function MemberRegister() {
             }}
           >
             清空
-          </button>
-          <button
-            className="m_fast"
-            onClick={(e) => {
-              e.preventDefault();
-              setUser({
-                email: 'abc1234@gmail.com',
-                password: 'Aa123456789',
-                doublepassword: 'Aa123456789',
-                name: '王大明',
-                phone: '0912345678',
-              });
-            }}
-          >
-            快速填入
           </button>
         </form>
       </div>

@@ -4,58 +4,85 @@
 }
 
 .m_img {
-    width: 280px;
-    height: 280px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+}
+
+.m_form{
+    margin: 0 auto;
+    /* width: 350px; */
 }
 
 .m_iner {
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     align-items: center;
+    justify-content:space-between;
+    width: 1440x;
+    /* margin: 0 auto; */
     height: 800px;
 }
 
 .m_input_img {
     margin-top: 5px;
     margin-bottom: 10px;
-    height: 40px;
-    font-size: 24px;
+    height: 34px;
+    font-size: 20px;
 }
 
 .m_label {
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .m_email {
+    width: 400px;
+    padding-left: 5px;
+    border-radius:15px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .m_password {
+    width: 400px;
+    padding-left: 5px;
+    border-radius:15px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .m_doublepassword {
+    width: 400px;
+    padding-left: 5px;
+    border-radius:15px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .m_name {
+    width: 400px;
+    padding-left: 5px;
+    border-radius:15px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .m_phone {
+    width: 400px;
+    padding-left: 5px;
+    border-radius:15px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .m_sb {
+    border-radius: 15px;
+    background-color: antiquewhite;
     font-size: 30px;
+    width: 190px;
+    height: 60px;
 }
 
 .m_clear {
@@ -67,7 +94,12 @@
 }
 
 .m_clear {
-    margin-left: 30px;
+    margin-left: 20px;
+    border-radius: 15px;
+    background-color: antiquewhite;
+    font-size: 30px;
+    width: 190px;
+    height: 60px;
 }
 
 .m_fast {
@@ -76,23 +108,28 @@
 
 .m_mar {
     font-size: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .m_span {
-    font-size: 30px;
+    font-size: 26px;
     color: red;
 }
 
 .m_icon_button {
-    margin-left: 3px;
-    width: 40px;
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* padding-bottom:20px; */
+    margin-left: -34px;
+    
+    width: 36px;
     height: 40px;
 }
 
 .m_icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
 }
 
 @media screen and (max-width:576px) {
@@ -101,35 +138,42 @@
     }
 
     .m_email {
+        width: 320px;
         font-size: 20px;
         height: 30px;
     }
 
     .m_password {
+        width: 320px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_doublepassword {
+        width: 320px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_name {
+        width: 320px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_phone {
+        width: 320px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_sb {
+        width: 150px;
         font-size: 20px;
     }
 
     .m_clear {
+        width: 150px;
         font-size: 20px;
     }
 
@@ -138,12 +182,9 @@
     }
 
     .m_clear {
-        margin-left: 30px;
+        margin-left: 20px;
     }
 
-    .m_fast {
-        margin-left: 30px;
-    }
 
     .m_mar {
         margin-bottom: 20px;
@@ -155,7 +196,7 @@
     }
 
     .m_icon_button {
-        margin-left: 3px;
+        margin-left: -30px;
         width: 30px;
         height: 30px;
     }
@@ -166,7 +207,7 @@
     }
 
     .m_iner {
-        height: 650px;
+        height: 780px;
     }
     .m_img{
         width: 200px;

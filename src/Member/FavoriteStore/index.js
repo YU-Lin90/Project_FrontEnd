@@ -21,6 +21,7 @@ export default function FavoriteStore() {
   // 輸入用(可控表單元件用)
   const [inputKeyword, setInputKeyword] = useState('');
   // 按下搜尋按鈕用，真正搜尋用
+
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
@@ -168,22 +169,15 @@ export default function FavoriteStore() {
     }
   };
 
-  // useEffect(() => {
-  //   setUser3()
-  // }, [change]);
+  useEffect(() => {
+    getform();
+    // setChange((v) => v + 1);
+  }, [inputKeyword, change]);
 
   useEffect(() => {
-    if (!inputKeyword) {
-      getform();
-      setUser3(user);
-      setChange((v) => v + 1);
-    } else {
-      getform();
-      const b = user.filter((v, i) => v.name.includes(inputKeyword));
-      setUser3(b);
-      setChange((v) => v + 1);
-    }
-  }, [inputKeyword, change]);
+    let b = user.filter((v, i) => v.name.includes(inputKeyword));
+    setUser3(b);
+  }, [user]);
 
   const submit = async (shopSid) => {
     // e.preventDefault();
