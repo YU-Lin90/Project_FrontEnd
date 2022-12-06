@@ -1,17 +1,23 @@
 
+@media screen and (max-width:768px) {
 .row{
     display: flex;
     width: 100%;
-    background-color: #fff;
+
 }
+
 .col_bar{
     width: 30%;
     flex-wrap: wrap;
     flex-direction: column;
-    top: 0;
+    top: 80;
+    right:0;
     height: 100%;
-    position: sticky;
+    position: fixed;
     font-weight: bold;
+    background-color: var(--mainColor);
+    z-index: 10;
+    
 }
 
 .table{
@@ -25,8 +31,6 @@
 .search_bar{
     display: flex;
     flex-direction: column;
-    width: 80%;
-    padding: 10vh 3vh;
 }
 
 
@@ -164,7 +168,7 @@ margin: 2vh 0;
 
 .col_list{
     display: flex;
-    width: 70%;
+    width: 100%;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
@@ -197,14 +201,31 @@ margin: 0 auto;
     border: 1px solid #CCC;
     background-color: #FFF;
 }
+
+.shopCard_image{
+    position: relative;
+}
+.shopCard_cover{
+    height: 150px;
+}
 .shopCard_delivery_time{
-    font-size: small;
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top:0;
+    right:0;
+    width: fit-content;
+    padding: 3%;
+    font-weight: bolder;
 }
 
 .shopCard_text_name{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bolder;
 }
 
 .shopCard_text{
@@ -213,7 +234,6 @@ height: 100%;
 display: flex;
 flex-direction: column;
 height: 100%;
-border: 1px solid #CCC;
 }
 
 .shopCard_score {
@@ -223,3 +243,40 @@ border: 1px solid #CCC;
 }
 
 
+.search_bar_toggle {
+    top:80px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+}
+
+.menubtn_bar_01 {
+    top: 4px;
+}
+
+.menubtn_bar_02 {
+    top: 14px;
+}
+
+.menubtn_bar_03 {
+    bottom: 4px;
+}
+
+.menubtn_bar_01.changed {
+    transform: rotateZ(45deg);
+    width: 28px;
+}
+
+.menubtn_bar_02.changed {
+    opacity: 0;
+}
+
+.menubtn_bar_03.changed {
+    transform: rotateZ(-45deg);
+    width: 28px;
+}
+}
