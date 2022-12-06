@@ -1,4 +1,12 @@
+import ListTable from './../Shopping';
+
 function Taipei() {
-  return <>台北市預留頁</>;
+  return (
+    <>
+      <div className="row">
+        <ListTable></ListTable>
+      </div>
+    </>
+  );
 }
 export default Taipei;
