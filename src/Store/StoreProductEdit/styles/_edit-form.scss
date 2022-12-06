@@ -26,18 +26,19 @@
           display: block;
           border: none;
           line-height: 20px;
-          padding: 6px 14px ;
+          padding: 6px 14px;
           cursor: text;
           background-color: rgb(238, 238, 238);
           border-radius: 8px;
           resize: none;
-          overflow-wrap:break-word ;
+          overflow-wrap: break-word;
         }
         input[type='text'] {
+          font-weight: 700;
           display: block;
           width: 100%;
           border: none;
-          border-bottom: 1px solid #eeeeee;
+          border-bottom: 1.5px solid rgb(224, 224, 224);
           line-height: 36px;
           padding: 10px 0px;
           margin-bottom: 16px;
