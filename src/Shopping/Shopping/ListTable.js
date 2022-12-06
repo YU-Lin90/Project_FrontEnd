@@ -143,7 +143,7 @@ export default function ListTable() {
       // await setIsCity(true);
       console.log('是城市嗎', isCity);
       const response = await axios.get(
-        // `http://${siteName}:3001/Shopping/?search=披薩&wait_time=80`
+        `http://${siteName}:3001/Shopping/?search=披薩&wait_time=80`
       );
       setShop(response.data);
     }
@@ -258,8 +258,6 @@ export default function ListTable() {
     setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
 
-    // 距離計算
-    console.log(calculateDistance(sendAddress, ''));
 
     // 取地址
     // console.log("指定地址",sendAddress)
