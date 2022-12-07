@@ -278,7 +278,7 @@ function MemberRegister() {
             <input
               type={passwordFieldType2}
               name="doublepassword"
-              className="m_doublepassword"
+              className="mb_doublepassword"
               value={user.doublepassword}
               placeholder="再次輸入密碼"
               onChange={handleFieldChange}

@@ -88,10 +88,6 @@
     height: 60px;
 }
 
-.m_clear {
-    font-size: 30px;
-}
-
 .m_fast {
     font-size: 30px;
 }
@@ -137,7 +133,7 @@
 
 .m_icon2 {
     width: 20px;
-    height: 16px;
+    height: 17px;
 }
 @media screen and (max-width:576px) {
     .m_form{
