@@ -40,69 +40,85 @@
         }
       }
       .right {
+        transform-origin: center;
+        transition: all 0.5s;
       }
-      p {
+      .rot90 {
+        transform: rotate(-90deg);
       }
     }
-    .middle {
-      
-      .product-box {
-        padding: 8px 32px;
-        padding-right: 80px;
-        border-bottom: 1px solid rgb(224, 224, 224);
-        display: flex;
-        justify-content: space-between;
-        .left {
+    .collapsed-area {
+      display: inline-block;
+      width: 100%;
+      .middle {
+        .product-box {
+          padding: 8px 32px;
+          padding-right: 80px;
+          border-bottom: 1px solid rgb(224, 224, 224);
           display: flex;
-          align-items: center;
-          i {
-            color: rgb(204, 204, 204);
-            font-size: 16px;
-            margin-right: 16px;
-          }
-          img {
-            width: 48px;
-            height: 48px;
-            object-fit: cover;
-            margin-right: 16px;
-          }
-          p {
-          }
-        }
-        .right {
-          align-self: center;
-          input[type='number'] {
-            display: block;
-            border: none;
-            line-height: 20px;
-            padding-bottom: 6px;
-            cursor: text;
-            background-color: rgb(238, 238, 238);
-            border-radius: 8px;
-          }
-          input[type='number']::-webkit-inner-spin-button,
-          input[type='number']::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-          }
-          .number-input {
-            position: relative;
-            div {
-              position: absolute;
-              left: 5px;
-              top: 50%;
-              transform: translateY(-52%);
-            }
-            input {
-              width: 96px;
-              padding: 6px 0px;
-              padding-left: 36px;
+          justify-content: space-between;
+          .left {
+            display: flex;
+            align-items: center;
+            i {
+              color: rgb(204, 204, 204);
               font-size: 16px;
+              margin-right: 16px;
+            }
+            img {
+              width: 48px;
+              height: 48px;
+              object-fit: cover;
+              margin-right: 16px;
+            }
+            p {
+            }
+          }
+          .right {
+            align-self: center;
+            input[type='number'] {
+              display: block;
+              border: none;
+              line-height: 20px;
+              padding-bottom: 6px;
+              cursor: text;
+              background-color: rgb(238, 238, 238);
+              border-radius: 8px;
+            }
+            input[type='number']::-webkit-inner-spin-button,
+            input[type='number']::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+            }
+            .number-input {
+              position: relative;
+              div {
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                transform: translateY(-52%);
+              }
+              input {
+                width: 96px;
+                padding: 6px 0px;
+                padding-left: 36px;
+                font-size: 16px;
+              }
             }
           }
         }
       }
+      .bottom {
+        
+      }
+    }
+  }
+  .collapsed {
+    background-color: rgb(255, 190, 190);
+    .middle {
+      display: none;
     }
     .bottom {
+      display: none;
     }
   }
 
@@ -385,8 +401,6 @@
     width: 10%;
   }
 }
-
-
 
 // container
 
