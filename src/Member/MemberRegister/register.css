@@ -39,31 +39,34 @@
 
 .m_email {
     width: 400px;
-    padding-left: 5px;
+    padding-left: 7px;
     border-radius:15px;
     height: 40px;
     font-size: 20px;
 }
 
 .m_password {
-    width: 400px;
-    padding-left: 5px;
-    border-radius:15px;
-    height: 40px;
+    width: 364px;
+    padding-left: 7px;
+    /* border-radius:15px; */
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    height: 41px;
     font-size: 20px;
 }
 
 .m_doublepassword {
-    width: 400px;
-    padding-left: 5px;
-    border-radius:15px;
+    width: 364px;
+    padding-left: 7px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
     height: 40px;
     font-size: 20px;
 }
 
 .m_name {
     width: 400px;
-    padding-left: 5px;
+    padding-left: 7px;
     border-radius:15px;
     height: 40px;
     font-size: 20px;
@@ -71,7 +74,7 @@
 
 .m_phone {
     width: 400px;
-    padding-left: 5px;
+    padding-left: 7px;
     border-radius:15px;
     height: 40px;
     font-size: 20px;
@@ -83,10 +86,6 @@
     font-size: 30px;
     width: 190px;
     height: 60px;
-}
-
-.m_clear {
-    font-size: 30px;
 }
 
 .m_fast {
@@ -121,7 +120,7 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     /* padding-bottom:20px; */
-    margin-left: -34px;
+    /* margin-left: -34px; */
     
     width: 36px;
     height: 40px;
@@ -129,9 +128,13 @@
 
 .m_icon {
     width: 20px;
-    height: 20px;
+    height: 17px;
 }
 
+.m_icon2 {
+    width: 20px;
+    height: 17px;
+}
 @media screen and (max-width:576px) {
     .m_form{
         margin: 0 auto;
@@ -143,29 +146,34 @@
 
     .m_email {
         width: 320px;
+        padding-left: 10px;
         font-size: 20px;
         height: 30px;
     }
 
     .m_password {
-        width: 320px;
+        padding-left: 10px;
+        width: 290px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_doublepassword {
-        width: 320px;
+        padding-left: 10px;
+        width: 290px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_name {
+        padding-left: 10px;
         width: 320px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_phone {
+        padding-left: 10px;
         width: 320px;
         height: 30px;
         font-size: 20px;
@@ -200,14 +208,19 @@
     }
 
     .m_icon_button {
-        margin-left: -30px;
+       
         width: 30px;
         height: 30px;
     }
 
     .m_icon {
         width: 20px;
-        height: 20px;
+        height: 17px;
+    }
+
+    .m_icon2 {
+        width: 20px;
+        height: 16px;
     }
 
     .m_iner {
