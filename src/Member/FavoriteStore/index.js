@@ -7,6 +7,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import { Link } from 'react-router-dom';
 export default function FavoriteStore() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
@@ -21,6 +22,7 @@ export default function FavoriteStore() {
   // 輸入用(可控表單元件用)
   const [inputKeyword, setInputKeyword] = useState('');
   // 按下搜尋按鈕用，真正搜尋用
+
   const getform = async () => {
     const sid = localStorage.getItem('MemberSid');
     if (!sid) {
@@ -168,22 +170,15 @@ export default function FavoriteStore() {
     }
   };
 
-  // useEffect(() => {
-  //   setUser3()
-  // }, [change]);
+  useEffect(() => {
+    getform();
+    // setChange((v) => v + 1);
+  }, [inputKeyword, change]);
 
   useEffect(() => {
-    if (!inputKeyword) {
-      getform();
-      setUser3(user);
-      setChange((v) => v + 1);
-    } else {
-      getform();
-      const b = user.filter((v, i) => v.name.includes(inputKeyword));
-      setUser3(b);
-      setChange((v) => v + 1);
-    }
-  }, [inputKeyword, change]);
+    let b = user.filter((v, i) => v.name.includes(inputKeyword));
+    setUser3(b);
+  }, [user]);
 
   const submit = async (shopSid) => {
     // e.preventDefault();
@@ -211,12 +206,14 @@ export default function FavoriteStore() {
               del2(e, v.shop_sid);
             }}
           >
-            <div className="mf_imgbox">
-              <img
-                className="mf_img"
-                src={`http://${siteName}:3001/uploads/1a4f5922-6e5d-404c-b848-e51cead3ba8f.jpg`}
-              />
-            </div>
+            <Link to={'/productList/?shop_sid=' + v.shop_sid}>
+              <div className="mf_imgbox">
+                <img
+                  className="mf_img"
+                  src={`http://${siteName}:3001/uploads/1a4f5922-6e5d-404c-b848-e51cead3ba8f.jpg`}
+                />
+              </div>
+            </Link>
             <h3 className="mf_font1">{v.name}</h3>
             <p className="mf_font2">地址:{v.address}</p>
             <p className="mf_font3">電話:{v.phone}</p>
