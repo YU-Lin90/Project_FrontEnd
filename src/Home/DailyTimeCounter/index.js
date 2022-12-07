@@ -5,7 +5,7 @@ import { useAuth } from '../../Context/AuthProvider';
 import moment from 'moment/moment';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function DailyTimeCounter() {
+function DailyTimeCounter({ fakeCounter }) {
   const location = useLocation();
   const navi = useNavigate();
   //會員登入狀態
@@ -78,7 +78,7 @@ function DailyTimeCounter() {
     if (authMember) {
       checkDailyCouponNotUse();
     }
-  }, [authMember, location]);
+  }, [authMember, location, fakeCounter]);
   return (
     <>
       {hasDailyCoupon ? (
