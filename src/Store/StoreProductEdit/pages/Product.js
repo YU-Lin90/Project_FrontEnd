@@ -34,7 +34,14 @@ function Product() {
 
   const [reload, setReload] = useState(0);
   // 展示用的資料
-  const [displayData, setDisplayData] = useState([]);
+  const [displayData, setDisplayData] = useState({
+    types: [],
+    products: [],
+    options_types: [],
+    only_options_types: [],
+  });
+  const [selectedType, setSelectedType] = useState({ sid: '', name: '' });
+  const [searchInput, setSearchInput] = useState('');
 
   const getData = async (shop_sid) => {
     console.log(shop_sid);
@@ -56,6 +63,19 @@ function Product() {
     // 更新展示的資料
     setDisplayData(data);
   }, [data]);
+
+  useEffect(() => {
+    if (selectedType.sid) {
+      const newDisplayData = { ...data };
+      const newProducts = newDisplayData.products.filter((product) => {
+        return product.products_type_sid === selectedType.sid;
+      });
+      console.log(newDisplayData);
+      setDisplayData({ ...newDisplayData, products: newProducts });
+    } else {
+      setDisplayData(data);
+    }
+  }, [selectedType]);
 
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {
@@ -177,6 +197,7 @@ function Product() {
                     <input
                       type="text"
                       name="name"
+                      // value={}
                       // value={opt.name}
                       // onChange={(e) => {
                       //   const newOptionData = [...optionData];
@@ -195,15 +216,45 @@ function Product() {
                           .slideToggle();
                       }}
                     >
-                      <div>
+                      <p>{selectedType.sid ? selectedType.name : '全部'}</p>
+                      <div className="arrow">
                         <i className="fa-solid fa-caret-down"></i>
                       </div>
                     </div>
                     <ul>
+                      <li>
+                        <p
+                          onClick={(e) => {
+                            setSelectedType({
+                              sid: '',
+                              name: '',
+                            });
+                            $(e.currentTarget)
+                              .closest('ul')
+                              .find('li')
+                              .slideToggle();
+                          }}
+                        >
+                          全部
+                        </p>
+                      </li>
                       {data.types.map((type) => {
                         return (
                           <li>
-                            <p>{type.name}</p>
+                            <p
+                              onClick={(e) => {
+                                setSelectedType({
+                                  sid: type.sid,
+                                  name: type.name,
+                                });
+                                $(e.currentTarget)
+                                  .closest('ul')
+                                  .find('li')
+                                  .slideToggle();
+                              }}
+                            >
+                              {type.name}
+                            </p>
                           </li>
                         );
                       })}
@@ -225,7 +276,7 @@ function Product() {
                     </div>
                   </div>
                   <div className="tbody">
-                    {data.products.map((product) => {
+                    {displayData.products.map((product) => {
                       return (
                         <div
                           className="tr-product"
@@ -260,7 +311,7 @@ function Product() {
                           <div className="td">NT${product.price}.00</div>
                           <div className="td">{product.type_name}</div>
                           <div className="td line-2">
-                            {data.options_types
+                            {displayData.options_types
                               .filter((ot) => {
                                 return ot.product_sid === product.sid;
                               })

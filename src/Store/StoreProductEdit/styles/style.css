@@ -156,6 +156,12 @@
   cursor: pointer;
   background-color: rgb(238, 238, 238);
 }
+.store-admin .search-area .select-box .select .arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
 .store-admin .search-area .select-box ul {
   position: absolute;
 }

@@ -158,6 +158,12 @@
         padding: 8px;
         cursor: pointer;
         background-color: rgb(238, 238, 238);
+        .arrow {
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+        }
       }
       ul {
         position: absolute;
