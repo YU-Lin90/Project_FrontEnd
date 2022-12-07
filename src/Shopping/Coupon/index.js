@@ -99,8 +99,7 @@ function Coupon() {
         .then((res) => {
           if (res === 1) {
             // Swal.fire('領取成功');
-
-            setChange((v) => v + 1)
+            setChange((v) => v + 1);
             e.preventDefault();
 
             console.log(res);
@@ -133,16 +132,31 @@ function Coupon() {
           <form
             ref={forms}
             onSubmit={(e) => {
-              get(e, v.sid, v.need_point, v.expire);
-              const a = [...text];
-              if (a[i] === '') {
-                a[i] = 'disabled';
-                setText(a);
-                // alert('領取成功');
-              } else {
-                a[i] = '';
-                setText(a);
-              }
+              e.preventDefault();
+              Swal.fire({
+                title: `領取此優惠券需扣紅利${v.need_point}點`,
+                text: '確定要領取嗎?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '領取',
+                cancelButtonText: '取消',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire('領取成功!', '', 'success');
+                  get(e, v.sid, v.need_point, v.expire);
+                  const a = [...text];
+                  if (a[i] === '') {
+                    a[i] = 'disabled';
+                    setText(a);
+                    // alert('領取成功');
+                  } else {
+                    a[i] = '';
+                    setText(a);
+                  }
+                }
+              });
             }}
           >
             <input type="hidden" name="coupon_sid" value={v.sid}></input>

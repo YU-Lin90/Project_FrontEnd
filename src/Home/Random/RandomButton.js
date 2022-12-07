@@ -19,6 +19,7 @@ function RandomButton({
   todayTimes,
   setTodayTimes,
   setCutAmount,
+  setFakeCounter,
 }) {
   const { loginCheckPostFetch, notLoginPostFetch } = useFunc();
   const { authMember } = useAuth();
@@ -41,10 +42,8 @@ function RandomButton({
     // }
     if (res.cutamount) {
       setCutAmount(res.cutamount);
-    }
-    else{
+    } else {
       setCutAmount(0);
-      
     }
 
     //res.cutamount  折價金額
@@ -86,6 +85,7 @@ function RandomButton({
           setFlashingEnd(false);
           getDailyCoupon(rejectedTypesWithNumber);
           setPressedTimes((v) => v + 1);
+          setFakeCounter((v) => v + 1);
         }}
         className={`homeStartRandomButton ta-c pointer bgcMain  ${
           flashingEnd ? '' : 'active'

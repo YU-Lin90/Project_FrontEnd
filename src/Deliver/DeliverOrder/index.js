@@ -59,24 +59,35 @@ function DeliverOrder() {
               </div>
 
               <div className="Dinfodata">
-                <div className="Dinfotext">
+                <div className="Dinfotext1">
                   <div className="Dicon">
                     <i className="Dimgicon fa-solid fa-utensils"></i>
                   </div>
-                  <div>
-                    {foodData.map((v, i) => {
-                      return (
-                        <p key={i}>
-                          {v.amount}X {v.name}
-                        </p>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div>
+                  <div className='Dofoodlist'>
                   {foodData.map((v, i) => {
-                    return <p key={i}>{v.product_price}</p>;
+                    return (
+                      <div className='Dofoodlist' key={i}>
+                        <div className='Dofoodcontext'>
+                          <p>{v.amount}X {v.name}</p><p>{v.product_price}</p>
+                        </div>
+                        {
+                          v.detail.length === 0 ? null : (
+                          <div className='Dofooddateil'>
+                            {v.detail.map((v, i) => {
+                              return (
+                                <div className='Dofooddateilline'>
+                                  <p>{v.options}</p>
+                                  <p>{v.option_price}</p>
+                                </div>
+                              )
+                            })} 
+                          </div>)
+                        }
+                        
+                      </div>
+                    );
                   })}
+                  </div>
                 </div>
               </div>
 

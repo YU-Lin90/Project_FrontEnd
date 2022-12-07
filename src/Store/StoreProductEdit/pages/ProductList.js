@@ -41,7 +41,7 @@ function ProductList() {
         <div className="product-container">
           <div className="row">
             <div className="shop-img">
-              <img src={data.shop.src} alt="店家圖片" />
+              <img src={`http://localhost:3001/images/shop/${data.shop.src}`} alt="店家圖片" />
             </div>
           </div>
           <div className="row">

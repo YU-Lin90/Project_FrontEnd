@@ -1,29 +1,61 @@
-import { useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFunc } from '../../Context/FunctionProvider';
 const siteName = window.location.hostname;
 
 function Jumbotron() {
-  useEffect(() => {}, []);
+  const navi = useNavigate();
+  const { notLoginGetFetch } = useFunc();
+  const [storeData, setStoreData] = useState([
+    { sid: 0, name: '', src: '', average_evaluation: 0 },
+  ]);
+  const getIMgs = async () => {
+    const res = await notLoginGetFetch('getJumbotronImgs');
+    res.push(res[0]);
+    console.log(res);
+    setStoreData(res);
+    /*{
+    "sid": 64,
+    "name": "拼拼看雙主食便當",
+    "src": "store64.jpg",
+    "average_evaluation": 0.8
+    } */
+  };
+
+  useEffect(() => {
+    getIMgs();
+  }, []);
   return (
     <>
       <div className="w100p h350 ta-c padV50 padH50 of-h zi10">
         <div className="outterFrame h100p">
           <div className="pa_frame h100p">
             <div className="card_plate">
-              {Array(4)
-                .fill(1)
-                .map((v, i) => {
-                  return (
-                    <div key={i} className="imgFR">
-                      <img
-                        src={` http://${siteName}:3001/images/HP00${
-                          i < 3 ? i + 1 : 1
-                        }.jpg`}
-                        alt=""
-                      />
-                    </div>
-                  );
-                })}
+              {storeData.map((v, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="imgFR po-r "
+                    onClick={() => {
+                      navi(`/productList/?shop_sid=${v.sid}`);
+                    }}
+                  >
+                    <p className="jumbotronEvaluation">
+                      {v.average_evaluation}
+                      <i className="fa-solid fa-star fontSubColor pointer"></i>
+                    </p>
+                    <p className="jumbotronShopName">{v.name}</p>
+                    <img
+                      src={
+                        v.src !== ''
+                          ? `http://${siteName}:3001/images/shop/${v.src}`
+                          : null
+                      }
+                      alt={v.name}
+                    />
+                  </div>
+                );
+              })}
               {/* <div className="imgFR">
                 <img src={` http://${siteName}:3001/images/HP001.jpg`} alt="" />
               </div>

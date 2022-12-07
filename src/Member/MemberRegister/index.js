@@ -278,7 +278,7 @@ function MemberRegister() {
             <input
               type={passwordFieldType2}
               name="doublepassword"
-              className="m_doublepassword"
+              className="mb_doublepassword"
               value={user.doublepassword}
               placeholder="再次輸入密碼"
               onChange={handleFieldChange}
@@ -295,9 +295,9 @@ function MemberRegister() {
               }}
             >
               {passwordFieldType2 === 'text' ? (
-                <FaRegEyeSlash className="m_icon" />
+                <FaRegEyeSlash className="m_icon2" />
               ) : (
-                <FaRegEye className="m_icon" />
+                <FaRegEye className="m_icon2" />
               )}
             </button>
             <span className="m_span">{fieldErrors.doublepassword}</span>

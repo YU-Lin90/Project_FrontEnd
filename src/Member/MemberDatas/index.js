@@ -165,6 +165,7 @@ function MemberDatas() {
   const display = (
     <div className="mb_container">
       <form
+         className="mb_form"
         name="avatar"
         onSubmit={handleFormSubmit}
         onInvalid={handleFormInvalid}
@@ -192,13 +193,14 @@ function MemberDatas() {
             </div>
           )}
         </div>
+
         <div className="mb_mar">
-          <label className="mb_label">帳號(Email):{user.email}</label>
+          <label className="mb_label">帳號:{user.email}</label>
         </div>
+        <label className="mb_label">密碼</label>
         <div className="mb_mar">
-          <label className="mb_label">密碼:</label>
           <input
-            className="mb_input"
+            className="mb_password"
             type={passwordFieldType}
             name="password"
             value={user.password}
@@ -224,10 +226,10 @@ function MemberDatas() {
           </button>
           <span className="mb_span">{fieldErrors.password}</span>
         </div>
+        <label className="mb_label">再次輸入密碼</label>
         <div className="mb_mar">
-          <label className="mb_label">再次輸入密碼:</label>
           <input
-            className="mb_input"
+            className="m_doublepassword"
             type={passwordFieldType2}
             name="doublepassword"
             value={user.doublepassword}
@@ -246,15 +248,15 @@ function MemberDatas() {
             }}
           >
             {passwordFieldType2 === 'text' ? (
-              <FaRegEyeSlash className="mb_icon" />
+              <FaRegEyeSlash className="mb_icon2" />
             ) : (
-              <FaRegEye className="mb_icon" />
+              <FaRegEye className="mb_icon2" />
             )}
           </button>
           <span className="mb_span">{fieldErrors.doublepassword}</span>
         </div>
+        <label className="mb_label">名子</label>
         <div className="mb_mar">
-          <label className="mb_label">名子:</label>
           <input
             className="mb_input"
             type="text"
@@ -265,8 +267,8 @@ function MemberDatas() {
           />
           <span className="mb_span">{fieldErrors.name}</span>
         </div>
+        <label className="mb_label">手機</label>
         <div className="mb_mar">
-          <label className="mb_label">手機:</label>
           <input
             className="mb_input"
             type="text"
@@ -279,7 +281,7 @@ function MemberDatas() {
           <span className="mb_span">{fieldErrors.phone}</span>
         </div>
         <button className="mb_button" type="submit">
-          送出
+         註冊
         </button>
         <button
           type="button"

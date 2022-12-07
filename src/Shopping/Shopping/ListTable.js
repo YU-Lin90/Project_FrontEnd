@@ -194,7 +194,7 @@ export default function ListTable() {
 
   // 是否為所有店家
   const [allShop, setAllShop] = useState(false);
-  
+
   // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
@@ -235,7 +235,9 @@ export default function ListTable() {
       setIsChecked(!isChecked);
     }
 
-    if(!key){setAllShop(true)}
+    if (!key) {
+      setAllShop(true);
+    }
 
     setSearchWord(key);
     setSearchPriceMax(price_max);
@@ -559,7 +561,7 @@ export default function ListTable() {
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <img
-                      src={`http://${siteName}:3001/images/shop/storeCover1.webp`}
+                      src={`http://${siteName}:3001/images/shop/${shop.src}`}
                       alt={shop.name}
                       className="shopCard_cover"
                     />
