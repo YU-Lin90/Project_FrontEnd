@@ -295,9 +295,9 @@ function MemberRegister() {
               }}
             >
               {passwordFieldType2 === 'text' ? (
-                <FaRegEyeSlash className="m_icon" />
+                <FaRegEyeSlash className="m_icon2" />
               ) : (
-                <FaRegEye className="m_icon" />
+                <FaRegEye className="m_icon2" />
               )}
             </button>
             <span className="m_span">{fieldErrors.doublepassword}</span>
