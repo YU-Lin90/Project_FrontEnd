@@ -4,6 +4,8 @@ import { useLocation, Link } from 'react-router-dom';
 import OptionForm from '../components/OptionForm/index';
 
 function ProductList() {
+  const siteName = window.location.hostname;
+
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
   const [data, setData] = useState({
@@ -18,7 +20,7 @@ function ProductList() {
 
   const getData = async (shop_sid) => {
     const response = await axios.get(
-      `http://localhost:3001/store/?shop_sid=${shop_sid}`
+      `http://${siteName}:3001/store/?shop_sid=${shop_sid}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -120,7 +122,7 @@ function ProductList() {
                                 </div>
                                 <div className="right">
                                   <img
-                                    src={`http://localhost:3001/uploads/${[
+                                    src={`http://${siteName}:3001/uploads/${[
                                       product.src,
                                     ]}`}
                                     alt="商品圖片"
@@ -180,7 +182,7 @@ function ProductList() {
                                       </div>
                                       <div className="right">
                                         <img
-                                          src={`http://localhost:3001/uploads/${[
+                                          src={`http://${siteName}:3001/uploads/${[
                                             product.src,
                                           ]}`}
                                           alt="商品圖片"

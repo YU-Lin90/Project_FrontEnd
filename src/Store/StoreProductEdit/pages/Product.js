@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import ProductEditForm from '../components/ProductEditForm';
+import $ from 'jquery';
 
 function Product() {
+  const siteName = window.location.hostname;
+
   const [data, setData] = useState({
     types: [],
     products: [],
@@ -30,11 +33,20 @@ function Product() {
   });
 
   const [reload, setReload] = useState(0);
+  // 展示用的資料
+  const [displayData, setDisplayData] = useState({
+    types: [],
+    products: [],
+    options_types: [],
+    only_options_types: [],
+  });
+  const [selectedType, setSelectedType] = useState({ sid: '', name: '' });
+  const [searchInput, setSearchInput] = useState('');
 
   const getData = async (shop_sid) => {
     console.log(shop_sid);
     const response = await axios.get(
-      `http://localhost:3001/store-admin/product/${shop_sid}`
+      `http://${siteName}:3001/store-admin/product/${shop_sid}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -47,12 +59,44 @@ function Product() {
     getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
   }, [selectedItem]);
 
+  useEffect(() => {
+    // 更新展示的資料
+    setDisplayData(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (selectedType.sid) {
+      const newDisplayData = { ...data };
+      const newProducts = newDisplayData.products.filter((product) => {
+        return (
+          product.products_type_sid === selectedType.sid &&
+          product.name.includes(searchInput)
+        );
+      });
+      setDisplayData({ ...newDisplayData, products: newProducts });
+    } else {
+      const newDisplayData = { ...data };
+      const newProducts = newDisplayData.products.filter((v) => {
+        return v.name.includes(searchInput);
+      });
+      setDisplayData({ ...newDisplayData, products: newProducts });
+    }
+
+    // const newDisplayData = { ...displayData };
+    // const newProducts = newDisplayData.products.filter((v) => {
+    //   return v.name.includes(searchInput);
+    // });
+    // setDisplayData({ ...newDisplayData, products: newProducts });
+  }, [selectedType, searchInput]);
+
+  useEffect(() => {}, [searchInput]);
+
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.post(
-      `http://localhost:3001/store-admin/product/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/product/${myUserSid}`,
       fd
     );
     setReload((v) => v + 1);
@@ -75,7 +119,7 @@ function Product() {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.post(
-      `http://localhost:3001/store-admin/product/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/product/${myUserSid}`,
       fd
     );
     console.log(response.data);
@@ -88,7 +132,7 @@ function Product() {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.put(
-      `http://localhost:3001/store-admin/product/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/product/${myUserSid}`,
       fd
     );
     console.log(response.data);
@@ -100,7 +144,7 @@ function Product() {
   const delBtnHandler = async (e) => {
     e.preventDefault();
     const response = await axios.delete(
-      `http://localhost:3001/store-admin/product/${selectedItem}`
+      `http://${siteName}:3001/store-admin/product/${selectedItem}`
     );
     setReload((v) => v + 1);
     setImgSrc('');
@@ -128,7 +172,15 @@ function Product() {
 
   return (
     <>
-      <div className="store-admin">
+      <div
+        className="store-admin"
+        onClick={(e) => {
+          console.log(123);
+          if (e.currentTarget === $('li')) {
+            $('li').slideUp();
+          }
+        }}
+      >
         {!(selectedItem === '') ? (
           <></>
         ) : (
@@ -159,6 +211,77 @@ function Product() {
                 </div>
               </div>
               <div className="row">
+                <div className="search-area">
+                  <div className="search-box">
+                    <div>
+                      <i className="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={searchInput}
+                      onChange={(e) => {
+                        setSearchInput(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="select-box">
+                    <div
+                      className="select"
+                      onClick={(e) => {
+                        $(e.currentTarget)
+                          .siblings('ul')
+                          .find('li')
+                          .slideToggle();
+                      }}
+                    >
+                      <p>{selectedType.sid ? selectedType.name : '全部'}</p>
+                      <div className="arrow">
+                        <i className="fa-solid fa-caret-down"></i>
+                      </div>
+                    </div>
+                    <ul>
+                      <li>
+                        <p
+                          onClick={(e) => {
+                            setSelectedType({
+                              sid: '',
+                              name: '',
+                            });
+                            $(e.currentTarget)
+                              .closest('ul')
+                              .find('li')
+                              .slideToggle();
+                          }}
+                        >
+                          全部
+                        </p>
+                      </li>
+                      {data.types.map((type) => {
+                        return (
+                          <li>
+                            <p
+                              onClick={(e) => {
+                                setSelectedType({
+                                  sid: type.sid,
+                                  name: type.name,
+                                });
+                                $(e.currentTarget)
+                                  .closest('ul')
+                                  .find('li')
+                                  .slideToggle();
+                              }}
+                            >
+                              {type.name}
+                            </p>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
                 <div className="table">
                   <div className="thead">
                     <div className="tr-product">
@@ -172,7 +295,7 @@ function Product() {
                     </div>
                   </div>
                   <div className="tbody">
-                    {data.products.map((product) => {
+                    {displayData.products.map((product) => {
                       return (
                         <div
                           className="tr-product"
@@ -199,7 +322,7 @@ function Product() {
                         >
                           <div className="td w10">
                             <img
-                              src={`http://localhost:3001/uploads/${product.src}`}
+                              src={`http://${siteName}:3001/uploads/${product.src}`}
                               alt=""
                             />
                           </div>
@@ -207,7 +330,7 @@ function Product() {
                           <div className="td">NT${product.price}.00</div>
                           <div className="td">{product.type_name}</div>
                           <div className="td line-2">
-                            {data.options_types
+                            {displayData.options_types
                               .filter((ot) => {
                                 return ot.product_sid === product.sid;
                               })
@@ -302,7 +425,7 @@ function Product() {
                           src={
                             imgSrc
                               ? imgSrc
-                              : `http://localhost:3001/uploads/${formData.src}`
+                              : `http://${siteName}:3001/uploads/${formData.src}`
                           }
                           alt=""
                         />

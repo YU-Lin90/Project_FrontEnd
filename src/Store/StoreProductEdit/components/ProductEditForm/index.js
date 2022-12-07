@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ProductEditForm({ selectedItem, setSelectedItem }) {
+  const siteName = window.location.hostname;
+
   const [imgSrc, setImgSrc] = useState('');
   const [formData, setFormData] = useState({
     src: '',
@@ -25,7 +27,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   const getData = async (sid) => {
     if (sid) {
       const response = await axios.get(
-        `http://localhost:3001/store-admin/product/edit-form?sid=${sid}`
+        `http://${siteName}:3001/store-admin/product/edit-form?sid=${sid}`
       );
       const rd = response.data;
       setData({ ...rd });
@@ -33,7 +35,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
       const shop_sid = JSON.parse(localStorage.getItem('StoreDatas')).sid;
       console.log(shop_sid);
       const response = await axios.get(
-        `http://localhost:3001/store-admin/product/add-form/?shop_sid=${shop_sid}`
+        `http://${siteName}:3001/store-admin/product/add-form/?shop_sid=${shop_sid}`
       );
       const rd = response.data;
       setData({ ...rd });
@@ -99,7 +101,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.post(
-      `http://localhost:3001/store-admin/product/${data.shop.sid}`,
+      `http://${siteName}:3001/store-admin/product/${data.shop.sid}`,
       fd
     );
     // setReload((v) => v + 1);
@@ -109,7 +111,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   const delBtnHandler = async (e) => {
     e.preventDefault();
     const response = await axios.delete(
-      `http://localhost:3001/store-admin/product/${selectedItem}`
+      `http://${siteName}:3001/store-admin/product/${selectedItem}`
     );
     // setReload((v) => v + 1);
     setImgSrc('');
@@ -120,7 +122,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.post(
-      `http://localhost:3001/store-admin/product/${data.shop.sid}`,
+      `http://${siteName}:3001/store-admin/product/${data.shop.sid}`,
       fd
     );
     console.log(response.data);
@@ -133,7 +135,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.put(
-      `http://localhost:3001/store-admin/product/${data.shop.sid}`,
+      `http://${siteName}:3001/store-admin/product/${data.shop.sid}`,
       fd
     );
     console.log(response.data);
@@ -208,7 +210,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                     src={
                       imgSrc
                         ? imgSrc
-                        : `http://localhost:3001/uploads/${formData.src}`
+                        : `http://${siteName}:3001/uploads/${formData.src}`
                     }
                     alt=""
                   />

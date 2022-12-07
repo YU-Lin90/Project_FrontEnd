@@ -4,6 +4,8 @@ import axios from 'axios';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 function Option() {
+  const siteName = window.location.hostname;
+
   const [data, setData] = useState({
     options_types: [],
     options: [],
@@ -23,7 +25,7 @@ function Option() {
   const getData = async (shop_sid) => {
     console.log(shop_sid);
     const response = await axios.get(
-      `http://localhost:3001/store-admin/option/${shop_sid}`
+      `http://${siteName}:3001/store-admin/option/${shop_sid}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -52,7 +54,7 @@ function Option() {
     e.preventDefault();
     console.log({ ...formData, optionData });
     const response = await axios.post(
-      `http://localhost:3001/store-admin/option/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/option/${myUserSid}`,
       { ...formData, optionData }
     );
     console.log(response.data);
@@ -64,7 +66,7 @@ function Option() {
     e.preventDefault();
     console.log({ ...formData, optionData });
     const response = await axios.put(
-      `http://localhost:3001/store-admin/option/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/option/${myUserSid}`,
       { ...formData, optionData }
     );
     console.log(response.data);
@@ -75,7 +77,7 @@ function Option() {
   const delBtnHandler = async (e) => {
     e.preventDefault();
     const response = await axios.delete(
-      `http://localhost:3001/store-admin/option/${selectedItem}`
+      `http://${siteName}:3001/store-admin/option/${selectedItem}`
     );
     setReload((v) => v + 1);
     setSelectedItem('');

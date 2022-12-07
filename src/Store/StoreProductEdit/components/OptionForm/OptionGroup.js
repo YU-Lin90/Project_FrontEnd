@@ -43,7 +43,7 @@ function OptionGroup({
                     : ''
                 }
               >
-                {max === 1 ? (
+                {min === 1 && max === 1 ? (
                   <input
                     type="radio"
                     value={opt.sid}
