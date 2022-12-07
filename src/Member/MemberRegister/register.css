@@ -150,29 +150,34 @@
 
     .m_email {
         width: 320px;
+        padding-left: 10px;
         font-size: 20px;
         height: 30px;
     }
 
     .m_password {
+        padding-left: 10px;
         width: 290px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_doublepassword {
+        padding-left: 10px;
         width: 290px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_name {
+        padding-left: 10px;
         width: 320px;
         height: 30px;
         font-size: 20px;
     }
 
     .m_phone {
+        padding-left: 10px;
         width: 320px;
         height: 30px;
         font-size: 20px;
