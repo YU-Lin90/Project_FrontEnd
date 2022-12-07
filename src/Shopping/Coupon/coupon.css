@@ -44,7 +44,7 @@
     flex-wrap: wrap;
 }
 .sc_total{
-    font-size:50px;
+    font-size:36px;
     line-height: 141px;
 }
 .sc_sale_detail{
@@ -132,7 +132,7 @@
     flex-direction:column;
     align-items: center;
     justify-content:space-around;
-    width: 100px;
+    width: 80px;
     height: 130px;
     
 }
@@ -152,14 +152,14 @@
         width: 100%;
     }
     .sc_sale_detail{
-    font-size:20px;
+    font-size:16px;
     }
     .sc_coupon{
         font-size:20px;
         padding-left: 10px;
     }
     .sc_button{
-    width: 60px;
+    width: 50px;
     }
     .sc_sale_detail2{
         font-size:20px;
@@ -173,4 +173,10 @@
         .sc_card {
             margin-left: 24px;
         }
+    .sc_total{
+        font-size: 24px; ;
+    }    
+    .sc_buttonfont{
+        font-size: 30px;
+    }
 }

@@ -46,6 +46,7 @@
 
 .mf_img {
     transition: .5s;
+    height: 130px;
     object-fit: cover;
 }
 
