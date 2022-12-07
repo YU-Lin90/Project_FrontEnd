@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 function Overview() {
+  const siteName = window.location.hostname;
+
   const [amount, setAmount] = useState(1);
   const [data, setData] = useState({
     types: [],
@@ -15,7 +17,7 @@ function Overview() {
   const [selectedItem, setSelectedItem] = useState('');
   const getData = async (shop_sid) => {
     const response = await axios.get(
-      `http://localhost:3001/store-admin/overview/${shop_sid}`
+      `http://${siteName}:3001/store-admin/overview/${shop_sid}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -57,7 +59,7 @@ function Overview() {
                         <div className="left">
                           <i class="fa-solid fa-equals"></i>
                           <img
-                            src={`http://localhost:3001/uploads/${product.src}`}
+                            src={`http://${siteName}:3001/uploads/${product.src}`}
                             alt=""
                           />
                           <p

@@ -6,6 +6,8 @@ import { useCart } from '../../../../Context/CartProvider';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function OptionForm({ selectedSid, setSelectedSid }) {
+  const siteName = window.location.hostname;
+
   const { setCartWithAmount } = useCart();
   const [amount, setAmount] = useState(1);
   const [details, setDetails] = useState([]);
@@ -22,7 +24,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
 
   const getData = async (sid) => {
     const response = await axios.get(
-      `http://localhost:3001/option-form?sid=${sid}`
+      `http://${siteName}:3001/option-form?sid=${sid}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -224,7 +226,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
               <img
-                src={`http://localhost:3001/uploads/${data.product.src}`}
+                src={`http://${siteName}:3001/uploads/${data.product.src}`}
                 alt="餐點圖片"
               />
             </div>

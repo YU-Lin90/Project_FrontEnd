@@ -5,6 +5,8 @@ import EditTypeForm from '../components/EditTypeForm';
 import '../styles/style.css';
 
 function Type() {
+  const siteName = window.location.hostname;
+
   const [data, setData] = useState({
     types: [],
     products: [],
@@ -20,7 +22,7 @@ function Type() {
 
   const getData = async (myUser) => {
     const response = await axios.get(
-      `http://localhost:3001/store-admin/type/${myUser}`
+      `http://${siteName}:3001/store-admin/type/${myUser}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -40,7 +42,7 @@ function Type() {
     // 因為insert一筆新的資料需要shop_sid，所以先找到localStorage的sid
     const myUserId = JSON.parse(localStorage.getItem('StoreDatas')).sid;
     const response = await axios.post(
-      `http://localhost:3001/store-admin/type/${myUserId}`,
+      `http://${siteName}:3001/store-admin/type/${myUserId}`,
       editType
     );
     console.log(response.data.error);
@@ -53,7 +55,7 @@ function Type() {
 
   const editBtnHandler = async (sid) => {
     const response = await axios.put(
-      `http://localhost:3001/store-admin/type/${sid}`,
+      `http://${siteName}:3001/store-admin/type/${sid}`,
       editType
     );
     setReload((v) => v + 1);
@@ -65,7 +67,7 @@ function Type() {
 
   const delBtnHandler = async (sid) => {
     const response = await axios.delete(
-      `http://localhost:3001/store-admin/type/${sid}`
+      `http://${siteName}:3001/store-admin/type/${sid}`
     );
     setReload((v) => v + 1);
     setEditType({

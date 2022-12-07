@@ -4,6 +4,8 @@ import axios from 'axios';
 import ProductEditForm from '../components/ProductEditForm';
 
 function Product() {
+  const siteName = window.location.hostname;
+
   const [data, setData] = useState({
     types: [],
     products: [],
@@ -34,7 +36,7 @@ function Product() {
   const getData = async (shop_sid) => {
     console.log(shop_sid);
     const response = await axios.get(
-      `http://localhost:3001/store-admin/product/${shop_sid}`
+      `http://${siteName}:3001/store-admin/product/${shop_sid}`
     );
     const rd = response.data;
     setData({ ...rd });
@@ -52,7 +54,7 @@ function Product() {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.post(
-      `http://localhost:3001/store-admin/product/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/product/${myUserSid}`,
       fd
     );
     setReload((v) => v + 1);
@@ -75,7 +77,7 @@ function Product() {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.post(
-      `http://localhost:3001/store-admin/product/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/product/${myUserSid}`,
       fd
     );
     console.log(response.data);
@@ -88,7 +90,7 @@ function Product() {
     e.preventDefault();
     const fd = new FormData(document.form1);
     const response = await axios.put(
-      `http://localhost:3001/store-admin/product/${myUserSid}`,
+      `http://${siteName}:3001/store-admin/product/${myUserSid}`,
       fd
     );
     console.log(response.data);
@@ -100,7 +102,7 @@ function Product() {
   const delBtnHandler = async (e) => {
     e.preventDefault();
     const response = await axios.delete(
-      `http://localhost:3001/store-admin/product/${selectedItem}`
+      `http://${siteName}:3001/store-admin/product/${selectedItem}`
     );
     setReload((v) => v + 1);
     setImgSrc('');
@@ -199,7 +201,7 @@ function Product() {
                         >
                           <div className="td w10">
                             <img
-                              src={`http://localhost:3001/uploads/${product.src}`}
+                              src={`http://${siteName}:3001/uploads/${product.src}`}
                               alt=""
                             />
                           </div>
@@ -302,7 +304,7 @@ function Product() {
                           src={
                             imgSrc
                               ? imgSrc
-                              : `http://localhost:3001/uploads/${formData.src}`
+                              : `http://${siteName}:3001/uploads/${formData.src}`
                           }
                           alt=""
                         />
