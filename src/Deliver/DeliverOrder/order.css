@@ -27,9 +27,15 @@
     padding: 0 30px;
 }
 .Dinfotext{
+    width: 100%;
     display: flex;
     align-items: center;  
     justify-content: flex-start;
+    margin: 10px 0;
+}
+.Dinfotext1{
+    width: 100%;
+    display: flex;
     margin: 10px 0;
 }
 .Dicon{
@@ -67,7 +73,31 @@
     border-bottom: 1px solid rgb(139, 139, 139);
 }
 .Dofoodlist{
+    display: flex;
+    flex-direction:column;
+    width: 100%;
     margin-top: 5px;
+}
+.Dofoodcontext{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.Dofooddateil{
+    padding: 10px;
+    width: 98%;
+    margin: auto;
+    border-radius: 8px;
+    background-color: rgb(210, 210, 210);
+}
+.Dofooddateilline{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #222222;
 }
 .deliverMapSendButton{
     position: absolute;    
