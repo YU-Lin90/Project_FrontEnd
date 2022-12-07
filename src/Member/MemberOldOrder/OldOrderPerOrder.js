@@ -44,7 +44,7 @@ function OldOrderPerOrder({ orderData, setReloading }) {
           <div className="w20p marr20 as1 lh0 flexSetCenter padV10">
             <img
               className="oldOrderStoreImg"
-              src={` http://${siteName}:3001/images/storeCover/${orderData.src}`}
+              src={` http://${siteName}:3001/images/shop/${orderData.src}`}
               alt=""
             />
           </div>

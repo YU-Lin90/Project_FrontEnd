@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { useEffect } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
 const siteName = window.location.hostname;
-function Random() {
+function Random({setFakeCounter}) {
   /*
   點開隨機=>選取分類=>隨機=>顯示第一次=>倒數時間、顯示獲得的內容 店家名稱、優惠額度=>不要=>第二次=>
   同意=>前往購物
@@ -160,6 +160,7 @@ function Random() {
                   todayTimes={todayTimes}
                   setTodayTimes={setTodayTimes}
                   setCutAmount={setCutAmount}
+                  setFakeCounter={setFakeCounter}
                 />
               </div>
 

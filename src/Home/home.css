@@ -273,13 +273,15 @@
             padding: 30px;
             text-align: center;
         }
-        .homeAddressSlogan{
+
+        .homeAddressSlogan {
             width: 90%;
             line-height: 1.4;
             word-wrap: break-word;
             margin: 50px auto 60px auto;
-            word-spacing: 20px;     
+            word-spacing: 20px;
         }
+
         .homeAddressInputsFrame {
             margin: auto;
             margin-bottom: 50px;
@@ -344,24 +346,26 @@
             .randomFrameHome>div {
                 width: 50%;
             }
-            .dailyCouponShowCard {
 
-            }
+            .dailyCouponShowCard {}
+
             .homeAddressFrame {
                 padding-top: 50px;
                 margin-left: 100px;
                 padding-bottom: 50px;
                 text-align: left;
             }
-            .homeAddressSlogan{
+
+            .homeAddressSlogan {
                 width: 80%;
-                margin:initial;
+                margin: initial;
                 margin-bottom: 50px;
-                word-spacing: 20px;     
+                word-spacing: 20px;
             }
-            .homeAddressInputsFrame{
+
+            .homeAddressInputsFrame {
                 width: 80%;
-                margin:initial;
+                margin: initial;
                 margin-bottom: 50px;
             }
         }
@@ -370,4 +374,38 @@
             background-color: #fff;
             margin-bottom: 20px;
             padding: 10px;
+        }
+
+        .jumbotronShopName {
+            position: absolute;
+            bottom: 5px;
+            z-index: 2;
+            left: 50%;
+            translate: -50%;
+            font-weight: 900;
+            font-size: 48px;
+            color: white;
+            background-color:#FFA500aa;
+            border-radius: 10px;
+            /* opacity: 0.5; */
+            /* width: fit-content; */
+            /* height:50px; */
+            line-height: 1.4;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .jumbotronShopName:hover{
+            opacity: 1;
+        }
+        .jumbotronEvaluation{
+            position: absolute;
+            z-index: 2;
+            left: 20px;
+            top: 20px;
+            line-height: 1.2;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color:#FFA500;
+            border-radius: 10px;
+            color: #fff;
         }
