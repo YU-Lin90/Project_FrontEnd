@@ -165,6 +165,9 @@
 .store-admin .search-area .select-box ul {
   position: absolute;
 }
+.store-admin .search-area .select-box ul li {
+  display: none;
+}
 .store-admin .search-area .select-box ul li p {
   display: block;
   width: 180px;

@@ -68,14 +68,28 @@ function Product() {
     if (selectedType.sid) {
       const newDisplayData = { ...data };
       const newProducts = newDisplayData.products.filter((product) => {
-        return product.products_type_sid === selectedType.sid;
+        return (
+          product.products_type_sid === selectedType.sid &&
+          product.name.includes(searchInput)
+        );
       });
-      console.log(newDisplayData);
       setDisplayData({ ...newDisplayData, products: newProducts });
     } else {
-      setDisplayData(data);
+      const newDisplayData = { ...data };
+      const newProducts = newDisplayData.products.filter((v) => {
+        return v.name.includes(searchInput);
+      });
+      setDisplayData({ ...newDisplayData, products: newProducts });
     }
-  }, [selectedType]);
+
+    // const newDisplayData = { ...displayData };
+    // const newProducts = newDisplayData.products.filter((v) => {
+    //   return v.name.includes(searchInput);
+    // });
+    // setDisplayData({ ...newDisplayData, products: newProducts });
+  }, [selectedType, searchInput]);
+
+  useEffect(() => {}, [searchInput]);
 
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {
@@ -158,7 +172,15 @@ function Product() {
 
   return (
     <>
-      <div className="store-admin">
+      <div
+        className="store-admin"
+        onClick={(e) => {
+          console.log(123);
+          if (e.currentTarget === $('li')) {
+            $('li').slideUp();
+          }
+        }}
+      >
         {!(selectedItem === '') ? (
           <></>
         ) : (
@@ -197,13 +219,10 @@ function Product() {
                     <input
                       type="text"
                       name="name"
-                      // value={}
-                      // value={opt.name}
-                      // onChange={(e) => {
-                      //   const newOptionData = [...optionData];
-                      //   newOptionData[index].name = e.target.value;
-                      //   setOptionData(newOptionData);
-                      // }}
+                      value={searchInput}
+                      onChange={(e) => {
+                        setSearchInput(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="select-box">
