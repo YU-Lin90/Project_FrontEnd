@@ -31,6 +31,7 @@
     flex-direction: column;
     width: 80%;
     padding: 10vh 3vh;
+    
 }
 
 
@@ -208,14 +209,12 @@ padding-left: 2em;
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 250px;
     width: 30%;
     margin: 1%;
     border: 1px solid #CCC;
     background-color: #FFF;
 }
 .shopCard_image{
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -253,8 +252,6 @@ padding-left: 2em;
 }
 
 .shopCard_text{
-    position: absolute;
-    top: 160px;
     left: 0;
     width: 100%;
     padding: 10px 15px;

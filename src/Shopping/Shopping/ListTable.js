@@ -22,11 +22,14 @@ export default function ListTable() {
 
   //儲存搜尋時呈現的訊息用
   const [noResult, setNoResult] = useState('正在搜尋中');
+  const [disResult, setDisResult] = useState('計算中');
   //檢查是否為城市頁
   const [isCity, setIsCity] = useState(false);
   const pathname = window.location.pathname;
 
   const navigate = useNavigate();
+
+  const [isFake, setIsFake] = useState(0);
 
   //-------------------------計算距離用------------------------------------
 
@@ -40,8 +43,8 @@ export default function ListTable() {
   //抓網址變動
   useEffect(() => {
     setNoResult('正在搜尋中');
-    submitHandle();
-  }, [location, sendAddress]);
+    searchShop();
+  }, [sendAddress, isFake]);
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -56,102 +59,94 @@ export default function ListTable() {
   const [searchWord, setSearchWord] = useState('');
   const [searchPriceMax, setSearchPriceMax] = useState('');
   const [searchPriceMin, setSearchPriceMin] = useState('');
-  const [searchWaitTime, setSearchWaitTime] = useState('');
+  const [searchWaitTime, setSearchWaitTime] = useState('80');
   const [searchTotalRows, setSearchTotalRows] = useState('');
 
   //取得所有店家
-  const getShop = async () => {
-    const sid = localStorage.getItem('MemberSid');
+  // const getShop = async () => {
+  //   const sid = localStorage.getItem('MemberSid');
 
-    console.log('path', pathname);
+  //   console.log('path', pathname);
 
-    let order = usp.get('order');
+  //   let order = usp.get('order');
 
-    try {
-      const response = await axios.get(`http://${siteName}:3001/Shopping`);
+  //   try {
+  //     const response = await axios.get(`http://${siteName}:3001/Shopping`);
 
-      //把總筆數和checkbox回歸初始狀態
-      setSearchTotalRows('');
-      setIsChecked(true);
-      // 如果排序=距離，把資料按distance由小到大排列
-      if (order === 'distance') {
-        response.data.sort((a, b) => a.distance - b.distance);
-      }
+  //     //把總筆數和checkbox回歸初始狀態
+  //     setSearchTotalRows('');
+  //     setIsChecked(true);
+  //     // 如果排序=距離，把資料按distance由小到大排列
+  //     if (order === 'distance') {
+  //       response.data.sort((a, b) => a.distance - b.distance);
+  //     }
+  //     //---------------------------計算距離用-----------------------------
+  //     if (sendAddress) {
+  //       for (let element of response.data) {
+  //         const shopAddress = element.address;
+  //         const selfLocation = sendAddress;
 
-      //---------------------------計算距離用-----------------------------
-      if (sendAddress) {
-        for (let element of response.data) {
-          const shopAddress = element.address;
-          const selfLocation = sendAddress;
+  //         setNoResult('正在搜尋中');
+  //         // 計算("店家地址","送達地址")間的直線距離
+  //         const gettedDistance = await calculateDistance(
+  //           shopAddress,
+  //           selfLocation
+  //         );
 
-          setNoResult('正在搜尋中');
-          // 計算("店家地址","送達地址")間的直線距離
-          // const gettedDistance = await calculateDistance(
-          //   shopAddress,
-          //   selfLocation
-          // );
+  //         // 測試用，隨機亂數資料
+  //         // const gettedDistance = Math.random() * 50;
 
-          // 測試用，隨機亂數資料
-          const gettedDistance = Math.random() * 50;
+  //         // 將結果放進result.distance
+  //         element.distance = Math.round(gettedDistance * 10) / 10;
+  //         // 超過30公里，每5公里加10元外送費
+  //         element.fees = parseInt(gettedDistance / 5) * 10 + 30;
+  //       }
+  //     }
+  //     //-----------------------------------------------------------------
 
-          // 將結果放進result.distance
-          element.distance = Math.round(gettedDistance);
-          // 超過30公里，每5公里加10元外送費
-          element.fees = parseInt(gettedDistance / 5) * 10 + 30;
-        }
-      }
-      //-----------------------------------------------------------------
+  //     // setShop(result.data);
 
-      // setShop(result.data);
+  //     try {
+  //       const response_favorite = await axios.get(
+  //         `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+  //       );
 
-      try {
-        const response_favorite = await axios.get(
-          `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
-        );
+  //       console.log(response_favorite.data);
+  //       setUser(response_favorite.data);
+  //       // const arr = { ...response_favorite.data };
+  //       const obj = {};
+  //       response_favorite.data.forEach((el) => {
+  //         obj[el.shop_sid] = true;
+  //       });
+  //       console.log(obj);
+  //       //myIndex, setMyIndex
+  //       let newIndex = { ...myIndex };
+  //       response.data.forEach((element) => {
+  //         if (obj[element.sid]) {
+  //           newIndex = { ...newIndex, [element.sid]: true };
+  //           element.favor = true;
+  //           return;
+  //         }
+  //         newIndex = { ...newIndex, [element.sid]: false };
+  //         element.favor = false;
+  //       });
+  //       setMyIndex(newIndex);
+  //       setShop(response.data);
+  //       console.log(response.data);
+  //     } catch (e) {
+  //       console.error(e.message);
+  //       return e.message;
+  //     }
+  //   } catch (e) {
+  //     setErrorMsg(e.message);
+  //   }
+  //   // console.log(errorMsg);
+  // };
 
-        console.log(response_favorite.data);
-        setUser(response_favorite.data);
-        // const arr = { ...response_favorite.data };
-        const obj = {};
-        response_favorite.data.forEach((el) => {
-          obj[el.shop_sid] = true;
-        });
-        console.log(obj);
-        //myIndex, setMyIndex
-        let newIndex = { ...myIndex };
-        response.data.forEach((element) => {
-          if (obj[element.sid]) {
-            newIndex = { ...newIndex, [element.sid]: true };
-            element.favor = true;
-            return;
-          }
-          newIndex = { ...newIndex, [element.sid]: false };
-          element.favor = false;
-        });
-        setMyIndex(newIndex);
-        setShop(response.data);
-        console.log(response.data);
-      } catch (e) {
-        console.error(e.message);
-        return e.message;
-      }
-    } catch (e) {
-      setErrorMsg(e.message);
-    }
-    // console.log(errorMsg);
-    if (pathname == '/City/Taipei' && !isCity) {
-      // await setIsCity(true);
-      console.log('是城市嗎', isCity);
-      const response = await axios.get(
-        // `http://${siteName}:3001/Shopping/?search=披薩&wait_time=80`
-      );
-      setShop(response.data);
-    }
-  };
+  // --------------------最愛店家用-------------------------
 
   const add = async (shopSid) => {
     const sid = localStorage.getItem('MemberSid');
-    // const fd = new FormData({ input });
 
     try {
       const response = await axios.post(
@@ -195,51 +190,38 @@ export default function ListTable() {
       setIndex(nextIndex);
     }
   };
+  // -------------------------------------------------------
 
+  // 是否為所有店家
+  const [allShop, setAllShop] = useState(false);
+  
   // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
     setSearchWaitTime(value);
   };
-
   // checkedBox的改變事件
   const checkedBox_handleChange = (event) => {
     if (event.target.checked) {
       setIsChecked(!isChecked);
     }
   };
+  const [formData, setFormData] = useState({});
 
-  //不送出就搜尋(暫時無用)
-  // const searchHandle = async (event) => {
-  //   let key = event.target.value;
+  const form_handleChange = (e) => {
+    const dataIN = { ...formData, [e.target.name]: e.target.value };
+    setFormData(dataIN);
+  };
 
-  //   let result = await axios.get(
-  //     `http://${siteName}:3001/Shopping/?search=${key}`
-  //   );
-
-  //   if (result) {
-  //     console.log(result);
-  //     setShop(result.data);
-  //     console.log(
-  //       '網址列搜尋字串:',
-  //       usp.get('search'),
-  //       '價格上限:',
-  //       // usp.get('price_max'),
-  //       usp.get('price_max'),
-  //       '價格下限:',
-  //       usp.get('price_min')
-  //     );
-  //   }
-  // };
-
-  //送出後再統一做搜尋
-  const submitHandle = async (event) => {
+  //現在無submit
+  const searchShop = async (event) => {
     const sid = localStorage.getItem('MemberSid');
-    let key = usp.get('search');
-    let price_max = usp.get('price_max');
-    let price_min = usp.get('price_min');
-    let wait_time = usp.get('wait_time');
-    let order = usp.get('order');
+    let key = formData.search ? formData.search : '';
+    let price_max = formData.price_max; // 未輸入為0，寫在後端API
+    let price_min = formData.price_min; // 未輸入為0，寫在後端API
+    let wait_time = searchWaitTime;
+    let order = isChecked;
+    console.log('form', formData);
 
     // console.log('排序:', order);
 
@@ -253,16 +235,12 @@ export default function ListTable() {
       setIsChecked(!isChecked);
     }
 
+    if(!key){setAllShop(true)}
+
     setSearchWord(key);
     setSearchPriceMax(price_max);
     setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
-
-    // 距離計算
-    console.log(calculateDistance(sendAddress, ''));
-
-    // 取地址
-    // console.log("指定地址",sendAddress)
 
     // 用空格("\s")同時搜尋多個字段，以","("%2C")取代
     if (key) {
@@ -273,6 +251,7 @@ export default function ListTable() {
       `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
+    setShop(result.data);
 
     //---------------------------計算距離用-----------------------------
 
@@ -291,7 +270,9 @@ export default function ListTable() {
         // const gettedDistance = Math.random() * 50;
 
         // 將結果放進result.distance
-        element.distance = Math.round(gettedDistance * 10) / 10;
+        element.distance = gettedDistance
+          ? Math.round(gettedDistance * 10) / 10
+          : '沒有結果';
         // 超過30公里，每5公里加10元外送費
         element.fees = parseInt(gettedDistance / 5) * 10 + 30;
 
@@ -374,15 +355,15 @@ export default function ListTable() {
     console.log('usp:', usp.toString());
 
     //如果什麼都沒輸入 找全店家列表
-    if (
-      !usp.get('search') &&
-      !usp.get('price_max') &&
-      !usp.get('price_min') &&
-      !usp.get('wait_time') &&
-      !usp.get('order')
-    ) {
-      getShop();
-    }
+    // if (
+    //   !usp.get('search') &&
+    //   !usp.get('price_max') &&
+    //   !usp.get('price_min') &&
+    //   !usp.get('wait_time') &&
+    //   !usp.get('order')
+    // ) {
+    //   getShop();
+    // }
   };
 
   const [toggle, setToggle] = useState(true);
@@ -422,9 +403,14 @@ export default function ListTable() {
     <>
       {/* {toggle ? ( */}
       <div className="col_bar" style={style}>
-        <form className="table">
+        <form
+          className="table"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <div className="search_bar">
-            {searchTotalRows ? (
+            {!allShop ? (
               <>
                 {searchWord && searchWord.length > 0 ? (
                   <p>{searchWord}的搜尋結果</p>
@@ -447,8 +433,11 @@ export default function ListTable() {
                   className="search_bar_name_input"
                   placeholder="以店名或餐點名搜尋"
                   // onChange={searchHandle}
-                  defaultValue={searchWord}
                   autoFocus
+                  value={formData.search || ''}
+                  onChange={(e) => {
+                    form_handleChange(e);
+                  }}
                 />
               </div>
               <div className="search_bar_price">
@@ -461,6 +450,10 @@ export default function ListTable() {
                     className="search_bar_price_max_input"
                     min="0"
                     defaultValue={searchPriceMax || ''}
+                    value={formData.price_max}
+                    onChange={(e) => {
+                      form_handleChange(e);
+                    }}
                   />
                 </div>
                 <div className="search_bar_price_min">
@@ -471,6 +464,10 @@ export default function ListTable() {
                     className="search_bar_price_min_input"
                     min="0"
                     defaultValue={searchPriceMin || ''}
+                    value={formData.price_min}
+                    onChange={(e) => {
+                      form_handleChange(e);
+                    }}
                   />
                 </div>
               </div>
@@ -539,6 +536,9 @@ export default function ListTable() {
               </div>
             </div>
             <input
+              onClick={() => {
+                searchShop();
+              }}
               type="submit"
               value="開始搜尋"
               className="search_bar_submit"
@@ -551,7 +551,7 @@ export default function ListTable() {
       {/* )} */}
 
       <div className="col_list">
-        <div className="subTitle">小標題</div>
+        <div className="subTitle">所有餐廳</div>
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
@@ -569,7 +569,7 @@ export default function ListTable() {
                       <div className="shopCard_delivery_time_text">分鐘</div>
                     </div>
                     <button
-                      className='shopbtn'
+                      className="shopbtn"
                       onClick={(e) => {
                         e.preventDefault();
                         submit(shop.sid);
@@ -578,13 +578,17 @@ export default function ListTable() {
                       }}
                       // className="icon"
                     >
-                      {!myIndex[shop.sid] ? <AiOutlineHeart /> : <AiFillHeart />}
+                      {!myIndex[shop.sid] ? (
+                        <AiOutlineHeart />
+                      ) : (
+                        <AiFillHeart />
+                      )}
                     </button>
                   </div>
                   {/* <span>SID {shop.sid}</span> */}
                   <div className="shopCard_text">
                     <div className="shopCard_text_name">
-                      <h3 className='shoptitle'>{shop.name}</h3>
+                      <h3 className="shoptitle">{shop.name}</h3>
                       <div className="shopCard_score">
                         {shop.average_evaluation !== null ? (
                           <svg
@@ -606,9 +610,14 @@ export default function ListTable() {
                         <p>{shop.average_evaluation}</p>
                       </div>
                     </div>
-                    <span className='shopcontext'>{shop.distance} km,{shop.type_name}</span>
+                    <span className="shopcontext">
+                      {shop.distance ? shop.distance : disResult} km,
+                      {shop.type_name}
+                    </span>
                     {/* <span>{shop.distance} 公里</span> */}
-                    <span className='shopcontext'>外送費{shop.fees}元</span>
+                    <span className="shopcontext">
+                      外送費{shop.fees ? shop.fees : disResult}元
+                    </span>
                   </div>
                 </Link>
               </div>
