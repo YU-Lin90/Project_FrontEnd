@@ -62,6 +62,22 @@ function Product() {
   useEffect(() => {
     // 更新展示的資料
     setDisplayData(data);
+    if (selectedType.sid) {
+      const newDisplayData = { ...data };
+      const newProducts = newDisplayData.products.filter((product) => {
+        return (
+          product.products_type_sid === selectedType.sid &&
+          product.name.includes(searchInput)
+        );
+      });
+      setDisplayData({ ...newDisplayData, products: newProducts });
+    } else {
+      const newDisplayData = { ...data };
+      const newProducts = newDisplayData.products.filter((v) => {
+        return v.name.includes(searchInput);
+      });
+      setDisplayData({ ...newDisplayData, products: newProducts });
+    }
   }, [data]);
 
   useEffect(() => {
@@ -81,15 +97,7 @@ function Product() {
       });
       setDisplayData({ ...newDisplayData, products: newProducts });
     }
-
-    // const newDisplayData = { ...displayData };
-    // const newProducts = newDisplayData.products.filter((v) => {
-    //   return v.name.includes(searchInput);
-    // });
-    // setDisplayData({ ...newDisplayData, products: newProducts });
   }, [selectedType, searchInput]);
-
-  useEffect(() => {}, [searchInput]);
 
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {
@@ -172,15 +180,7 @@ function Product() {
 
   return (
     <>
-      <div
-        className="store-admin"
-        onClick={(e) => {
-          console.log(123);
-          if (e.currentTarget === $('li')) {
-            $('li').slideUp();
-          }
-        }}
-      >
+      <div className="store-admin">
         {!(selectedItem === '') ? (
           <></>
         ) : (
@@ -240,7 +240,7 @@ function Product() {
                         <i className="fa-solid fa-caret-down"></i>
                       </div>
                     </div>
-                    <ul>
+                    <ul className="ul">
                       <li>
                         <p
                           onClick={(e) => {
