@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import ProductEditForm from '../components/ProductEditForm';
+import $ from 'jquery';
 
 function Product() {
   const siteName = window.location.hostname;
-  
+
   const [data, setData] = useState({
     types: [],
     products: [],
@@ -32,6 +33,8 @@ function Product() {
   });
 
   const [reload, setReload] = useState(0);
+  // 展示用的資料
+  const [displayData, setDisplayData] = useState([]);
 
   const getData = async (shop_sid) => {
     console.log(shop_sid);
@@ -48,6 +51,11 @@ function Product() {
     // 取得店家菜單資料
     getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
   }, [selectedItem]);
+
+  useEffect(() => {
+    // 更新展示的資料
+    setDisplayData(data);
+  }, [data]);
 
   // 新贓商品的儲存按鈕被按下時
   const submitHandler = async (e) => {
@@ -157,6 +165,49 @@ function Product() {
                   >
                     <i class="fa-solid fa-plus btn-icon"></i>
                     <p>新增餐點</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="search-area">
+                  <div className="search-box">
+                    <div>
+                      <i className="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input
+                      type="text"
+                      name="name"
+                      // value={opt.name}
+                      // onChange={(e) => {
+                      //   const newOptionData = [...optionData];
+                      //   newOptionData[index].name = e.target.value;
+                      //   setOptionData(newOptionData);
+                      // }}
+                    />
+                  </div>
+                  <div className="select-box">
+                    <div
+                      className="select"
+                      onClick={(e) => {
+                        $(e.currentTarget)
+                          .siblings('ul')
+                          .find('li')
+                          .slideToggle();
+                      }}
+                    >
+                      <div>
+                        <i className="fa-solid fa-caret-down"></i>
+                      </div>
+                    </div>
+                    <ul>
+                      {data.types.map((type) => {
+                        return (
+                          <li>
+                            <p>{type.name}</p>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 </div>
               </div>

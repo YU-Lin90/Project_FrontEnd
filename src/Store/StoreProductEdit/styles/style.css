@@ -114,6 +114,60 @@
 .store-admin .collapsed .bottom {
   display: none;
 }
+.store-admin .search-area {
+  display: flex;
+}
+.store-admin .search-area .search-box {
+  position: relative;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.store-admin .search-area .search-box div {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.store-admin .search-area .search-box input[type=text] {
+  font-weight: 700;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid rgb(224, 224, 224);
+  line-height: 36px;
+  padding: 10px 0px;
+}
+.store-admin .search-area .search-box input[type=text] {
+  width: auto;
+  line-height: 20px;
+  padding: 4px 8px;
+  padding: 6px 0px;
+  padding-left: 36px;
+}
+.store-admin .search-area .select-box {
+  position: relative;
+}
+.store-admin .search-area .select-box .select {
+  width: 180px;
+  display: block;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  background-color: rgb(238, 238, 238);
+}
+.store-admin .search-area .select-box ul {
+  position: absolute;
+}
+.store-admin .search-area .select-box ul li p {
+  display: block;
+  width: 180px;
+  padding: 6px;
+  border: 1px solid rgb(204, 204, 204);
+  border-top: none;
+  background-color: #fff;
+  cursor: pointer;
+}
 .store-admin h4 {
   font-size: 28px;
   font-weight: 700;
@@ -665,6 +719,9 @@
 }
 .store-admin .menu-container .edit-form form .option-group-area .option-enter-box .sm-black-btn {
   border: none;
+}
+.store-admin .menu-container .edit-form form .option-group-area .table .thead .tr .th {
+  padding: 6px 0px;
 }
 .store-admin .menu-container .edit-form form .option-group-area .table .thead .tr .th:nth-child(1) {
   width: 210px;
