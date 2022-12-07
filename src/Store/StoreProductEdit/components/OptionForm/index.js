@@ -259,7 +259,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                               ? '選擇1項'
                               : ot.max > 1 && ot.min > 0
                               ? `最多可選擇${ot.max}項(最少選擇${ot.min}項)`
-                              : ot.max > 1 && ot.min === 0
+                              : ot.max >= 1 && ot.min === 0
                               ? `最多可選擇${ot.max}項(可不選擇)`
                               : null}
                           </p>

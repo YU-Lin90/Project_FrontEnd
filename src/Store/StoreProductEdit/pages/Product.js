@@ -5,7 +5,7 @@ import ProductEditForm from '../components/ProductEditForm';
 
 function Product() {
   const siteName = window.location.hostname;
-
+  
   const [data, setData] = useState({
     types: [],
     products: [],
