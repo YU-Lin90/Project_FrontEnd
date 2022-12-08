@@ -12,9 +12,9 @@ function Home() {
     <>
       <SearchByAddress />
       <Jumbotron />
-      <DailyTimeCounter fakeCounter={fakeCounter} />
+      {/* <DailyTimeCounter /> */}
       <Random setFakeCounter={setFakeCounter} />
-      <HomeCoupons  />
+      <HomeCoupons fakeCounter={fakeCounter}   />
       <Citys />
       {/* <NewHomePage/> */}
       {/* <FoodTypes /> */}

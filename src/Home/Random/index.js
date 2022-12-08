@@ -65,11 +65,11 @@ function Random({setFakeCounter}) {
       {/* deleteAllDailyCoupon */}
       {/* TODO: 這裡要刪掉 開發時要刪除假資料用 */}
       <p
-        onClick={async () => {
-          Swal.fire('刪除全部每日資料').then(async () => {
-            await notLoginGetFetch('deleteAllDailyCoupon');
-          });
-        }}
+        // onClick={async () => {
+        //   Swal.fire('刪除全部每日資料').then(async () => {
+        //     await notLoginGetFetch('deleteAllDailyCoupon');
+        //   });
+        // }}
         className="homePageLogos"
       >
         推薦

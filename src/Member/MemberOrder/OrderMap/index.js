@@ -132,7 +132,7 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
           lng={positionNow.lng}
           text="Member"
         />
-        {step === 4 &&
+        {step >= 3 &&
         deliverPosition.lat !== 0 &&
         deliverPosition.lng !== 0 ? (
           <DeliverPosition
