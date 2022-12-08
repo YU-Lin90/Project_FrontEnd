@@ -165,7 +165,7 @@ function MemberDatas() {
   const display = (
     <div className="mb_container">
       <form
-         className="mb_form"
+        className="mb_form"
         name="avatar"
         onSubmit={handleFormSubmit}
         onInvalid={handleFormInvalid}
@@ -281,7 +281,7 @@ function MemberDatas() {
           <span className="mb_span">{fieldErrors.phone}</span>
         </div>
         <button className="mb_button" type="submit">
-         註冊
+          修改
         </button>
         <button
           type="button"
