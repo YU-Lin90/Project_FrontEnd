@@ -331,7 +331,7 @@ function MemberRegister() {
           </div>
 
           <button type="submit" className="m_sb">
-            送出
+            註冊
           </button>
           <button
             type="button"
