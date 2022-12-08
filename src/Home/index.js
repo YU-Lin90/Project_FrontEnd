@@ -10,12 +10,20 @@ function Home() {
   const [fakeCounter, setFakeCounter] = useState(0);
   return (
     <>
+      {/* TODO: 這裡的順序 */}
+
       <SearchByAddress />
+
       <Jumbotron />
-      {/* <DailyTimeCounter /> */}
+
+      {/* <SearchByAddress /> */}
+
       <Random setFakeCounter={setFakeCounter} />
-      <HomeCoupons fakeCounter={fakeCounter}   />
+
       <Citys />
+
+      <HomeCoupons fakeCounter={fakeCounter} />
+
       {/* <NewHomePage/> */}
       {/* <FoodTypes /> */}
     </>

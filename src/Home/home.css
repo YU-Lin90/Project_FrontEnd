@@ -237,20 +237,7 @@
             }
         }
 
-        /* 隨機按鈕 */
-        .homeStartRandomButton {
-            width: 30%;
-            margin: 10px auto 10px auto;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 28px;
-            font-weight: 600;
-        }
 
-        .homeStartRandomButton.active {
-            background-color: #CD8C15;
-            color: #727272;
-        }
 
         /*  */
         .randomFrameHome {
@@ -283,6 +270,7 @@
             word-wrap: break-word;
             margin: 50px auto 60px auto;
             word-spacing: 20px;
+            text-shadow: 0 0 2px var(--mainColor), 0 0 2px var(--mainColor)
         }
 
         .homeAddressInputsFrame {
@@ -340,11 +328,7 @@
             background: radial-gradient(var(--mainColor), var(--mainColor) calc(100% - 15px), #fff calc(100% - 15px), #fff calc(100% - 10px), var(--mainColor) calc(100% - 10px), var(--mainColor) 100%);
             /* clip-path: polygon(0 0,100% 0,100% 100%); */
         }
-        .randomCheckBoxFrame {
-            background-color: #fff;
-            margin-bottom: 20px;
-            padding: 10px;
-        }
+
 
         .jumbotronShopName {
             position: absolute;
@@ -393,7 +377,7 @@
 
             .homeAddressFrame {
                 padding-top: 50px;
-                margin-left: 100px;
+                padding-left: 100px;
                 padding-bottom: 50px;
                 text-align: left;
             }

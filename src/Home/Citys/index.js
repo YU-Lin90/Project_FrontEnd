@@ -30,7 +30,8 @@ function Citys() {
     // console.log(framePosition);
     // console.log('框的高');
     // console.log(frameHeight);
-    if (scrollNow > framePosition - frameHeight / 3) {
+    //widow height
+    if (scrollNow + window.innerHeight > framePosition + frameHeight / 2) {
       setScrollOver(true);
     }
   }

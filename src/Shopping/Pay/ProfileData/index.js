@@ -44,8 +44,8 @@ function ProfileData() {
       <div className="payDetailBox">
         <PayTitleBlock number={2} titleString={'取餐人資料'} />
         {/* INPUT群 */}
-        <div className="disf ta-c jc-sb fw-w marb20 ai-c fd-sc-br">
-          <div className="marb10 b33s100 padH5">
+        <div className="disf ta-c jc-sb fw-w marb20 ai-c  fd-c">
+          <div className="marb10 w100p padH5">
             <p className="fs24 fw6 marb10">姓名</p>
             {edit ? (
               <input
@@ -61,7 +61,7 @@ function ProfileData() {
             )}
           </div>
 
-          <div className="marb10 b33s100 padH5">
+          <div className="marb10 w100p padH5">
             <p className="fw6 fs24 marb10">E-mail</p>
             {edit ? (
               <input
@@ -77,7 +77,7 @@ function ProfileData() {
             )}
           </div>
 
-          <div className="marb10 b33s100 padH5">
+          <div className="marb10 w100p padH5">
             <p className="fs24 fw6 marb10">連絡電話</p>
             {edit ? (
               <input

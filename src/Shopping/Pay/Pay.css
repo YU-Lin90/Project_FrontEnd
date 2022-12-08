@@ -177,7 +177,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-
+  outline: 3px red solid;
   position: relative;
   color: #fff;
   font-weight: 600;
@@ -218,11 +218,11 @@
   }
 
   .payPageFrameLeft {
-    width: 70%;
+    width: 60%;
   }
 
   .OrederDetailForPay {
-    width: 30%;
+    width: 40%;
   }
 
   .OrederDetailListForPay {}

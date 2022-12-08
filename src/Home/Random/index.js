@@ -9,8 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
+import './Random.css';
 const siteName = window.location.hostname;
-function Random({setFakeCounter}) {
+function Random({ setFakeCounter }) {
   /*
   點開隨機=>選取分類=>隨機=>顯示第一次=>倒數時間、顯示獲得的內容 店家名稱、優惠額度=>不要=>第二次=>
   同意=>前往購物
@@ -61,7 +62,11 @@ function Random({setFakeCounter}) {
   }, [authMember]);
 
   return (
-    <div>
+    <div
+    // style={{
+    //   background: `url(http://${siteName}:3001/images/randomBar.jpg) center center / cover no-repeat`,
+    // }}
+    >
       {/* deleteAllDailyCoupon */}
       {/* TODO: 這裡要刪掉 開發時要刪除假資料用 */}
       <p
@@ -71,6 +76,7 @@ function Random({setFakeCounter}) {
         //   });
         // }}
         className="homePageLogos"
+        // style={{ color: 'var(--subColor)' }}
       >
         推薦
       </p>
@@ -89,6 +95,7 @@ function Random({setFakeCounter}) {
             }}
             className="randomButtonOnHome flexSetCenter"
           >
+            {/* 開啟隨機按鈕 */}
             <img
               className="w40p"
               src={`http://${siteName}:3001/images/logo_V.svg`}
@@ -106,12 +113,13 @@ function Random({setFakeCounter}) {
                 setOpenWindow((v) => !v);
               }
             }}
-            className="grayBack padV10 padH10 "
+            className="grayBack padV10 "
             id="forCheckIdForRandomBack"
           >
-            <div className="onGrayBack padV10 padH10 of-h">
+            {/* Random lightBox start  */}
+            <div className="randomBoxOnGrayBack padV10 padH10 of-h">
               <p className="ta-c fs24 fw6 marb20">
-                {authMember ? <>今日剩餘次數:{3 - todayTimes}</> : '隨機推薦'}
+                {authMember ? <>今日剩餘次數：{3 - todayTimes}</> : '隨機推薦'}
               </p>
 
               {/* checkBox */}
@@ -133,7 +141,7 @@ function Random({setFakeCounter}) {
               <div className="disf jc-se">
                 {pressedTimes > 0 && flashingEnd ? (
                   <p
-                    className="homeStartRandomButton ta-c pointer bgcMain"
+                    className="homeStartRandomButton ta-c pointer bgcMain "
                     onClick={() => {
                       if (flashingEnd && pressedTimes !== 0) {
                         navi(`/productList/?shop_sid=${gettedSid}`);
@@ -166,6 +174,7 @@ function Random({setFakeCounter}) {
 
               <ShowBox radomArrays={radomArrays} cutAmount={cutAmount} />
             </div>
+            {/* Random lightBox end */}
           </div>
         </>
       ) : null}

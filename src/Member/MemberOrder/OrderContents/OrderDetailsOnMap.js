@@ -6,6 +6,7 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
   ];
   return (
     <>
+      {/* orderShowNow.orderResult.deliverName */}
       <div className="padV20 padH20">
         <p className="marb10 fontMainColor">
           <i
@@ -18,6 +19,12 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
         <p className="fw6 fs18 borderBotGray3 padV5">
           訂單編號：{orderShowNow.orderResult.orderId}
         </p>
+        {orderShowNow.orderResult.deliverName ? (
+          <p className="fw6 fs18 borderBotGray3 padV10">
+            外送員：{orderShowNow.orderResult.deliverName}
+          </p>
+        ) : null}
+
         <div className="borderBotGray3">
           {/* {    productResult
                   "sid": 262,
@@ -82,7 +89,6 @@ function OrderDetailsOnMap({ setOpenDetail, orderShowNow }) {
             </p>
           </div>
         )}
-
         <div className="disf jc-sb padV10 fw6">
           <p>總計金額</p>
           <p>
