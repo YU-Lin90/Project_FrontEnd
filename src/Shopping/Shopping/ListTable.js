@@ -537,20 +537,61 @@ export default function ListTable() {
       <div className="col_list">
         <div className="subTitle">所有餐廳</div>
         <div className="shopCardList">
-          {shop
-            ? shop.map((shop, index) => (
-                <div key={index} className="shopCardBox">
-                  <Link to={'/productList/?shop_sid=' + shop.sid}>
-                    <div className="shopCard_image">
-                      <img
-                        src={`http://${siteName}:3001/images/shop/storeCover1.webp`}
-                        alt={shop.name}
-                        className="shopCard_cover"
-                      />
-                      <div className="shopCard_conpon">aaaaaaa</div>
-                      <div className="shopCard_delivery_time">
-                        {shop.wait_time}
-                        <div className="shopCard_delivery_time_text">分鐘</div>
+          {shop.length > 0 ? (
+            shop.map((shop, index) => (
+              <div key={index} className="shopCardBox">
+                <Link to={'/productList/?shop_sid=' + shop.sid}>
+                  <div className="shopCard_image">
+                    <img
+                      src={`http://${siteName}:3001/images/shop/${shop.src}`}
+                      alt={shop.name}
+                      className="shopCard_cover"
+                    />
+                    <div className="shopCard_conpon">aaaaaaa</div>
+                    <div className="shopCard_delivery_time">
+                      {shop.wait_time}
+                      <div className="shopCard_delivery_time_text">分鐘</div>
+                    </div>
+                    <button
+                      className="shopbtn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        submit(shop.sid);
+                        const oldState = myIndex[shop.sid];
+                        setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                      }}
+                      // className="icon"
+                    >
+                      {!myIndex[shop.sid] ? (
+                        <AiOutlineHeart />
+                      ) : (
+                        <AiFillHeart />
+                      )}
+                    </button>
+                  </div>
+                  {/* <span>SID {shop.sid}</span> */}
+                  <div className="shopCard_text">
+                    <div className="shopCard_text_name">
+                      <h3 className="shoptitle">{shop.name}</h3>
+                      <div className="shopCard_score">
+                        {shop.average_evaluation !== null ? (
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 40 37"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M20 0L24.4903 13.8197H39.0211L27.2654 22.3607L31.7557 36.1803L20 27.6393L8.2443 36.1803L12.7346 22.3607L0.97887 13.8197H15.5097L20 0Z"
+                              fill="#FFA500"
+                            />
+                          </svg>
+                        ) : (
+                          ''
+                        )}
+                        {/* 資料庫結構: 小數點 */}
+                        <p>{shop.average_evaluation}</p>
                       </div>
                       <button
                         className="shopbtn"
@@ -602,6 +643,7 @@ export default function ListTable() {
                       <span className="shopcontext">
                         外送費 {shop.fees ? shop.fees : disResult} 元
                       </span>
+                    </div>
                     </div>
                   </Link>
                 </div>

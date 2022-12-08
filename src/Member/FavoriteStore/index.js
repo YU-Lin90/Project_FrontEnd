@@ -210,7 +210,7 @@ export default function FavoriteStore() {
               <div className="mf_imgbox">
                 <img
                   className="mf_img"
-                  src={`http://${siteName}:3001/uploads/1a4f5922-6e5d-404c-b848-e51cead3ba8f.jpg`}
+                  src={`http://${siteName}:3001/uploads/${v.src}`}
                 />
               </div>
             </Link>

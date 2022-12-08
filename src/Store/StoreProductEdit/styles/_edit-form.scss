@@ -257,15 +257,6 @@
               }
             }
           }
-
-          .table {
-            .thead {
-              .tr {
-                .th {
-                }
-              }
-            }
-          }
         }
         .option-group-area {
           h6 {
@@ -294,6 +285,7 @@
             .thead {
               .tr {
                 .th {
+                  padding: 6px 0px;
                   &:nth-child(1) {
                     width: 210px;
                   }
@@ -321,11 +313,11 @@
                     line-height: 20px;
                     padding: 4px 8px;
                   }
-                  
+
                   .price-box {
                     margin: 0px;
                     .number-input {
-                      div{
+                      div {
                         transform: translateY(-46%);
                       }
                     }

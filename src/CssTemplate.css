@@ -135,6 +135,22 @@
   background-color: #eee;
   overflow: auto;
 }
+.onGrayBack::-webkit-scrollbar{
+  width: 10px;
+  z-index: 2;
+}
+/* 這是拖曳條 */
+.onGrayBack::-webkit-scrollbar-thumb {
+  background-color: var(--mainColor);
+}
+/* 這是拖曳條的背景 */
+.onGrayBack::-webkit-scrollbar-track{
+  background: var(--subColor);
+}
+/* 拖曳條的經過顏色  */
+.onGrayBack::-webkit-scrollbar-thumb:hover {
+  background: var(--mainComplementary);
+}
 .smallHidden{
   display: none;
 }
