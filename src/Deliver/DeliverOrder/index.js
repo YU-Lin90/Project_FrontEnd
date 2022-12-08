@@ -68,7 +68,7 @@ function DeliverOrder() {
                     return (
                       <div className='Dofoodlist' key={i}>
                         <div className='Dofoodcontext'>
-                          <p>{v.amount}X {v.name}</p><p>{v.product_price}</p>
+                          <p>{v.amount}X {v.name}</p><p>NT$ {v.product_price}</p>
                         </div>
                         {
                           v.detail.length === 0 ? null : (
@@ -77,7 +77,7 @@ function DeliverOrder() {
                               return (
                                 <div className='Dofooddateilline'>
                                   <p>{v.options}</p>
-                                  <p>{v.option_price}</p>
+                                  <p>NT$ {v.option_price}</p>
                                 </div>
                               )
                             })} 
