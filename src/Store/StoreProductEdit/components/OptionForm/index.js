@@ -144,59 +144,65 @@ function OptionForm({ selectedSid, setSelectedSid }) {
     // setAmount(1);
 
     // alert
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        e.preventDefault();
+    // Swal.fire({
+    //   title: 'Are you sure?',
+    //   text: "You won't be able to revert this!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, delete it!',
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    e.preventDefault();
 
-        // test
-        console.log(testDetails);
-        let testNewDetails = [];
-        testDetails.forEach((d) => {
-          const arr = d.list.filter((l) => {
-            return !!l === true;
-          });
-          testNewDetails = [...testNewDetails, ...arr];
-        });
-        console.log(testNewDetails);
-
-        setCartWithAmount(
-          data.shop.sid,
-          selectedSid,
-          data.shop.name,
-          data.product.name,
-          data.product.price,
-          data.product.price,
-          data.product.src,
-          testNewDetails,
-          amount
-        );
-        console.log([
-          data.shop.sid,
-          selectedSid,
-          data.shop.name,
-          data.product.name,
-          data.product.price,
-          data.product.price,
-          data.product.src,
-          testNewDetails,
-          amount,
-        ]);
-
-        // 重置State
-        setSelectedSid('');
-        setAmount(1);
-
-        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-      }
+    // test
+    console.log(testDetails);
+    let testNewDetails = [];
+    testDetails.forEach((d) => {
+      const arr = d.list.filter((l) => {
+        return !!l === true;
+      });
+      testNewDetails = [...testNewDetails, ...arr];
     });
+    console.log(testNewDetails);
+
+    setCartWithAmount(
+      data.shop.sid,
+      selectedSid,
+      data.shop.name,
+      data.product.name,
+      data.product.price,
+      data.product.price,
+      data.product.src,
+      testNewDetails,
+      amount
+    );
+    console.log([
+      data.shop.sid,
+      selectedSid,
+      data.shop.name,
+      data.product.name,
+      data.product.price,
+      data.product.price,
+      data.product.src,
+      testNewDetails,
+      amount,
+    ]);
+
+    // 重置State
+    setSelectedSid('');
+    setAmount(1);
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: '成功將商品加入購物車',
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
+
+    //   Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+    // }
+    // });
   };
 
   return (

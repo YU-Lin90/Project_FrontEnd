@@ -4,6 +4,7 @@ import axios from 'axios';
 import EditTypeForm from '../components/EditTypeForm';
 import '../styles/style.css';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function Type() {
   const siteName = window.location.hostname;
@@ -52,9 +53,22 @@ function Type() {
       type_sid: '',
       type_name: '',
     });
+
+    Swal.fire({
+      icon: 'success',
+      title: '新增成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const editBtnHandler = async (sid) => {
+    Swal.fire({
+      icon: 'success',
+      title: '修改成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
     const response = await axios.put(
       `http://${siteName}:3001/store-admin/type/${sid}`,
       editType
@@ -64,16 +78,43 @@ function Type() {
       type_sid: '',
       type_name: '',
     });
+    Swal.fire({
+      icon: 'success',
+      title: '修改成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const delBtnHandler = async (sid) => {
-    const response = await axios.delete(
-      `http://${siteName}:3001/store-admin/type/${sid}`
-    );
-    setReload((v) => v + 1);
-    setEditType({
-      type_sid: '',
-      type_name: '',
+    // const response = await axios.delete(
+    //   `http://${siteName}:3001/store-admin/type/${sid}`
+    // );
+    // setReload((v) => v + 1);
+    // setEditType({
+    //   type_sid: '',
+    //   type_name: '',
+    // });
+    Swal.fire({
+      title: '確定要刪除這個類別?',
+      // text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/type/${sid}`
+        );
+        setReload((v) => v + 1);
+        setEditType({
+          type_sid: '',
+          type_name: '',
+        });
+        Swal.fire('刪除成功');
+      }
     });
   };
 
