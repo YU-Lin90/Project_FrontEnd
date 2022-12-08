@@ -27,8 +27,9 @@
       border-bottom: 2px solid rgb(224, 224, 224);
 
       .left {
+        // width: 100%;
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-items: center;
         i {
           color: rgb(204, 204, 204);
@@ -36,7 +37,20 @@
           margin-right: 16px;
         }
         p {
-          font-size: 16px;
+          &:nth-child(1) {
+            font-size: 18px;
+            font-weight: 700;
+            width: 150px;
+          }
+          font-size: 14px;
+          margin-right: 32px;
+          span {
+            text-align: center;
+            display: inline-block;
+            width: 30px;
+            font-size: 16px;
+            padding: 8px;
+          }
         }
       }
       .right {
@@ -365,6 +379,9 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          i {
+            
+          }
         }
         .td-3 {
           width: 33.33%;

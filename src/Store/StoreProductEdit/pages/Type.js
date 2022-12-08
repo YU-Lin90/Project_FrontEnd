@@ -165,7 +165,10 @@ function Type() {
                                         });
                                       }}
                                     >
-                                      <div className="td">{type.name}</div>
+                                      <div className="td">
+                                        <i className="fa-solid fa-equals"></i>
+                                        {type.name}
+                                      </div>
                                       <div className="td">
                                         {
                                           data.products.filter((p) => {

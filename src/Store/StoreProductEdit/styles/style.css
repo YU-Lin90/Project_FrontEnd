@@ -29,7 +29,6 @@
 }
 .store-admin .product-area .top .left {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 .store-admin .product-area .top .left i {
@@ -38,7 +37,20 @@
   margin-right: 16px;
 }
 .store-admin .product-area .top .left p {
+  font-size: 14px;
+  margin-right: 32px;
+}
+.store-admin .product-area .top .left p:nth-child(1) {
+  font-size: 18px;
+  font-weight: 700;
+  width: 150px;
+}
+.store-admin .product-area .top .left p span {
+  text-align: center;
+  display: inline-block;
+  width: 30px;
   font-size: 16px;
+  padding: 8px;
 }
 .store-admin .product-area .top .right {
   transform-origin: center;
