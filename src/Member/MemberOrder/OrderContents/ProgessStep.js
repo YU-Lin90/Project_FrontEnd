@@ -30,7 +30,7 @@ function ProgessStep({ step }) {
       <div className="ProgessStep">
         {/* 字+圓 */}
         <div className="stepText">
-          <p className={stepClassName[0]}>未接單</p>
+          <p className={`${stepClassName[0]}`}>未接單</p>
           <div className="stepCircleFrame">
             <div></div>
             <div>

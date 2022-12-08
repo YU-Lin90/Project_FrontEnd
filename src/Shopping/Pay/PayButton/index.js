@@ -290,14 +290,14 @@ function PayButton({ orderSocket }) {
       >
         確認
       </div>
-      {/* <div
+      <div
         className="payPageButton"
         onClick={() => {
           showDatasInConsole();
         }}
       >
         測試用按鈕 console顯示資料
-      </div> */}
+      </div>
     </>
   );
 }

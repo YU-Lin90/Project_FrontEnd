@@ -45,10 +45,11 @@ function ProfileData() {
         <PayTitleBlock number={2} titleString={'取餐人資料'} />
         {/* INPUT群 */}
         <div className="disf ta-c jc-sb fw-w marb20 ai-c fd-sc-br">
-          <div className="marb10 b33s100">
+          <div className="marb10 b33s100 padH5">
             <p className="fs24 fw6 marb10">姓名</p>
             {edit ? (
               <input
+                className="w100p padV5 fs18 padH5"
                 name="name"
                 value={profile.name}
                 onChange={(e) => {
@@ -56,14 +57,15 @@ function ProfileData() {
                 }}
               />
             ) : (
-              <p className="padV1">{profile.name}</p>
+              <p className="fs18 padV1">{profile.name}</p>
             )}
           </div>
 
-          <div className="marb10 b33s100">
+          <div className="marb10 b33s100 padH5">
             <p className="fw6 fs24 marb10">E-mail</p>
             {edit ? (
               <input
+                className="w100p padV5 fs18 padH5"
                 name="email"
                 value={profile.email}
                 onChange={(e) => {
@@ -71,14 +73,15 @@ function ProfileData() {
                 }}
               />
             ) : (
-              <p className="padV1">{profile.email}</p>
+              <p className="fs18 padV1">{profile.email}</p>
             )}
           </div>
 
-          <div className="marb10 b33s100 ">
+          <div className="marb10 b33s100 padH5">
             <p className="fs24 fw6 marb10">連絡電話</p>
             {edit ? (
               <input
+                className="w100p padV5 fs18 padH5"
                 name="phone"
                 value={profile.phone}
                 onChange={(e) => {
@@ -86,7 +89,7 @@ function ProfileData() {
                 }}
               />
             ) : (
-              <p className="padV1">{profile.phone}</p>
+              <p className="fs18 padV1">{profile.phone}</p>
             )}
           </div>
         </div>

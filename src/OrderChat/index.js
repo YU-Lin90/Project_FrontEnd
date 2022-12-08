@@ -62,24 +62,26 @@ function OrderChat({
           sideName={sideName}
         />
       </div>
-      <div className=" padV15 notAdminChatInputFrame">
-        <input
-          className="chattingRoomInput"
-          autoFocus
-          value={inputContent}
-          onChange={(e) => {
-            setInputContent(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && inputContent !== '') {
-              // console.log('enter');
-              sendData();
-              setInputContent('');
-            }
-          }}
-        />
+      <div className=" padV15 padH5 notAdminChatInputFrame">
+        <div className="flexSetCenter padH5 w80p">
+          <input
+            className="chattingRoomInput w100p"
+            autoFocus
+            value={inputContent}
+            onChange={(e) => {
+              setInputContent(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && inputContent !== '') {
+                // console.log('enter');
+                sendData();
+                setInputContent('');
+              }
+            }}
+          />
+        </div>
         <div
-          className="chattingRoomButton"
+          className="chattingRoomButton w20p ta-c"
           onClick={() => {
             sendData();
             setInputContent('');
