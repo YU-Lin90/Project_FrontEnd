@@ -201,7 +201,9 @@ function OptionForm({ selectedSid, setSelectedSid }) {
 
   return (
     <div
-      className="option-form-area"
+      className={`option-form-area ${
+        data.options_types.length === 0 ? 'toBottom' : ''
+      }`}
       onClick={(e) => {
         // 應該後來要改成setSelectedSid
         console.log(e.target === e.currentTarget);
