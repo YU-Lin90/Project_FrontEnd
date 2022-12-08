@@ -41,7 +41,10 @@ function ProductList() {
         <div className="product-container">
           <div className="row">
             <div className="shop-img">
-              <img src={`http://localhost:3001/images/shop/${data.shop.src}`} alt="店家圖片" />
+              <img
+                src={`http://localhost:3001/images/shop/${data.shop.src}`}
+                alt="店家圖片"
+              />
             </div>
           </div>
           <div className="row">
@@ -150,9 +153,8 @@ function ProductList() {
                           }
                         `}
                         >
-                          <h5 key={type.sid} id={type.sid}>
-                            {type.name}
-                          </h5>
+                          <div className="connect-id" id={type.sid}></div>
+                          <h5 key={type.sid}>{type.name}</h5>
                           <div className="product-group">
                             {data.products
                               .filter((product) => {

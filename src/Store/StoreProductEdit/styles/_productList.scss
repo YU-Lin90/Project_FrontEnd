@@ -79,6 +79,11 @@
           width: 75%;
           .product-type {
             margin-bottom: 40px;
+            .connect-id {
+              position: relative;
+              top: -104px
+            }
+
             h5 {
               font-size: 24px;
               font-weight: 700;
@@ -585,6 +590,7 @@
           main {
             width: 100%;
             .product-type {
+              
               h5 {
               }
               .product-group {

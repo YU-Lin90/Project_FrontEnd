@@ -861,6 +861,10 @@
 .product-list .product-container .row .product-info main .product-type {
   margin-bottom: 40px;
 }
+.product-list .product-container .row .product-info main .product-type .connect-id {
+  position: relative;
+  top: -104px;
+}
 .product-list .product-container .row .product-info main .product-type h5 {
   font-size: 24px;
   font-weight: 700;
