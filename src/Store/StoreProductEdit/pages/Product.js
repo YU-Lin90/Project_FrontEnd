@@ -181,18 +181,43 @@ function Product() {
   };
 
   const addDemoProducts = async () => {
-    const response = await axios.post(
-      `http://${siteName}:3001/store-admin/product/demo-data`
-    );
-
-    setReload((v) => v + 1);
-    setImgSrc('');
-    setSelectedItem('');
     Swal.fire({
-      icon: 'success',
-      title: '新增成功',
-      showConfirmButton: false,
-      timer: 1500,
+      title: '使用快速填入?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: '快速填入',
+      denyButtonText: `刪除快速填入`,
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const response = await axios.post(
+          `http://${siteName}:3001/store-admin/product/demo-data`
+        );
+
+        setReload((v) => v + 1);
+        setImgSrc('');
+        setSelectedItem('');
+        Swal.fire({
+          icon: 'success',
+          title: '成功快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else if (result.isDenied) {
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/product/demo-data`
+        );
+
+        setReload((v) => v + 1);
+        setImgSrc('');
+        setSelectedItem('');
+        Swal.fire({
+          icon: 'success',
+          title: '成功刪除快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     });
   };
 
@@ -213,7 +238,7 @@ function Product() {
             <div className={`menu-container`}>
               <div className="row">
                 <div className="menu-title">
-                  <h4>餐點</h4>
+                  <h4 onClick={addDemoProducts}>餐點</h4>
                   <div
                     className="bg-black-btn"
                     onClick={() => {
@@ -232,10 +257,6 @@ function Product() {
                   >
                     <i class="fa-solid fa-plus btn-icon"></i>
                     <p>新增餐點</p>
-                  </div>
-                  <div className="bg-black-btn" onClick={addDemoProducts}>
-                    <i class="fa-solid fa-plus btn-icon"></i>
-                    <p>快速新增餐點</p>
                   </div>
                 </div>
               </div>
@@ -354,6 +375,7 @@ function Product() {
                               discount: product.discount,
                               available: product.available,
                             });
+                            window.scrollTo(0, 0);
                           }}
                         >
                           <div className="td w10">

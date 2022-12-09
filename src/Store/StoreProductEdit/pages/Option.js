@@ -131,16 +131,39 @@ function Option() {
   };
 
   const addDemoOption = async () => {
-    const response = await axios.post(
-      `http://${siteName}:3001/store-admin/option/demo-data`
-    );
-    setReload((v) => v + 1);
-    setSelectedItem('');
     Swal.fire({
-      icon: 'success',
-      title: '修改成功',
-      showConfirmButton: false,
-      timer: 1500,
+      title: '使用快速填入?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: '快速填入',
+      denyButtonText: `刪除快速填入`,
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const response = await axios.post(
+          `http://${siteName}:3001/store-admin/option/demo-data`
+        );
+        setReload((v) => v + 1);
+        setSelectedItem('');
+        Swal.fire({
+          icon: 'success',
+          title: '成功快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else if (result.isDenied) {
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/option/demo-data`
+        );
+        setReload((v) => v + 1);
+        setSelectedItem('');
+        Swal.fire({
+          icon: 'success',
+          title: '成功刪除快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     });
   };
 
@@ -155,7 +178,7 @@ function Option() {
               <div className={`menu-container`}>
                 <div className="row">
                   <div className="menu-title">
-                    <h4>客製化選項</h4>
+                    <h4 onClick={addDemoOption}>客製化選項</h4>
                     <div
                       className="bg-black-btn"
                       onClick={() => {
@@ -171,10 +194,6 @@ function Option() {
                     >
                       <i class="fa-solid fa-plus btn-icon"></i>
                       <p>新增選項類別群組</p>
-                    </div>
-                    <div className="bg-black-btn" onClick={addDemoOption}>
-                      <i class="fa-solid fa-plus btn-icon"></i>
-                      <p>快速填入選項類別</p>
                     </div>
                   </div>
                 </div>
@@ -213,6 +232,7 @@ function Option() {
                                 });
                               console.log(newOptionData);
                               setOptionData(newOptionData);
+                              window.scrollTo(0, 0);
                             }}
                           >
                             <div className="td td-3">{ot.name}</div>
