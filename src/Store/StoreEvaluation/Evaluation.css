@@ -1,4 +1,48 @@
-.storeEvaluationOuter{
+.storeEvaluationOuterFrame {
   display: flex;
-  
+
+}
+
+.evaCards {
+  box-shadow: 6px 3px 7px 0 var(--mainColor);
+  width: 100%;
+  min-height: 200px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 18px;
+  font-weight: 500;
+  border: 1px solid var(--mainColor);
+  background-color: #fff;
+  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  gap: 20px;
+  text-align: justify;
+  line-height: 1.2;
+  /* background: linear-gradient(to right bottom ,#3893E8 ,var(--subColor) 100%); */
+}
+.evaBack{
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 150;
+  background-color: #aaaa;
+  overflow: auto;
+  padding: 50px; */
+  /* width: 00px; */
+}
+/* .evaFrame{
+  background-color: #fff;
+  width: 800px;
+  margin: 0 auto 0 auto;
+} */
+.contentIndent{
+  /* text-indent: 2em; */
 }
