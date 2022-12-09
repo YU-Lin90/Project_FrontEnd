@@ -40,8 +40,8 @@ function OldOrderPerOrder({ orderData, setReloading }) {
   return (
     <>
       <div name="單個訂單外框" className="w100p marb20 oldOrderFrame bgcW">
-        <div className="w100p  padV20 padH20 disf oldOrderTopDetail">
-          <div className="w20p marr20 as1 lh0 flexSetCenter padV10">
+        <div className="w100p ai-c   padV20 padH20 disf oldOrderTopDetail">
+          <div className="w20p h100p marr20 as1 lh0 flexSetCenter padV10">
             <img
               className="oldOrderStoreImg"
               src={` http://${siteName}:3001/images/shop/${orderData.src}`}
