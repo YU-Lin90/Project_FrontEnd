@@ -5,6 +5,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 //距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
@@ -31,6 +32,8 @@ export default function ListTable() {
 
   const [isFirst, setIsFirst] = useState(false);
 
+  const [cardBoxWidth, setCardBoxWidth] = useState('width:100%');
+
   //-------------------------計算距離用------------------------------------
 
   //距離用
@@ -48,6 +51,14 @@ export default function ListTable() {
     setNoResult('正在搜尋中');
     searchShop();
   }, [sendAddress]);
+
+  useEffect(() => {
+    if (shop.length === 0) {
+      setNoResult('無法搜尋到您想要的餐點');
+    } else {
+      setNoResult('正在搜尋中');
+    }
+  });
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -259,50 +270,51 @@ export default function ListTable() {
       `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-
-    console.log('資料長度', shop.length);
+    if (result.data.length === 0) {
+      setNoResult('無法搜尋到您想要的餐點');
+    } else {
+      setNoResult('正在搜尋中');
+    }
+    console.log('資料長度', result.data.length);
 
     //---------------------------計算距離用-----------------------------
     // if (!isFirst) {
-      for (let element of result.data) {
-        const shopAddress = element.address;
-        const selfLocation = sendAddress;
-        // let gettedDistance = ''
+    for (let element of result.data) {
+      const shopAddress = element.address;
+      const selfLocation = sendAddress;
+      // let gettedDistance = ''
 
-        // 計算("店家地址","送達地址")間的直線距離
+      // 計算("店家地址","送達地址")間的直線距離
 
-        const gettedDistance = await calculateDistance(
-          shopAddress,
-          selfLocation
-        );
+      // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
 
-        // 測試用，隨機亂數
-        // const gettedDistance = Math.random() * 50;
+      // 測試用，隨機亂數
+      const gettedDistance = Math.random() * 50;
 
-        // 將結果放進result.distance
-        element.distance = gettedDistance
-          ? Math.round(gettedDistance * 10) / 10
-          : Math.round(Math.random() * 50 * 10) / 10;
+      // 將結果放進result.distance
+      element.distance = gettedDistance
+        ? Math.round(gettedDistance * 10) / 10
+        : '計算中';
 
-        // 超過30公里，每5公里加10元外送費
-        element.fees = gettedDistance
-          ? parseInt(gettedDistance / 5) * 10 + 30
-          : 'Error';
+      // 超過30公里，每5公里加10元外送費
+      element.fees = gettedDistance
+        ? parseInt(gettedDistance / 5) * 10 + 30
+        : '計算中';
 
-        // 如果排序=距離，把資料按distance由小到大排列
-        if (!order) {
-          result.data.sort((a, b) => a.distance - b.distance);
-        }
+      // 如果排序=距離，把資料按distance由小到大排列
+      if (!order) {
+        result.data.sort((a, b) => a.distance - b.distance);
+      }
 
-        distanceData.sid = element.sid;
-        distanceData.distance = element.distance;
-        shopDistance.push({
-          sid: distanceData.sid,
-          idistance: element.distance,
-        });
-      } // 迴圈結束
-      console.log('放入距離物件:', distanceData);
-      console.log('放入距離陣列:', shopDistance);
+      distanceData.sid = element.sid;
+      distanceData.distance = element.distance;
+      shopDistance.push({
+        sid: distanceData.sid,
+        idistance: element.distance,
+      });
+    } // 迴圈結束
+    console.log('放入距離物件:', distanceData);
+    console.log('放入距離陣列:', shopDistance);
     // }
     // else {
     //   for (let element of result.data) {
@@ -329,6 +341,8 @@ export default function ListTable() {
     // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
     if (shop.length === 0) {
       setNoResult('無法搜尋到您想要的餐點');
+    } else {
+      setNoResult('正在搜尋中');
     }
 
     //有搜尋店名or價格上限or下限才顯示筆數(等待時間沒有)
@@ -408,6 +422,26 @@ export default function ListTable() {
     '@media(maxWidth:768px)': {
       padding: '800px',
     },
+  };
+
+  const handleClick = () => {
+    if (toggle) {
+      document.getElementsByClassName('col_bar')[0].style.right = '-30%';
+      // document.getElementsByClassName('shopCardBox')[0].style.width = '100%';
+      // const i = shop.length;
+      // for ( let x = 0 ; x > i ; x++ ){
+      //   document.querySelector('.shopCardBox')[1].style.width = '100%';
+      // }
+      
+    }
+    if (!toggle) {
+      document.getElementsByClassName('col_bar')[0].style.right = '0';
+      // document.querySelectorAll('.shopCardBox').style.width = '65%';
+      // let elements = document.getElementsByClassName('.shopCardBox');
+      // Array.from(elements).forEach(function (element) {
+      //   element.style.width = '65%';
+      // });
+    }
   };
 
   // // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
@@ -569,7 +603,7 @@ export default function ListTable() {
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
-              <div key={index} className="shopCardBox">
+              <div key={index} className={toggle ? "shopCardBox" : "shopCardBox shopCardBox1"}>
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <img
@@ -623,22 +657,6 @@ export default function ListTable() {
                         {/* 資料庫結構: 小數點 */}
                         <p>{shop.average_evaluation}</p>
                       </div>
-                      <button
-                        className="shopbtn"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          submit(shop.sid);
-                          const oldState = myIndex[shop.sid];
-                          setMyIndex({ ...myIndex, [shop.sid]: !oldState });
-                        }}
-                        // className="icon"
-                      >
-                        {!myIndex[shop.sid] ? (
-                          <AiOutlineHeart />
-                        ) : (
-                          <AiFillHeart />
-                        )}
-                      </button>
                     </div>
                     {/* <span>SID {shop.sid}</span> */}
                     <div className="shopCard_text">
@@ -667,10 +685,13 @@ export default function ListTable() {
         onClick={() => {
           setToggle(!toggle);
           console.log(toggle);
+          handleClick();
         }}
         className="search_bar_toggle"
         id="bar_switch"
-      ></div>
+      >
+       <AiOutlineSearch/>
+      </div>
     </>
   );
 }

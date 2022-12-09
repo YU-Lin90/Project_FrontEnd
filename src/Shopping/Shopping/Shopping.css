@@ -19,7 +19,6 @@
 }
 
 .table{
-    border: 1px red solid;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -31,9 +30,7 @@
     flex-direction: column;
     width: 80%;
     padding: 10vh 3vh;
-    
 }
-
 
 .search_bar>p{
     display: block;
@@ -44,7 +41,6 @@
     margin-right: 0;
     font-weight: 700;
 }
-
 
 .search_bar_title{
     /* h2 */
@@ -232,8 +228,9 @@ padding-left: 2em;
     padding-left: 15px;
     display: flex;
     align-items: center;
-    min-width: 100px;
+    width: 60%;
     height: 25px;
+    font-size: 1px;
     border-radius: 0 7px 7px 0;
     background-color: #FFA500;
 }
