@@ -17,6 +17,8 @@ function ProductList() {
   });
   // selectedSid
   const [selectedSid, setSelectedSid] = useState('');
+  // 目前滾到第幾個Type
+  const [nowType, setNowType] = useState('');
 
   const getData = async (shop_sid) => {
     const response = await axios.get(
@@ -33,7 +35,32 @@ function ProductList() {
     // 取得店家菜單資料
     getData(shop_sid);
     // console.log(data);
+    window.addEventListener('scroll', detactPosition);
   }, []);
+
+  const detactPosition = (e) => {
+    let myTypes = document.querySelectorAll('.connect-id');
+    let typeHeights = [];
+    myTypes.forEach((v, i) => {
+      typeHeights.push(v.offsetTop + window.innerHeight - 40);
+    });
+    // console.log(typeHeights);
+    // console.log(window.scrollY);
+    for (let i = 0; i < typeHeights.length; i++) {
+      // console.log(typeHeights)
+      if (window.scrollY - typeHeights[0] < 0) {
+        setNowType(0);
+      } else if (window.scrollY - typeHeights[typeHeights.length] > 0) {
+        setNowType(typeHeights.length);
+      } else if (
+        window.scrollY - typeHeights[i] >= 0 &&
+        window.scrollY - typeHeights[i + 1] < 0
+      ) {
+        setNowType(i);
+      }
+    }
+    // console.log(window.scrollY);
+  };
 
   return (
     <>
@@ -70,7 +97,7 @@ function ProductList() {
                 <div className="type-nav">
                   <ul>
                     {data.types.length !== 0 ? (
-                      data.types.map((type) => {
+                      data.types.map((type, i) => {
                         return (
                           <li
                             className={
@@ -81,7 +108,12 @@ function ProductList() {
                                 : ''
                             }
                           >
-                            <a href={`#${type.sid}`}>{type.name}</a>
+                            <a
+                              className={nowType === i ? 'underline' : ''}
+                              href={`#${type.sid}`}
+                            >
+                              {type.name}
+                            </a>
                           </li>
                         );
                       })

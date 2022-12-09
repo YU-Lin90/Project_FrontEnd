@@ -859,6 +859,7 @@
 }
 .product-list .product-container .row .product-info aside .type-nav ul li .underline {
   border-bottom: 2px solid black;
+  font-weight: 700;
 }
 .product-list .product-container .row .product-info main {
   width: 75%;
