@@ -56,7 +56,7 @@ function DeliverOrder() {
     checkMyLocation();
     getOrder();
     map();
-  }, [deliverPosition]);
+  }, [deliverPosition,delivertake]);
   return (
     <>
       <div className="Dttcontext">
