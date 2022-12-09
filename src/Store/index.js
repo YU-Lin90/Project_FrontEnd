@@ -7,16 +7,12 @@ import { useAuth } from '../Context/AuthProvider';
 import Swal from 'sweetalert2';
 import { useFunc } from '../Context/FunctionProvider';
 import { useSVG } from '../Context/SVGProvider';
-const siteName = window.location.hostname;
 //這邊要放NAVBAR
 function Store() {
   const {
     memberDataSVG,
     orderNowSVG,
     oldOrderSVG,
-    pointSVG,
-    favorStoreSVG,
-    couponSVG,
     serviceSVG,
     storeSellAnalyzeSVG,
     editProductSVG,
