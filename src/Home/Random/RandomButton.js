@@ -87,7 +87,7 @@ function RandomButton({
           setPressedTimes((v) => v + 1);
           setFakeCounter((v) => v + 1);
         }}
-        className={`homeStartRandomButton ta-c pointer bgcMain  ${
+        className={`homeStartRandomButton ta-c pointer bgcMain   ${
           flashingEnd ? '' : 'active'
         }`}
       >

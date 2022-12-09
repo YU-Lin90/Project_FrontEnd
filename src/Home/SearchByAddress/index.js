@@ -1,6 +1,7 @@
 import { usePay } from '../../Context/PayPageContext';
 import { useGeo } from '../../Context/GeoLocationProvider';
 import { useNavigate } from 'react-router-dom';
+const siteName = window.location.hostname;
 function SearchByAddress() {
   const { sendAddress, setSendAddress } = usePay();
   const { getAddressByLatLng } = useGeo();
@@ -12,7 +13,12 @@ function SearchByAddress() {
     localStorage.setItem('DeliveAddress', address.address);
   };
   return (
-    <div className="homeAddressFrame">
+    <div
+      className="homeAddressFrame"
+      style={{
+        background: `url(http://${siteName}:3001/images/sideFood.jpg) center center / cover no-repeat`,
+      }}
+    >
       <p
         onClick={() => {
           localStorage.setItem(
@@ -21,7 +27,7 @@ function SearchByAddress() {
           );
           setSendAddress('台北市大安區復興南路一段390號2樓');
         }}
-        className="fs36 fw5 marb20 homeAddressSlogan"
+        className="fs36 fw6 marb20 homeAddressSlogan"
       >
         各式美食 上千種商品 馬上點馬上到
       </p>

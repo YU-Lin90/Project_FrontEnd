@@ -35,10 +35,14 @@
 .ProgessStep {
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 80px;
   width: 100%;
 }
-
+@media screen and (min-width:768px){
+  .ProgessStep{
+    height: 60px;
+  }
+}
 .ProgessStep>div {
   height: 100%;
 }

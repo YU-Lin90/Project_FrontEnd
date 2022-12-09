@@ -55,6 +55,7 @@ function PayCoupon() {
       <div className="payDetailBox">
         <PayTitleBlock number={3} titleString={'優惠券'} />
         <PayDailyCoupon />
+        <p className="dailyCouponOnPayTitle ta-c ">一般優惠券</p>
         {/* {
           "sid": 1,
           "coupon_sid": 2,
@@ -78,7 +79,7 @@ function PayCoupon() {
           <>
             <div
               className=" disf fw-w"
-              style={{ backgroundColor: '#eee9' }}
+              // style={{ backgroundColor: '#eee9' }}
             >
               <div key={0} className="payCouponFrame padV10 padH10">
                 <div
@@ -90,7 +91,7 @@ function PayCoupon() {
                   }`}
                 >
                   <div className="as-s fw6 fs18 h20"></div>
-                  <div className="as-c fw6 fs18 w60p ta-c">不使用優惠券</div>
+                  <div className="as-c fw6 fs18  ta-c">不使用優惠券</div>
                   <div className="as-e h20"></div>
                 </div>
               </div>
@@ -111,9 +112,7 @@ function PayCoupon() {
                       <div className="as-s fw6 fs18  h20">
                         折{v.sale_detail}元
                       </div>
-                      <div className="as-c fw6 fs18 w60p ta-c">
-                        {v.coupon_name}
-                      </div>
+                      <div className="as-c fw6 fs18  ta-c">{v.coupon_name}</div>
                       <div className="as-e h20">使用期限:{v.expire}</div>
                     </div>
                   </div>
@@ -126,9 +125,7 @@ function PayCoupon() {
                     <div className={'payCoupons fontW insufficient'}>
                       {/* <div className="as-s fw6 fs18">折{v.sale_detail}元</div> */}
                       <div className="as-s fw6 fs18 fontRed  h20">條件不符</div>
-                      <div className="as-c fw6 fs18 w60p ta-c">
-                        {v.coupon_name}
-                      </div>
+                      <div className="as-c fw6 fs18  ta-c">{v.coupon_name}</div>
                       <div className="as-e h20">使用期限:{v.expire}</div>
                     </div>
                   </div>
