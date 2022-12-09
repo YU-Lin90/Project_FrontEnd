@@ -27,6 +27,7 @@ function DeliverDatas() {
           }
           return <History key={i} {...value} />;
         })}
+        <div className="w100p" style={{ height: '80px' }}></div>
       </ul>
     </>
   );

@@ -8,13 +8,12 @@
 }
 
 .storeCenterList {
-
   /* background-color: #eee; */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  min-height: 50px;
+  min-height: 80px;
   position: fixed;
   bottom: 0;
   background-color: #eeee;

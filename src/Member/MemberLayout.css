@@ -21,6 +21,7 @@
   width: 100%;
   /* background-color: #eee; */
   font-weight: 600;
+  gap: 50px;
 }
 
 .memberCenterButton {

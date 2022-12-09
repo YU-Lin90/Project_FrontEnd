@@ -87,8 +87,7 @@ function StoreOrder({ orderSocket }) {
 
   return (
     <div>
-      {/* <OrderSocket /> */}
-      <div className="orderOptions">
+      <div className="orderOptions" style={{ zIndex: 5 }}>
         <div className="disf gap10">
           {options.map((v, i) => {
             return (
@@ -98,7 +97,7 @@ function StoreOrder({ orderSocket }) {
                   scrollTop(v.index);
                   setPage(v.index);
                 }}
-                className={`pointer storeOrderSwith ${
+                className={`pointer storeOrderSwith flexSetCenter ta-c ${
                   page === v.index ? 'active' : ''
                 }`}
               >
@@ -108,15 +107,11 @@ function StoreOrder({ orderSocket }) {
           })}
         </div>
         <div className="storeTimes">
-          <span
-            onClick={() => {
-              // setOrder(2, 1);
-              // completeOrder(2);
-            }}
-          >
+          <span className="flexSetCenter">
             <i className="fa-regular fa-circle-check"></i>今日完成
           </span>
           <span
+            className="flexSetCenter"
             onClick={() => {
               setChangeTime(true);
             }}
