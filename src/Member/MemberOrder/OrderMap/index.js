@@ -83,14 +83,6 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
     //res.name
   };
 
-  // useEffect(() => {
-  //   // setInterval(checkLocation, 1000);
-  //   //
-  //   getStoreLocation(selectedOrder);
-  //   return () => {
-  //     // clearInterval(intervalTest);
-  //   };
-  // }, []);
   useEffect(() => {
     checkLocation(selectedOrder);
     getStoreLocation(selectedOrder);

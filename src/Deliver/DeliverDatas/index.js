@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import History from './History';
 import './history.css';
-
+const siteName = window.location.hostname;
 function DeliverDatas() {
   const [history, setHistory] = useState([]);
 
   async function getOrder() {
     const deliversid = localStorage.getItem('deliver_sid');
     // const ordersid = localStorage.getItem('order_sid');
-    const reponset = await axios.get(`http://localhost:3001/deliver/dataslist/${deliversid}`);
+    const reponset = await axios.get(`http://${siteName}:3001/deliver/dataslist/${deliversid}`);
     console.log(reponset.data);
     setHistory(reponset.data);
   }

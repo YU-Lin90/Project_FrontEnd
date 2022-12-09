@@ -2,6 +2,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Context/AuthProvider';
+const siteName = window.location.hostname;
 export default function Btn(props){
   const {setAuthDeliver }= useAuth()
     const navi = useNavigate();
@@ -10,7 +11,7 @@ export default function Btn(props){
     const formData = {email: props.account, password: props.password}
   
   
-    const { data } = await axios.post('http://localhost:3001/deliverlogin', formData)
+    const { data } = await axios.post(`http://${siteName}:3001/deliverlogin`, formData)
     if(data.success){
       Swal.fire({
         icon: 'success',

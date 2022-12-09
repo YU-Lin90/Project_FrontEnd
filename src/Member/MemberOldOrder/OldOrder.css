@@ -4,6 +4,7 @@
 
 .oldOrderTopDetail {
   border-bottom: 1px solid var(--mainColor);
+  
 }
 
 .oldOrderCommand {
@@ -24,14 +25,16 @@
 }
 .oldOrderStoreImg{
   width: 100%;
-  /* object-fit:cover; */
+  height: 100%;
+  object-fit:cover;
 }
 .orderCommandBox{
   border-radius: 10px;
   background-color: #EFE587;;
-  /* margin: 0 auto 0;  */
-  /* max-height:600px ; */
-  /* width: 80%; */
+  margin: 50px auto 0; 
+  /* max-height:500px ; */
+  height: 550px;
+  width: 300px;
 }
 .orderCommandBox textarea{
   background-color: #ddc;
