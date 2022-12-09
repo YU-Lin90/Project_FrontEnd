@@ -4,6 +4,7 @@ import axios from 'axios';
 import ProductEditForm from '../components/ProductEditForm';
 import $ from 'jquery';
 import { useRef } from 'react';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function Product() {
   const siteName = window.location.hostname;
@@ -179,6 +180,51 @@ function Product() {
     }
   };
 
+  const addDemoProducts = async () => {
+    const body = [
+      {
+        name: '123',
+        price: 123,
+        order: 12,
+        type: 1,
+        shop_sid: myUserSid,
+        options_types: [2, 3],
+        src: '223有機果粒菜.jpg',
+        note: '123',
+        available: true,
+        discount: 123,
+      },
+      {
+        name: '124',
+        price: 124,
+        order: 13,
+        type: 2,
+        shop_sid: myUserSid,
+        options_types: [2, 3, 4, 5],
+        src: '223有機果粒菜.jpg',
+        note: '123',
+        available: true,
+        discount: 124,
+      },
+    ];
+    for (let i = 0; i < body.length; i++) {
+      const response = await axios.post(
+        `http://${siteName}:3001/store-admin/product/demo-data`,
+        body[i]
+      );
+    }
+
+    // setReload((v) => v + 1);
+    setImgSrc('');
+    setSelectedItem('');
+    Swal.fire({
+      icon: 'success',
+      title: '新增成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   return (
     <>
       <div
@@ -215,6 +261,10 @@ function Product() {
                   >
                     <i class="fa-solid fa-plus btn-icon"></i>
                     <p>新增餐點</p>
+                  </div>
+                  <div className="bg-black-btn" onClick={addDemoProducts}>
+                    <i class="fa-solid fa-plus btn-icon"></i>
+                    <p>快速新增餐點</p>
                   </div>
                 </div>
               </div>

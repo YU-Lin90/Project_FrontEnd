@@ -38,7 +38,8 @@ function OptionGroup({
                   !testDetails[otIndex].list[i] &&
                   testDetails[otIndex].list.filter((v) => {
                     return !!v === true;
-                  }).length === max
+                  }).length === max &&
+                  (min !== 1 || max !== 1)
                     ? 'inActive'
                     : ''
                 }

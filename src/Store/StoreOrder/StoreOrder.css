@@ -12,6 +12,7 @@
 
 .storeOrderSwith {
   padding: 3px;
+  border-bottom: 5px solid transparent;
 }
 
 .storeOrderSwith.active {
@@ -38,9 +39,14 @@
 @media screen and (min-width:768px) {
 
   .orderDetailsCardCol {
-    width: 25%;
+    width: 33.33333%;
   }
 
+}
+@media screen and (min-width:1024px){
+  .orderDetailsCardCol {
+    width: 25%;
+  }
 }
 
 /* 卡片最外層  */

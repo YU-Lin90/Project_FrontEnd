@@ -5,6 +5,7 @@ import './coupon.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+const siteName = window.location.hostname;
 function Coupon() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
@@ -49,7 +50,7 @@ function Coupon() {
     } else {
       try {
         const res = await axios.get(
-          `http://localhost:3001/MemberCouponGetRenderApi/${sid}`
+          `http://${siteName}:3001/MemberCouponGetRenderApi/${sid}`
         );
         console.log(res.data);
         console.log(res.data.coupons);
@@ -90,7 +91,7 @@ function Coupon() {
         expire: expire,
       });
 
-      await fetch(`http://localhost:3001/MemberCouponGetApi/${sid}`, {
+      await fetch(`http://${siteName}:3001/MemberCouponGetApi/${sid}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: FD,

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import ListTable from './ListTable';
 import { useAuth } from '../../Context/AuthProvider';
 import './index.css';
-
+const siteName = window.location.hostname;
 function DeliverConfirmOrder() {
   const { authDeliver } = useAuth();
   const [listData, setListData] = useState([]);
@@ -16,7 +16,7 @@ function DeliverConfirmOrder() {
 
   async function getList() {
     const response = await axios.get(
-      'http://localhost:3001/deliver/deliverlist'
+      `http://${siteName}:3001/deliver/deliverlist`
     );
     setListData(response.data.rows1);
     console.log(listData);

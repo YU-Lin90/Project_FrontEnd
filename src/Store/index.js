@@ -61,6 +61,7 @@ function Store() {
   ];
   const loginCheck = async () => {
     const res = await loginCheckPostFetch('LoginCheck/Store', 'Store');
+    console.log(location);
     return res;
   };
   ///LoginCheck/Store
@@ -93,17 +94,37 @@ function Store() {
           <div className="storeCenterList">
             {menuList.map((value, index) => {
               return (
-                <p
-                  className={`pointer storeCenterButton fw6  ${
-                    value.link === location ? 'active' : ''
-                  }`}
+                <div
+                  className={`pointer padH5  disf fd-c jc-sb  storeCenterButton fw6  ${
+                    location.includes(value.link) && value.index !== 0
+                      ? 'active'
+                      : ''
+                  }     ${
+                    value.index === 0 && location === value.link ? 'active' : ''
+                  } `}
                   key={index}
                   onClick={() => {
                     navi(value.link);
                   }}
                 >
-                  {value.text}
-                </p>
+                  <p className="bigHidden flexSetCenter w100p marb10">
+                    {value.svg(
+                      `${
+                        location.includes(value.link) && value.index !== 0
+                          ? 'fillMemberCenterColor'
+                          : 'fillMainColor'
+                      }     ${
+                        value.index === 0 && location === value.link
+                          ? 'fillMemberCenterColor'
+                          : 'fillMainColor'
+                      }`
+                    )}
+                  </p>
+                  <p
+                  >
+                    {value.text}
+                  </p>
+                </div>
               );
             })}
           </div>

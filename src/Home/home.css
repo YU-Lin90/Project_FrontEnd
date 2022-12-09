@@ -339,7 +339,7 @@
             font-weight: 900;
             font-size: 20px;
             color: white;
-            background-color:#FFA500aa;
+            background-color: #FFA500aa;
             border-radius: 10px;
             /* opacity: 0.5; */
             /* width: fit-content; */
@@ -348,10 +348,12 @@
             padding-left: 10px;
             padding-right: 10px;
         }
-        .jumbotronShopName:hover{
+
+        .jumbotronShopName:hover {
             opacity: 1;
         }
-        .jumbotronEvaluation{
+
+        .jumbotronEvaluation {
             position: absolute;
             z-index: 2;
             left: 20px;
@@ -359,7 +361,7 @@
             line-height: 1.2;
             padding-left: 10px;
             padding-right: 10px;
-            background-color:#FFA500;
+            background-color: #FFA500;
             border-radius: 10px;
             color: #fff;
         }
@@ -394,8 +396,32 @@
                 margin: initial;
                 margin-bottom: 50px;
             }
-            .jumbotronShopName{
+
+            .jumbotronShopName {
                 font-size: 48px;
             }
         }
 
+        .homePageSearchInputLabel {
+            position: absolute;
+            cursor: text;
+            top: 32px;
+            left: 40px;
+            transition: .15s;            
+            color: var(--mainColor);
+        }
+        .homePageSearchInputLabel.active{
+            background-color: #fff;
+            top: 20px;
+            font-size: 10px;
+            left: 28px;
+        }
+        .homePageSearchInputLabel.hasText{
+            background-color: #fff;
+            top: 20px;
+            font-size: 10px;
+            left: 28px;
+        }
+        /* .homePageSearchInputLabel.active.hasText{
+            display:block;
+        } */

@@ -1,8 +1,10 @@
 import { usePay } from '../../Context/PayPageContext';
 import { useGeo } from '../../Context/GeoLocationProvider';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 const siteName = window.location.hostname;
 function SearchByAddress() {
+  const [addressOnFocus, setAddressOnFocus] = useState(false);
   const { sendAddress, setSendAddress } = usePay();
   const { getAddressByLatLng } = useGeo();
   const navi = useNavigate();
@@ -31,12 +33,26 @@ function SearchByAddress() {
       >
         各式美食 上千種商品 馬上點馬上到
       </p>
-      <div className="padV20 padH20 homeAddressInputsFrame">
-        <div className="w75p marr10">
+      <div className="padV20 padH20 homeAddressInputsFrame po-r">
+        <div className="w75p marr10 ">
+          <label
+            className={`homePageSearchInputLabel  ${
+              addressOnFocus ? 'active' : 'notActive'
+            }   ${sendAddress !== '' ? 'hasText' : ''} `}
+            htmlFor="homePageSearchInput"
+          >
+            請輸入您要送達的地址
+          </label>
           <input
+            onFocus={() => {
+              setAddressOnFocus(true);
+            }}
+            onBlur={() => {
+              setAddressOnFocus(false);
+            }}
             style={{
               width: '100%',
-              border: '1px solid blue',
+              border: '1px solid var(--mainColor)',
               lineHeight: ' 28px',
               fontSize: '18px',
               borderRadius: '15px',
@@ -48,7 +64,8 @@ function SearchByAddress() {
               localStorage.setItem('DeliveAddress', e.target.value);
               setSendAddress(e.target.value);
             }}
-            placeholder="請輸入您要送達的地址"
+            // placeholder="請輸入您要送達的地址"
+            id="homePageSearchInput"
           />
         </div>
         <div className="disf ai-c jc-se gap10 w25p">

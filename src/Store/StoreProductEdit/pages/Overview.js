@@ -107,7 +107,7 @@ function Overview() {
                               }}
                             >
                               <div className="left">
-                                <i class="fa-solid fa-equals"></i>
+                                {/* <i class="fa-solid fa-equals"></i> */}
                                 <img
                                   src={`http://${siteName}:3001/uploads/${product.src}`}
                                   alt=""

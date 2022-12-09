@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 16px;
+  padding: 16px 16px;
   padding-right: 32px;
   border-bottom: 2px solid rgb(224, 224, 224);
 }
@@ -41,7 +41,7 @@
   margin-right: 32px;
 }
 .store-admin .product-area .top .left p:nth-child(1) {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   width: 150px;
 }
@@ -379,6 +379,11 @@
 }
 .store-admin .table .tbody .tr-type .td:nth-child(3) {
   width: 50%;
+}
+.store-admin .table .tbody .tr-type .td i {
+  color: rgb(204, 204, 204);
+  font-size: 10px;
+  margin-right: 16px;
 }
 .store-admin .table .tbody .tr-product {
   display: flex;
@@ -861,6 +866,10 @@
 .product-list .product-container .row .product-info main .product-type {
   margin-bottom: 40px;
 }
+.product-list .product-container .row .product-info main .product-type .connect-id {
+  position: relative;
+  top: -104px;
+}
 .product-list .product-container .row .product-info main .product-type h5 {
   font-size: 24px;
   font-weight: 700;
@@ -1324,7 +1333,7 @@
     top: 80px;
     width: 100%;
     overflow: scroll;
-    z-index: 70;
+    z-index: 9;
     background-color: #fff;
     box-shadow: 0px 10px 20px 0px rgba(100, 100, 100, 0.2);
   }
@@ -1345,10 +1354,42 @@
   }
   .product-list .product-container .row .product-info main {
     width: 100%;
+    margin-top: 16px;
+  }
+  .product-list .product-container .row .product-info main .product-type {
+    margin: 16px 0px;
+  }
+  .product-list .product-container .row .product-info main .product-type h5 {
+    margin-left: 16px;
   }
   .product-list .product-container .row .product-info main .product-type .product-group .product-box {
     padding: 0px 16px;
     width: 100%;
+  }
+  .product-list .option-form-area {
+    -webkit-animation: slideUp 0.1s ease-in-out;
+            animation: slideUp 0.1s ease-in-out;
+  }
+  .product-list .option-form-area .option-form-section .option-form {
+    width: 100%;
+  }
+  .product-list .option-form-area .option-form-section .option-form .row .product-img img {
+    height: 180px;
+  }
+  .product-list .toBottom .option-form-section .option-form {
+    top: auto;
+    bottom: 0px;
+    margin: 0;
+  }
+}
+@-webkit-keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
   }
 }
 .option-form-area {
@@ -1561,4 +1602,23 @@
 .option-form-area .option-form-section .option-form .row .amount-section .right .inActive {
   background-color: #ccc;
   color: white;
+}
+
+.toBottom .option-form-section .option-form {
+  top: auto;
+  bottom: 0px;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .option-form-area {
+    -webkit-animation: slideUp 0.2s ease-in;
+            animation: slideUp 0.2s ease-in;
+  }
+  .option-form-area .option-form-section .option-form {
+    width: 100%;
+  }
+  .option-form-area .option-form-section .option-form .row .product-img img {
+    height: 180px;
+  }
 }/*# sourceMappingURL=style.css.map */
