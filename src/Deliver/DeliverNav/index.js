@@ -71,7 +71,7 @@ function DeliverNav() {
         </div> */}
 
         {/* 名稱顯示 暫放(原memberName) */}
-        <p>會員名稱:{localStorage.getItem('deliver_name')}</p>
+        <p>{localStorage.getItem('deliver_name')}</p>
         <p
           className="logCheck"
           onClick={
