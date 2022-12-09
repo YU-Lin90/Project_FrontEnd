@@ -92,11 +92,6 @@ function Option() {
       return;
     }
     const newOptionData = [...optionData];
-    // newOptionData.push({
-    //   sid: 0,
-    //   name: inputText,
-    //   price: 0,
-    // });
     const [spliceOptionData] = newOptionData.splice(source.index, 1);
     console.log(spliceOptionData);
     newOptionData.splice(destination.index, 0, spliceOptionData);

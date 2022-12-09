@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import EditTypeForm from '../components/EditTypeForm';
 import '../styles/style.css';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 function Type() {
   const siteName = window.location.hostname;
@@ -76,157 +77,215 @@ function Type() {
     });
   };
 
+  const onDragEnd = async (result) => {
+    const { source, destination } = result;
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    ) {
+      return;
+    }
+    // 先處理要傳後端的資料
+    const body = [];
+    body.push(data.types[source.index]);
+    body.push(data.types[destination.index]);
+    // 前端State變化
+    const newData = { ...data };
+    const [spliceData] = newData.types.splice(source.index, 1);
+    console.log(spliceData);
+    newData.types.splice(destination.index, 0, spliceData);
+    setData(newData);
+    // 把後端資料傳出去
+    const response = await axios.put(
+      `http://${siteName}:3001/store-admin/type/order`,
+      newData.types
+    );
+  };
+
   return (
     <>
-      <div className="store-admin">
-        {editType.type_sid === '' ? (
-          <>
-            <div className={`menu-container`}>
-              <div className="row">
-                <div className="menu-title">
-                  <h4>類別</h4>
-                  <div
-                    className="bg-black-btn"
-                    onClick={() => {
-                      setEditType({ ...editType, type_name: '', type_sid: 0 });
-                    }}
-                  >
-                    <i class="fa-solid fa-plus btn-icon"></i>
-                    <p>新增類別</p>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="table">
-                  <div className="thead">
-                    <div className="tr-type">
-                      <div className="th">名稱</div>
-                      <div className="th">項目數量</div>
-                      <div className="th">項目內容</div>
-                    </div>
-                  </div>
-                  <div className="tbody">
-                    {data.types.map((type, index) => {
-                      return (
-                        <div
-                          className="tr-type"
-                          key={type.sid}
-                          // 點到誰就把editType變成誰
-                          onClick={() => {
-                            setEditType({
-                              ...editType,
-                              type_sid: type.sid,
-                              type_name: type.name,
-                            });
-                          }}
-                        >
-                          <div className="td">{type.name}</div>
-                          <div className="td">
-                            {
-                              data.products.filter((p) => {
-                                return p.products_type_sid === type.sid;
-                              }).length
-                            }
-                          </div>
-                          <div className="td">
-                            {data.products
-                              .filter((p) => {
-                                return p.products_type_sid === type.sid;
-                              })
-                              .map((p) => {
-                                return p.name;
-                              })
-                              .join()}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-
-        {!(editType.type_sid === '') ? (
-          <>
-            <div className={`menu-container`}>
-              <div className="row">
-                <div className="top-edit-bar">
-                  <div className="left-btn-group">
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="store-admin">
+          {editType.type_sid === '' ? (
+            <>
+              <div className={`menu-container`}>
+                <div className="row">
+                  <div className="menu-title">
+                    <h4>類別</h4>
                     <div
+                      className="bg-black-btn"
                       onClick={() => {
-                        setEditType({ type_name: '', type_sid: '' });
+                        setEditType({
+                          ...editType,
+                          type_name: '',
+                          type_sid: 0,
+                        });
                       }}
                     >
-                      <i className="fa-solid fa-arrow-left"></i>
+                      <i class="fa-solid fa-plus btn-icon"></i>
+                      <p>新增類別</p>
                     </div>
                   </div>
+                </div>
+                <div className="row">
+                  <div className="table">
+                    <div className="thead">
+                      <div className="tr-type">
+                        <div className="th">名稱</div>
+                        <div className="th">項目數量</div>
+                        <div className="th">項目內容</div>
+                      </div>
+                    </div>
+                    <Droppable droppableId="drop-id">
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                        >
+                          <div className="tbody">
+                            {data.types.map((type, index) => {
+                              return (
+                                <Draggable
+                                  draggableId={`type${index}`}
+                                  index={index}
+                                >
+                                  {(provided) => (
+                                    <div
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      ref={provided.innerRef}
+                                      className="tr-type"
+                                      key={type.sid}
+                                      // 點到誰就把editType變成誰
+                                      onClick={() => {
+                                        setEditType({
+                                          ...editType,
+                                          type_sid: type.sid,
+                                          type_name: type.name,
+                                        });
+                                      }}
+                                    >
+                                      <div className="td">
+                                        <i className="fa-solid fa-equals"></i>
+                                        {type.name}
+                                      </div>
+                                      <div className="td">
+                                        {
+                                          data.products.filter((p) => {
+                                            return (
+                                              p.products_type_sid === type.sid
+                                            );
+                                          }).length
+                                        }
+                                      </div>
+                                      <div className="td">
+                                        {data.products
+                                          .filter((p) => {
+                                            return (
+                                              p.products_type_sid === type.sid
+                                            );
+                                          })
+                                          .map((p) => {
+                                            return p.name;
+                                          })
+                                          .join()}
+                                      </div>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              );
+                            })}
+                          </div>
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
 
-                  <div className="right-btn-group">
-                    {editType.type_sid === 0 ? (
-                      ''
-                    ) : (
+          {!(editType.type_sid === '') ? (
+            <>
+              <div className={`menu-container`}>
+                <div className="row">
+                  <div className="top-edit-bar">
+                    <div className="left-btn-group">
                       <div
-                        className="sm-white-btn"
                         onClick={() => {
-                          delBtnHandler(editType.type_sid);
+                          setEditType({ type_name: '', type_sid: '' });
                         }}
                       >
-                        <p>刪除</p>
+                        <i className="fa-solid fa-arrow-left"></i>
                       </div>
-                    )}
-                    <div
-                      className="sm-black-btn"
-                      onClick={
-                        editType.type_sid === 0
-                          ? addBtnHandler
-                          : () => {
-                              editBtnHandler(editType.type_sid);
-                            }
-                      }
-                    >
-                      <p>儲存</p>
+                    </div>
+
+                    <div className="right-btn-group">
+                      {editType.type_sid === 0 ? (
+                        ''
+                      ) : (
+                        <div
+                          className="sm-white-btn"
+                          onClick={() => {
+                            delBtnHandler(editType.type_sid);
+                          }}
+                        >
+                          <p>刪除</p>
+                        </div>
+                      )}
+                      <div
+                        className="sm-black-btn"
+                        onClick={
+                          editType.type_sid === 0
+                            ? addBtnHandler
+                            : () => {
+                                editBtnHandler(editType.type_sid);
+                              }
+                        }
+                      >
+                        <p>儲存</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="edit-form">
-                  <form action="" name="editForm">
-                    <label hidden>
-                      <input
-                        type="number"
-                        name="type_sid"
-                        value={editType.type_sid}
-                      />
-                    </label>
+                <div className="row">
+                  <div className="edit-form">
+                    <form action="" name="editForm">
+                      <label hidden>
+                        <input
+                          type="number"
+                          name="type_sid"
+                          value={editType.type_sid}
+                        />
+                      </label>
 
-                    <label>
-                      <input
-                        type="text"
-                        name="type_name"
-                        value={editType.type_name}
-                        onChange={(e) => {
-                          setEditType({
-                            ...editType,
-                            type_name: e.target.value,
-                          });
-                        }}
-                        placeholder="名稱"
-                      />
-                    </label>
-                  </form>
+                      <label>
+                        <input
+                          type="text"
+                          name="type_name"
+                          value={editType.type_name}
+                          onChange={(e) => {
+                            setEditType({
+                              ...editType,
+                              type_name: e.target.value,
+                            });
+                          }}
+                          placeholder="名稱"
+                        />
+                      </label>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      </DragDropContext>
     </>
   );
 }
