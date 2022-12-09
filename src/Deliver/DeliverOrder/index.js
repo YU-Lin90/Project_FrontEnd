@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './order.css';
-
+const siteName = window.location.hostname;
 function DeliverOrder() {
   const navi = useNavigate();
   const [orderData, setOrderData] = useState([]);
@@ -13,7 +13,7 @@ function DeliverOrder() {
   async function getOrder() {
     const ordersid = localStorage.getItem('order_sid');
     const response = await axios.get(
-      `http://localhost:3001/deliver/deliverorder/${ordersid}`
+      `http://${siteName}:3001/deliver/deliverorder/${ordersid}`
     );
     setOrderData(response.data.rows);
     setFoodData(response.data.food);

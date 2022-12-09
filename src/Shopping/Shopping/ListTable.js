@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGeo } from '../../Context/GeoLocationProvider';
 //地址用----------------------------------------------------------------
 import { usePay } from '../../Context/PayPageContext';
-
+const siteName = window.location.hostname;
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
@@ -158,7 +158,7 @@ export default function ListTable() {
 
     try {
       const response = await axios.post(
-        `http://localhost:3001/MemberLogin/addshop/${sid}/${shopSid}`
+        `http://${siteName}:3001/MemberLogin/addshop/${sid}/${shopSid}`
       );
       console.log(response.data);
     } catch (e) {
@@ -171,7 +171,7 @@ export default function ListTable() {
 
     try {
       const response = await axios.delete(
-        `http://localhost:3001/MemberLogin/del/${sid}/${shopSid}`
+        `http://${siteName}:3001/MemberLogin/del/${sid}/${shopSid}`
       );
       console.log(response.data);
     } catch (e) {
@@ -346,7 +346,7 @@ export default function ListTable() {
 
     try {
       const response_favorite = await axios.get(
-        `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+        `http://${siteName}:3001/MemberLogin/api3/${sid}` //最愛店家
       );
 
       console.log(response_favorite.data);

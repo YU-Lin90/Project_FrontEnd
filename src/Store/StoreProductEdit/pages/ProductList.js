@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import OptionForm from '../components/OptionForm/index';
-
+const siteName = window.location.hostname;
 function ProductList() {
-  const siteName = window.location.hostname;
 
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
@@ -41,7 +40,7 @@ function ProductList() {
         <div className="product-container">
           <div className="row">
             <div className="shop-img">
-              <img src={`http://localhost:3001/images/shop/${data.shop.src}`} alt="店家圖片" />
+              <img src={`http://${siteName}:3001/images/shop/${data.shop.src}`} alt="店家圖片" />
             </div>
           </div>
           <div className="row">

@@ -9,6 +9,7 @@ import { useFunc } from '../../../Context/FunctionProvider';
 import { useNavigate } from 'react-router-dom';
 import TargetPositionIcon from './TargetPositionIcon';
 import './DeliverMaps.css';
+const siteName = window.location.hostname;
 const Cycle = () => (
   <div>
     <i className="fs48 fa-solid fa-motorcycle fontMainColor mapTranslate cycleFontOnMap"></i>
@@ -31,12 +32,14 @@ function DeliverMapContent({
   //聊天室
   orderSocket,
   //會員SID
-  memberSid = 1,
+  // memberSid = 1,
   //聊天室開啟狀態
   socketOpened,
 }) {
   //店家/客戶名稱
   const [targetName, setTargetName] = useState('');
+  //會員SID
+  const [memberSid,setMemberSid] = useState(0)
   //現在是誰  2 店家 1 客戶
   const [sideNow, setSideNow] = useState(2);
   const { loginCheckGetFetch } = useFunc();
@@ -110,6 +113,7 @@ function DeliverMapContent({
     setTargetPosition(coordinate);
     setTargetAddress(address);
     setTargetName(gettedName);
+    setMemberSid(res.memberSid)
   };
   //===============================================分隔線================================================
   const checkMyLocation = async () => {
@@ -177,13 +181,13 @@ function DeliverMapContent({
 
   async function foodget() {
     const ordersid = localStorage.getItem('order_sid');
-    await axios.put(`http://localhost:3001/deliver/deliverorder/${ordersid}`);
+    await axios.put(`http://${siteName}:3001/deliver/deliverorder/${ordersid}`);
   }
 
   async function foodreach() {
     const ordersid = localStorage.getItem('order_sid');
     await axios.put(
-      `http://localhost:3001/deliver/finishdeliverorder/${ordersid}`
+      `http://${siteName}:3001/deliver/finishdeliverorder/${ordersid}`
     );
     //這裡看要到接單畫面還是歷史訂單
     //記得要刪掉現在接單的資訊 LOCALSTORAGE
