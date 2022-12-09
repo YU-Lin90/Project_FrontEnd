@@ -1,6 +1,7 @@
 //歷史訂單 第三層 訂單細節
 import { useEffect, useState } from 'react';
 import { useFunc } from '../../Context/FunctionProvider';
+const siteName = window.location.hostname;
 //  訂單編號  其他訂單細節
 //{ orderSid, orderDetail }  112
 function DropDownDetails({ orderSid, orderData }) {
@@ -47,22 +48,47 @@ function DropDownDetails({ orderSid, orderData }) {
   return (
     <>
       <div className="w100p padH20 padV20">
-        <div>
+        <div className="disf fw-w">
           {productDetails.map((v, i) => {
             return (
               <>
-                <div key={i} className="disf jc-sb padV10 padH20">
-                  <p className="fontMainColor fw6 ">{v.amount}x</p>
-                  <p>{v.name}</p>
-                  <p>{v.product_price * v.amount}</p>
-                </div>
-                {v.options.length === 0 ? null : (
-                  <div className="disf ai-c jc-se">
-                    {v.options.map((val) => {
-                      return <span>{val.options.options}</span>;
-                    })}
+                <div className=" b50w100 padH10 padV10" key={i}>
+                  <div className="memberOldOrderDetailProductCard">
+                    <div className="disf jc-se padV10 padH20 ta-c ai-c ">
+                      <div className="w30p">
+                        <img
+                          alt={v.name}
+                          src={`http://${siteName}:3001/uploads/${v.src}`}
+                        />
+                      </div>
+                      <p className="fontMainColor fs18 fw6 w10p">{v.amount}x</p>
+                      <p className="w45p fs18">{v.name}</p>
+                      <p className="w15p fs18">${v.product_price * v.amount}</p>
+                    </div>
+                    {v.options.length === 0 ? null : (
+                      <div className="disf ai-c fw-w padV5 gap5 padH5">
+                        {v.options.map((val, index) => {
+                          return (
+                            <p className="disf fd-c ta-c ai-c jc-c marb10">
+                              <span className="marr5 marb5" key={index}>
+                                【{val.options}】
+                              </span>
+                              <span
+                                className={
+                                  val.option_price === 0
+                                    ? 'fontTransparnt'
+                                    : null
+                                }
+                              >
+                                ${val.option_price} x {v.amount}
+                              </span>
+                            </p>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </>
             );
           })}

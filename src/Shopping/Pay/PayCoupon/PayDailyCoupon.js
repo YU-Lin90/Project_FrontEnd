@@ -51,21 +51,35 @@ function PayDailyCoupon() {
   return (
     <>
       {hasDailyCoupon ? (
-        <div>
-          <p>每日優惠券</p>
-          <p>
-            <span>折扣金額</span>
-            <span>{showDailyCoupon.cut_amount}</span>
-          </p>
-          <p>
-            使用期限:
-            <span>
+        <div className="w100p padH20 marb20">
+          <p className="dailyCouponOnPayTitle ta-c ">每日優惠券</p>
+          <div className="payDailyCouponShowCard">
+            <p>${showDailyCoupon.cut_amount} 折扣</p>
+            <p className="fs24">{showDailyCoupon.shopName}</p>
+            <p>
+              使用期限：
               {moment(showDailyCoupon.expire).utcOffset(8).format('HH:mm:ss')}
-            </span>
-          </p>
+            </p>
+          </div>
         </div>
       ) : null}
     </>
   );
 }
 export default PayDailyCoupon;
+
+/* <div className="disf fd-c ai-c jc-c">
+          <p className="dailyCouponOnPayTitle ">每日優惠券</p>
+          <div className="disf jc-se ai-c w100p ta-c marb20 fs18 fontBlue">
+            <p className="w50p">
+              <span>折扣金額：</span>
+              <span>{showDailyCoupon.cut_amount}</span>
+            </p>
+            <p className="w50p">
+              使用期限:
+              <span>
+                {moment(showDailyCoupon.expire).utcOffset(8).format('HH:mm:ss')}
+              </span>
+            </p>
+          </div>
+        </div> */

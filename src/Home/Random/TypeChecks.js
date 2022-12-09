@@ -15,9 +15,9 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
     <>
       <div className="randomCheckBoxFrame">
         <p className="fs24 fw6 ta-c">請選擇種類</p>
-        <div className="disf jc-se w500 marHauto  padV20 padH20">
+        <div className="disf jc-se marHauto ai-c fw-w ta-c  padV20 padH20">
           {typeList.map((v) => (
-            <div key={v.sid} className="disf">
+            <div key={v.sid} className="flexSetCenter w33p marb10 ">
               <label className="marr10" htmlFor={`randomCheckbox${v.sid}`}>
                 {v.name}
               </label>
@@ -53,7 +53,7 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
             onClick={() => {
               setRejectedTypes(Array(6).fill(true));
             }}
-            className="bgcMain bradi10 padV10 padH10 fs18 fw5 pointer"
+            className="bgcMain bradi10 padV10 padH10 fs18 fw6 pointer"
           >
             全部選取
           </p>
@@ -61,7 +61,7 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
             onClick={() => {
               setRejectedTypes(Array(6).fill(false));
             }}
-            className="bgcMain bradi10 padV10 padH10 fs18 fw5 pointer"
+            className="bgcMain bradi10 padV10 padH10 fs18 fw6 pointer"
           >
             全部清空
           </p>

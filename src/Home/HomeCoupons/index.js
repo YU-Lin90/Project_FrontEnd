@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFunc } from '../../Context/FunctionProvider';
-function HomeCoupons() {
+import DailyTimeCounter from '../DailyTimeCounter';
+function HomeCoupons({ fakeCounter }) {
   const { notLoginGetFetch } = useFunc();
+  const navi = useNavigate();
   const [couponDatas, setCouponDatas] = useState([]);
   const getCoupons = async () => {
     const res = await notLoginGetFetch('HomePageGetCoupon');
@@ -27,15 +30,22 @@ function HomeCoupons() {
   return (
     <>
       <div className="w100p padH20 marb20">
-        <p className="homePageLogos">優惠券</p>
-
+        <p className="homePageLogos">限時優惠</p>
+        <DailyTimeCounter fakeCounter={fakeCounter} />
+        <p className="fs32 fw6 ta-c fontMainColor">優惠券</p>
         <div className="homePageCouponFrame">
           {couponDatas.map((v, i) => {
             return (
-              <div key={v.sid} className="b33s100 w33p padH10">
-                <div className="bgcMain padV15 padH10 disf fd-c pointer homePageCouponPerFrame">
-                  <p className="as-s marb20">{v.name}</p>
-                  <p className="as-c marb20 fs28 fw5 marV10 w100p va-m">
+              <div
+                onClick={() => {
+                  navi('/Coupon');
+                }}
+                key={v.sid}
+                className="b33s100 w33p padH10 marb20"
+              >
+                <div className="bgcMain padV15 padH10 disf fd-c pointer dailyCouponShowCard homePageCouponPerFrame">
+                  <p className="as-s marb10">{v.name}</p>
+                  <p className="as-c marb10 fs28 fw6 marV10 w100p va-m">
                     {v.coupon_name}
                   </p>
                   <p className="as-e ">使用期限：{v.expire}</p>

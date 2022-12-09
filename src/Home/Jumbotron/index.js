@@ -35,14 +35,14 @@ function Jumbotron() {
                 return (
                   <div
                     key={i}
-                    className="imgFR po-r "
+                    className="imgFR po-r  pointer"
                     onClick={() => {
                       navi(`/productList/?shop_sid=${v.sid}`);
                     }}
                   >
                     <p className="jumbotronEvaluation">
                       {v.average_evaluation}
-                      <i className="fa-solid fa-star fontSubColor pointer"></i>
+                      <i className="fa-solid fa-star fontSubColor "></i>
                     </p>
                     <p className="jumbotronShopName">{v.name}</p>
                     <img

@@ -36,6 +36,28 @@
 .orderCommandBox textarea{
   background-color: #ddc;
 }
+.memberOldOrderDetailProductCard{
+  border-radius: 10px;
+  background-color: var(--subColor);
+  padding: 5px;
+  position: relative;
+  border: 5px solid var(--mainColor);
+  box-shadow: -3px 0 6px -8px rgba(0, 40, 93, 0.08);
+}
+.memberOldOrderDetailProductCard::after{
+  display: block;
+  content: '';
+  /* background-color: #3893E8; */
+  background-color: var(--subColor);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  /* border-radius: 50%; */
+  background: radial-gradient(var(--subColor), var(--subColor) calc(100% - 15px), #fff calc(100% - 15px), #fff calc(100% - 10px), var(--subColor) calc(100% - 10px), var(--subColor) 100%);
+}
 @media screen and (min-width:768px){
   .orderCommandBox{
   /* width: inherit; */

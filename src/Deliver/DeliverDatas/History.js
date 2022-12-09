@@ -67,10 +67,22 @@ function History({
                 {food.map((val) => {
                   return (
                     <li className="Dfoodcontext">
-                      <p>
-                        {val.amount}X {val.name}
-                      </p>
-                      <p>{val.price}</p>
+                      <div className='Dhistoryfood'>
+                        <p>
+                          {val.amount}X {val.name}
+                        </p>
+                        <p>NT$ {val.price}</p>
+                      </div>
+                      {val.detail.length == 0 ? null : (
+                        <div className='Dhistoryfoodetail'>
+                          {val.detail.map((v, i) => {
+                            return (
+                              <p className='Dhfoodetail'>{v.options}</p>
+                            )
+                          })} 
+                        </div>
+                      )}
+                      
                     </li>
                   );
                 })}
