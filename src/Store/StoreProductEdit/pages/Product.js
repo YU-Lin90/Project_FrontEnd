@@ -59,7 +59,7 @@ function Product() {
     setMyUserSid(JSON.parse(localStorage.getItem('StoreDatas')).sid);
     // 取得店家菜單資料
     getData(JSON.parse(localStorage.getItem('StoreDatas')).sid);
-  }, [selectedItem]);
+  }, [selectedItem, reload]);
 
   useEffect(() => {
     // 更新展示的資料
@@ -181,40 +181,11 @@ function Product() {
   };
 
   const addDemoProducts = async () => {
-    const body = [
-      {
-        name: '123',
-        price: 123,
-        order: 12,
-        type: 1,
-        shop_sid: myUserSid,
-        options_types: [2, 3],
-        src: '223有機果粒菜.jpg',
-        note: '123',
-        available: true,
-        discount: 123,
-      },
-      {
-        name: '124',
-        price: 124,
-        order: 13,
-        type: 2,
-        shop_sid: myUserSid,
-        options_types: [2, 3, 4, 5],
-        src: '223有機果粒菜.jpg',
-        note: '123',
-        available: true,
-        discount: 124,
-      },
-    ];
-    for (let i = 0; i < body.length; i++) {
-      const response = await axios.post(
-        `http://${siteName}:3001/store-admin/product/demo-data`,
-        body[i]
-      );
-    }
+    const response = await axios.post(
+      `http://${siteName}:3001/store-admin/product/demo-data`
+    );
 
-    // setReload((v) => v + 1);
+    setReload((v) => v + 1);
     setImgSrc('');
     setSelectedItem('');
     Swal.fire({

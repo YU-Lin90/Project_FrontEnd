@@ -145,17 +145,9 @@ function Type() {
 
   // 快速填入類別
   const addDemoTypes = async () => {
-    const body = [
-      { type_name: 'AA', type_sid: 0 },
-      { type_name: 'BB', type_sid: 0 },
-    ];
-    const myUserId = JSON.parse(localStorage.getItem('StoreDatas')).sid;
-    for (let i = 0; i < body.length; i++) {
-      const response = await axios.post(
-        `http://${siteName}:3001/store-admin/type/${myUserId}`,
-        body[i]
-      );
-    }
+    const response = await axios.post(
+      `http://${siteName}:3001/store-admin/type/demo-data`
+    );
     setReload((v) => v + 1);
     setEditType({
       type_sid: '',

@@ -130,6 +130,20 @@ function Option() {
     setOptionData(newOptionData);
   };
 
+  const addDemoOption = async () => {
+    const response = await axios.post(
+      `http://${siteName}:3001/store-admin/option/demo-data`
+    );
+    setReload((v) => v + 1);
+    setSelectedItem('');
+    Swal.fire({
+      icon: 'success',
+      title: '修改成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -157,6 +171,10 @@ function Option() {
                     >
                       <i class="fa-solid fa-plus btn-icon"></i>
                       <p>新增選項類別群組</p>
+                    </div>
+                    <div className="bg-black-btn" onClick={addDemoOption}>
+                      <i class="fa-solid fa-plus btn-icon"></i>
+                      <p>快速填入選項類別</p>
                     </div>
                   </div>
                 </div>
