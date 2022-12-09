@@ -37,7 +37,9 @@ export default function ListTable() {
   //-------------------------計算距離用------------------------------------
 
   //距離用
-  const { calculateDistance } = useGeo();
+  const { calculateDistance, getLatLngByAddress, calculateDistanceByLatLng } =
+    useGeo();
+
   //地址用
   const { sendAddress, setSendAddress } = usePay();
   const { currentAddress, setCurrentAddress } = useState(sendAddress);
@@ -79,6 +81,7 @@ export default function ListTable() {
   const [searchDistance, setSearchDistance] = useState();
   const [distanceData, setDistanceData] = useState({});
   const [shopDistance, setShopDistance] = useState([]);
+
   // const shopDistance = useref([])
 
   //取得所有店家
@@ -234,8 +237,11 @@ export default function ListTable() {
 
   // 搜尋函式
   const searchShop = async (event) => {
+    const localposition = await getLatLngByAddress(sendAddress);
+
+    console.log(localposition);
     console.log('執行了search');
-    setShop('');
+    // setShop('');
     setNoResult('正在搜尋中');
     const sid = localStorage.getItem('MemberSid');
     let key = formData.search ? formData.search : '';
@@ -282,11 +288,15 @@ export default function ListTable() {
     for (let element of result.data) {
       const shopAddress = element.address;
       const selfLocation = sendAddress;
-      // let gettedDistance = ''
+      const shopPosition = await getLatLngByAddress(25.0448, 121.515);
 
       // 計算("店家地址","送達地址")間的直線距離
 
       // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
+      // const gettedDistance = await calculateDistanceByLatLng(
+      //   localposition,
+      //   shopDistance
+      // );
 
       // 測試用，隨機亂數
       const gettedDistance = Math.random() * 50;
@@ -306,15 +316,13 @@ export default function ListTable() {
         result.data.sort((a, b) => a.distance - b.distance);
       }
 
-      distanceData.sid = element.sid;
-      distanceData.distance = element.distance;
-      shopDistance.push({
-        sid: distanceData.sid,
-        idistance: element.distance,
-      });
+      // distanceData.shop_lat = element.shop_lat;
+      // distanceData.shop_lng = element.shop_lng;
+      console.log(shopPosition);
     } // 迴圈結束
     console.log('放入距離物件:', distanceData);
     console.log('放入距離陣列:', shopDistance);
+
     // }
     // else {
     //   for (let element of result.data) {
@@ -432,7 +440,6 @@ export default function ListTable() {
       // for ( let x = 0 ; x > i ; x++ ){
       //   document.querySelector('.shopCardBox')[1].style.width = '100%';
       // }
-      
     }
     if (!toggle) {
       document.getElementsByClassName('col_bar')[0].style.right = '0';
@@ -603,7 +610,10 @@ export default function ListTable() {
         <div className="shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
-              <div key={index} className={toggle ? "shopCardBox" : "shopCardBox shopCardBox1"}>
+              <div
+                key={index}
+                className={toggle ? 'shopCardBox' : 'shopCardBox shopCardBox1'}
+              >
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
                   <div className="shopCard_image">
                     <img
@@ -690,7 +700,7 @@ export default function ListTable() {
         className="search_bar_toggle"
         id="bar_switch"
       >
-       <AiOutlineSearch/>
+        <AiOutlineSearch />
       </div>
     </>
   );
