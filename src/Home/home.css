@@ -425,3 +425,7 @@
         /* .homePageSearchInputLabel.active.hasText{
             display:block;
         } */
+
+        #homePageSearchInput:focus{
+            box-shadow: 4px 7px 4px  rgba(23, 56, 43, 0.76);
+        }

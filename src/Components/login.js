@@ -20,7 +20,7 @@ export default function Btn(props){
         timer: 1500
       })
       localStorage.setItem('deliver_sid', JSON.stringify(data.auth.sid));
-      localStorage.setItem('deliver_name', JSON.stringify(data.auth.name));
+      localStorage.setItem('deliver_name', data.auth.name);
       localStorage.setItem('onlie_state', JSON.stringify(data.success));
       localStorage.setItem('delivertake', true);
       localStorage.setItem('Deliver', data.tokenYU);

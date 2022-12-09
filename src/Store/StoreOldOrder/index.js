@@ -1,4 +1,9 @@
+import StoreEvaluation from '../StoreEvaluation';
 function StoreOldOrder() {
-  return <>店家歷史訂單預定頁</>;
+  return (
+    <>
+      <StoreEvaluation />
+    </>
+  );
 }
 export default StoreOldOrder;
