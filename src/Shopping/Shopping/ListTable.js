@@ -24,27 +24,32 @@ export default function ListTable() {
   //儲存搜尋時呈現的訊息用
   const [noResult, setNoResult] = useState('正在搜尋中');
   const [disResult, setDisResult] = useState('計算中');
+
   //檢查是否為城市頁
   const [isCity, setIsCity] = useState(false);
   const pathname = window.location.pathname;
 
   const navigate = useNavigate();
 
-  const [isFirst, setIsFirst] = useState(false);
+  // const [isFirstRender, setIsFirstRender] = useState(false);
 
   const [cardBoxWidth, setCardBoxWidth] = useState('width:100%');
 
   //-------------------------計算距離用------------------------------------
 
-  //距離用
+  //距離用    實算距離(API)   以地址得到經緯度(API)   兩方經緯度算距離(本地)
   const { calculateDistance, getLatLngByAddress, calculateDistanceByLatLng } =
     useGeo();
 
   //地址用
   const { sendAddress, setSendAddress } = usePay();
-  const { currentAddress, setCurrentAddress } = useState(sendAddress);
 
-  const [fees, setFees] = useState();
+  //放入商店地址的經緯度用
+  const [shopPosition, setShopPosition] = useState({
+    lat: 1,
+    lng: 1,
+  });
+
 
   //----------------------------------------------------------------------
 
@@ -53,14 +58,6 @@ export default function ListTable() {
     setNoResult('正在搜尋中');
     searchShop();
   }, [sendAddress]);
-
-  useEffect(() => {
-    if (shop.length === 0) {
-      setNoResult('無法搜尋到您想要的餐點');
-    } else {
-      setNoResult('正在搜尋中');
-    }
-  });
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -77,12 +74,6 @@ export default function ListTable() {
   const [searchPriceMin, setSearchPriceMin] = useState('');
   const [searchWaitTime, setSearchWaitTime] = useState('80');
   const [searchTotalRows, setSearchTotalRows] = useState('');
-
-  const [searchDistance, setSearchDistance] = useState();
-  const [distanceData, setDistanceData] = useState({});
-  const [shopDistance, setShopDistance] = useState([]);
-
-  // const shopDistance = useref([])
 
   //取得所有店家
   // const getShop = async () => {
@@ -237,9 +228,11 @@ export default function ListTable() {
 
   // 搜尋函式
   const searchShop = async (event) => {
-    const localposition = await getLatLngByAddress(sendAddress);
+    // 得到當前定位的經緯度
+    // const localposition = await getLatLngByAddress(sendAddress);
+    //{lat: 25.0339145, lng: 121.543412}
+    const localposition = { lat: 25.0339145, lng: 121.543412 };
 
-    console.log(localposition);
     console.log('執行了search');
     // setShop('');
     setNoResult('正在搜尋中');
@@ -276,30 +269,36 @@ export default function ListTable() {
       `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-    if (result.data.length === 0) {
-      setNoResult('無法搜尋到您想要的餐點');
-    } else {
-      setNoResult('正在搜尋中');
-    }
-    console.log('資料長度', result.data.length);
 
+    console.log('資料長度', result.data.length);
+    // const test = {s:25.0448 , l:121.515}
+    // const shopPosition = await getLatLngByAddress(test);
+    // console.log(shopPosition);
     //---------------------------計算距離用-----------------------------
-    // if (!isFirst) {
+
+    // if (!isFirstRender) {
     for (let element of result.data) {
       const shopAddress = element.address;
       const selfLocation = sendAddress;
-      const shopPosition = await getLatLngByAddress(25.0448, 121.515);
 
       // 計算("店家地址","送達地址")間的直線距離
 
+      // GoogleAPI實時運算，耗時
       // const gettedDistance = await calculateDistance(shopAddress, selfLocation);
-      // const gettedDistance = await calculateDistanceByLatLng(
-      //   localposition,
-      //   shopDistance
-      // );
 
       // 測試用，隨機亂數
-      const gettedDistance = Math.random() * 50;
+      // const gettedDistance = Math.random() * 50;
+
+      // 直接以資料表內的店家經緯度與本地位置的經緯度運算(兩方皆為寫死)
+      shopPosition.lat = element.shop_lat
+      shopPosition.lng = element.shop_lng 
+      const gettedDistance = await calculateDistanceByLatLng(
+        localposition,
+        shopPosition
+      );
+      console.log(localposition);
+      console.log(shopPosition);
+      console.log(gettedDistance);
 
       // 將結果放進result.distance
       element.distance = gettedDistance
@@ -315,13 +314,8 @@ export default function ListTable() {
       if (!order) {
         result.data.sort((a, b) => a.distance - b.distance);
       }
-
-      // distanceData.shop_lat = element.shop_lat;
-      // distanceData.shop_lng = element.shop_lng;
-      console.log(shopPosition);
     } // 迴圈結束
-    console.log('放入距離物件:', distanceData);
-    console.log('放入距離陣列:', shopDistance);
+
 
     // }
     // else {
@@ -343,15 +337,15 @@ export default function ListTable() {
     //     result.data.sort((a, b) => a.distance - b.distance);
     //   }
     // }
-    // setisFirst(true);
+    // setisFirstRender(true);
     //-----------------------------------------------------------------
 
     // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
-    if (shop.length === 0) {
-      setNoResult('無法搜尋到您想要的餐點');
-    } else {
-      setNoResult('正在搜尋中');
-    }
+    // if (shop.length === 0) {
+    //   setNoResult('無法搜尋到您想要的餐點');
+    // } else {
+    //   setNoResult('正在搜尋中');
+    // }
 
     //有搜尋店名or價格上限or下限才顯示筆數(等待時間沒有)
     if (key || price_max || price_min) {
@@ -705,7 +699,3 @@ export default function ListTable() {
     </>
   );
 }
-
-//TODO: sidebar 在正常下display flex RWD下display none
-//TODO: toggle 在正常下display none RWD下display flex
-//TODO: toggle 可以切換sidebar的display flex
