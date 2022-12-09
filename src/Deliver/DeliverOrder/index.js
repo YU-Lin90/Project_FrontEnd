@@ -2,12 +2,18 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './order.css';
+/* --------------------------------------- */
+import { useGeo } from '../../Context/GeoLocationProvider';
+/* --------------------------------------- */
 
 function DeliverOrder() {
   const navi = useNavigate();
   const [orderData, setOrderData] = useState([]);
   const [foodData, setFoodData] = useState([]);
   const [total, setTotal] = useState([]);
+  const [deliverPosition, setDeliverPosition] = useState("25.03086247511344, 121.53130788356066");
+  const [addmap, setAppmap] = useState();
+  const [delivertake, setDelivertake] = useState();
   // const ordersid = localStorage.getItem('order_sid');
 
   async function getOrder() {
@@ -18,18 +24,45 @@ function DeliverOrder() {
     setOrderData(response.data.rows);
     setFoodData(response.data.food);
     setTotal(response.data.total);
+    setDelivertake(JSON.parse(localStorage.getItem('delivertake')))
     console.log(response.data);
   }
+    /* -----------------距離用---------------------- */
+    const { calculateDistance } = useGeo();
+
+    const checkMyLocation = async () => {
+      //獲得現在位置 然後傳到裡面的函式
+      navigator.geolocation.getCurrentPosition((location) => {
+        console.log(location.coords);
+        console.log(`${location.coords.latitude}, ${location.coords.longitude}`);
+        const deliverself = `${location.coords.latitude}, ${location.coords.longitude}`;
+        setDeliverPosition(deliverself);
+      });
+    };
+  
+    const map = async () => {  
+      // 計算("店家地址","送達地址")間的直線距離
+      console.log(orderData[0].address);
+      const gettedDistance = await calculateDistance(orderData[0].address, deliverPosition);
+      const mapapp = gettedDistance.toFixed(1)
+      setAppmap(mapapp)
+      
+    }
+  
+    
+    /* --------------------------------------- */
 
   useEffect(() => {
+    checkMyLocation();
     getOrder();
-  }, []);
+    map();
+  }, [deliverPosition]);
   return (
     <>
       <div className="Dttcontext">
         <div className="Dtopcontext">
           <p>取餐資訊</p>
-          <p>{}</p>
+          <p>{delivertake ? null : addmap+" km"}</p>
         </div>
         {orderData.map((ddate, i) => {
           return (
