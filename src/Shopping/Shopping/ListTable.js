@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useref } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
@@ -29,7 +29,7 @@ export default function ListTable() {
 
   const navigate = useNavigate();
 
-  const [isFake, setIsFake] = useState(0);
+  const [isFirst, setIsFirst] = useState(false);
 
   //-------------------------計算距離用------------------------------------
 
@@ -37,6 +37,9 @@ export default function ListTable() {
   const { calculateDistance } = useGeo();
   //地址用
   const { sendAddress, setSendAddress } = usePay();
+  const { currentAddress, setCurrentAddress } = useState(sendAddress);
+
+  const [fees, setFees] = useState();
 
   //----------------------------------------------------------------------
 
@@ -44,7 +47,7 @@ export default function ListTable() {
   useEffect(() => {
     setNoResult('正在搜尋中');
     searchShop();
-  }, [sendAddress, isFake]);
+  }, [sendAddress]);
 
   //表格資料
   const [shop, setShop] = useState([]);
@@ -61,6 +64,11 @@ export default function ListTable() {
   const [searchPriceMin, setSearchPriceMin] = useState('');
   const [searchWaitTime, setSearchWaitTime] = useState('80');
   const [searchTotalRows, setSearchTotalRows] = useState('');
+
+  const [searchDistance, setSearchDistance] = useState();
+  const [distanceData, setDistanceData] = useState({});
+  const [shopDistance, setShopDistance] = useState([]);
+  // const shopDistance = useref([])
 
   //取得所有店家
   // const getShop = async () => {
@@ -213,8 +221,11 @@ export default function ListTable() {
     setFormData(dataIN);
   };
 
-  //現在無submit
+  // 搜尋函式
   const searchShop = async (event) => {
+    console.log('執行了search');
+    setShop('');
+    setNoResult('正在搜尋中');
     const sid = localStorage.getItem('MemberSid');
     let key = formData.search ? formData.search : '';
     let price_max = formData.price_max; // 未輸入為0，寫在後端API
@@ -228,11 +239,6 @@ export default function ListTable() {
     // 如果等待時間小於5，設置成5
     if (wait_time && wait_time < 5) {
       wait_time = 5;
-    }
-
-    // 如果排序選擇距離則設置固定在距離
-    if (order && order === 'distance') {
-      setIsChecked(!isChecked);
     }
 
     if (!key) {
@@ -249,20 +255,22 @@ export default function ListTable() {
       key = key.trim().replace(/\s+/g, '%2C');
     }
 
-    let result = await axios.get(
+    const result = await axios.get(
       `http://${siteName}:3001/Shopping/?search=${key}&price_max=${price_max}&price_min=${price_min}&order=${order}&wait_time=${wait_time}`
       // `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-    setShop(result.data);
+
+    console.log('資料長度', shop.length);
 
     //---------------------------計算距離用-----------------------------
-
-    if (sendAddress) {
+    // if (!isFirst) {
       for (let element of result.data) {
         const shopAddress = element.address;
         const selfLocation = sendAddress;
+        // let gettedDistance = ''
 
         // 計算("店家地址","送達地址")間的直線距離
+
         const gettedDistance = await calculateDistance(
           shopAddress,
           selfLocation
@@ -274,26 +282,67 @@ export default function ListTable() {
         // 將結果放進result.distance
         element.distance = gettedDistance
           ? Math.round(gettedDistance * 10) / 10
-          : '沒有結果';
+          : Math.round(Math.random() * 50 * 10) / 10;
+
         // 超過30公里，每5公里加10元外送費
-        element.fees = parseInt(gettedDistance / 5) * 10 + 30;
+        element.fees = gettedDistance
+          ? parseInt(gettedDistance / 5) * 10 + 30
+          : 'Error';
 
         // 如果排序=距離，把資料按distance由小到大排列
-        if (order === 'distance') {
+        if (!order) {
           result.data.sort((a, b) => a.distance - b.distance);
         }
-      }
-    }
+
+        distanceData.sid = element.sid;
+        distanceData.distance = element.distance;
+        shopDistance.push({
+          sid: distanceData.sid,
+          idistance: element.distance,
+        });
+      } // 迴圈結束
+      console.log('放入距離物件:', distanceData);
+      console.log('放入距離陣列:', shopDistance);
+    // }
+    // else {
+    //   for (let element of result.data) {
+    //     // 將結果放進result.distance
+    //     element.distance = shopDistance[element.sid].idistance
+    //       ? shopDistance[element.sid].distance
+    //       : '';
+    //     console.log('第二次sid', element.sid);
+    //     console.log('第二次distance', element.distance);
+
+    //     // 超過30公里，每5公里加10元外送費
+    //     element.fees = shopDistance[element.sid].distance
+    //       ? parseInt(shopDistance[element.sid].distance / 5) * 10 + 30
+    //       : 'Error';
+    //   }
+
+    //   if (!order) {
+    //     result.data.sort((a, b) => a.distance - b.distance);
+    //   }
+    // }
+    // setisFirst(true);
     //-----------------------------------------------------------------
 
+    // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
+    if (shop.length === 0) {
+      setNoResult('無法搜尋到您想要的餐點');
+    }
+
+    //有搜尋店名or價格上限or下限才顯示筆數(等待時間沒有)
+    if (key || price_max || price_min) {
+      if (result.data.length > 0) {
+        setSearchTotalRows(result.data[0].total_rows);
+      }
+    }
     console.log(
       'key:',
       key,
       '結果網址',
       `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
-    //搜尋後結果存入shop
-    //setShop(result.data);
 
     try {
       const response_favorite = await axios.get(
@@ -326,46 +375,6 @@ export default function ListTable() {
       console.error(e.message);
       return e.message;
     }
-
-    // //搜尋後結果存入shop
-    // setShop(result.data);
-
-    // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
-    if (!shop.length) {
-      setNoResult('無法找到您想要的餐點');
-    } else {
-      setNoResult('');
-    }
-
-    //有搜尋店名or價格上限or下限才顯示筆數(等待時間沒有)
-    if (key || price_max || price_min) {
-      if (result.data.length > 0) {
-        setSearchTotalRows(result.data[0].total_rows);
-      }
-    }
-    console.log(
-      'submit後搜尋字串:',
-      usp.get('search'),
-      '價格上限:',
-      usp.get('price_max'),
-      '價格下限:',
-      usp.get('price_min'),
-      '等待時間:',
-      usp.get('wait_time')
-    );
-
-    console.log('usp:', usp.toString());
-
-    //如果什麼都沒輸入 找全店家列表
-    // if (
-    //   !usp.get('search') &&
-    //   !usp.get('price_max') &&
-    //   !usp.get('price_min') &&
-    //   !usp.get('wait_time') &&
-    //   !usp.get('order')
-    // ) {
-    //   getShop();
-    // }
   };
 
   const [toggle, setToggle] = useState(true);
@@ -401,6 +410,11 @@ export default function ListTable() {
     },
   };
 
+  // // 如果沒有結果則NoResult從"正在搜尋中"更改為"沒有找到"
+  // if (shop.length === 0) {
+  //   setNoResult('無法搜尋到您想要的餐點');
+  // }
+
   return (
     <>
       {/* {toggle ? ( */}
@@ -412,7 +426,7 @@ export default function ListTable() {
           }}
         >
           <div className="search_bar">
-            {!allShop ? (
+            {searchWord ? (
               <>
                 {searchWord && searchWord.length > 0 ? (
                   <p>{searchWord}的搜尋結果</p>
@@ -451,8 +465,7 @@ export default function ListTable() {
                     name="price_max"
                     className="search_bar_price_max_input"
                     min="0"
-                    defaultValue={searchPriceMax || ''}
-                    value={formData.price_max}
+                    value={formData.price_max || ''}
                     onChange={(e) => {
                       form_handleChange(e);
                     }}
@@ -465,8 +478,7 @@ export default function ListTable() {
                     name="price_min"
                     className="search_bar_price_min_input"
                     min="0"
-                    defaultValue={searchPriceMin || ''}
-                    value={formData.price_min}
+                    value={formData.price_min || ''}
                     onChange={(e) => {
                       form_handleChange(e);
                     }}
@@ -565,7 +577,7 @@ export default function ListTable() {
                       alt={shop.name}
                       className="shopCard_cover"
                     />
-                    <div className="shopCard_conpon">aaaaaaa</div>
+                    <div className="shopCard_conpon">新會員送全站折50</div>
                     <div className="shopCard_delivery_time">
                       {shop.wait_time}
                       <div className="shopCard_delivery_time_text">分鐘</div>
@@ -611,15 +623,37 @@ export default function ListTable() {
                         {/* 資料庫結構: 小數點 */}
                         <p>{shop.average_evaluation}</p>
                       </div>
+                      <button
+                        className="shopbtn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          submit(shop.sid);
+                          const oldState = myIndex[shop.sid];
+                          setMyIndex({ ...myIndex, [shop.sid]: !oldState });
+                        }}
+                        // className="icon"
+                      >
+                        {!myIndex[shop.sid] ? (
+                          <AiOutlineHeart />
+                        ) : (
+                          <AiFillHeart />
+                        )}
+                      </button>
                     </div>
-                    <span className="shopcontext">
-                      {shop.distance ? shop.distance : disResult} km,
-                      {shop.type_name}
-                    </span>
-                    {/* <span>{shop.distance} 公里</span> */}
-                    <span className="shopcontext">
-                      外送費{shop.fees ? shop.fees : disResult}元
-                    </span>
+                    {/* <span>SID {shop.sid}</span> */}
+                    <div className="shopCard_text">
+                      <div className="shopCard_text_name">
+                        <div className="shopCard_score"></div>
+                      </div>
+                      <span className="shopcontext">
+                        {shop.distance ? shop.distance : disResult} km,
+                        {shop.type_name}
+                      </span>
+                      {/* <span>{shop.distance} 公里</span> */}
+                      <span className="shopcontext">
+                        外送費 {shop.fees ? shop.fees : disResult} 元
+                      </span>
+                    </div>
                   </div>
                 </Link>
               </div>
