@@ -52,7 +52,7 @@ function DeliverNav() {
   return (
     <>
       <nav className="deliverNav">
-        <div
+        {/* <div
           // 目錄按鈕(三橫線)
           onClick={() => {
             setToggle(!toggle);
@@ -68,10 +68,10 @@ function DeliverNav() {
           <div
             className={`menubtn_bar menubtn_bar_03 ${toggle ? 'changed' : ''}`}
           ></div>
-        </div>
+        </div> */}
 
         {/* 名稱顯示 暫放(原memberName) */}
-        <p>會員名稱:{localStorage.getItem('deliver_name')}</p>
+        <p>{localStorage.getItem('deliver_name')}</p>
         <p
           className="logCheck"
           onClick={

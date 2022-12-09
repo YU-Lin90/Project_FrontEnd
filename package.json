@@ -33,6 +33,7 @@
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-simplert": "^0.0.2",
+    "react-spinners": "^0.13.7",
     "sass": "^1.56.0",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.6.14",

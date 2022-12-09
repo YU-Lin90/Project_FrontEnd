@@ -28,7 +28,7 @@ function MemberOrder({ orderSocket }) {
     <>
       {orderList.length === 0 ? (
         <div className="flexSetCenter w100p">
-          <p>無現在訂單</p>
+        <p className="flexSetCenter w100p h500 fw7 fs36">無現在訂單</p>
         </div>
       ) : (
         <div>

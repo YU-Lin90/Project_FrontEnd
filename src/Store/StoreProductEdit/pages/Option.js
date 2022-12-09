@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function Option() {
   const siteName = window.location.hostname;
@@ -60,6 +61,12 @@ function Option() {
     console.log(response.data);
     setReload((v) => v + 1);
     setSelectedItem('');
+    Swal.fire({
+      icon: 'success',
+      title: '新增成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const editBtnHandler = async (e) => {
@@ -72,15 +79,40 @@ function Option() {
     console.log(response.data);
     setReload((v) => v + 1);
     setSelectedItem('');
+    Swal.fire({
+      icon: 'success',
+      title: '修改成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const delBtnHandler = async (e) => {
-    e.preventDefault();
-    const response = await axios.delete(
-      `http://${siteName}:3001/store-admin/option/${selectedItem}`
-    );
-    setReload((v) => v + 1);
-    setSelectedItem('');
+    // e.preventDefault();
+    // const response = await axios.delete(
+    //   `http://${siteName}:3001/store-admin/option/${selectedItem}`
+    // );
+    // setReload((v) => v + 1);
+    // setSelectedItem('');
+    Swal.fire({
+      title: '確定要刪除這個選項群組?',
+      // text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        e.preventDefault();
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/option/${selectedItem}`
+        );
+        setReload((v) => v + 1);
+        setSelectedItem('');
+        Swal.fire('刪除成功');
+      }
+    });
   };
 
   const onDragEnd = (result) => {
@@ -92,11 +124,6 @@ function Option() {
       return;
     }
     const newOptionData = [...optionData];
-    // newOptionData.push({
-    //   sid: 0,
-    //   name: inputText,
-    //   price: 0,
-    // });
     const [spliceOptionData] = newOptionData.splice(source.index, 1);
     console.log(spliceOptionData);
     newOptionData.splice(destination.index, 0, spliceOptionData);

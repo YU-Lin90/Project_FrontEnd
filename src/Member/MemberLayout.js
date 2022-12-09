@@ -62,18 +62,18 @@ function MemberLayout() {
             return (
               <div
                 key={index}
-                className=" padV15 padH15  disf fd-c jc-sb pointer"
+                className="  padH5  disf fd-c jc-sb pointer"
                 onClick={() => {
                   navi(value.link);
                 }}
               >
-                <p className="bigHidden marb10">
+                <p className="bigHidden flexSetCenter w100p marb10">
                   {value.svg(
                     `${
                       value.link === location
                         ? 'fillMemberCenterColor'
                         : 'fillMainColor'
-                    } w100p`
+                    } `
                   )}
                 </p>
                 <p

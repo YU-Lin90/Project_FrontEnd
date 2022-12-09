@@ -44,16 +44,30 @@
     background-color: #CDCACA;
 }
 .Dfoodtop{
-    padding-bottom: 17px;
-    border-bottom: 1px solid #626262;
+    padding-bottom: 5px;
 }
 .Dfoodcontext{
-    height: 25px;
+    padding: 5px 20px;
+    border-bottom: 1px solid #626262;
+}
+.Dhistoryfood{
     display: flex;
-    padding: 0 20px;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #626262;
+    margin-bottom: 5px;
+}
+.Dhistoryfoodetail{
+    border-radius: 5px;
+    padding: 3px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Dhfoodetail{
+    background-color: #FFA500;
+    margin-right: 5px;
+    padding: 2px 5px;
+    border-radius: 3px;
 }
 .Dhistorytext{
     margin-top: 5px;

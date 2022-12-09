@@ -6,24 +6,62 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthProvider';
 import Swal from 'sweetalert2';
 import { useFunc } from '../Context/FunctionProvider';
+import { useSVG } from '../Context/SVGProvider';
 const siteName = window.location.hostname;
 //這邊要放NAVBAR
 function Store() {
+  const {
+    memberDataSVG,
+    orderNowSVG,
+    oldOrderSVG,
+    pointSVG,
+    favorStoreSVG,
+    couponSVG,
+    serviceSVG,
+    storeSellAnalyzeSVG,
+    editProductSVG,
+  } = useSVG();
   const { authStore } = useAuth();
   const { loginCheckPostFetch } = useFunc();
   const [localAuth, setLocalAuth] = useState(false);
   const location = useLocation().pathname;
   const navi = useNavigate();
   const menuList = [
-    { text: '現在訂單', link: '/Store', index: 0 },
-    { text: '歷史訂單', link: '/Store/StoreOldOrder', index: 1 },
-    { text: '店家資料', link: '/Store/StoreDatas', index: 2 },
-    { text: '餐點管理', link: '/Store/StoreTypeEdit', index: 3 },
-    { text: '消費分析', link: '/Store/StoreSellAnalyze', index: 4 },
-    { text: '客服中心', link: '/Store/StoreService', index: 5 },
+    { text: '現在訂單', link: '/Store', index: 0, svg: orderNowSVG },
+    {
+      text: '歷史訂單',
+      link: '/Store/StoreOldOrder',
+      index: 1,
+      svg: oldOrderSVG,
+    },
+    {
+      text: '店家資料',
+      link: '/Store/StoreDatas',
+      index: 2,
+      svg: memberDataSVG,
+    },
+    {
+      text: '餐點管理',
+      link: '/Store/StoreTypeEdit',
+      index: 3,
+      svg: editProductSVG,
+    },
+    {
+      text: '消費分析',
+      link: '/Store/StoreSellAnalyze',
+      index: 4,
+      svg: storeSellAnalyzeSVG,
+    },
+    {
+      text: '客服中心',
+      link: '/Store/StoreService',
+      index: 5,
+      svg: serviceSVG,
+    },
   ];
   const loginCheck = async () => {
     const res = await loginCheckPostFetch('LoginCheck/Store', 'Store');
+    console.log(location);
     return res;
   };
   ///LoginCheck/Store
@@ -51,22 +89,42 @@ function Store() {
   return (
     <>
       <StoreNav />
-      <div className="container">
+      <div className="shopContainer">
         <div className="storeCenter">
           <div className="storeCenterList">
             {menuList.map((value, index) => {
               return (
-                <p
-                  className={`pointer storeCenterButton fw6  ${
-                    value.link === location ? 'active' : ''
-                  }`}
+                <div
+                  className={`pointer padH5  disf fd-c jc-sb  storeCenterButton fw6  ${
+                    location.includes(value.link) && value.index !== 0
+                      ? 'active'
+                      : ''
+                  }     ${
+                    value.index === 0 && location === value.link ? 'active' : ''
+                  } `}
                   key={index}
                   onClick={() => {
                     navi(value.link);
                   }}
                 >
-                  {value.text}
-                </p>
+                  <p className="bigHidden flexSetCenter w100p marb10">
+                    {value.svg(
+                      `${
+                        location.includes(value.link) && value.index !== 0
+                          ? 'fillMemberCenterColor'
+                          : 'fillMainColor'
+                      }     ${
+                        value.index === 0 && location === value.link
+                          ? 'fillMemberCenterColor'
+                          : 'fillMainColor'
+                      }`
+                    )}
+                  </p>
+                  <p
+                  >
+                    {value.text}
+                  </p>
+                </div>
               );
             })}
           </div>

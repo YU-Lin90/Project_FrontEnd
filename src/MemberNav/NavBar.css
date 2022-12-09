@@ -8,6 +8,7 @@ nav.memberNav {
   top: 0;
   justify-content: space-between;
   z-index: 10;
+  box-shadow: 0 16px 40px -20px rgba(50, 56, 62, 0.82);
 }
 
 nav.memberNav>* {

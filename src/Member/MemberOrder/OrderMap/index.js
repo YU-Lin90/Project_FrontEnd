@@ -23,6 +23,10 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
   const { loginCheckGetFetch } = useFunc();
   const { calculateDistance, calculateDistanceByLatLng, getLatLngByAddress } =
     useGeo();
+  //外送員名稱
+  const [deliverName, setDeliverName] = useState('');
+  //店家名稱
+  const [shopName, setShopName] = useState('');
   //店家位置
   const [storePosition, setStorePosition] = useState({
     lat: 25.03359,
@@ -66,19 +70,23 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
     console.log({ gettedStorePosition });
     console.log({ res });
     setStorePosition(gettedStorePosition);
+    setShopName(res.shopName);
   };
 
-  // useEffect(() => {
-  //   // setInterval(checkLocation, 1000);
-  //   //
-  //   getStoreLocation(selectedOrder);
-  //   return () => {
-  //     // clearInterval(intervalTest);
-  //   };
-  // }, []);
+  const getDeliverName = async (orderSid) => {
+    const res = await loginCheckGetFetch(
+      `MemberMapDetails/GetDeliverName/?orderSid=${orderSid}`,
+      'Member'
+    );
+    // console.log({ res });
+    setDeliverName(res.name);
+    //res.name
+  };
+
   useEffect(() => {
     checkLocation(selectedOrder);
     getStoreLocation(selectedOrder);
+    getDeliverName(selectedOrder);
   }, [selectedOrder]);
   /* location.coords.longitude
   location.coords.latitude
@@ -132,9 +140,7 @@ function OrderMap({ selectedOrder, orderSocket, step }) {
           lng={positionNow.lng}
           text="Member"
         />
-        {step === 4 &&
-        deliverPosition.lat !== 0 &&
-        deliverPosition.lng !== 0 ? (
+        {step >= 3 && deliverPosition.lat !== 0 && deliverPosition.lng !== 0 ? (
           <DeliverPosition
             lat={deliverPosition.lat}
             lng={deliverPosition.lng}

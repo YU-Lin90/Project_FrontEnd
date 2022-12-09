@@ -8,20 +8,20 @@
 }
 
 .storeCenterList {
-  border-right: 1px #222 solid;
   /* background-color: #eee; */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  min-height: 50px;
+  min-height: 80px;
   position: fixed;
-  bottom:0;
+  bottom: 0;
   background-color: #eeee;
   width: 100%;
   z-index: 10;
   gap: 10px;
 }
+
 .storeCenterButton {
   /* border: 1px red solid; */
   /* height: 20%; */
@@ -47,7 +47,7 @@
 
   .storeCenterList {
     position: sticky;
-    top: var(--navHeight); 
+    top: var(--navHeight);
     width: 20%;
     min-height: 500px;
     /* height: calc(100vh - 80px); */
@@ -56,7 +56,9 @@
     flex-direction: column;
     z-index: 2;
     background-color: transparent;
-    gap:50px;
+    gap: 50px;
+
+    border-right: 1px #222 solid;
   }
 
   .storeContent {

@@ -140,7 +140,7 @@ function StoreOrderConfirm({
   return (
     <>
       <div>
-        <div className="onGrayBack ">
+        <div className="storeConfirmOnGrayBack ">
           <div className="storeConfirmOrder">
             <div className="storeConfirmOrderNames">
               <span>客戶名稱：{orderDetail.memberName}</span>
@@ -165,10 +165,10 @@ function StoreOrderConfirm({
                       <>
                         <div className=" productDetails disf padV5">
                           <div className="w100p disf fw-w">
-                            {value.detail.map((element) => {
+                            {value.detail.map((element, i) => {
                               return (
                                 <>
-                                  <span className="w25p marV5 ta-c">
+                                  <span key={i} className=" marV5 ta-c">
                                     【{element.options}】
                                   </span>
                                 </>

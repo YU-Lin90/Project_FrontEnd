@@ -2,7 +2,7 @@ import './favorite.css';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-
+const siteName = window.location.hostname;
 export default function StoreDatas() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
@@ -15,7 +15,7 @@ export default function StoreDatas() {
     const sid = localStorage.getItem('MemberSid');
     try {
       const response = await axios.get(
-        `http://localhost:3001/MemberLogin/api4` //店家列表
+        `http://${siteName}:3001/MemberLogin/api4` //店家列表
       );
 
       // console.log(localStorage.getItem('MemberSid'));
@@ -24,7 +24,7 @@ export default function StoreDatas() {
       // setUser2(response.data);
       try {
         const response_favorite = await axios.get(
-          `http://localhost:3001/MemberLogin/api3/${sid}` //最愛店家
+          `http://${siteName}:3001/MemberLogin/api3/${sid}` //最愛店家
         );
 
         console.log(response_favorite.data);
@@ -64,7 +64,7 @@ export default function StoreDatas() {
 
     try {
       const response = await axios.post(
-        `http://localhost:3001/MemberLogin/addshop/${sid}/${shopSid}`
+        `http://${siteName}:3001/MemberLogin/addshop/${sid}/${shopSid}`
       );
       console.log(response.data);
     } catch (e) {
@@ -77,7 +77,7 @@ export default function StoreDatas() {
 
     try {
       const response = await axios.delete(
-        `http://localhost:3001/MemberLogin/del/${sid}/${shopSid}`
+        `http://${siteName}:3001/MemberLogin/del/${sid}/${shopSid}`
       );
       console.log(response.data);
     } catch (e) {
@@ -105,7 +105,7 @@ export default function StoreDatas() {
       <div className="col" key={v.sid}>
         <img
           src={
-            'http://localhost:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg'
+            `http://${siteName}:3001/uploads/7d4c1912-ce4d-45af-b970-ccbbe57c4bac.jpg`
           }
         />
         <p className="font1">店名:{v.name}</p>

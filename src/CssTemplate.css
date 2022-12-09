@@ -104,6 +104,19 @@
   /* padding-top: 10px; */
   box-shadow: 0 10px 36px 0 rgba(0,0,0,0.16), 0 0 10px  rgba(0,0,0,0.06), 0 10px 36px 0 rgba(0,0,0,0.16);
 }
+.shopContainer{
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: #dddd;
+  /* background-color: #fff; */
+  /* border-left: 3px red solid; */
+  /* border-right: 3px red solid; */
+  /* box-shadow: 0 2px 8px 0 rgba(99,99,99,0.2); */
+  min-height: calc(100vh - var(--navHeight));
+  position: relative;
+  /* padding-top: 10px; */
+  box-shadow: 0 10px 36px 0 rgba(0,0,0,0.16), 0 0 10px  rgba(0,0,0,0.06), 0 10px 36px 0 rgba(0,0,0,0.16);
+}
 .deliverContainer{
   max-width: 768px;
   margin: 0 auto;
@@ -142,6 +155,7 @@
 /* 這是拖曳條 */
 .onGrayBack::-webkit-scrollbar-thumb {
   background-color: var(--mainColor);
+  border-radius: 5px;
 }
 /* 這是拖曳條的背景 */
 .onGrayBack::-webkit-scrollbar-track{
@@ -157,6 +171,9 @@
 .fd-sc-br{
   flex-direction: column;
 }
+.b50w100{
+  width: 100%;
+}
 @media screen and (min-width:768px) {
   .onGrayBack{
     width: auto;
@@ -171,6 +188,9 @@
   }
   .b33s100{
     width: 33.333333%;
+  }
+  .b50w100{
+    width: 50%;
   }
   .fd-sc-br{
     flex-direction: row;

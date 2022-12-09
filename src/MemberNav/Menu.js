@@ -1,25 +1,26 @@
 import './Menu.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useAuth } from '../Context/AuthProvider';
 function Menu({ setToggle, toggle }) {
+  const { authMember } = useAuth();
+
   const navi = useNavigate();
   const menuList = [
     // { text: 'LinePay', link: '/LinePay' },
-    { text: '找店家', link: '/Shopping' },
+    { text: '找店家', link: '/Shopping', needLogin: false },
     // { text: '店家內商品列表', link: '/StoreDetail' },
     // { text: '結帳頁', link: '/Pay' },
     // { text: '台北市', link: '/City/Taipei' },
-    { text: '附近美食', link: '/productList/?shop_sid=89' },
+    { text: '附近美食', link: '/productList/?shop_sid=89', needLogin: false },
     // { text: '找餐點', link: '/' },
-    { text: '優惠券', link: '/Coupon' },
-    { text: '會員中心', link: '/Member' },
-    { text: '現在訂單', link: '/Member/MemberOrder' },
-    { text: '歷史訂單', link: '/Member/MemberOldOrder' },
-    { text: '紅利明細', link: '/Member/MemberPoint' },
-    { text: '客服中心', link: '/Member/MemberService' },
+    { text: '優惠券', link: '/Coupon', needLogin: false },
+    { text: '會員中心', link: '/Member', needLogin: true },
+    { text: '現在訂單', link: '/Member/MemberOrder', needLogin: true },
+    { text: '歷史訂單', link: '/Member/MemberOldOrder', needLogin: true },
+    { text: '紅利明細', link: '/Member/MemberPoint', needLogin: true },
+    { text: '客服中心', link: '/Member/MemberService', needLogin: true },
     // { text: '', link: '/Member' },
-
-
 
     // { text: '會員登入', link: '/MemberLogin' },
     // { text: '會員註冊', link: '/MemberRegister' },
@@ -48,6 +49,9 @@ function Menu({ setToggle, toggle }) {
     <>
       <div className="menu" id="idForCheck01">
         {menuList.map((value, index) => {
+          if (value.needLogin && !authMember) {
+            return null;
+          }
           return (
             <p
               key={index}

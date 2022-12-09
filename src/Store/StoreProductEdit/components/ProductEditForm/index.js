@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function ProductEditForm({ selectedItem, setSelectedItem }) {
   const siteName = window.location.hostname;
@@ -13,7 +14,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     options_types: [],
     note: '',
     discount: '',
-    available: '',
+    available: true,
   });
   const [data, setData] = useState({
     shop: {},
@@ -109,13 +110,34 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   };
 
   const delBtnHandler = async (e) => {
-    e.preventDefault();
-    const response = await axios.delete(
-      `http://${siteName}:3001/store-admin/product/${selectedItem}`
-    );
-    // setReload((v) => v + 1);
-    setImgSrc('');
-    setSelectedItem('');
+    // e.preventDefault();
+    // const response = await axios.delete(
+    //   `http://${siteName}:3001/store-admin/product/${selectedItem}`
+    // );
+    // // setReload((v) => v + 1);
+    // setImgSrc('');
+    // setSelectedItem('');
+
+    Swal.fire({
+      title: '確定要刪除這個餐點?',
+      // text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        e.preventDefault();
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/product/${selectedItem}`
+        );
+        // setReload((v) => v + 1);
+        setImgSrc('');
+        setSelectedItem('');
+        Swal.fire('刪除成功');
+      }
+    });
   };
 
   const addBtnHandler = async (e) => {
@@ -129,6 +151,12 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     // setReload((v) => v + 1);
     setImgSrc('');
     setSelectedItem('');
+    Swal.fire({
+      icon: 'success',
+      title: '新增成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const editBtnHandler = async (e) => {
@@ -142,6 +170,12 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     // setReload((v) => v + 1);
     setImgSrc('');
     setSelectedItem('');
+    Swal.fire({
+      icon: 'success',
+      title: '修改成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (

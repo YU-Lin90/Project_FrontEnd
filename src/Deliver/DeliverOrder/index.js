@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './order.css';
-
+const siteName = window.location.hostname;
 function DeliverOrder() {
   const navi = useNavigate();
   const [orderData, setOrderData] = useState([]);
@@ -13,7 +13,7 @@ function DeliverOrder() {
   async function getOrder() {
     const ordersid = localStorage.getItem('order_sid');
     const response = await axios.get(
-      `http://localhost:3001/deliver/deliverorder/${ordersid}`
+      `http://${siteName}:3001/deliver/deliverorder/${ordersid}`
     );
     setOrderData(response.data.rows);
     setFoodData(response.data.food);
@@ -63,30 +63,31 @@ function DeliverOrder() {
                   <div className="Dicon">
                     <i className="Dimgicon fa-solid fa-utensils"></i>
                   </div>
-                  <div className='Dofoodlist'>
-                  {foodData.map((v, i) => {
-                    return (
-                      <div className='Dofoodlist' key={i}>
-                        <div className='Dofoodcontext'>
-                          <p>{v.amount}X {v.name}</p><p>{v.product_price}</p>
+                  <div className="Dofoodlist">
+                    {foodData.map((v, i) => {
+                      return (
+                        <div className="Dofoodlist" key={i}>
+                          <div className="Dofoodcontext">
+                            <p>
+                              {v.amount}X {v.name}
+                            </p>
+                            <p>NT$ {v.product_price}</p>
+                          </div>
+                          {v.detail.length === 0 ? null : (
+                            <div className="Dofooddateil">
+                              {v.detail.map((v, i) => {
+                                return (
+                                  <div className="Dofooddateilline">
+                                    <p>{v.options}</p>
+                                    <p>NT$ {v.option_price}</p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
-                        {
-                          v.detail.length === 0 ? null : (
-                          <div className='Dofooddateil'>
-                            {v.detail.map((v, i) => {
-                              return (
-                                <div className='Dofooddateilline'>
-                                  <p>{v.options}</p>
-                                  <p>{v.option_price}</p>
-                                </div>
-                              )
-                            })} 
-                          </div>)
-                        }
-                        
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -121,6 +122,7 @@ function DeliverOrder() {
             </div>
           );
         })}
+        <div className="w100p" style={{ height: '80px' }}></div>
       </div>
     </>
   );

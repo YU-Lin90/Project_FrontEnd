@@ -45,7 +45,10 @@ function StoreSetWaitTime({ setChangeTime }) {
     <>
       <div>
         <div className="onGrayBack">
-          <div className="disf fd-c bgcW padV20 padH20 gap10">
+          <div
+            style={{ marginTop: '50px' }}
+            className="disf fd-c bgcW padV20 padH20 gap10"
+          >
             <p className="disf jc-sb">
               <span className="fw6 fs24">等待時間</span>
               <i
