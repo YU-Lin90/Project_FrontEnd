@@ -63,7 +63,7 @@ function StoreNav() {
     <>
       <nav className="storeNav">
         <div className="disf ai-c jc-sb">
-          <div
+          {/* <div
             // 目錄按鈕(三橫線)
             onClick={() => {
               setToggle(!toggle);
@@ -85,7 +85,7 @@ function StoreNav() {
                 toggle ? 'changed' : ''
               }`}
             ></div>
-          </div>
+          </div> */}
           <span
             onClick={() => {
               navi('/');

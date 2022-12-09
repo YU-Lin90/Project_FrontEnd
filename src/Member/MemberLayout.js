@@ -62,7 +62,7 @@ function MemberLayout() {
             return (
               <div
                 key={index}
-                className=" padV15 padH5  disf fd-c jc-sb pointer"
+                className="  padH5  disf fd-c jc-sb pointer"
                 onClick={() => {
                   navi(value.link);
                 }}

@@ -63,30 +63,31 @@ function DeliverOrder() {
                   <div className="Dicon">
                     <i className="Dimgicon fa-solid fa-utensils"></i>
                   </div>
-                  <div className='Dofoodlist'>
-                  {foodData.map((v, i) => {
-                    return (
-                      <div className='Dofoodlist' key={i}>
-                        <div className='Dofoodcontext'>
-                          <p>{v.amount}X {v.name}</p><p>NT$ {v.product_price}</p>
+                  <div className="Dofoodlist">
+                    {foodData.map((v, i) => {
+                      return (
+                        <div className="Dofoodlist" key={i}>
+                          <div className="Dofoodcontext">
+                            <p>
+                              {v.amount}X {v.name}
+                            </p>
+                            <p>NT$ {v.product_price}</p>
+                          </div>
+                          {v.detail.length === 0 ? null : (
+                            <div className="Dofooddateil">
+                              {v.detail.map((v, i) => {
+                                return (
+                                  <div className="Dofooddateilline">
+                                    <p>{v.options}</p>
+                                    <p>NT$ {v.option_price}</p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
-                        {
-                          v.detail.length === 0 ? null : (
-                          <div className='Dofooddateil'>
-                            {v.detail.map((v, i) => {
-                              return (
-                                <div className='Dofooddateilline'>
-                                  <p>{v.options}</p>
-                                  <p>NT$ {v.option_price}</p>
-                                </div>
-                              )
-                            })} 
-                          </div>)
-                        }
-                        
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -121,6 +122,7 @@ function DeliverOrder() {
             </div>
           );
         })}
+        <div className="w100p" style={{ height: '80px' }}></div>
       </div>
     </>
   );

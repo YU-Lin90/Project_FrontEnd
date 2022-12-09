@@ -155,6 +155,7 @@
 /* 這是拖曳條 */
 .onGrayBack::-webkit-scrollbar-thumb {
   background-color: var(--mainColor);
+  border-radius: 5px;
 }
 /* 這是拖曳條的背景 */
 .onGrayBack::-webkit-scrollbar-track{
