@@ -133,3 +133,28 @@
     }
 
 }
+
+
+@media screen and (max-width:768px) {
+    .mf_col {
+        width: 100%;
+    }
+
+    .mf_img {
+        height: 200px;
+    }
+
+    .mf_font1 {
+        padding: 14px;
+    }
+    .mf_font2 {
+        padding: 10px;
+    }
+    .mf_font3 {
+        padding: 10px;
+    }
+    .mf_card {
+        height: 370px;
+    }
+
+}
