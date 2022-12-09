@@ -14,7 +14,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
     options_types: [],
     note: '',
     discount: '',
-    available: '',
+    available: true,
   });
   const [data, setData] = useState({
     shop: {},

@@ -22,7 +22,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 16px;
+      padding: 16px 16px;
       padding-right: 32px;
       border-bottom: 2px solid rgb(224, 224, 224);
 
@@ -38,7 +38,7 @@
         }
         p {
           &:nth-child(1) {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             width: 150px;
           }
@@ -122,6 +122,7 @@
         }
       }
       .bottom {
+        
       }
     }
   }
@@ -379,9 +380,11 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          i {
-            
-          }
+          // i {
+          //   color: rgb(204, 204, 204);
+          //   font-size: 16px;
+          //   margin-right: 16px;
+          // }
         }
         .td-3 {
           width: 33.33%;
@@ -399,6 +402,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &:nth-child(1) {
             width: 25%;
           }
@@ -407,6 +411,11 @@
           }
           &:nth-child(3) {
             width: 50%;
+          }
+          i {
+            color: rgb(204, 204, 204);
+            font-size: 10px;
+            margin-right: 16px;
           }
         }
       }

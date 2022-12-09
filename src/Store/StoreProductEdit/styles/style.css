@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 16px;
+  padding: 16px 16px;
   padding-right: 32px;
   border-bottom: 2px solid rgb(224, 224, 224);
 }
@@ -41,7 +41,7 @@
   margin-right: 32px;
 }
 .store-admin .product-area .top .left p:nth-child(1) {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   width: 150px;
 }
@@ -379,6 +379,11 @@
 }
 .store-admin .table .tbody .tr-type .td:nth-child(3) {
   width: 50%;
+}
+.store-admin .table .tbody .tr-type .td i {
+  color: rgb(204, 204, 204);
+  font-size: 10px;
+  margin-right: 16px;
 }
 .store-admin .table .tbody .tr-product {
   display: flex;

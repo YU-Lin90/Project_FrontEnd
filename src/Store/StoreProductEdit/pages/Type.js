@@ -143,6 +143,33 @@ function Type() {
     );
   };
 
+  // 快速填入類別
+  const addDemoTypes = async () => {
+    const body = [
+      { type_name: 'AA', type_sid: 0 },
+      { type_name: 'BB', type_sid: 0 },
+    ];
+    const myUserId = JSON.parse(localStorage.getItem('StoreDatas')).sid;
+    for (let i = 0; i < body.length; i++) {
+      const response = await axios.post(
+        `http://${siteName}:3001/store-admin/type/${myUserId}`,
+        body[i]
+      );
+    }
+    setReload((v) => v + 1);
+    setEditType({
+      type_sid: '',
+      type_name: '',
+    });
+
+    Swal.fire({
+      icon: 'success',
+      title: '新增成功',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -165,6 +192,10 @@ function Type() {
                     >
                       <i class="fa-solid fa-plus btn-icon"></i>
                       <p>新增類別</p>
+                    </div>
+                    <div className="bg-black-btn" onClick={addDemoTypes}>
+                      <i class="fa-solid fa-plus btn-icon"></i>
+                      <p>快速添加類別</p>
                     </div>
                   </div>
                 </div>
