@@ -5,9 +5,10 @@
   font-size: 24px;
   margin-bottom: 10px;
   position: sticky;
-  top: calc(var(--navHeight) + 20px);
-  /* background-color: #eee; */
+  top: var(--navHeight);
+  background-color: #fff;
   padding: 10px;
+  padding-top: 30px;
 }
 
 .storeOrderSwith {

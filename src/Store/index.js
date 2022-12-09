@@ -41,7 +41,7 @@ function Store() {
       svg: memberDataSVG,
     },
     {
-      text: '餐點管理',
+      text: '菜單管理',
       link: '/Store/StoreTypeEdit',
       index: 3,
       svg: editProductSVG,
