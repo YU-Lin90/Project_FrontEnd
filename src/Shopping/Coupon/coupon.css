@@ -180,3 +180,38 @@
         font-size: 30px;
     }
 }
+
+
+@media screen and (max-width:768px) {
+    .sc_col {
+        width: 100%;
+    }
+    .sc_sale_detail{
+    font-size:16px;
+    }
+    .sc_coupon{
+        font-size:20px;
+        padding-left: 10px;
+    }
+    .sc_button{
+    width: 50px;
+    }
+    .sc_sale_detail2{
+        font-size:20px;
+        }
+        .sc_total2{
+            font-size: 30px;
+        }
+        .sc_card2 {
+            margin-left: 24px;
+        }
+        .sc_card {
+            margin-left: 24px;
+        }
+    .sc_total{
+        font-size: 24px; ;
+    }    
+    .sc_buttonfont{
+        font-size: 30px;
+    }
+}
