@@ -4,7 +4,7 @@ import './Evaluation.css';
 import { useFunc } from '../../Context/FunctionProvider';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+const siteName = window.location.hostname;
 function StoreEvaluation() {
   const navi = useNavigate();
   const evaFrameForRef = useRef(null);
@@ -16,13 +16,17 @@ function StoreEvaluation() {
   const [totalPage, setTotalPage] = useState(0);
   const [startLoad, setStartLoad] = useState(true);
   const [shopSid, setShopSid] = useState(0);
+  const [shopName, setShopName] = useState('');
+  const [shopSrc, setShopSrc] = useState('');
   //獲得總頁數
   const getTotalPages = async () => {
     const res = await notLoginGetFetch(
       `GetStoreEvas/getEvaTotalPages?shopSid=${shopSid}`
     );
     console.log(res);
-    setTotalPage(res);
+    setTotalPage(res.totalRow);
+    setShopName(res.name);
+    setShopSrc(res.src);
   };
   //獲得評價內容
   const getEva = async () => {
@@ -103,13 +107,39 @@ function StoreEvaluation() {
     <div className="evaBack">
       <div ref={evaFrameForRef} className="evaFrame">
         {/* TODO: 評價字串做成固定位置 加上返回鍵 */}
-        <p className="ta-c fs36 fw6 padH20 padV20">店家評價</p>
+        <div
+          className="evaTitles"
+          style={{
+            background: `url(http://${siteName}:3001/images/shop/${shopSrc}) center center / cover`,
+          }}
+        >
+          <p className="ta-c fs36 fw6 padH20 padV10 fontMainColor">店家評價</p>
+          <p className="ta-c fs36 fw7 padH20 padV10 fontMainColor">
+            {shopName}
+          </p>
+        </div>
+
         <div className="storeEvaluationOuterFrame">
           <div className="w33p padH20 padV10 disf fd-c ai-c">
             {firstColumn.map((v, i) => {
               return (
                 <div className=" evaCards" key={v.sid}>
-                  <p>
+                  {/* ` http://${siteName}:3001/uploads/${v.image}` */}
+                  <div className="w100p disf jc-se ai-c marb5">
+                    <div className="w20p evaCardAvatar">
+                      <img
+                        className="w100p"
+                        src={`http://${siteName}:3001/uploads/${v.image}`}
+                        alt="avatar"
+                      />
+                    </div>
+                    <div className="w80p padH10">
+                      <p className="fs24 fw6">{v.name ? v.name : '匿名訪客'}</p>
+                      <p>{v.evaluation_time}</p>
+                    </div>
+                  </div>
+
+                  <p className="marb20">
                     {Array(v.evaluation_score)
                       .fill(1)
                       .map((v, i) => (
@@ -127,7 +157,7 @@ function StoreEvaluation() {
                         ></i>
                       ))}
                   </p>
-                  <p className="fs24 fw6">{v.name ? v.name : '匿名訪客'}</p>
+
                   <p
                     style={{
                       textIndent: `${
@@ -138,7 +168,6 @@ function StoreEvaluation() {
                   >
                     {v.evaluation_content}
                   </p>
-                  <p>{v.evaluation_time}</p>
                 </div>
               );
             })}
@@ -147,7 +176,22 @@ function StoreEvaluation() {
             {secondColumn.map((v, i) => {
               return (
                 <div className=" evaCards" key={v.sid}>
-                  <p>
+                  {/* ` http://${siteName}:3001/uploads/${v.image}` */}
+                  <div className="w100p disf jc-se ai-c marb5">
+                    <div className="w20p">
+                      <img
+                        className="w100p"
+                        src={`http://${siteName}:3001/uploads/${v.image}`}
+                        alt="avatar"
+                      />
+                    </div>
+                    <div className="w80p padH10">
+                      <p className="fs24 fw6">{v.name ? v.name : '匿名訪客'}</p>
+                      <p>{v.evaluation_time}</p>
+                    </div>
+                  </div>
+
+                  <p className="marb20">
                     {Array(v.evaluation_score)
                       .fill(1)
                       .map((v, i) => (
@@ -165,9 +209,17 @@ function StoreEvaluation() {
                         ></i>
                       ))}
                   </p>
-                  <p className="fs24 fw6">{v.name ? v.name : '匿名訪客'}</p>
-                  <p className="padH15"> {v.evaluation_content}</p>
-                  <p>{v.evaluation_time}</p>
+
+                  <p
+                    style={{
+                      textIndent: `${
+                        v.evaluation_content.length > 20 ? '2em' : 'none'
+                      }`,
+                    }}
+                    className="padH15 contentIndent"
+                  >
+                    {v.evaluation_content}
+                  </p>
                 </div>
               );
             })}
@@ -176,7 +228,22 @@ function StoreEvaluation() {
             {thirdColumn.map((v, i) => {
               return (
                 <div className=" evaCards" key={v.sid}>
-                  <p>
+                  {/* ` http://${siteName}:3001/uploads/${v.image}` */}
+                  <div className="w100p disf jc-se ai-c marb5">
+                    <div className="w20p">
+                      <img
+                        className="w100p"
+                        src={`http://${siteName}:3001/uploads/${v.image}`}
+                        alt="avatar"
+                      />
+                    </div>
+                    <div className="w80p padH10">
+                      <p className="fs24 fw6">{v.name ? v.name : '匿名訪客'}</p>
+                      <p>{v.evaluation_time}</p>
+                    </div>
+                  </div>
+
+                  <p className="marb20">
                     {Array(v.evaluation_score)
                       .fill(1)
                       .map((v, i) => (
@@ -194,9 +261,17 @@ function StoreEvaluation() {
                         ></i>
                       ))}
                   </p>
-                  <p className="fs24 fw6">{v.name ? v.name : '匿名訪客'}</p>
-                  <p className="padH15">{v.evaluation_content}</p>
-                  <p>{v.evaluation_time}</p>
+
+                  <p
+                    style={{
+                      textIndent: `${
+                        v.evaluation_content.length > 20 ? '2em' : 'none'
+                      }`,
+                    }}
+                    className="padH15 contentIndent"
+                  >
+                    {v.evaluation_content}
+                  </p>
                 </div>
               );
             })}
