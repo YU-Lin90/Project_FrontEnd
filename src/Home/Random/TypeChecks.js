@@ -37,7 +37,8 @@ function TypeChecks({ rejectedTypes, setRejectedTypes }) {
                     // console.log(lengthNow);
                     setRejectedTypes(newArr);
                     setLengthNow(lengthNow - 1);
-                  } else if (lengthNow < limit && !rejectedTypes[v.sid - 1]) {
+                    // } else if (lengthNow < limit && !rejectedTypes[v.sid - 1]) {
+                  } else {
                     const newArr = [...rejectedTypes];
                     newArr[v.sid - 1] = true;
                     setRejectedTypes(newArr);

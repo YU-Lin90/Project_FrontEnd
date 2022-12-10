@@ -21,7 +21,6 @@
 }
 
 .table{
-    border: 1px red solid;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -187,7 +186,6 @@ margin: 2vh 0;
 display: flex;
 flex-wrap: wrap;
 flex-direction: row;
-justify-content: center;
 align-items: center;
 width: 100%;
 margin: 0 auto;
@@ -196,17 +194,38 @@ margin: 0 auto;
 .shopCardBox{
     display: flex;
     flex-direction: column;
+    width: 65%;
+    left: 0;
+    margin: 2.5%;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+}
+
+.shopCardBox1{
+    /* display: flex;
+    flex-direction: column;
     width: 100%;
-    margin: 1%;
+    left: 0;
+    margin: 2.5%;
+    border: 1px solid #CCC;
+    background-color: #FFF; */
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 2.5%;
     border: 1px solid #CCC;
     background-color: #FFF;
 }
 
 .shopCard_image{
     position: relative;
+    
 }
 .shopCard_cover{
     height: 150px;
+    object-fit: cover;
 }
 .shopCard_delivery_time{
     display: flex;
@@ -247,8 +266,6 @@ padding: 10px 15px;
 .search_bar_toggle {
     top:80px;
     right: 0px;
-    width: 30px;
-    height: 30px;
     position: fixed;
     cursor: pointer;
     z-index: 10;

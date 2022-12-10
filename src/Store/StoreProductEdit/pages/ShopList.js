@@ -8,12 +8,12 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import Overview from "./Overview";
-
+const siteName = window.location.hostname;
 function ShopList() {
   const [shopList, setShopList] = useState([]);
   const navigate = useNavigate();
   const getShopList = async () => {
-    const response = await axios.get("http://localhost:3001/store-list");
+    const response = await axios.get(`http://${siteName}:3001/store-list`);
     const rd = response.data;
     setShopList([...rd]);
   };

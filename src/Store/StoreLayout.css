@@ -8,16 +8,15 @@
 }
 
 .storeCenterList {
-
   /* background-color: #eee; */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  min-height: 50px;
+  min-height: 80px;
   position: fixed;
   bottom: 0;
-  background-color: #eeee;
+  background-color: #fff;
   width: 100%;
   z-index: 10;
   gap: 10px;
@@ -36,7 +35,8 @@
 }
 
 .storeContent {
-  padding: 20px;
+  background-color: #fff;
+  /* padding: 20px; */
   /* background-color: #eee; */
 }
 
@@ -56,7 +56,7 @@
     /* background-color: #ccc; */
     flex-direction: column;
     z-index: 2;
-    background-color: transparent;
+    /* background-color: transparent; */
     gap: 50px;
 
     border-right: 1px #222 solid;

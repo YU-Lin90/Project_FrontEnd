@@ -7,16 +7,12 @@ import { useAuth } from '../Context/AuthProvider';
 import Swal from 'sweetalert2';
 import { useFunc } from '../Context/FunctionProvider';
 import { useSVG } from '../Context/SVGProvider';
-const siteName = window.location.hostname;
 //這邊要放NAVBAR
 function Store() {
   const {
     memberDataSVG,
     orderNowSVG,
     oldOrderSVG,
-    pointSVG,
-    favorStoreSVG,
-    couponSVG,
     serviceSVG,
     storeSellAnalyzeSVG,
     editProductSVG,
@@ -41,7 +37,7 @@ function Store() {
       svg: memberDataSVG,
     },
     {
-      text: '餐點管理',
+      text: '菜單管理',
       link: '/Store/StoreTypeEdit',
       index: 3,
       svg: editProductSVG,
@@ -61,6 +57,7 @@ function Store() {
   ];
   const loginCheck = async () => {
     const res = await loginCheckPostFetch('LoginCheck/Store', 'Store');
+    console.log(location);
     return res;
   };
   ///LoginCheck/Store
@@ -93,17 +90,37 @@ function Store() {
           <div className="storeCenterList">
             {menuList.map((value, index) => {
               return (
-                <p
-                  className={`pointer storeCenterButton fw6  ${
-                    value.link === location ? 'active' : ''
-                  }`}
+                <div
+                  className={`pointer padH5  disf fd-c jc-sb  storeCenterButton fw6  ${
+                    location.includes(value.link) && value.index !== 0
+                      ? 'active'
+                      : ''
+                  }     ${
+                    value.index === 0 && location === value.link ? 'active' : ''
+                  } `}
                   key={index}
                   onClick={() => {
                     navi(value.link);
                   }}
                 >
-                  {value.text}
-                </p>
+                  <p className="bigHidden flexSetCenter w100p marb10">
+                    {value.svg(
+                      `${
+                        location.includes(value.link) && value.index !== 0
+                          ? 'fillMemberCenterColor'
+                          : 'fillMainColor'
+                      }     ${
+                        value.index === 0 && location === value.link
+                          ? 'fillMemberCenterColor'
+                          : 'fillMainColor'
+                      }`
+                    )}
+                  </p>
+                  <p
+                  >
+                    {value.text}
+                  </p>
+                </div>
               );
             })}
           </div>

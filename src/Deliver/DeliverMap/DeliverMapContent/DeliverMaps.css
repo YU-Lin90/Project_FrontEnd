@@ -1,17 +1,18 @@
-.deliverMapTargetIconBox{
+.deliverMapTargetIconBox {
   /* position: relative; */
   /* translate: -50% -100%; */
   width: fit-content;
-  width: 300px;
+  width: 400px;
   height: 500px;
   z-index: 2;
   border-radius: 10px;
 }
-.deliverMapTargetTextBox{
+
+.deliverMapTargetTextBox {
   position: absolute;
-  width: 200px;
+  min-width: 300px;
   height: 200px;
-  top: -224px;
+  top: -234px;
   background-color: #fff;
   translate: -50%;
   display: flex;
@@ -21,13 +22,17 @@
   text-align: center;
   padding: 20px;
   line-height: 1.5;
+  border-radius: 10px;
+  border: 5px solid var(--mainColor);
 }
-.deliverMapTargetName{
+
+.deliverMapTargetName {
   font-size: 24px;
   word-wrap: break-word;
   font-weight: 600;
 }
-.deliverMapTargetAddress{
+
+.deliverMapTargetAddress {
   font-size: 18px;
   font-weight: 500;
   word-wrap: break-word;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
-
+const siteName = window.location.hostname;
 function History({
   order_sid,
   deliver_fee,
@@ -17,7 +17,7 @@ function History({
   // const day =
 
   async function foodmeun() {
-    const repon = await axios.get(`http://localhost:3001/deliver/foodmeun/${order_sid}`);
+    const repon = await axios.get(`http://${siteName}:3001/deliver/foodmeun/${order_sid}`);
     setFood(repon.data);
   }
 

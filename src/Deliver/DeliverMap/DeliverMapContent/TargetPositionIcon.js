@@ -6,8 +6,17 @@ function TargetPositionIcon({ targetName, targetAddress, sideNow }) {
     <>
       <div className="deliverMapTargetIconBox">
         {!openDetail ? (
-          <div className=" deliverMapTargetTextBox">
-            <p className="fs24 fw5">{sideNow === 2 ? '店家' : '客戶'}資訊</p>
+          <div className=" deliverMapTargetTextBox po-r">
+            <i
+              onClick={() => {
+                setOpenDetail((v) => !v);
+              }}
+              style={{ position: 'absolute', top: '15px' }}
+              className="as-e fa-solid fa-circle-xmark fs24 pointer"
+            ></i>
+            <p className=" fontMainColor  fs24 fw5">
+              {sideNow === 2 ? '店家' : '客戶'}資訊
+            </p>
             <p className="deliverMapTargetName">{targetName}</p>
             <p className="deliverMapTargetAddress">{targetAddress}</p>
           </div>

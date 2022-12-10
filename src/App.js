@@ -113,6 +113,9 @@ import Taipei from './Shopping/Taipei';
 import LinePay from './Shopping/LinePay';
 //LinePay 結帳完成頁
 import PayConfirmed from './Shopping/LinePay/PayConfirmed';
+//店家評價
+import StoreEvaluation from './Store/StoreEvaluation';
+
 //===============================================分隔線================================================
 function App() {
   return (
@@ -252,7 +255,8 @@ function App() {
             {/* LinePay 結帳完成頁 */}
             {/* ~/PayConfirmed */}
             <Route path="PayConfirmed" element={<PayConfirmed />} />
-
+            {/* 店家評價 */}
+            <Route path="StoreEvaluation" element={<StoreEvaluation />} />
             {/* ===============================================分隔線================================================ */}
             {/* 會員註冊 */}
             {/* ~/MemberRegister */}
