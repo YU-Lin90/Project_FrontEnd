@@ -50,7 +50,6 @@ export default function ListTable() {
     lng: 1,
   });
 
-
   //----------------------------------------------------------------------
 
   //抓網址變動
@@ -290,15 +289,17 @@ export default function ListTable() {
       // const gettedDistance = Math.random() * 50;
 
       // 直接以資料表內的店家經緯度與本地位置的經緯度運算(兩方皆為寫死)
-      shopPosition.lat = element.shop_lat
-      shopPosition.lng = element.shop_lng 
+      shopPosition.lat = await element.shop_lat;
+      shopPosition.lng = await element.shop_lng;
       const gettedDistance = await calculateDistanceByLatLng(
         localposition,
         shopPosition
       );
-      console.log(localposition);
-      console.log(shopPosition);
-      console.log(gettedDistance);
+      //TODO:SID88的店算不出來
+      console.log('店家經緯度', shopPosition);
+      if (!gettedDistance) {
+        console.log('計算出距離:', gettedDistance);
+      }
 
       // 將結果放進result.distance
       element.distance = gettedDistance
@@ -315,7 +316,6 @@ export default function ListTable() {
         result.data.sort((a, b) => a.distance - b.distance);
       }
     } // 迴圈結束
-
 
     // }
     // else {
