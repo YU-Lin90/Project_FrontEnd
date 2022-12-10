@@ -281,7 +281,7 @@ function MemberDatas() {
           <span className="mb_span">{fieldErrors.phone}</span>
         </div>
         <button className="mb_button" type="submit">
-          修改
+          送出
         </button>
         <Link to={'/Member/MemberLocation'}>
           <button
