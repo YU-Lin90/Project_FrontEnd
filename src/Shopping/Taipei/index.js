@@ -1,4 +1,4 @@
-import ListTable from './../Shopping';
+import ListTable from './ListTable';
 
 function Taipei() {
   return (
