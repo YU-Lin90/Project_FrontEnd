@@ -266,8 +266,6 @@ padding: 10px 15px;
 .search_bar_toggle {
     top:80px;
     right: 0px;
-    width: 30px;
-    height: 30px;
     position: fixed;
     cursor: pointer;
     z-index: 10;
