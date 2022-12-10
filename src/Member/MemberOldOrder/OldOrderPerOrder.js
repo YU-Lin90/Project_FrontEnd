@@ -50,7 +50,7 @@ function OldOrderPerOrder({ orderData, setReloading }) {
           </div>
           <div className="w40p lh24 disf fd-c jc-se fw6 fs18">
             <p className="marb10">訂單編號：{orderData.orderId}</p>
-            <p className="marb10">{orderData.shopName}</p>
+            <p className="marb10">店家：{orderData.shopName}</p>
             <p className="marb10">外送員：{orderData.deliverName}</p>
             <p className="marb10">{orderData.order_date}</p>
           </div>

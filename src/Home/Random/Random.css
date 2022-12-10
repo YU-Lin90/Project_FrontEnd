@@ -19,9 +19,10 @@
   margin-right: auto;
   margin-top: 50px;
   z-index: 100;
-  background-color: var(--subColor);
+  background: linear-gradient(135deg, var(--mainColor) 0%, #fff 50%, var(--subColor) 100%);
   border-radius: 10px;
   overflow: auto;
+  box-shadow: 4px 6px 0 0 rgba(0, 0, 0, 0.21);  
   width: 90%;
 }
 

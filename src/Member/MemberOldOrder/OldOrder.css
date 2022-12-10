@@ -1,5 +1,6 @@
 .oldOrderFrame {
   border: 1px var(--mainColor) solid;
+  border-radius: 10px;
 }
 
 .oldOrderTopDetail {
@@ -59,6 +60,11 @@
   border-radius: 50%;
   /* border-radius: 50%; */
   background: radial-gradient(var(--subColor), var(--subColor) calc(100% - 15px), #fff calc(100% - 15px), #fff calc(100% - 10px), var(--subColor) calc(100% - 10px), var(--subColor) 100%);
+}
+.oldOrderOptionFrame{
+  background-color: #eaa;
+  margin-right: 5px;
+  border-radius: 10px;
 }
 @media screen and (min-width:768px){
   .emberOldOrderDetailProductCard{
