@@ -90,7 +90,13 @@ function MemberLogin() {
             會員登入
           </h3>
           <div className="ml_email">
-            <label className="m_login_label" onClick={login2}>
+            <label
+              className="m_login_label"
+              onClick={() => {
+                setEmail('abc1234@gmail.com');
+                setPassword('Aa123456789');
+              }}
+            >
               帳號
             </label>
             <br />
