@@ -37,18 +37,18 @@ function ProductList() {
   }, []);
 
   const detactPosition = (e) => {
-    console.log(window.innerHeight)
     let myTypes = document.querySelectorAll('.connect-id');
     let typeHeights = [];
     myTypes.forEach((v, i) => {
       // 75%筆電時
       // typeHeights.push(v.offsetTop + window.innerHeight - 450);
-      typeHeights.push(v.offsetTop + window.innerHeight * 0.3);
+      typeHeights.push(v.offsetTop + window.innerHeight * 0.4);
       // 125%筆電時
       // typeHeights.push(v.offsetTop + window.innerHeight - 40);
     });
     // console.log(typeHeights);
     // console.log(window.scrollY);
+    console.log(document.querySelector('body'));
     for (let i = 0; i < typeHeights.length; i++) {
       // console.log(window.scrollY - typeHeights[typeHeights.length]);
       if (window.scrollY - typeHeights[0] < 0) {
@@ -104,26 +104,34 @@ function ProductList() {
                 <div className="type-nav">
                   <ul>
                     {data.types.length !== 0 ? (
-                      data.types.map((type, i) => {
-                        return (
-                          <li
-                            className={
-                              !data.products.find((p) => {
-                                return type.sid === p.products_type_sid;
-                              })
-                                ? 'noDisplay'
-                                : ''
-                            }
-                          >
-                            <a
-                              className={nowType === i ? 'underline' : ''}
-                              href={`#${type.sid}`}
+                      data.types
+                        .filter((type) => {
+                          return (
+                            data.products.filter((p) => {
+                              return p.products_type_sid === type.sid;
+                            }).length !== 0
+                          );
+                        })
+                        .map((type, i) => {
+                          return (
+                            <li
+                            // className={
+                            //   !data.products.find((p) => {
+                            //     return type.sid === p.products_type_sid;
+                            //   })
+                            //     ? 'noDisplay'
+                            //     : ''
+                            // }
                             >
-                              {type.name}
-                            </a>
-                          </li>
-                        );
-                      })
+                              <a
+                                className={nowType === i ? 'underline' : ''}
+                                href={`#${type.sid}`}
+                              >
+                                {type.name}
+                              </a>
+                            </li>
+                          );
+                        })
                     ) : (
                       <>
                         <li>
@@ -178,66 +186,74 @@ function ProductList() {
                     </div>
                   </>
                 ) : (
-                  data.types.map((type) => {
-                    return (
-                      <>
-                        <div
-                          className={`product-type ${
-                            !data.products.find(
-                              (product) =>
-                                product.products_type_sid === type.sid
-                            )
-                              ? 'noDisplay'
-                              : ''
-                          }
+                  data.types
+                    .filter((type) => {
+                      return (
+                        data.products.filter((p) => {
+                          return p.products_type_sid === type.sid;
+                        }).length !== 0
+                      );
+                    })
+                    .map((type) => {
+                      return (
+                        <>
+                          <div
+                            className={`product-type ${
+                              !data.products.find(
+                                (product) =>
+                                  product.products_type_sid === type.sid
+                              )
+                                ? 'noDisplay'
+                                : ''
+                            }
                         `}
-                        >
-                          <div className="connect-id" id={type.sid}></div>
-                          <h5 key={type.sid}>{type.name}</h5>
-                          <div className="product-group">
-                            {data.products
-                              .filter((product) => {
-                                return product.products_type_sid === type.sid;
-                              })
-                              .map((product) => {
-                                return (
-                                  <div className="product-box">
-                                    <div
-                                      className="product"
-                                      onClick={() => {
-                                        // selectedSid
-                                        setSelectedSid(product.sid);
-                                      }}
-                                    >
-                                      <div className="left">
-                                        <p className="product-name">
-                                          {[product.name]}
-                                        </p>
-                                        <p className="product-note">
-                                          {[product.note]}
-                                        </p>
+                          >
+                            <div className="connect-id" id={type.sid}></div>
+                            <h5 key={type.sid}>{type.name}</h5>
+                            <div className="product-group">
+                              {data.products
+                                .filter((product) => {
+                                  return product.products_type_sid === type.sid;
+                                })
+                                .map((product) => {
+                                  return (
+                                    <div className="product-box">
+                                      <div
+                                        className="product"
+                                        onClick={() => {
+                                          // selectedSid
+                                          setSelectedSid(product.sid);
+                                        }}
+                                      >
+                                        <div className="left">
+                                          <p className="product-name">
+                                            {[product.name]}
+                                          </p>
+                                          <p className="product-note">
+                                            {[product.note]}
+                                          </p>
 
-                                        <p className="product-price">
-                                          $ {[product.price]}
-                                        </p>
-                                      </div>
-                                      <div className="right">
-                                        <img
-                                          src={`http://${siteName}:3001/uploads/${[
-                                            product.src,
-                                          ]}`}
-                                          alt="商品圖片"
-                                        />
+                                          <p className="product-price">
+                                            $ {[product.price]}
+                                          </p>
+                                        </div>
+                                        <div className="right">
+                                          <img
+                                            src={`http://${siteName}:3001/uploads/${[
+                                              product.src,
+                                            ]}`}
+                                            alt="商品圖片"
+                                          />
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  );
+                                })}
+                            </div>
                           </div>
-                        </div>
-                      </>
-                    );
-                  })
+                        </>
+                      );
+                    })
                 )}
               </main>
             </div>
