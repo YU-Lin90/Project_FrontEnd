@@ -39,35 +39,35 @@ function OldOrderPerOrder({ orderData, setReloading }) {
 } */ //orderData.deliverScore       orderData.shopScore
   return (
     <>
-      <div name="單個訂單外框" className="w100p marb20 oldOrderFrame bgcW">
-        <div className="w100p ai-c   padV20 padH20 disf oldOrderTopDetail">
-          <div className="w20p h100p marr20 as1 lh0 flexSetCenter padV10">
+      <div name="單個訂單外框" className="w100p marb20 oldOrderFrame bgcW of-h">
+        <div className="oldOrderTopDetail">
+          <div className="oldOrderStoreImgFrame  h100p as1 lh0 flexSetCenter padV10 padH5">
             <img
-              className="oldOrderStoreImg"
+              className="oldOrderStoreImg w100p"
               src={` http://${siteName}:3001/images/shop/${orderData.src}`}
               alt=""
             />
           </div>
-          <div className="w40p lh24 disf fd-c jc-se fw6 fs18">
-            <p className="marb10">訂單編號：{orderData.orderId}</p>
-            <p className="marb10">店家：{orderData.shopName}</p>
-            <p className="marb10">外送員：{orderData.deliverName}</p>
-            <p className="marb10">{orderData.order_date}</p>
+          <div className="oldOrderStoreNotImgFrame lh24 disf fd-c jc-se fw6 fs18 padH10">
+            <p className="marV5">訂單編號：{orderData.orderId}</p>
+            <p className="marV5">店家：{orderData.shopName}</p>
+            <p className="marV5">外送員：{orderData.deliverName}</p>
+            <p className="marV5">{orderData.order_date}</p>
           </div>
-          <div className="w40p disf fd-c ai-c jc-se gap10">
+          <div className=" oldOrderStoreNotImgFrame  disf fd-c ai-c jc-se gap10">
             <p className="fw6 fs18">${orderData.sale}</p>
             <div className="disf fd-c">
               <p
                 onClick={() => {
                   navi(`/productList/?shop_sid=${orderData.shop_sid}`);
                 }}
-                className="oldOrderCommand marb10"
+                className="oldOrderCommand marb10 padV5"
               >
                 重新下單
               </p>
               <div>
                 {orderData.shopScore ? (
-                  <p className="ta-c marb10 fw5">
+                  <p className="ta-c mar10 fw5 padV5">
                     店家評價：
                     {orderData.shopScore}
                     <SolidStar />
@@ -85,7 +85,7 @@ function OldOrderPerOrder({ orderData, setReloading }) {
               </div>
               <div>
                 {orderData.deliverScore ? (
-                  <p className="ta-c marb10 fw5">
+                  <p className="ta-c marb10 fw5 padV5">
                     外送評價：
                     {orderData.deliverScore}
                     <SolidStar />
