@@ -145,28 +145,45 @@ function Type() {
 
   // 快速填入類別
   const addDemoTypes = async () => {
-    const body = [
-      { type_name: 'AA', type_sid: 0 },
-      { type_name: 'BB', type_sid: 0 },
-    ];
-    const myUserId = JSON.parse(localStorage.getItem('StoreDatas')).sid;
-    for (let i = 0; i < body.length; i++) {
-      const response = await axios.post(
-        `http://${siteName}:3001/store-admin/type/${myUserId}`,
-        body[i]
-      );
-    }
-    setReload((v) => v + 1);
-    setEditType({
-      type_sid: '',
-      type_name: '',
-    });
-
     Swal.fire({
-      icon: 'success',
-      title: '新增成功',
-      showConfirmButton: false,
-      timer: 1500,
+      title: '使用快速填入?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: '快速填入',
+      denyButtonText: `刪除快速填入`,
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const response = await axios.post(
+          `http://${siteName}:3001/store-admin/type/demo-data`
+        );
+        setReload((v) => v + 1);
+        setEditType({
+          type_sid: '',
+          type_name: '',
+        });
+        Swal.fire({
+          icon: 'success',
+          title: '成功快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else if (result.isDenied) {
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/type/demo-data`
+        );
+        setReload((v) => v + 1);
+        setEditType({
+          type_sid: '',
+          type_name: '',
+        });
+        Swal.fire({
+          icon: 'success',
+          title: '成功刪除快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     });
   };
 
@@ -179,7 +196,7 @@ function Type() {
               <div className={`menu-container`}>
                 <div className="row">
                   <div className="menu-title">
-                    <h4>類別</h4>
+                    <h4 onClick={addDemoTypes}>類別</h4>
                     <div
                       className="bg-black-btn"
                       onClick={() => {
@@ -192,10 +209,6 @@ function Type() {
                     >
                       <i class="fa-solid fa-plus btn-icon"></i>
                       <p>新增類別</p>
-                    </div>
-                    <div className="bg-black-btn" onClick={addDemoTypes}>
-                      <i class="fa-solid fa-plus btn-icon"></i>
-                      <p>快速添加類別</p>
                     </div>
                   </div>
                 </div>
@@ -235,6 +248,7 @@ function Type() {
                                           type_sid: type.sid,
                                           type_name: type.name,
                                         });
+                                        window.scrollTo(0, 0);
                                       }}
                                     >
                                       <div className="td">

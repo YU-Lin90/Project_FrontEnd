@@ -130,6 +130,43 @@ function Option() {
     setOptionData(newOptionData);
   };
 
+  const addDemoOption = async () => {
+    Swal.fire({
+      title: '使用快速填入?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: '快速填入',
+      denyButtonText: `刪除快速填入`,
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const response = await axios.post(
+          `http://${siteName}:3001/store-admin/option/demo-data`
+        );
+        setReload((v) => v + 1);
+        setSelectedItem('');
+        Swal.fire({
+          icon: 'success',
+          title: '成功快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else if (result.isDenied) {
+        const response = await axios.delete(
+          `http://${siteName}:3001/store-admin/option/demo-data`
+        );
+        setReload((v) => v + 1);
+        setSelectedItem('');
+        Swal.fire({
+          icon: 'success',
+          title: '成功刪除快速填入資料',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -141,7 +178,7 @@ function Option() {
               <div className={`menu-container`}>
                 <div className="row">
                   <div className="menu-title">
-                    <h4>客製化選項</h4>
+                    <h4 onClick={addDemoOption}>客製化選項</h4>
                     <div
                       className="bg-black-btn"
                       onClick={() => {
@@ -195,6 +232,7 @@ function Option() {
                                 });
                               console.log(newOptionData);
                               setOptionData(newOptionData);
+                              window.scrollTo(0, 0);
                             }}
                           >
                             <div className="td td-3">{ot.name}</div>
