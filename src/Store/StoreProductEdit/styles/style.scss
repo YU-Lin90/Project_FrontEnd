@@ -122,7 +122,6 @@
         }
       }
       .bottom {
-        
       }
     }
   }
@@ -140,6 +139,7 @@
     .search-box {
       position: relative;
       height: fit-content;
+      margin-right: 16px;
       div {
         position: absolute;
         left: 10px;
@@ -170,9 +170,14 @@
         width: 180px;
         display: block;
         border: none;
-        padding: 8px;
+        padding: 8px 16px;
         cursor: pointer;
         background-color: rgb(238, 238, 238);
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         .arrow {
           position: absolute;
           top: 50%;
@@ -187,11 +192,14 @@
           p {
             display: block;
             width: 180px;
-            padding: 6px;
+            padding: 8px 16px;
             border: 1px solid rgb(204, 204, 204);
             border-top: none;
             background-color: #fff;
             cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }

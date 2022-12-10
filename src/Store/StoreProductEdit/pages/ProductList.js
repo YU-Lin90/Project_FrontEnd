@@ -4,7 +4,6 @@ import { useLocation, Link } from 'react-router-dom';
 import OptionForm from '../components/OptionForm/index';
 const siteName = window.location.hostname;
 function ProductList() {
-
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
   const [data, setData] = useState({
@@ -38,19 +37,28 @@ function ProductList() {
   }, []);
 
   const detactPosition = (e) => {
+    console.log(window.innerHeight)
     let myTypes = document.querySelectorAll('.connect-id');
     let typeHeights = [];
     myTypes.forEach((v, i) => {
-      typeHeights.push(v.offsetTop + window.innerHeight - 40);
+      // 75%筆電時
+      // typeHeights.push(v.offsetTop + window.innerHeight - 450);
+      typeHeights.push(v.offsetTop + window.innerHeight * 0.3);
+      // 125%筆電時
+      // typeHeights.push(v.offsetTop + window.innerHeight - 40);
     });
     // console.log(typeHeights);
     // console.log(window.scrollY);
     for (let i = 0; i < typeHeights.length; i++) {
-      // console.log(typeHeights)
+      // console.log(window.scrollY - typeHeights[typeHeights.length]);
       if (window.scrollY - typeHeights[0] < 0) {
         setNowType(0);
-      } else if (window.scrollY - typeHeights[typeHeights.length] > 0) {
-        setNowType(typeHeights.length);
+      } else if (
+        window.scrollY - typeHeights[typeHeights.length - 1] <=
+          window.innerWidth &&
+        window.scrollY - typeHeights[typeHeights.length - 2] > window.innerWidth
+      ) {
+        setNowType(typeHeights.length - 1);
       } else if (
         window.scrollY - typeHeights[i] >= 0 &&
         window.scrollY - typeHeights[i + 1] < 0
@@ -67,7 +75,10 @@ function ProductList() {
         <div className="product-container">
           <div className="row">
             <div className="shop-img">
-              <img src={`http://${siteName}:3001/images/shop/${data.shop.src}`} alt="店家圖片" />
+              <img
+                src={`http://${siteName}:3001/images/shop/${data.shop.src}`}
+                alt="店家圖片"
+              />
             </div>
           </div>
           <div className="row">

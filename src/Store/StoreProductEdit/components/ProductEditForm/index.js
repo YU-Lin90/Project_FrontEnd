@@ -162,6 +162,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   const editBtnHandler = async (e) => {
     e.preventDefault();
     const fd = new FormData(document.form1);
+    console.log(fd);
     const response = await axios.put(
       `http://${siteName}:3001/store-admin/product/${data.shop.sid}`,
       fd
