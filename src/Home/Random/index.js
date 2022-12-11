@@ -110,6 +110,7 @@ function Random({ setFakeCounter }) {
             onClick={(e) => {
               // console.log(e.target.id)
               if (e.target.id === 'forCheckIdForRandomBack' && flashingEnd) {
+                setCutAmount(0);
                 setOpenWindow((v) => !v);
               }
             }}
@@ -117,9 +118,13 @@ function Random({ setFakeCounter }) {
             id="forCheckIdForRandomBack"
           >
             {/* Random lightBox start  */}
-            <div className="randomBoxOnGrayBack padV10 padH10 of-h">
+            <div className="randomBoxOnGrayBack padV20 padH10 of-h">
               <p className="ta-c fs24 fw6 marb20">
-                {authMember ? <>今日剩餘次數：{3 - todayTimes}</> : '隨機推薦'}
+                {authMember ? (
+                  <>今日剩餘次數：{3 - todayTimes}</>
+                ) : (
+                  <>尚未登入，僅可推薦店家</>
+                )}
               </p>
 
               {/* checkBox */}
@@ -127,6 +132,7 @@ function Random({ setFakeCounter }) {
                 rejectedTypes={rejectedTypes}
                 setRejectedTypes={setRejectedTypes}
               />
+
               {startFlashing ? (
                 <FlashingBox
                   radomArrays={radomArrays}
@@ -138,6 +144,12 @@ function Random({ setFakeCounter }) {
                   gettedShopName={gettedShopName}
                 />
               ) : null}
+              <ShowBox
+                radomArrays={radomArrays}
+                flashingEnd={flashingEnd}
+                cutAmount={cutAmount}
+                startFlashing={startFlashing}
+              />
               <div className="disf jc-se">
                 {pressedTimes > 0 && flashingEnd ? (
                   <p
@@ -171,8 +183,6 @@ function Random({ setFakeCounter }) {
                   setFakeCounter={setFakeCounter}
                 />
               </div>
-
-              <ShowBox radomArrays={radomArrays} cutAmount={cutAmount} />
             </div>
             {/* Random lightBox end */}
           </div>

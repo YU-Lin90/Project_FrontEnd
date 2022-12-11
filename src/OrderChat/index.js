@@ -90,6 +90,14 @@ function OrderChat({
           傳送
         </div>
       </div>
+      {/* mySide */}
+      <div className="disf jc-se">
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+      </div>
     </div>
   );
 }

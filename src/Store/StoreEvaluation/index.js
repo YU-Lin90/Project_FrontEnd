@@ -106,17 +106,33 @@ function StoreEvaluation() {
   return (
     <div className="evaBack">
       <div ref={evaFrameForRef} className="evaFrame">
-        {/* TODO: 評價字串做成固定位置 加上返回鍵 */}
         <div
-          className="evaTitles"
           style={{
             background: `url(http://${siteName}:3001/images/shop/${shopSrc}) center center / cover`,
           }}
+          className="disf jc-se ai-c evaTitleBar"
         >
-          <p className="ta-c fs36 fw6 padH20 padV10 fontMainColor">店家評價</p>
-          <p className="ta-c fs36 fw7 padH20 padV10 fontMainColor">
-            {shopName}
-          </p>
+          <div className="w33p ">
+            <div
+              onClick={() => {
+                const usp = new URLSearchParams(window.location.search);
+                const uspShopSid = usp.get('shopSid');
+                navi(`/productList/?shop_sid=${uspShopSid}`);
+              }}
+              className="fs36 pointer backShopButton"
+            >
+              <i className="fa-solid fa-circle-chevron-left marr5"></i>
+              返回商店
+            </div>
+          </div>
+
+          <div className=" w33p flexsetCenter">
+            <div className="evaTitles">
+              <p className="ta-c fs36 fw6 padH20 padV10 ">店家評價</p>
+              <p className="ta-c fs36 fw7 padH20 padV10 ">{shopName}</p>
+            </div>
+          </div>
+          <div className="w33p"></div>
         </div>
 
         <div className="storeEvaluationOuterFrame">

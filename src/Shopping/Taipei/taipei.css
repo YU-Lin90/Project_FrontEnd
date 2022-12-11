@@ -6,13 +6,12 @@
 .row{
     display: flex;
     width: 100%;
-    justify-content: center
 }
 .col_bar{
     width: 30%;
     flex-wrap: wrap;
     flex-direction: column;
-    top: var(--navHeight);
+    top: 0;
     height: 100%;
     position: sticky;
     font-weight: bold;
@@ -218,6 +217,7 @@ margin: 2vh 0;
     font-weight: bold;
     font-size: 36px;
     width: 100%;
+    justify-content: center;
 }
 
 .shopCardList{
