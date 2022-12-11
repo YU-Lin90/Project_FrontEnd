@@ -1358,6 +1358,7 @@
 @media screen and (max-width: 768px) {
   .product-list .product-container .row .shop-info {
     margin-bottom: 0;
+    padding: 16px;
   }
   .product-list .product-container .row .product-info {
     padding: 0;
@@ -1387,6 +1388,11 @@
   .product-list .product-container .row .product-info aside .type-nav ul li a {
     display: block;
     padding: 16px 16px;
+    padding-bottom: 11px;
+    border-bottom: 5px solid transparent;
+  }
+  .product-list .product-container .row .product-info aside .type-nav ul li .underline {
+    border-bottom: 5px solid orange;
   }
   .product-list .product-container .row .product-info aside::-webkit-scrollbar {
     display: none;

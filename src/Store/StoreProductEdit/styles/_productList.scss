@@ -575,6 +575,7 @@
       .row {
         .shop-info {
           margin-bottom: 0;
+          padding: 16px;
         }
         .product-info {
           padding: 0;
@@ -598,6 +599,12 @@
                   a {
                     display: block;
                     padding: 16px 16px;
+                    padding-bottom: 11px;
+                    border-bottom: 5px solid transparent;
+                  }
+                  .underline {
+                    border-bottom: 5px solid orange;
+                    // font-weight: 700;
                   }
                 }
               }
