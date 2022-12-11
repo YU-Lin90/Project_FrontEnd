@@ -115,7 +115,7 @@ import LinePay from './Shopping/LinePay';
 import PayConfirmed from './Shopping/LinePay/PayConfirmed';
 //店家評價
 import StoreEvaluation from './Store/StoreEvaluation';
-
+import ShowNearShop from './Shopping/ShowNearShop';
 //===============================================分隔線================================================
 function App() {
   return (
@@ -230,6 +230,8 @@ function App() {
             <Route index element={<Home />} />
             {/* ===============================================分隔線================================================ */}
             {/* 購物流程 */}
+            {/* 附近店家 */}
+            <Route path="ShowNearShop" element={<ShowNearShop />} />
             {/* 店家列表 QueryString用於篩選 */}
             {/* ~/Shopping */}
             <Route path="Shopping" element={<Shopping />} />
