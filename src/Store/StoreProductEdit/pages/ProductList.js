@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import OptionForm from '../components/OptionForm/index';
 const siteName = window.location.hostname;
 function ProductList() {
+  const navi = useNavigate();
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
   const [data, setData] = useState({
@@ -91,8 +92,17 @@ function ProductList() {
                 <div className="rating">
                   <i className="fa-solid fa-star"></i>
                   <p>{data.shop.average_evaluation}</p>
+                  <p
+                    onClick={() => {
+                      const shopSid = usp.get('shop_sid');
+                      navi(`/StoreEvaluation?shopSid=${shopSid}`);
+                    }}
+                    className="pointer "
+                  >
+                    查看店家評價
+                  </p>
                 </div>
-                <p>等待時間 : {data.shop.wait_time}</p>
+                <p>等待時間 : {data.shop.wait_time}分鐘</p>
                 <p>點選即可查看營業時間、資訊和更多內容</p>
               </div>
               {/* <h1>{data.shop.address}</h1> */}
