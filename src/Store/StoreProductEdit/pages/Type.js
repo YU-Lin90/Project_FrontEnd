@@ -256,6 +256,7 @@ function Type() {
                                         {type.name}
                                       </div>
                                       <div className="td">
+                                        共
                                         {
                                           data.products.filter((p) => {
                                             return (
@@ -263,6 +264,7 @@ function Type() {
                                             );
                                           }).length
                                         }
+                                        項餐點
                                       </div>
                                       <div className="td">
                                         {data.products
@@ -322,6 +324,14 @@ function Type() {
                           <p>刪除</p>
                         </div>
                       )}
+                      <div
+                        className="sm-white-btn cancel-btn"
+                        onClick={() => {
+                          setEditType({ type_name: '', type_sid: '' });
+                        }}
+                      >
+                        <p>取消</p>
+                      </div>
                       <div
                         className="sm-black-btn"
                         onClick={

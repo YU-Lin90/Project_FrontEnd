@@ -204,8 +204,15 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                 ''
               )}
 
-              <div onClick={fillOutForm} className="sm-white-btn">
-                快速填入
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedItem('');
+                  setImgSrc('');
+                }}
+                className="sm-white-btn cancel-btn"
+              >
+                <p>取消</p>
               </div>
               <div
                 className="sm-black-btn"

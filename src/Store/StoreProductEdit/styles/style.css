@@ -353,6 +353,7 @@
   width: 12.5%;
 }
 .store-admin .table .tbody .tr {
+  cursor: pointer;
   display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
   padding: 0px 30px;
@@ -370,6 +371,7 @@
   width: 12.5%;
 }
 .store-admin .table .tbody .tr-type {
+  cursor: pointer;
   display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
   padding: 0px 30px;
@@ -395,6 +397,7 @@
   margin-right: 16px;
 }
 .store-admin .table .tbody .tr-product {
+  cursor: pointer;
   display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
   justify-content: space-between;
@@ -485,6 +488,7 @@
 }
 
 .store-admin {
+  position: relative;
   font-weight: 500;
   background-color: #fff;
 }
@@ -547,6 +551,7 @@
      object-fit: cover;
 }
 .store-admin .menu-container .edit-form form .previewImg .direction {
+  width: 300px;
   text-align: justify;
   display: flex;
   flex-direction: column;
@@ -781,6 +786,9 @@
 .store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .price-box .number-input div {
   transform: translateY(-46%);
 }
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .price-box .number-input input {
+  padding-left: 48px;
+}
 .store-admin .top-edit-bar {
   padding-top: 32px;
   width: 100%;
@@ -789,6 +797,7 @@
   align-items: center;
 }
 .store-admin .top-edit-bar .left-btn-group div i {
+  cursor: pointer;
   font-size: 20px;
 }
 .store-admin .top-edit-bar .right-btn-group {
@@ -796,6 +805,9 @@
 }
 .store-admin .top-edit-bar .right-btn-group div {
   margin-right: 12px;
+}
+.store-admin .top-edit-bar .cancel-btn {
+  color: rgb(159, 159, 159);
 }
 
 .product-list {
@@ -895,6 +907,7 @@
   padding-right: 16px;
 }
 .product-list .product-container .row .product-info main .product-type .product-group .product-box .product {
+  cursor: pointer;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -972,25 +985,28 @@
 .product-list .option-form-area .option-form-section .option-form .row .product-img img {
   display: block;
   width: 100%;
-  height: 300px;
+  height: 317px;
   -o-object-fit: cover;
      object-fit: cover;
   background-color: #ccc;
 }
 .product-list .option-form-area .option-form-section .option-form .row .product-img .back-btn {
-  width: 30px;
-  height: 30px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   top: 16px;
-  left: 16px;
+  left: auto;
+  right: 16px;
   border-radius: 50%;
-  background-color: orange;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 .product-list .option-form-area .option-form-section .option-form .row .product-img .back-btn i {
   font-size: 20px;
+  color: orange;
 }
 .product-list .option-form-area .option-form-section .option-form .row .product-info {
   width: 100%;
@@ -1031,6 +1047,7 @@
   width: 100%;
 }
 .product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label {
+  cursor: pointer;
   padding: 12px 16px;
   display: flex;
   justify-content: start;
@@ -1085,6 +1102,9 @@
 .product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
   color: rgb(237, 154, 0);
 }
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive {
+  cursor: auto;
+}
 .product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
   border-color: #cacaca;
 }
@@ -1105,11 +1125,13 @@
   margin-right: 12px;
 }
 .product-list .option-form-area .option-form-section .option-form .row .amount-section .left i {
+  cursor: pointer;
   color: orange;
   font-size: 20px;
 }
 .product-list .option-form-area .option-form-section .option-form .row .amount-section .left .inActive {
   color: #ccc;
+  cursor: auto;
 }
 .product-list .option-form-area .option-form-section .option-form .row .amount-section .left input {
   -webkit-appearance: none;
@@ -1451,25 +1473,28 @@
 .option-form-area .option-form-section .option-form .row .product-img img {
   display: block;
   width: 100%;
-  height: 300px;
+  height: 317px;
   -o-object-fit: cover;
      object-fit: cover;
   background-color: #ccc;
 }
 .option-form-area .option-form-section .option-form .row .product-img .back-btn {
-  width: 30px;
-  height: 30px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   top: 16px;
-  left: 16px;
+  left: auto;
+  right: 16px;
   border-radius: 50%;
-  background-color: orange;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 .option-form-area .option-form-section .option-form .row .product-img .back-btn i {
   font-size: 20px;
+  color: orange;
 }
 .option-form-area .option-form-section .option-form .row .product-info {
   width: 100%;
@@ -1510,6 +1535,7 @@
   width: 100%;
 }
 .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label {
+  cursor: pointer;
   padding: 12px 16px;
   display: flex;
   justify-content: start;
@@ -1564,6 +1590,9 @@
 .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
   color: rgb(237, 154, 0);
 }
+.option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive {
+  cursor: auto;
+}
 .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
   border-color: #cacaca;
 }
@@ -1584,11 +1613,13 @@
   margin-right: 12px;
 }
 .option-form-area .option-form-section .option-form .row .amount-section .left i {
+  cursor: pointer;
   color: orange;
   font-size: 20px;
 }
 .option-form-area .option-form-section .option-form .row .amount-section .left .inActive {
   color: #ccc;
+  cursor: auto;
 }
 .option-form-area .option-form-section .option-form .row .amount-section .left input {
   -webkit-appearance: none;

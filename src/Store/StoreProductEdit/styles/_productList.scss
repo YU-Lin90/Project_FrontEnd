@@ -100,6 +100,7 @@
                 height: auto;
                 padding-right: 16px;
                 .product {
+                  cursor: pointer;
                   width: 100%;
                   display: flex;
                   justify-content: space-between;
@@ -187,23 +188,28 @@
             img {
               display: block;
               width: 100%;
-              height: 300px;
+              height: 317px;
               object-fit: cover;
               background-color: #ccc;
             }
             .back-btn {
-              width: 30px;
-              height: 30px;
+              cursor: pointer;
+              width: 36px;
+              height: 36px;
               display: flex;
               justify-content: center;
               align-items: center;
               position: fixed;
               top: 16px;
-              left: 16px;
+              left: auto;
+              right: 16px;
               border-radius: 50%;
-              background-color: orange;
+              // background-color: orange;
+              // background-color: rgba($color: orange, $alpha: 0.7);
+              background-color: rgba($color: #fff, $alpha: 0.7);
               i {
                 font-size: 20px;
+                color: orange;
               }
             }
           }
@@ -247,6 +253,7 @@
                 .opt-box {
                   width: 100%;
                   label {
+                    cursor: pointer;
                     padding: 12px 16px;
                     display: flex;
                     justify-content: start;
@@ -298,6 +305,7 @@
                     }
                   }
                   .inActive {
+                    cursor: auto;
                     input[type='checkbox'] {
                       border-color: #cacaca;
                       // background-color: rgb(247, 247, 247);
@@ -324,11 +332,13 @@
               align-items: center;
               margin-right: 12px;
               i {
+                cursor: pointer;
                 color: orange;
                 font-size: 20px;
               }
               .inActive {
                 color: #ccc;
+                cursor: auto;
               }
               input {
                 appearance: none;
@@ -689,23 +699,28 @@
           img {
             display: block;
             width: 100%;
-            height: 300px;
+            height: 317px;
             object-fit: cover;
             background-color: #ccc;
           }
           .back-btn {
-            width: 30px;
-            height: 30px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: fixed;
             top: 16px;
-            left: 16px;
+            left: auto;
+            right: 16px;
             border-radius: 50%;
-            background-color: orange;
+            // background-color: orange;
+            // background-color: rgba($color: orange, $alpha: 0.7);
+            background-color: rgba($color: #fff, $alpha: 0.7);
             i {
               font-size: 20px;
+              color: orange;
             }
           }
         }
@@ -749,6 +764,7 @@
               .opt-box {
                 width: 100%;
                 label {
+                  cursor: pointer;
                   padding: 12px 16px;
                   display: flex;
                   justify-content: start;
@@ -800,6 +816,7 @@
                   }
                 }
                 .inActive {
+                  cursor: auto;
                   input[type='checkbox'] {
                     border-color: #cacaca;
                     // background-color: rgb(247, 247, 247);
@@ -826,11 +843,13 @@
             align-items: center;
             margin-right: 12px;
             i {
+              cursor: pointer;
               color: orange;
               font-size: 20px;
             }
             .inActive {
               color: #ccc;
+              cursor: auto;
             }
             input {
               appearance: none;
