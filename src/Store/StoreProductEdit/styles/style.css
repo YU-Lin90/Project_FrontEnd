@@ -1391,7 +1391,6 @@
   }
   .product-list .toBottom .option-form-section .option-form {
     top: auto;
-    bottom: 0px;
     margin: 0;
   }
 }
@@ -1619,7 +1618,6 @@
 
 .toBottom .option-form-section .option-form {
   top: auto;
-  bottom: 0px;
   margin: 0;
 }
 
@@ -1633,5 +1631,9 @@
   }
   .option-form-area .option-form-section .option-form .row .product-img img {
     height: 180px;
+  }
+  .toBottom .option-form-section .option-form {
+    top: auto;
+    bottom: 0px;
   }
 }/*# sourceMappingURL=style.css.map */

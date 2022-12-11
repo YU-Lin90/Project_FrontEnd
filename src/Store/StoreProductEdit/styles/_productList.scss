@@ -631,7 +631,7 @@
       .option-form-section {
         .option-form {
           top: auto;
-          bottom: 0px;
+          // bottom: 0px;
           margin: 0;
         }
       }
@@ -867,7 +867,7 @@
   .option-form-section {
     .option-form {
       top: auto;
-      bottom: 0px;
+      // bottom: 0px;
       margin: 0;
     }
   }
@@ -886,6 +886,14 @@
             }
           }
         }
+      }
+    }
+  }
+  .toBottom {
+    .option-form-section {
+      .option-form {
+        top: auto;
+        bottom: 0px;
       }
     }
   }

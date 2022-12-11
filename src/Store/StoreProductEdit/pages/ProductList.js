@@ -49,7 +49,6 @@ function ProductList() {
     });
     // console.log(typeHeights);
     // console.log(window.scrollY);
-    console.log(document.querySelector('body'));
     for (let i = 0; i < typeHeights.length; i++) {
       // console.log(window.scrollY - typeHeights[typeHeights.length]);
       if (window.scrollY - typeHeights[0] < 0) {
