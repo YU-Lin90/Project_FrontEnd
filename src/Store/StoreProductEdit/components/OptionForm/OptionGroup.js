@@ -102,13 +102,50 @@ function OptionGroup({
                       // check-test
                       const testNewCheckState = [...testDetails[otIndex].list];
 
-                      if (!testNewCheckState[i]) {
+                      if (!testNewCheckState[i] && min === 0 && max === 1) {
                         // test
                         const testThisIndex = testDetails.findIndex(
                           (detail) => {
                             return detail.sid === ot.sid;
                           }
                         );
+                        const testNewDetails = [...testDetails];
+                        if (!testNewDetails[testThisIndex]) {
+                          return;
+                        }
+                        testNewDetails[testThisIndex].list.forEach(
+                          (v, index) => {
+                            testNewDetails[testThisIndex].list[index] = false;
+                          }
+                        );
+                        testNewDetails[testThisIndex].list[i] = {
+                          sid: opt.sid,
+                          name: opt.name,
+                          price: opt.price,
+                        };
+                        setTestDetails(testNewDetails);
+
+                        // 檢測數量
+                        if (
+                          testDetails[otIndex].list.filter((v) => {
+                            return !!v === true;
+                          }).length >= min ||
+                          testDetails[otIndex].list.filter((v) => {
+                            return !!v === true;
+                          }).length <= max
+                        ) {
+                          const newOptionBoolean = [...optionBoolean];
+                          newOptionBoolean[otIndex] = true;
+                          setOptionBoolean(newOptionBoolean);
+                        }
+                      } else if (!testNewCheckState[i]) {
+                        // test
+                        const testThisIndex = testDetails.findIndex(
+                          (detail) => {
+                            return detail.sid === ot.sid;
+                          }
+                        );
+
                         const testNewDetails = [...testDetails];
                         testNewDetails[testThisIndex].list[i] = {
                           sid: opt.sid,
@@ -165,7 +202,8 @@ function OptionGroup({
                       !testDetails[otIndex].list[i] &&
                       testDetails[otIndex].list.filter((v) => {
                         return !!v === true;
-                      }).length === max
+                      }).length === max &&
+                      !(min === 0 && max === 1)
                         ? true
                         : false
                     }
