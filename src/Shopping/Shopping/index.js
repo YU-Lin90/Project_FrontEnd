@@ -6,7 +6,7 @@ function Shopping() {
   //渲染
   return (
     <>
-      <div className="row">
+      <div className="shopping_row">
         <ListTable></ListTable>
       </div>
     </>

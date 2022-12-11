@@ -3,7 +3,7 @@
 
 @media screen and (min-width:768px) {
 
-.row{
+.shopping_row{
     display: flex;
     width: 100%;
     justify-content: center
@@ -12,7 +12,7 @@
     width: 30%;
     flex-wrap: wrap;
     flex-direction: column;
-    top: 0;
+    top:var(--navHeight);
     height: 100%;
     position: sticky;
     font-weight: bold;
@@ -22,9 +22,11 @@
 
 .table{
     display: flex;
+    overflow: auto;
+    max-height: calc(100vh - 80px );
     flex-direction: row;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     justify-content: center;
 }
 
@@ -89,7 +91,7 @@ height: fit-content;
     border: none;
     border-bottom: 1.5px solid rgb(224, 224, 224);
     width: 100%;
-    height: 2vh;
+    height: 3vh;
 }
 
 .search_bar_price_min{
@@ -100,7 +102,7 @@ height: fit-content;
     border: none;
     border-bottom: 1.5px solid rgb(224, 224, 224);
     width: 100%;
-    height: 2vh;
+    height: 3vh;
 }
 .search_bar_tag>p{
     /* h2 */
@@ -206,7 +208,7 @@ margin: 2vh 0;
 .col_list{
     display: flex;
     width: 70%;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex-direction: column;
     justify-content: center;
 }
@@ -240,6 +242,12 @@ padding-left: 2em;
     border: 1px solid #CCC;
     background-color: #FFF;
 }
+
+.shopCardBox:hover {
+    scale: 1.1;
+    box-shadow: 0 8px 24px rgba(17, 17, 26, 0.1), 0 16px 56px rgba(17, 17, 26, 0.1), 0 24px 80px rgba(17, 17, 26, 0.1);
+}
+
 .shopCard_image{
     top: 0;
     left: 0;

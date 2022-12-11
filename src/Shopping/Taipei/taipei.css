@@ -3,11 +3,11 @@
 
 @media screen and (min-width:768px) {
 
-.row{
+.city_row{
     display: flex;
     width: 100%;
 }
-.col_bar{
+.city_col_bar{
     width: 30%;
     flex-wrap: wrap;
     flex-direction: column;
@@ -19,7 +19,7 @@
     background-color: white;
 }
 
-.table{
+.city_table{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -27,135 +27,135 @@
     justify-content: center;
 }
 
-.search_bar{
+.city_search_bar{
     display: flex;
     flex-direction: column;
     width: 80%;
     padding: 10vh 3vh;
 }
 
-.search_bar>p{
+.city_search_bar>p{
     display: block;
-    font-size: 1.5em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
+    font-size: 1.city_5em;
+    margin-top: 0.city_67em;
+    margin-bottom: 0.city_67em;
     margin-left: 0;
     margin-right: 0;
     font-weight: 700;
 }
 
-.search_bar_title{
+.city_search_bar_title{
     /* h2 */
     display: block;
-    font-size: 1.5em;
-    margin-top: 0.83em;
-    margin-bottom: 0.83em;
+    font-size: 1.city_5em;
+    margin-top: 0.city_83em;
+    margin-bottom: 0.city_83em;
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
 }
-.search_mirror{
+.city_search_mirror{
     height: 100%;
 }
-.search_bar_name{
+.city_search_bar_name{
     display: flex;
 }
 
-.search_bar_name_input{
+.city_search_bar_name_input{
     border: none;
-    border-bottom: 1.5px solid rgb(224, 224, 224);
+    border-bottom: 1.city_5px solid rgb(224, 224, 224);
     width: 100%;
     height: 3vh;
 }
 
 
-.search_bar_price>p{
+.city_search_bar_price>p{
     /* h2 */
     display: block;
-    font-size: 1.5em;
-    margin-top: 0.83em;
+    font-size: 1.city_5em;
+    margin-top: 0.city_83em;
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
 }
 
 
-.search_bar_price_max{
+.city_search_bar_price_max{
 align-items: center;
 height: fit-content;
 }
-.search_bar_price_max_input{
+.city_search_bar_price_max_input{
     border: none;
-    border-bottom: 1.5px solid rgb(224, 224, 224);
+    border-bottom: 1.city_5px solid rgb(224, 224, 224);
     width: 100%;
     height: 2vh;
 }
 
-.search_bar_price_min{
+.city_search_bar_price_min{
 align-items: center;
 height: fit-content;
 }
-.search_bar_price_min_input{
+.city_search_bar_price_min_input{
     border: none;
-    border-bottom: 1.5px solid rgb(224, 224, 224);
+    border-bottom: 1.city_5px solid rgb(224, 224, 224);
     width: 100%;
     height: 2vh;
 }
-.search_bar_tag>p{
+.city_search_bar_tag>p{
     /* h2 */
     display: block;
-    font-size: 1.5em;
-    margin-top: 0.83em;
+    font-size: 1.city_5em;
+    margin-top: 0.city_83em;
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
 }
 
-.search_bar_point_button div{
+.city_search_bar_point_button div{
 margin: 2vh 0;
 }
 
-.search_bar span{
+.city_search_bar span{
     display: flex;
     flex-direction: row;
     margin: 20px 0;
 }
 
-.search_bar_time>p{
+.city_search_bar_time>p{
     /* h2 */
     display: block;
-    font-size: 1.5em;
-    margin-top: 0.83em;
+    font-size: 1.city_5em;
+    margin-top: 0.city_83em;
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
 }
 
-.range_label{
+.city_range_label{
     display: flex;
     align-items: center;
 }
-.range_label input{
+.city_range_label input{
     width: 20%;
 }
 
-.slider {
+.city_slider {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 25px;
     background: #FFFFFF;
     outline: none;
-    opacity: 0.7;
+    opacity: 0.city_7;
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
 
-.slider:hover {
+.city_slider:hover {
     opacity: 1;
 }
 
-.slider::-webkit-slider-thumb {
+.city_slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -164,20 +164,20 @@ margin: 2vh 0;
     cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
+.city_slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
     background: #FF0000;
     cursor: pointer;
 }
 
-.sliderticks {
+.city_sliderticks {
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
 }
 
-.sliderticks p {
+.city_sliderticks p {
     position: relative;
     display: flex;
     justify-content: center;
@@ -190,7 +190,7 @@ margin: 2vh 0;
 }
 
 
-.search_bar_submit{
+.city_search_bar_submit{
     line-height: 24px;
     font-size: 14px;
     color: white;
@@ -202,7 +202,7 @@ margin: 2vh 0;
     justify-content: center;
 }
 
-.col_list{
+.city_col_list{
     display: flex;
     width: 70%;
     flex-wrap: wrap;
@@ -210,7 +210,7 @@ margin: 2vh 0;
     justify-content: center;
 }
 
-.subTitle{
+.city_subTitle{
     display: flex;
     padding: 0px;
     margin: 20px 0px;
@@ -220,7 +220,7 @@ margin: 2vh 0;
     justify-content: center;
 }
 
-.shopCardList{
+.city_shopCardList{
 display: flex;
 flex-wrap: wrap;
 flex-direction: row;
@@ -231,7 +231,7 @@ margin: 0 auto;
 padding-left: 2em;
 }
 
-.shopCardBox{
+.city_shopCardBox{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -240,18 +240,24 @@ padding-left: 2em;
     border: 1px solid #CCC;
     background-color: #FFF;
 }
-.shopCard_image{
+.city_shopCardBox:hover {
+    scale: 1.1;
+    box-shadow: 0 8px 24px rgba(17, 17, 26, 0.1), 0 16px 56px rgba(17, 17, 26, 0.1), 0 24px 80px rgba(17, 17, 26, 0.1);
+}
+
+
+.city_shopCard_image{
     top: 0;
     left: 0;
     width: 100%;
     height: 160px;
     /* background-color: red; */
 }
-.shopCard_cover{
+.city_shopCard_cover{
     width: 100%;
     height: 100%;
 }
-.shopCard_conpon{
+.city_shopCard_conpon{
     position: absolute;
     top: 20px;
     left: 0;
@@ -265,7 +271,7 @@ padding-left: 2em;
     background-color: #FFA500;
 }
 
-.shopCard_delivery_time{
+.city_shopCard_delivery_time{
     display: flex;
     background-color: #fff;
     flex-direction: column;
@@ -278,16 +284,16 @@ padding-left: 2em;
     font-weight: bolder;
 }
 
-.shopCard_text{
+.city_shopCard_text{
     left: 0;
     width: 100%;
     padding: 10px 15px;
     /* background-color: yellow; */
 }
-.shoptitle{
+.city_shoptitle{
     font-size: 14px;
 }
-.shopCard_text_name{
+.city_shopCard_text_name{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -297,7 +303,7 @@ padding-left: 2em;
     /* background-color: #FFA500; */
 }
 
-.shopCard_text{
+.city_shopCard_text{
 width: 100%;
 height: 100%;
 display: flex;
@@ -305,15 +311,15 @@ flex-direction: column;
 height: 100%;
 }
 
-.shopCard_score {
+.city_shopCard_score {
     display: flex;
     justify-content: flex-end;
 }
-.shopcontext{
+.city_shopcontext{
     font-size: 14px;
     margin-bottom: 8px;
 }
-.shopbtn{
+.city_shopbtn{
     display: block;
     position: absolute;
     right: 15px;
@@ -329,13 +335,13 @@ height: 100%;
     background-color: white;
     
 }
-.search_bar_toggle{
+.city_search_bar_toggle{
     display: none;
 }
 }
 
 
-.icon{
+.city_icon{
     position: absolute;
     bottom: 0;
     right: 0;

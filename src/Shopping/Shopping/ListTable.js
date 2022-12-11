@@ -6,8 +6,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
-import './Shopping_RWD.css'
-import './Shopping.css'
+import './Shopping_RWD.css';
+import './Shopping.css';
+import DailyTimeCounter from '../../Home/DailyTimeCounter';
 
 //距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
@@ -39,7 +40,7 @@ export default function ListTable() {
   //確認視窗寬度用
   // const [cardBoxWidth, setCardBoxWidth] = useState('width:100%');
 
-  const [formDefault , setFormDefault] = useState()
+  const [formDefault, setFormDefault] = useState();
 
   //-------------------------計算距離用------------------------------------
 
@@ -55,16 +56,13 @@ export default function ListTable() {
     lat: 1,
     lng: 1,
   });
-  
 
   //----------------------------------------------------------------------
-
-  
-
 
   //抓網址變動
   useEffect(() => {
     searchShop();
+    
   }, [sendAddress]);
 
   //表格資料
@@ -212,10 +210,10 @@ export default function ListTable() {
     }
   };
   // -------------------------------------------------------
-  
+
   // 是否為所有店家
   // const [allShop, setAllShop] = useState(false);
-  
+
   // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
@@ -228,30 +226,31 @@ export default function ListTable() {
     }
   };
   const [formData, setFormData] = useState({});
-  
+
   const form_handleChange = (e) => {
     const dataIN = { ...formData, [e.target.name]: e.target.value };
     setFormData(dataIN);
     localStorage.setItem('search_data', JSON.stringify(dataIN));
-    
+
     //---測試---
     if (e.target.checked) {
       setIsChecked(!isChecked);
     }
-    
+
     if (e.target.name === 'wait_time') {
       let value = e.target.value;
       setSearchWaitTime(value);
     }
   };
-    
+
   // 搜尋函式
   const searchShop = async (event) => {
+    window.scrollTo(0,0);
     // 得到當前定位的經緯度
     const localposition = await getLatLngByAddress(sendAddress);
     //{lat: 25.0339145, lng: 121.543412}
     // const localposition = { lat: 25.0339145, lng: 121.543412 };
-    
+
     console.log('執行了search');
     // setShop('');
     const sid = localStorage.getItem('MemberSid');
@@ -324,6 +323,10 @@ export default function ListTable() {
         ? Math.round(gettedDistance * 10) / 10
         : '0';
 
+      if (!sendAddress) {
+        element.distance = '請輸入送達地址';
+      }
+
       // 超過30公里，每5公里加10元外送費
       element.fees = gettedDistance
         ? parseInt(gettedDistance / 5) * 10 + 30
@@ -369,6 +372,8 @@ export default function ListTable() {
     if (key || price_max || price_min) {
       if (result.data.length > 0) {
         setSearchTotalRows(result.data[0].total_rows);
+      }else{
+        setSearchTotalRows('0')
       }
     }
     console.log(
@@ -487,7 +492,7 @@ export default function ListTable() {
                 ) : (
                   ''
                 )}
-                <p>{searchTotalRows}個店家</p>
+                <p>{searchTotalRows === 0 ? '0' : searchTotalRows}個店家</p>
               </>
             ) : (
               <p>所有餐廳</p>
@@ -497,7 +502,7 @@ export default function ListTable() {
             </div>
             <div className="search_bar_box">
               <div className="search_bar_name">
-              {/* <AiOutlineSearch className='search_mirror' /> */}
+                {/* <AiOutlineSearch className='search_mirror' /> */}
                 <input
                   type="text"
                   name="search"
@@ -624,6 +629,7 @@ export default function ListTable() {
       {/* )} */}
 
       <div className="col_list">
+        <DailyTimeCounter />
         <div className="subTitle">所有餐廳</div>
         <div className="shopCardList">
           {shop.length > 0 ? (
@@ -692,7 +698,8 @@ export default function ListTable() {
                         <div className="shopCard_score"></div>
                       </div>
                       <span className="shopcontext">
-                        {shop.distance ? shop.distance : disResult} km,
+                        {shop.distance ? shop.distance : disResult}{' '}
+                        {sendAddress ? 'km,' : ''}
                         {shop.type_name}
                       </span>
                       {/* <span>{shop.distance} 公里</span> */}
@@ -705,7 +712,7 @@ export default function ListTable() {
               </div>
             ))
           ) : (
-            <div>{noResult}</div>
+            <div >{noResult}</div>
           )}
         </div>
       </div>
