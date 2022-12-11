@@ -587,17 +587,28 @@
                   margin: 0;
                   a {
                     display: block;
-                    padding: 8px 16px;
+                    padding: 16px 16px;
                   }
                 }
               }
             }
+          }
+          aside::-webkit-scrollbar {
+            display: none;
+          }
+          /* Hide scrollbar for IE, Edge and Firefox */
+          aside {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
           }
           main {
             width: 100%;
             margin-top: 16px;
             .product-type {
               margin: 16px 0px;
+              .connect-id {
+                top: -150px;
+              }
               h5 {
                 margin-left: 16px;
               }
@@ -631,7 +642,7 @@
       .option-form-section {
         .option-form {
           top: auto;
-          // bottom: 0px;
+          bottom: 0px;
           margin: 0;
         }
       }
@@ -894,6 +905,7 @@
       .option-form {
         top: auto;
         bottom: 0px;
+        margin: 0;
       }
     }
   }
