@@ -6,7 +6,6 @@
 .row{
     display: flex;
     width: 100%;
-    justify-content: center
 }
 .col_bar{
     width: 30%;
@@ -218,6 +217,7 @@ margin: 2vh 0;
     font-weight: bold;
     font-size: 36px;
     width: 100%;
+    justify-content: center;
 }
 
 .shopCardList{
