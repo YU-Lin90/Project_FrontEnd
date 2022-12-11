@@ -20,7 +20,7 @@ function DeliverStatistics() {
 
     console.log(result.data);
     setShopData(result.data.map((data) => data.order_time));
-    setSalesData(result.data.map((data) => data.order_total));
+    setSalesData(result.data.map((data) => data.deliver_fee));
 
     console.log(sid);
   };

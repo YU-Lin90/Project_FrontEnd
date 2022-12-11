@@ -61,7 +61,6 @@ export default function ListTable() {
   //抓網址變動
   useEffect(() => {
     searchShop();
-    
   }, [sendAddress]);
 
   //表格資料
@@ -380,17 +379,6 @@ export default function ListTable() {
             <div>{noResult}</div>
           )}
         </div>
-      </div>
-      <div
-        onClick={() => {
-          setToggle(!toggle);
-          console.log(toggle);
-          handleClick();
-        }}
-        className="city_search_bar_toggle"
-        id="bar_switch"
-      >
-        <AiOutlineSearch />
       </div>
     </>
   );

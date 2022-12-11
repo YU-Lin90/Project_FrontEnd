@@ -12,7 +12,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai';
 import './Shopping_RWD.css';
 import './Shopping.css';
 // 限時優惠券
@@ -502,7 +502,7 @@ export default function ListTable() {
       {/* {toggle ? ( */}
       <div className="col_bar" style={style}>
         <form
-          className="table"
+          className="shopping_table"
           onSubmit={(e) => {
             e.preventDefault();
           }}
@@ -543,7 +543,7 @@ export default function ListTable() {
               <div className="search_bar_price">
                 <p>以價格搜尋</p>
                 <div className="search_bar_price_max">
-                  <span>最高</span>
+                  <span>上限</span>
                   <input
                     type="number"
                     name="price_max"
@@ -553,10 +553,11 @@ export default function ListTable() {
                     onChange={(e) => {
                       form_handleChange(e);
                     }}
+                    placeholder="最高價"
                   />
                 </div>
                 <div className="search_bar_price_min">
-                  <span>最低</span>
+                  <span>下限</span>
                   <input
                     type="number"
                     name="price_min"
@@ -566,6 +567,7 @@ export default function ListTable() {
                     onChange={(e) => {
                       form_handleChange(e);
                     }}
+                    placeholder="最低價"
                   />
                 </div>
               </div>
@@ -581,8 +583,9 @@ export default function ListTable() {
                       checked={isChecked}
                       //onChange={checkedBox_handleChange}
                       onChange={(e) => form_handleChange(e)}
+                      className="shopping_checkbox_point"
                     />
-                    <label htmlFor="checkbox_point">評分</label>
+                    <label htmlFor="checkbox_point">照評分排序</label>
                   </div>
                   <div className="search_bar_point_button2">
                     <input
@@ -593,8 +596,9 @@ export default function ListTable() {
                       checked={!isChecked}
                       //onChange={checkedBox_handleChange}
                       onChange={(e) => form_handleChange(e)}
+                      className="shopping_checkbox_distance"
                     />
-                    <label htmlFor="checkbox_distance">距離</label>
+                    <label htmlFor="checkbox_distance">照距離排序</label>
                   </div>
                 </div>
               </div>
@@ -749,7 +753,11 @@ export default function ListTable() {
         className="search_bar_toggle"
         id="bar_switch"
       >
-        <AiOutlineSearch />
+        {!toggle ? (
+          <AiOutlineSearch className="search_mirror" />
+        ) : (
+          <AiOutlineClose className="search_mirror_close"  />
+        )}
       </div>
     </>
   );
