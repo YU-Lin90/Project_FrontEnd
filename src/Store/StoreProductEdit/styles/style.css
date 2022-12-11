@@ -134,6 +134,7 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  margin-right: 16px;
 }
 .store-admin .search-area .search-box div {
   position: absolute;
@@ -164,9 +165,14 @@
   width: 180px;
   display: block;
   border: none;
-  padding: 8px;
+  padding: 8px 16px;
   cursor: pointer;
   background-color: rgb(238, 238, 238);
+}
+.store-admin .search-area .select-box .select p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .store-admin .search-area .select-box .select .arrow {
   position: absolute;
@@ -183,11 +189,14 @@
 .store-admin .search-area .select-box ul li p {
   display: block;
   width: 180px;
-  padding: 6px;
+  padding: 8px 16px;
   border: 1px solid rgb(204, 204, 204);
   border-top: none;
   background-color: #fff;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .store-admin h4 {
   font-size: 28px;
@@ -852,14 +861,14 @@
   width: 100%;
 }
 .product-list .product-container .row .product-info aside .type-nav ul li {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .product-list .product-container .row .product-info aside .type-nav ul li a {
   font-size: 16px;
+  padding-bottom: 2px;
 }
 .product-list .product-container .row .product-info aside .type-nav ul li .underline {
   border-bottom: 2px solid black;
-  font-weight: 700;
 }
 .product-list .product-container .row .product-info main {
   width: 75%;
@@ -904,6 +913,9 @@
 .product-list .product-container .row .product-info main .product-type .product-group .product-box .product .left .product-name {
   font-size: 16px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .product-list .product-container .row .product-info main .product-type .product-group .product-box .product .left .product-note {
   font-size: 14px;
