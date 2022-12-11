@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './NavBar.css';
 import Menu from './Menu';
+import { useSVG } from '../../Context/SVGProvider';
 const siteName = window.location.hostname;
 //確認登入資訊
 function fetchLoginCheck(setfunc) {
@@ -34,6 +35,7 @@ function getName(setMemberName) {
   }
 }
 function DeliverNav() {
+  const { logoSVG } = useSVG();
   const navi = useNavigate();
   //目錄開合切換
   const [toggle, setToggle] = useState(false);
@@ -52,6 +54,14 @@ function DeliverNav() {
   return (
     <>
       <nav className="deliverNav">
+        <div
+          className="h40"
+          onClick={() => {
+            setToggle(false);
+          }}
+        >
+          <Link to="/">{logoSVG('h100p navLogo')}</Link>
+        </div>
         {/* <div
           // 目錄按鈕(三橫線)
           onClick={() => {
@@ -71,9 +81,9 @@ function DeliverNav() {
         </div> */}
 
         {/* 名稱顯示 暫放(原memberName) */}
-        <p>{localStorage.getItem('deliver_name')}</p>
+        <p className="fs24 fw6">{localStorage.getItem('deliver_name')}</p>
         <p
-          className="logCheck"
+          className="logCheck member flexSetCenter bgcSubColor"
           onClick={
             authDeliver
               ? () => {

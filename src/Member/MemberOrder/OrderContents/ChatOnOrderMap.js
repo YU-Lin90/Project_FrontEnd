@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSVG } from '../../../Context/SVGProvider';
 import Swal from 'sweetalert2';
 import OrderChat from '../../../OrderChat';
+import { useNavigate } from 'react-router-dom';
 const alertMessages = [
   '',
   '',
@@ -12,6 +13,7 @@ const alertMessages = [
   '外送員已送達',
 ];
 function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
+  const navi = useNavigate();
   const { chatSVG } = useSVG();
   //開啟聊天室
   const [openChat, setOpenChat] = useState(false);
@@ -25,11 +27,19 @@ function ChatOnOrderMap({ setStep, selectedOrder, step, orderSocket }) {
   useEffect(() => {
     if (
       acceptedStepMessage.step &&
-      selectedOrder === acceptedStepMessage.orderSid
+      selectedOrder === acceptedStepMessage.orderSid &&
+      acceptedStepMessage.step !== 5
     ) {
-      console.log(123);
+      // console.log(123);
       Swal.fire(alertMessages[acceptedStepMessage.step]);
       setStep(acceptedStepMessage.step);
+    } else if (
+      acceptedStepMessage.step === 5 &&
+      selectedOrder === acceptedStepMessage.orderSid
+    ) {
+      Swal.fire(alertMessages[acceptedStepMessage.step]).then(() => {
+        navi('/Member/MemberOldOrder');
+      });
     }
   }, [acceptedStepMessage, selectedOrder]);
   useEffect(() => {

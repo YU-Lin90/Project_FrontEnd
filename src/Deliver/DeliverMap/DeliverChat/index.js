@@ -53,7 +53,7 @@ function DeliverChat({ selectedOrder = 1, step, orderSocket }) {
             targetSid={1}
             sideName={'Deliver'}
             targetSide={1}
-            setStyle={{ height: '400px' }}
+            setStyle={{ height: '500px' }}
           />
         </div>
       ) : null}

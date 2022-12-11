@@ -24,13 +24,13 @@ function StoreOldOrder() {
   return (
     <>
       歷史訂單
-      {/* <button
+      <button
         onClick={() => {
           updateLATLNG();
         }}
       >
         get
-      </button> */}
+      </button>
       {/* <StoreEvaluation /> */}
     </>
   );

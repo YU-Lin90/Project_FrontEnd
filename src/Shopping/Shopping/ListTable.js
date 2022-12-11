@@ -6,9 +6,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
-import './Shopping_RWD.css'
-import './Shopping.css'
-
+import './Shopping_RWD.css';
+import './Shopping.css';
 //距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
 //地址用----------------------------------------------------------------
@@ -39,7 +38,7 @@ export default function ListTable() {
   //確認視窗寬度用
   // const [cardBoxWidth, setCardBoxWidth] = useState('width:100%');
 
-  const [formDefault , setFormDefault] = useState()
+  const [formDefault, setFormDefault] = useState();
 
   //-------------------------計算距離用------------------------------------
 
@@ -55,12 +54,8 @@ export default function ListTable() {
     lat: 1,
     lng: 1,
   });
-  
 
   //----------------------------------------------------------------------
-
-  
-
 
   //抓網址變動
   useEffect(() => {
@@ -212,10 +207,10 @@ export default function ListTable() {
     }
   };
   // -------------------------------------------------------
-  
+
   // 是否為所有店家
   // const [allShop, setAllShop] = useState(false);
-  
+
   // 等待時間的改變事件
   const waitTime_handleChange = (event) => {
     let value = event.target.value;
@@ -228,30 +223,30 @@ export default function ListTable() {
     }
   };
   const [formData, setFormData] = useState({});
-  
+
   const form_handleChange = (e) => {
     const dataIN = { ...formData, [e.target.name]: e.target.value };
     setFormData(dataIN);
     localStorage.setItem('search_data', JSON.stringify(dataIN));
-    
+
     //---測試---
     if (e.target.checked) {
       setIsChecked(!isChecked);
     }
-    
+
     if (e.target.name === 'wait_time') {
       let value = e.target.value;
       setSearchWaitTime(value);
     }
   };
-    
+
   // 搜尋函式
   const searchShop = async (event) => {
     // 得到當前定位的經緯度
     const localposition = await getLatLngByAddress(sendAddress);
     //{lat: 25.0339145, lng: 121.543412}
     // const localposition = { lat: 25.0339145, lng: 121.543412 };
-    
+
     console.log('執行了search');
     // setShop('');
     const sid = localStorage.getItem('MemberSid');
@@ -497,7 +492,7 @@ export default function ListTable() {
             </div>
             <div className="search_bar_box">
               <div className="search_bar_name">
-              {/* <AiOutlineSearch className='search_mirror' /> */}
+                {/* <AiOutlineSearch className='search_mirror' /> */}
                 <input
                   type="text"
                   name="search"
