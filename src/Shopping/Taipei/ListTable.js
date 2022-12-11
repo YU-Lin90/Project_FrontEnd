@@ -13,7 +13,9 @@ import './taipei_RWD.css';
 import { useGeo } from '../../Context/GeoLocationProvider';
 //地址用----------------------------------------------------------------
 import { usePay } from '../../Context/PayPageContext';
+
 const siteName = window.location.hostname;
+
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
@@ -72,11 +74,11 @@ export default function ListTable() {
   const [errorMsg, setErrorMsg] = useState('');
 
   //儲存搜尋值的value用
-  const [searchWord, setSearchWord] = useState('');
-  const [searchPriceMax, setSearchPriceMax] = useState('');
-  const [searchPriceMin, setSearchPriceMin] = useState('');
-  const [searchWaitTime, setSearchWaitTime] = useState('80');
-  const [searchTotalRows, setSearchTotalRows] = useState('');
+  // const [searchWord, setSearchWord] = useState('');
+  // const [searchPriceMax, setSearchPriceMax] = useState('');
+  // const [searchPriceMin, setSearchPriceMin] = useState('');
+  // const [searchWaitTime, setSearchWaitTime] = useState('80');
+  // const [searchTotalRows, setSearchTotalRows] = useState('');
 
   // --------------------最愛店家用-------------------------
 

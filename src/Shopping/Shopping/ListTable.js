@@ -1,4 +1,11 @@
-import { useState, useEffect, useMemo, useref } from 'react';
+import {
+  useState,
+  useEffect,
+  useMemo,
+  useref,
+  useContext,
+  createContext,
+} from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
@@ -8,17 +15,32 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import './Shopping_RWD.css';
 import './Shopping.css';
+// 限時優惠券
 import DailyTimeCounter from '../../Home/DailyTimeCounter';
 
 //距離用----------------------------------------------------------------
 import { useGeo } from '../../Context/GeoLocationProvider';
 //地址用----------------------------------------------------------------
 import { usePay } from '../../Context/PayPageContext';
+import { UseSearchValue } from '../../Context/ShoppingValueProvider';
+
 const siteName = window.location.hostname;
+
 export default function ListTable() {
+  // const history = useHistory()
   const siteName = window.location.hostname;
   const location = useLocation();
   const usp = new URLSearchParams(location.search);
+
+  //原有useState移至上層context全域適用useContext，跳頁時保存搜尋結果
+  const {
+    formData,
+    setFormData,
+    isChecked,
+    setIsChecked,
+    searchWaitTime,
+    setSearchWaitTime,
+  } = UseSearchValue();
 
   const [user, setUser] = useState([]);
   const [myIndex, setMyIndex] = useState({});
@@ -40,7 +62,7 @@ export default function ListTable() {
   //確認視窗寬度用
   // const [cardBoxWidth, setCardBoxWidth] = useState('width:100%');
 
-  const [formDefault, setFormDefault] = useState();
+  // const [formDefault, setFormDefault] = useState();
 
   //-------------------------計算距離用------------------------------------
 
@@ -61,24 +83,24 @@ export default function ListTable() {
 
   //抓網址變動
   useEffect(() => {
+    setSearchWord(searchWord);
     searchShop();
-    
   }, [sendAddress]);
 
   //表格資料
   const [shop, setShop] = useState([]);
 
   //checkbox用
-  const [isChecked, setIsChecked] = useState(true);
+  // const [isChecked, setIsChecked] = useState(true);
 
   //錯誤用
   const [errorMsg, setErrorMsg] = useState('');
 
   //儲存搜尋值的value用
   const [searchWord, setSearchWord] = useState('');
-  const [searchPriceMax, setSearchPriceMax] = useState('');
-  const [searchPriceMin, setSearchPriceMin] = useState('');
-  const [searchWaitTime, setSearchWaitTime] = useState('80');
+  // const [searchPriceMax, setSearchPriceMax] = useState('');
+  // const [searchPriceMin, setSearchPriceMin] = useState('');
+  // const [searchWaitTime, setSearchWaitTime] = useState('80');
   const [searchTotalRows, setSearchTotalRows] = useState('');
 
   //取得所有店家
@@ -225,7 +247,7 @@ export default function ListTable() {
       setIsChecked(!isChecked);
     }
   };
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
 
   const form_handleChange = (e) => {
     const dataIN = { ...formData, [e.target.name]: e.target.value };
@@ -245,7 +267,7 @@ export default function ListTable() {
 
   // 搜尋函式
   const searchShop = async (event) => {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     // 得到當前定位的經緯度
     const localposition = await getLatLngByAddress(sendAddress);
     //{lat: 25.0339145, lng: 121.543412}
@@ -272,8 +294,8 @@ export default function ListTable() {
       price_max = 0;
     }
     setSearchWord(key);
-    setSearchPriceMax(price_max);
-    setSearchPriceMin(price_min);
+    // setSearchPriceMax(price_max);
+    // setSearchPriceMin(price_min);
     setSearchWaitTime(wait_time);
 
     // 用空格("\s")同時搜尋多個字段，以","("%2C")取代
@@ -372,8 +394,8 @@ export default function ListTable() {
     if (key || price_max || price_min) {
       if (result.data.length > 0) {
         setSearchTotalRows(result.data[0].total_rows);
-      }else{
-        setSearchTotalRows('0')
+      } else {
+        setSearchTotalRows('0');
       }
     }
     console.log(
@@ -382,6 +404,8 @@ export default function ListTable() {
       '結果網址',
       `http://${siteName}:3001/Shopping/` + `?` + usp.toString()
     );
+
+    // history.pushState('','','?'+usp.toString())
 
     try {
       const response_favorite = await axios.get(
@@ -712,7 +736,7 @@ export default function ListTable() {
               </div>
             ))
           ) : (
-            <div >{noResult}</div>
+            <div>{noResult}</div>
           )}
         </div>
       </div>
