@@ -214,7 +214,7 @@ margin: 2vh 0;
     line-height: 40px;
     margin: 0 0 20px 0;
 }
-/* .shopping_checkbox_point{
+.shopping_checkbox_point{
         appearance: none;
         border-radius: 50%;
         background-clip: content-box;
@@ -222,6 +222,7 @@ margin: 2vh 0;
         border: 1.5px solid rgb(237, 154, 0);
         margin-right: 5px;
         box-sizing: border-box;
+        vertical-align: text-top;
 }
 .shopping_checkbox_distance{
         appearance: none;
@@ -230,32 +231,69 @@ margin: 2vh 0;
         padding: 7px;
         border: 1.5px solid rgb(237, 154, 0);
         margin: auto;
-        align-items: center;
         margin-right: 5px;
         box-sizing: border-box; 
-} */
-/* .shopping_checkbox_point:checked {
-    background-color: #FFA500;
-    height: 100%;
-} */
-/* .shopping_checkbox_distance:checked {
-    border: 5.5px solid orange;
-    line-height: 80px; 
-    box-sizing: border-box; 
-} */
-
-.search_bar_submit{
+        vertical-align: text-top;
+}
+.shopping_checkbox_point:checked {
+    outline: solid 8px var(--mainColor);
+    outline-offset: -5px;
+}
+.shopping_checkbox_distance:checked {
+    outline: solid 8px var(--mainColor);
+    outline-offset: -5px;
+}
+.search_bar_button_group{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.search_bar_clear{
     line-height: 24px;
     font-size: 14px;
     color: white;
     background-color: black;
-    padding: 8px 24px;
+    /* padding: 8px 24px; */
     border-radius: 8px;
     display: flex;
     align-items: baseline;
     justify-content: center;
 }
-
+.search_bar_clear:active{
+    line-height: 24px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    /* padding: 8px 24px; */
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+.search_bar_submit{
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    /* padding: 8px 24px; */
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-left: 5px;
+    flex-grow: 1;
+}
+.search_bar_submit:active{
+    line-height: 24px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    /* padding: 8px 24px; */
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
 .col_list{
     display: flex;
     width: 70%;
@@ -296,11 +334,13 @@ padding-left: 2em;
     background-color: #FFF;
     transition: .5s;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .shopCardBox:hover {
     scale: 1.1;
     box-shadow: 0 8px 24px rgba(17, 17, 26, 0.1), 0 16px 56px rgba(17, 17, 26, 0.1), 0 24px 80px rgba(17, 17, 26, 0.1);
+
 }
 
 .shopCard_image{

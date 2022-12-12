@@ -1,10 +1,21 @@
 import React, { useState, useContext, createContext } from 'react';
 const shoppingContext = createContext({});
-//購物車相關狀態管理
+
+//店家搜尋欄相關狀態管理
 export const SearchValueProvider = ({ children }) => {
-  const [searchWaitTime, setSearchWaitTime] = useState('80');
+  //文字、價格
   const [formData, setFormData] = useState({});
+  //排序方式
   const [isChecked, setIsChecked] = useState(false);
+  //等待時間
+  const [searchWaitTime, setSearchWaitTime] = useState('80');
+
+  const clearSearchState = () => {
+    setFormData({});
+    setIsChecked(false);
+    setSearchWaitTime('80')
+  };
+
 
   return (
     <shoppingContext.Provider
@@ -15,6 +26,7 @@ export const SearchValueProvider = ({ children }) => {
         setFormData,
         isChecked,
         setIsChecked,
+        clearSearchState,
       }}
     >
       {children}

@@ -219,7 +219,68 @@ margin: 2vh 0;
     line-height: 40px;
     margin: 0 0 20px 0;
 }
-
+.shopping_checkbox_point{
+    appearance: none;
+    border-radius: 50%;
+    background-clip: content-box;
+    padding: 7px;
+    border: 1.5px solid black;
+    margin-right: 5px;
+    box-sizing: border-box;
+    vertical-align: text-top;
+}
+.shopping_checkbox_distance{
+    appearance: none;
+    border-radius: 50%;
+    background-clip: content-box;
+    padding: 7px;
+    border: 1.5px solid black ;
+    margin: auto;
+    margin-right: 5px;
+    box-sizing: border-box; 
+    vertical-align: text-top;
+}
+.shopping_checkbox_point:checked {
+outline: solid 8px black;
+outline-offset: -5px;
+}
+.shopping_checkbox_distance:checked {
+outline: solid 8px black;
+outline-offset: -5px;
+}
+.search_bar_point_button1{
+padding-left: 10px;
+}
+.search_bar_point_button2{
+padding-left: 10px;
+}
+.search_bar_button_group{
+    display: flex;
+    flex-direction: column;
+}
+.search_bar_clear{
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    padding: 8px 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin: 0 5px 5px 5px ;
+}
+.search_bar_clear:active{
+    line-height: 24px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    padding: 8px 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
 .search_bar_submit{
     line-height: 24px;
     font-size: 14px;
@@ -230,8 +291,20 @@ margin: 2vh 0;
     display: flex;
     align-items: baseline;
     justify-content: center;
+    flex-grow: 1;
+    margin: 0 5px 5px 5px ;
 }
-
+.search_bar_submit:active{
+    line-height: 24px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    padding: 8px 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
 
 .col_list{
     display: flex;
@@ -269,6 +342,8 @@ margin: 0 auto;
     border: 1px solid #CCC;
     background-color: #FFF;
     transition: .5s;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .shopCardBox1{
