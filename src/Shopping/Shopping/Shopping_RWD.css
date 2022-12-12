@@ -374,7 +374,7 @@ padding: 10px 15px;
 
 .search_bar_toggle {
     top:calc(100vh - 150px);
-    right:15px;
+    right:7%;
     position: fixed;
     cursor: pointer;
     z-index: 10;
