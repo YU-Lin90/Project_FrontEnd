@@ -135,7 +135,7 @@
     width: 20px;
     height: 17px;
 }
-@media screen and (max-width:576px) {
+@media screen and (max-width:768px) {
     .m_form{
         margin: 0 auto;
         width: 320px;
