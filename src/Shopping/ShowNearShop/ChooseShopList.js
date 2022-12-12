@@ -24,7 +24,7 @@ function ChooseShopList({
             />
             公里
           </div>
-          <div>
+          <div className="marb10 flexSetCenter">
             排序方式：
             <select
               className=""

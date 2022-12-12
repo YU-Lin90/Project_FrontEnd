@@ -51,7 +51,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width:768px) {
   .mt_th {
     font-size: 20px;
   }

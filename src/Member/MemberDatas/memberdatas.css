@@ -107,7 +107,7 @@
     height: 41px;
     font-size: 20px;
 }
-@media screen and (max-width:576px) {
+@media screen and (max-width:768px) {
     .mb_form{
         margin: 0 auto;
         width: 320px;

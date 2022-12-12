@@ -150,6 +150,15 @@ function MemberDatas() {
         // navigate('/');
       })
       .catch((e) => {
+        if (
+          e.response.data.code === 'ER_DUP_ENTRY' &&
+          e.response.data.message.indexOf('phone') !== -1
+        ) {
+          Swal.fire({
+            icon: 'warning',
+            title: '修改失敗！此手機已存在，請嘗試新的手機！',
+          });
+        }
         console.log(e);
         console.log(e.response);
         e.preventDefault();
