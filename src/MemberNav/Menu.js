@@ -12,7 +12,7 @@ function Menu({ setToggle, toggle }) {
     // { text: '店家內商品列表', link: '/StoreDetail' },
     // { text: '結帳頁', link: '/Pay' },
     // { text: '台北市', link: '/City/Taipei' },
-    { text: '附近美食', link: '/productList/?shop_sid=89', needLogin: false },
+    { text: '附近美食', link: '/ShowNearShop', needLogin: false },
     // { text: '找餐點', link: '/' },
     { text: '優惠券', link: '/Coupon', needLogin: false },
     { text: '會員中心', link: '/Member', needLogin: true },
