@@ -647,7 +647,7 @@ export default function ListTable() {
               onClick={() => {
                 clearSearchState();
               }}
-              type="submit"
+              type="button"
               value="清空"
               className="search_bar_clear"
             />
