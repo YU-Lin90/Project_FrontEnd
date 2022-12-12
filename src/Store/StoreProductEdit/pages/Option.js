@@ -41,14 +41,16 @@ function Option() {
 
   const insertBtnHandler = (e) => {
     e.preventDefault();
-    const newOptionData = [...optionData];
-    newOptionData.push({
-      sid: 0,
-      name: inputText,
-      price: 0,
-    });
-    setOptionData(newOptionData);
-    setInputText('');
+    if (inputText && inputText.trim()) {
+      const newOptionData = [...optionData];
+      newOptionData.push({
+        sid: 0,
+        name: inputText,
+        price: 0,
+      });
+      setOptionData(newOptionData);
+      setInputText('');
+    }
   };
 
   const addBtnHandler = async (e) => {
@@ -264,7 +266,7 @@ function Option() {
           ) : (
             <>
               <div className={`menu-container`}>
-                <div className="row">
+                <div className="row top-edit-area">
                   <div className="top-edit-bar">
                     <div className="left-btn-group">
                       <div
@@ -379,7 +381,31 @@ function Option() {
                           <div className="table">
                             <div className="thead">
                               <div className="tr">
-                                <div className="th">選項名稱</div>
+                                <div
+                                  className="th"
+                                  onClick={() => {
+                                    const newOptionData = [...optionData];
+
+                                    newOptionData.push({
+                                      sid: 0,
+                                      name: '布丁',
+                                      price: 15,
+                                    });
+                                    newOptionData.push({
+                                      sid: 0,
+                                      name: '粉條',
+                                      price: 10,
+                                    });
+                                    newOptionData.push({
+                                      sid: 0,
+                                      name: '椰果',
+                                      price: 5,
+                                    });
+                                    setOptionData(newOptionData);
+                                  }}
+                                >
+                                  選項名稱
+                                </div>
                                 <div className="th">價格</div>
                               </div>
                             </div>

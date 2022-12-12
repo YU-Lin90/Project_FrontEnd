@@ -282,7 +282,16 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
               </div>
 
               <div className="note-box">
-                <p>說明 (選填)</p>
+                <p
+                  onClick={() => {
+                    setFormData({
+                      ...formData,
+                      note: '柑橘果香(佛手柑)的伯爵紅茶，風味較大正紅茶拿鐵更濃郁、香醇｜總熱量(最高)236 Kcal·總糖量(最高)34g',
+                    });
+                  }}
+                >
+                  說明 (選填)
+                </p>
                 <textarea
                   name="note"
                   id=""
