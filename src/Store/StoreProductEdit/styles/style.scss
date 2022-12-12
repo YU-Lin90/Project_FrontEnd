@@ -380,6 +380,7 @@
     }
     .tbody {
       .tr {
+        cursor: pointer;
         display: flex;
         border-bottom: 1px solid rgb(224, 224, 224);
         padding: 0px 30px;
@@ -402,6 +403,8 @@
         }
       }
       .tr-type {
+        cursor: pointer;
+
         display: flex;
         border-bottom: 1px solid rgb(224, 224, 224);
         padding: 0px 30px;
@@ -428,6 +431,7 @@
         }
       }
       .tr-product {
+        cursor: pointer;
         // text-align: justify;
         display: flex;
         border-bottom: 1px solid rgb(224, 224, 224);

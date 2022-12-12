@@ -284,6 +284,14 @@ function Option() {
                         ''
                       )}
                       <div
+                        className="sm-white-btn cancel-btn"
+                        onClick={(e) => {
+                          setSelectedItem('');
+                        }}
+                      >
+                        取消
+                      </div>
+                      <div
                         className="sm-black-btn"
                         onClick={selectedItem ? editBtnHandler : addBtnHandler}
                       >
@@ -430,8 +438,8 @@ function Option() {
                                               </td>
                                               <td>
                                                 <div className="price-box">
-                                                  <div className="number-input">
-                                                    <div>NT$</div>
+                                                  <label className="number-input">
+                                                    <div>+ NT$</div>
                                                     <input
                                                       type="number"
                                                       name="price"
@@ -449,7 +457,7 @@ function Option() {
                                                         );
                                                       }}
                                                     />
-                                                  </div>
+                                                  </label>
                                                 </div>
                                               </td>
                                               <td>
