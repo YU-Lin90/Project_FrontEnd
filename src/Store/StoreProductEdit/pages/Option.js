@@ -323,6 +323,7 @@ function Option() {
                                 name: e.target.value,
                               });
                             }}
+                            placeholder="名稱"
                           />
                         </label>
                         <div className="amount-area">
