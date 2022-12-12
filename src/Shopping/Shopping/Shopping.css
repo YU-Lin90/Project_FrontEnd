@@ -272,6 +272,7 @@ margin: 2vh 0;
     font-size: 36px;
     width: 100%;
     justify-content: center;
+    color: var(--mainColor);
 }
 
 .shopCardList{
@@ -293,6 +294,8 @@ padding-left: 2em;
     margin: 1%;
     border: 1px solid #CCC;
     background-color: #FFF;
+    transition: .5s;
+    border-radius: 10px;
 }
 
 .shopCardBox:hover {

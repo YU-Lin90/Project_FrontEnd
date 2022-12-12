@@ -4,7 +4,7 @@ const shoppingContext = createContext({});
 export const SearchValueProvider = ({ children }) => {
   const [searchWaitTime, setSearchWaitTime] = useState('80');
   const [formData, setFormData] = useState({});
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   return (
     <shoppingContext.Provider
