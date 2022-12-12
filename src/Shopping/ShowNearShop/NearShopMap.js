@@ -11,9 +11,9 @@ function NearShopMap({ myPosition, choosedShopDatas, center, choosedShopSid }) {
   const StorePositionIcon = () => (
     <div className="disf fd-c mapTranslate ai-c  po-r ">
       <div className="w300 nearShopTextBox">
-        <p className="fs24">{choosedShopDatas.name}</p>
-        <p className="fs18">{choosedShopDatas.address}</p>
-        <p className="fs18">外送費：${choosedShopDatas.fee}</p>
+        <p className="fs24 marb5">{choosedShopDatas.name}</p>
+        <p className="fs18 marb5">{choosedShopDatas.address}</p>
+        <p className="fs18 marb5">外送費：${choosedShopDatas.fee}</p>
         <p
           className="h50 pointer nearShopGoShopButton"
           onClick={() => {
