@@ -6,7 +6,7 @@ import { useGeo } from '../../../Context/GeoLocationProvider';
 import { useFunc } from '../../../Context/FunctionProvider';
 const SelfPositionIcon = () => (
   <div>
-    <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
+    <i className="deliverMapTargetIcon fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
   </div>
 );
 const StorePositionIcon = () => (

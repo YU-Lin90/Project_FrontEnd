@@ -54,7 +54,7 @@ function NavAddress({ sendAddress, setSendAddress }) {
               onClick={() => {
                 setOpenSetAddress(false);
               }}
-              className="flexSetCenter marH10 padV5 padH5 bgcMain pointer "
+              className="flexSetCenter marH10 padV5 padH5 bgcMain pointer navAddressButton"
             >
               確定
             </p>

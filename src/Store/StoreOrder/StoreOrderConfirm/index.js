@@ -229,7 +229,10 @@ function StoreOrderConfirm({
                             orderDetail.sid,
                             orderDetail.member_sid
                           );
-                          setPage(1);
+                          setTimeout(() => {
+                            setPage(1);
+                          }, 1000);
+
                         } else if (page === 1) {
                           //完成  {postSid :89 , postSide : 2 ,receiveSide :1 ,receiveSid :1,step : 3}
                           orderSocket.send(
@@ -241,7 +244,9 @@ function StoreOrderConfirm({
                             })
                           );
                           completeOrder(orderDetail.store_order_sid);
-                          setPage(2);
+                          setTimeout(() => {
+                            setPage(2);
+                          }, 1000);
                         }
                         setOpenDetail(false);
                         confirmAlert.fire(confirmedMessage[page]);

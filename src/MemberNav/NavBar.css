@@ -195,3 +195,7 @@ nav.memberNav>* {
     left: initial;
   }
 }
+.navAddressButton{
+  padding: 10px;
+  border-radius: 10px;
+}
