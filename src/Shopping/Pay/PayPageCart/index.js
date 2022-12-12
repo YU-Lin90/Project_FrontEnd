@@ -36,7 +36,7 @@ function PayPageCart() {
                   }
                 }}
                 key={key}
-                className="disf jc-sb gap5 ai-c padV10 padH5 "
+                className="disf jc-sb gap5 ai-c padV10 padH5 pointer"
                 style={{ backgroundColor: '#eeeeff' }}
               >
                 <div className="">
