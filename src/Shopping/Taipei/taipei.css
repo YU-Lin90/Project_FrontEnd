@@ -47,6 +47,7 @@ padding-left: 2em;
     border: 1px solid #CCC;
     background-color: #FFF;
     border-radius: 10px;
+    overflow: hidden;
 }
 .city_shopCardBox:hover {
     scale: 1.1;

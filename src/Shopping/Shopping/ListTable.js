@@ -40,6 +40,7 @@ export default function ListTable() {
     setIsChecked,
     searchWaitTime,
     setSearchWaitTime,
+    clearSearchState,
   } = UseSearchValue();
 
   const [user, setUser] = useState([]);
@@ -83,7 +84,6 @@ export default function ListTable() {
 
   //抓網址變動
   useEffect(() => {
-    setSearchWord(searchWord);
     searchShop();
   }, [sendAddress]);
 
@@ -642,6 +642,15 @@ export default function ListTable() {
                 </div>
               </div>
             </div>
+            <div className='search_bar_button_group'>
+            <input
+              onClick={() => {
+                clearSearchState();
+              }}
+              type="submit"
+              value="清空"
+              className="search_bar_clear"
+            />
             <input
               onClick={() => {
                 searchShop();
@@ -650,6 +659,7 @@ export default function ListTable() {
               value="開始搜尋"
               className="search_bar_submit"
             />
+            </div>
           </div>
         </form>
       </div>

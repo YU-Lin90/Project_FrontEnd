@@ -224,10 +224,6 @@ margin: 2vh 0;
         box-sizing: border-box;
         vertical-align: text-top;
 }
-.search_bar_point_button2 {
-    margin: auto;
-    
-}
 .shopping_checkbox_distance{
         appearance: none;
         border-radius: 50%;
@@ -247,19 +243,57 @@ margin: 2vh 0;
     outline: solid 8px var(--mainColor);
     outline-offset: -5px;
 }
-
-.search_bar_submit{
+.search_bar_button_group{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.search_bar_clear{
     line-height: 24px;
     font-size: 14px;
     color: white;
     background-color: black;
-    padding: 8px 24px;
+    /* padding: 8px 24px; */
     border-radius: 8px;
     display: flex;
     align-items: baseline;
     justify-content: center;
 }
-
+.search_bar_clear:active{
+    line-height: 24px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    /* padding: 8px 24px; */
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+.search_bar_submit{
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    /* padding: 8px 24px; */
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-left: 5px;
+    flex-grow: 1;
+}
+.search_bar_submit:active{
+    line-height: 24px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    /* padding: 8px 24px; */
+    border-radius: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
 .col_list{
     display: flex;
     width: 70%;
@@ -300,11 +334,13 @@ padding-left: 2em;
     background-color: #FFF;
     transition: .5s;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .shopCardBox:hover {
     scale: 1.1;
     box-shadow: 0 8px 24px rgba(17, 17, 26, 0.1), 0 16px 56px rgba(17, 17, 26, 0.1), 0 24px 80px rgba(17, 17, 26, 0.1);
+
 }
 
 .shopCard_image{
