@@ -13,7 +13,9 @@ import './taipei_RWD.css';
 import { useGeo } from '../../Context/GeoLocationProvider';
 //地址用----------------------------------------------------------------
 import { usePay } from '../../Context/PayPageContext';
+
 const siteName = window.location.hostname;
+
 export default function ListTable() {
   const siteName = window.location.hostname;
   const location = useLocation();
@@ -38,7 +40,6 @@ export default function ListTable() {
   // const [isFirstRender, setIsFirstRender] = useState(false);
   //確認視窗寬度用
   // const [cardBoxWidth, setCardBoxWidth] = useState('width:100%');
-
 
   //-------------------------計算距離用------------------------------------
 
@@ -72,11 +73,11 @@ export default function ListTable() {
   const [errorMsg, setErrorMsg] = useState('');
 
   //儲存搜尋值的value用
-  const [searchWord, setSearchWord] = useState('');
-  const [searchPriceMax, setSearchPriceMax] = useState('');
-  const [searchPriceMin, setSearchPriceMin] = useState('');
-  const [searchWaitTime, setSearchWaitTime] = useState('80');
-  const [searchTotalRows, setSearchTotalRows] = useState('');
+  // const [searchWord, setSearchWord] = useState('');
+  // const [searchPriceMax, setSearchPriceMax] = useState('');
+  // const [searchPriceMin, setSearchPriceMin] = useState('');
+  // const [searchWaitTime, setSearchWaitTime] = useState('80');
+  // const [searchTotalRows, setSearchTotalRows] = useState('');
 
   // --------------------最愛店家用-------------------------
 
@@ -181,6 +182,10 @@ export default function ListTable() {
         ? Math.round(gettedDistance * 10) / 10
         : '0';
 
+      if (!sendAddress) {
+        element.distance = '請輸入送達地址';
+      }
+
       // 超過30公里，每5公里加10元外送費
       element.fees = gettedDistance
         ? parseInt(gettedDistance / 5) * 10 + 30
@@ -279,39 +284,44 @@ export default function ListTable() {
     }
   };
 
-
   return (
     <>
-      <div className="col_list">
-        <div className="subTitle">台北地區</div>
-        <div className="shopCardList">
+      <div className="city_col_list">
+        <div className="city_subTitle">台北地區</div>
+        <div className="city_shopCardList">
           {shop.length > 0 ? (
             shop.map((shop, index) => (
               <div
                 key={index}
-                className={toggle ? 'shopCardBox' : 'shopCardBox shopCardBox1'}
+                className={
+                  toggle
+                    ? 'city_shopCardBox'
+                    : 'city_shopCardBox city_shopCardBox1'
+                }
               >
                 <Link to={'/productList/?shop_sid=' + shop.sid}>
-                  <div className="shopCard_image">
+                  <div className="city_shopCard_image">
                     <img
                       src={`http://${siteName}:3001/images/shop/${shop.src}`}
                       alt={shop.name}
-                      className="shopCard_cover"
+                      className="city_shopCard_cover"
                     />
-                    <div className="shopCard_conpon">新會員送全站折50</div>
-                    <div className="shopCard_delivery_time">
+                    <div className="city_shopCard_conpon">新會員送全站折50</div>
+                    <div className="city_shopCard_delivery_time">
                       {shop.wait_time}
-                      <div className="shopCard_delivery_time_text">分鐘</div>
+                      <div className="city_shopCard_delivery_time_text">
+                        分鐘
+                      </div>
                     </div>
                     <button
-                      className="shopbtn"
+                      className="city_shopbtn"
                       onClick={(e) => {
                         e.preventDefault();
                         submit(shop.sid);
                         const oldState = myIndex[shop.sid];
                         setMyIndex({ ...myIndex, [shop.sid]: !oldState });
                       }}
-                      // className="icon"
+                      // className="city_icon"
                     >
                       {!myIndex[shop.sid] ? (
                         <AiOutlineHeart />
@@ -321,10 +331,10 @@ export default function ListTable() {
                     </button>
                   </div>
                   {/* <span>SID {shop.sid}</span> */}
-                  <div className="shopCard_text">
-                    <div className="shopCard_text_name">
-                      <h3 className="shoptitle">{shop.name}</h3>
-                      <div className="shopCard_score">
+                  <div className="city_shopCard_text">
+                    <div className="city_shopCard_text_name">
+                      <h3 className="city_shoptitle">{shop.name}</h3>
+                      <div className="city_shopCard_score">
                         {shop.average_evaluation !== null ? (
                           <svg
                             width="20"
@@ -346,17 +356,18 @@ export default function ListTable() {
                       </div>
                     </div>
                     {/* <span>SID {shop.sid}</span> */}
-                    <div className="shopCard_text">
-                      <div className="shopCard_text_name">
-                        <div className="shopCard_score"></div>
+                    <div className="city_shopCard_text">
+                      <div className="city_shopCard_text_name">
+                        <div className="city_shopCard_score"></div>
                       </div>
-                      <span className="shopcontext">{shop.address}</span>
-                      <span className="shopcontext">
-                        {shop.distance ? shop.distance : disResult} km,
+                      <span className="city_shopcontext">{shop.address}</span>
+                      <span className="city_shopcontext">
+                        {shop.distance ? shop.distance : disResult}
+                        {sendAddress ? 'km,' : ' '}
                         {shop.type_name}
                       </span>
                       {/* <span>{shop.distance} 公里</span> */}
-                      <span className="shopcontext">
+                      <span className="city_shopcontext">
                         外送費 {shop.fees ? shop.fees : disResult} 元
                       </span>
                     </div>
@@ -368,17 +379,6 @@ export default function ListTable() {
             <div>{noResult}</div>
           )}
         </div>
-      </div>
-      <div
-        onClick={() => {
-          setToggle(!toggle);
-          console.log(toggle);
-          handleClick();
-        }}
-        className="search_bar_toggle"
-        id="bar_switch"
-      >
-        <AiOutlineSearch />
       </div>
     </>
   );

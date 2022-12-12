@@ -3,7 +3,7 @@
 
 @media screen and (min-width:768px) {
 
-.row{
+.shopping_row{
     display: flex;
     width: 100%;
     justify-content: center
@@ -12,7 +12,7 @@
     width: 30%;
     flex-wrap: wrap;
     flex-direction: column;
-    top: var(--navHeight);
+    top:var(--navHeight);
     height: 100%;
     position: sticky;
     font-weight: bold;
@@ -20,13 +20,32 @@
     background-color: white;
 }
 
-.table{
+.shopping_table{
     display: flex;
+    overflow: auto;
+    max-height: calc(100vh - 80px );
     flex-direction: row;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     justify-content: center;
 }
+.shopping_table::-webkit-scrollbar{
+    width: 10px;
+    z-index: 2;
+  }
+  /* 這是拖曳條 */
+  .shopping_table::-webkit-scrollbar-thumb {
+    background-color: var(--mainColor);
+    border-radius: 5px;
+  }
+  /* 這是拖曳條的背景 */
+  .shopping_table::-webkit-scrollbar-track{
+    background: var(--subColor);
+  }
+  /* 拖曳條的經過顏色  */
+  .shopping_table::-webkit-scrollbar-thumb:hover {
+    background: var(--mainComplementary);
+  }
 
 .search_bar{
     display: flex;
@@ -67,6 +86,7 @@
     border-bottom: 1.5px solid rgb(224, 224, 224);
     width: 100%;
     height: 3vh;
+    padding: 10px;
 }
 
 
@@ -85,11 +105,13 @@
 align-items: center;
 height: fit-content;
 }
+
 .search_bar_price_max_input{
     border: none;
     border-bottom: 1.5px solid rgb(224, 224, 224);
     width: 100%;
-    height: 2vh;
+    height: 3vh;
+    padding: 10px;
 }
 
 .search_bar_price_min{
@@ -100,7 +122,8 @@ height: fit-content;
     border: none;
     border-bottom: 1.5px solid rgb(224, 224, 224);
     width: 100%;
-    height: 2vh;
+    height: 3vh;
+    padding: 10px;
 }
 .search_bar_tag>p{
     /* h2 */
@@ -145,11 +168,12 @@ margin: 2vh 0;
     appearance: none;
     width: 100%;
     height: 25px;
-    background: #FFFFFF;
+    background: #CCC;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
+    border-radius: 20px;
 }
 
 .slider:hover {
@@ -159,10 +183,11 @@ margin: 2vh 0;
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #FF0000;
+    width: 30px;
+    height: 30px;
+    background: var(--mainColor);
     cursor: pointer;
+    border-radius: 20px;
 }
 
 .slider::-moz-range-thumb {
@@ -175,7 +200,7 @@ margin: 2vh 0;
 .sliderticks {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 .sliderticks p {
@@ -189,7 +214,35 @@ margin: 2vh 0;
     line-height: 40px;
     margin: 0 0 20px 0;
 }
-
+/* .shopping_checkbox_point{
+        appearance: none;
+        border-radius: 50%;
+        background-clip: content-box;
+        padding: 7px;
+        border: 1.5px solid rgb(237, 154, 0);
+        margin-right: 5px;
+        box-sizing: border-box;
+}
+.shopping_checkbox_distance{
+        appearance: none;
+        border-radius: 50%;
+        background-clip: content-box;
+        padding: 7px;
+        border: 1.5px solid rgb(237, 154, 0);
+        margin: auto;
+        align-items: center;
+        margin-right: 5px;
+        box-sizing: border-box; 
+} */
+/* .shopping_checkbox_point:checked {
+    background-color: #FFA500;
+    height: 100%;
+} */
+/* .shopping_checkbox_distance:checked {
+    border: 5.5px solid orange;
+    line-height: 80px; 
+    box-sizing: border-box; 
+} */
 
 .search_bar_submit{
     line-height: 24px;
@@ -206,7 +259,7 @@ margin: 2vh 0;
 .col_list{
     display: flex;
     width: 70%;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex-direction: column;
     justify-content: center;
 }
@@ -218,6 +271,7 @@ margin: 2vh 0;
     font-weight: bold;
     font-size: 36px;
     width: 100%;
+    justify-content: center;
 }
 
 .shopCardList{
@@ -240,6 +294,12 @@ padding-left: 2em;
     border: 1px solid #CCC;
     background-color: #FFF;
 }
+
+.shopCardBox:hover {
+    scale: 1.1;
+    box-shadow: 0 8px 24px rgba(17, 17, 26, 0.1), 0 16px 56px rgba(17, 17, 26, 0.1), 0 24px 80px rgba(17, 17, 26, 0.1);
+}
+
 .shopCard_image{
     top: 0;
     left: 0;
