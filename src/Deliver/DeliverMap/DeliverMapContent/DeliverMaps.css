@@ -9,6 +9,7 @@
 }
 
 .deliverMapTargetTextBox {
+  z-index: 2;
   position: absolute;
   min-width: 300px;
   height: 200px;
@@ -36,4 +37,7 @@
   font-size: 18px;
   font-weight: 500;
   word-wrap: break-word;
+}
+.deliverMapTargetIcon{
+  color: rgb(223, 63, 63);
 }

@@ -46,6 +46,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   /* flex-basis: 0; */
+  box-shadow: 0 0 0  currentColor, 0 6px 15px 1px rgba(29, 82, 106, 0.51);
 }
 
 .notAdminTexts {
@@ -69,11 +70,14 @@
   align-items: center;
   border-radius: 15px;
   font-size: 18px;
+  font-weight: 600;
+  color: #FFF;
   cursor: pointer;
 }
 .chattingRoomButton:hover{
   background-color: var(--subColor);
   box-shadow: 0 5px 14px  rgba(51, 102, 255, 0.24);
+  color: #000;
 }
 .chattingRoomInput {
   border-radius: 15px;
@@ -86,4 +90,14 @@
 
 .chattingRoomInput:focus {
   box-shadow: -10px -10px 28px 0 rgba(2, 2, 255, 0.2), 10px 10px 29px rgba(2, 2, 255, 0.2);
+}
+.chatQuickBtn{
+  border-radius: 10px;
+  background-color: var(--mainColor);
+  padding: 5px;
+  width: fit-content;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
 }

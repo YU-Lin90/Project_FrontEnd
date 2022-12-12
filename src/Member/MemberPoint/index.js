@@ -83,28 +83,25 @@ function MemberPoint() {
             </tr>
           </thead>
           <tbody className="mt_body">
-            {productData
-              .sort(function (a, b) {
-                return a < b ? 1 : -1;
-              })
-              .map((value, i) => {
-                const {
-                  coupon_sid,
-                  point,
-                  point_amount,
-                  point_change_time,
-                  point_change_method,
-                  coupon_name,
-                } = value;
-                return (
-                  <tr className="mt_tr" key={i + 1}>
-                    <td className="mt_td">{point_amount}</td>
-                    <td className="mt_td">{point_change_time}</td>
-                    <td className="mt_td">{reasons[point_change_method]}</td>
-                    <td className="mt_td">{coupon_name}</td>
-                  </tr>
-                );
-              })}
+            {productData.map((value, i) => {
+              const {
+                sid,
+                coupon_sid,
+                point,
+                point_amount,
+                point_change_time,
+                point_change_method,
+                coupon_name,
+              } = value;
+              return (
+                <tr className="mt_tr" key={sid}>
+                  <td className="mt_td">{point_amount}</td>
+                  <td className="mt_td">{point_change_time}</td>
+                  <td className="mt_td">{reasons[point_change_method]}</td>
+                  <td className="mt_td">{coupon_name}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

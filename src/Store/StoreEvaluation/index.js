@@ -73,7 +73,7 @@ function StoreEvaluation() {
     if (
       bodyHeight > screenHeight &&
       //                    改這裡的數字可以改判斷點
-      scrollTop > bodyHeight - 400 &&
+      scrollTop > bodyHeight - 600 &&
       !startLoad &&
       pageNow <= totalPage
     ) {

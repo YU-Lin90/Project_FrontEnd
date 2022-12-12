@@ -38,11 +38,13 @@
   height: 80px;
   width: 100%;
 }
-@media screen and (min-width:768px){
-  .ProgessStep{
+
+@media screen and (min-width:768px) {
+  .ProgessStep {
     height: 60px;
   }
 }
+
 .ProgessStep>div {
   height: 100%;
 }
@@ -132,9 +134,9 @@
 }
 
 .cycleFontOnMap {
-
+  z-index: 1;
   font-size: 48px;
-}
+  }
 
 .mapTranslate {
   position: relative;

@@ -217,7 +217,7 @@ function DeliverMapContent({
           text="My Marker"
         />
       </GoogleMapReact>
-      <div
+      <button
         className="deliverMapSendButton"
         disabled={buttonStatus}
         onClick={() => {
@@ -290,7 +290,7 @@ function DeliverMapContent({
         }}
       >
         {sideNow === 2 ? '取餐' : '送達'}
-      </div>
+      </button>
     </>
   );
 }

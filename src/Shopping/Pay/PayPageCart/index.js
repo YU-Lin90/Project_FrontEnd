@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { usePay } from '../../../Context/PayPageContext';
 import { useCart } from '../../../Context/CartProvider';
+import OptionForm from '../../../Store/StoreProductEdit/components/OptionForm';
 function PayPageCart() {
   const { editCartBySelect } = useCart();
   const selectOptions = new Array(31).fill(1);
@@ -10,7 +11,7 @@ function PayPageCart() {
   const [prouducts, setProducts] = useState({});
   //購物車內容
   const { cartContents, chooseedPayShop } = usePay();
-
+  const [selectedSid, setSelectedSid] = useState('');
   useEffect(() => {
     //一開始先抓全域狀態資料出來顯示
     setProducts(cartContents.cartList[chooseedPayShop].list);
@@ -31,7 +32,7 @@ function PayPageCart() {
                 onClick={(e) => {
                   console.log(e.target.name);
                   if (!e.target.name) {
-                    console.log(123);
+                    setSelectedSid(key);
                   }
                 }}
                 key={key}
@@ -66,7 +67,7 @@ function PayPageCart() {
                 {/* 價格 */}
                 <div>
                   <p className="chooseCartPrice">
-                    {prouducts[key].cuttedPrice * prouducts[key].amount}
+                    {prouducts[key].cuttedPrice} x{prouducts[key].amount}
                   </p>
                   {/* 折價前後是否相等 */}
                   {cutBefore === cutAfter ? (
@@ -103,7 +104,7 @@ function PayPageCart() {
                   {prouducts[key].details.map((value) => {
                     return (
                       <>
-                        <div className="ta-c w25p">
+                        <div className="ta-c">
                           <p className="marV5">【{value.name}】</p>
                           <p className="marV5 marr5">
                             {value.price !== 0 ? (
@@ -128,6 +129,9 @@ function PayPageCart() {
         })}
         {/* //===============================================分隔線================================================ */}
       </div>
+      {selectedSid !== '' ? (
+        <OptionForm selectedSid={selectedSid} setSelectedSid={setSelectedSid} />
+      ) : null}
     </div>
   );
 }

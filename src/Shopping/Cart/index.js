@@ -134,11 +134,11 @@ function Cart({ setShowCart, setShowChooseShop, styles, secondStyles }) {
               } */}
                   </div>
                   {prouducts[key].details.length > 0 ? (
-                    <div className="disf ai-c  padH5 padV5 productDetails">
+                    <div className="disf ai-c fw-w  padH5 padV5 productDetails">
                       {prouducts[key].details.map((value) => {
                         return (
                           <>
-                            <div className="ta-c w25p marb10">
+                            <div className="ta-c  marb10">
                               <p className="marb5">【{value.name}】</p>
                               <p>
                                 {value.price !== 0 ? (

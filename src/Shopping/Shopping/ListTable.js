@@ -527,6 +527,7 @@ export default function ListTable() {
             <div className="search_bar_box">
               <div className="search_bar_name">
                 {/* <AiOutlineSearch className='search_mirror' /> */}
+                {/* <AiOutlineSearch className='search_mirror' /> */}
                 <input
                   type="text"
                   name="search"
