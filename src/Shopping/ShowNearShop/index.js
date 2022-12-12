@@ -77,8 +77,11 @@ function ShowNearShop() {
         return b.average_evaluation - a.average_evaluation;
       });
     }
+    const setArray = newSort.filter((v) => {
+      return v.distance < maxDistance;
+    });
     console.log({ newSort });
-    setShopDatas(newSort);
+    setShopDatas(setArray);
   };
   /* {
     "sid": 697,

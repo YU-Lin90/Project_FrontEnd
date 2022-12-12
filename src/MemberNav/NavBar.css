@@ -8,7 +8,7 @@ nav.memberNav {
   top: 0;
   justify-content: space-between;
   z-index: 10;
-  box-shadow: 0 16px 40px -20px rgba(50, 56, 62, 0.82);
+
 }
 
 nav.memberNav>* {
@@ -28,6 +28,10 @@ nav.memberNav>* {
   /* TODO: 正式使用要再啟用 開發階段先關掉 */
   .menubtn {
     display: none;
+  }
+
+  nav.memberNav {
+    box-shadow: 0 16px 40px -20px rgba(50, 56, 62, 0.82);
   }
 }
 
@@ -134,16 +138,19 @@ nav.memberNav>* {
 .navLinks {
   display: none;
 }
-.cartButton.navUser{
+
+.cartButton.navUser {
   display: none;
 }
+
 @media screen and (min-width:768px) {
   .navLinks {
     display: flex;
     color: var(--subColor);
     gap: 20px;
   }
-  .cartButton.navUser{
+
+  .cartButton.navUser {
     display: inherit;
   }
 }
