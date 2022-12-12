@@ -24,7 +24,7 @@ function DeliverConfirmOrder() {
 
   useEffect(() => {
     getList();
-  }, []);
+  }, [listData]);
   useEffect(() => {
     getonlineState();
   }, [authDeliver]);

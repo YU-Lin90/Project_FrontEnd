@@ -84,7 +84,15 @@ function StoreLogin() {
             店家登入
           </h3>
           <div className="sl_email">
-            <label className="sl_login_label">帳號</label>
+            <label
+              onClick={() => {
+                setEmail('S41account@test.com');
+                setPassword('S41password');
+              }}
+              className="sl_login_label"
+            >
+              帳號
+            </label>
             <br />
             <input
               className="sl_login_email"
@@ -134,7 +142,6 @@ function StoreLogin() {
             >
               登入
             </button>
-
           </div>
 
           {/* <div>

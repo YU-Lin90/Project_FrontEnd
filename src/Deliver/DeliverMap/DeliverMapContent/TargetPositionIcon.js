@@ -27,7 +27,7 @@ function TargetPositionIcon({ targetName, targetAddress, sideNow }) {
           }}
           className="deliverMapTargetIcon h50 w50 pointer"
         >
-          <i className="fa-solid fa-location-dot fontMainColor mapTranslate fs48"></i>
+          <i className="fa-solid fa-location-dot mapTranslate fs48"></i>
         </p>
       </div>
     </>

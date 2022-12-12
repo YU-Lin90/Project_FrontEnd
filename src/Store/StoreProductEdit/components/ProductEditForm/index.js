@@ -162,6 +162,7 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
   const editBtnHandler = async (e) => {
     e.preventDefault();
     const fd = new FormData(document.form1);
+    console.log(fd);
     const response = await axios.put(
       `http://${siteName}:3001/store-admin/product/${data.shop.sid}`,
       fd
@@ -203,8 +204,15 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                 ''
               )}
 
-              <div onClick={fillOutForm} className="sm-white-btn">
-                快速填入
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedItem('');
+                  setImgSrc('');
+                }}
+                className="sm-white-btn cancel-btn"
+              >
+                <p>取消</p>
               </div>
               <div
                 className="sm-black-btn"

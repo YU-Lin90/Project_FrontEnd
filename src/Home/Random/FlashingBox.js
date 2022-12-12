@@ -36,9 +36,8 @@ function FlashingBox({
   }, []);
   return (
     <>
-      <div className="randomFlashingBox h200 w100p of-h flexSetCenter">
+      <div className="randomFlashingBox h150 w100p of-h flexSetCenter">
         <p className="randomFlashingTexts">
-          {/* pressedTimes */}
           {radomArrays[count] && !flashingEnd
             ? radomArrays[count].name
             : gettedShopName}

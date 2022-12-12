@@ -125,41 +125,50 @@ function MemberDatas() {
   const handleFormSubmit = async (e) => {
     // 阻擋預設form送出的行為
     e.preventDefault();
-    if (user.password === user.doublepassword) {
-      const sid = localStorage.getItem('MemberSid');
-      // if (user.password === user.doublepassword) {
-      // const formData = new FormData();
-      const fd = new FormData(e.target);
-      console.log(fd);
-      // return
-      // 對照server上的檔案名稱 req.files.avatar
-      //fd.append('avatar', selectedFile);
-      await axios
-        .put(`http://${siteName}:3001/MemberLogin/edit/${sid}`, fd)
-        .then((result) => {
-          console.log(result);
-          e.preventDefault();
+    // if (user.password === user.doublepassword) {
+    const sid = localStorage.getItem('MemberSid');
+    // if (user.password === user.doublepassword) {
+    // const formData = new FormData();
+    const fd = new FormData(e.target);
+    console.log(fd);
+    // return
+    // 對照server上的檔案名稱 req.files.avatar
+    //fd.append('avatar', selectedFile);
+    await axios
+      .put(`http://${siteName}:3001/MemberLogin/edit/${sid}`, fd)
+      .then((result) => {
+        console.log(result);
+        e.preventDefault();
 
-          Swal.fire({
-            icon: 'success',
-            title: '修改成功',
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-          // navigate('/');
-        })
-        .catch((e) => {
-          console.log(e);
-          console.log(e.response);
-          e.preventDefault();
-          // console.log(e.response.request.responseText);
-          Swal.fire('修改失敗!');
+        Swal.fire({
+          icon: 'success',
+          title: '修改成功',
         });
-    } else if (user.password !== user.doublepassword) {
-      e.preventDefault();
-      Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!' });
-    }
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        // navigate('/');
+      })
+      .catch((e) => {
+        if (
+          e.response.data.code === 'ER_DUP_ENTRY' &&
+          e.response.data.message.indexOf('phone') !== -1
+        ) {
+          Swal.fire({
+            icon: 'warning',
+            title: '修改失敗！此手機已存在，請嘗試新的手機！',
+          });
+        }
+        console.log(e);
+        console.log(e.response);
+        e.preventDefault();
+        // console.log(e.response.request.responseText);
+        Swal.fire('修改失敗!');
+      });
+    // } else if (user.password !== user.doublepassword) {
+    //   e.preventDefault();
+    //   Swal.fire({ icon: 'warning', title: '兩次密碼輸入不一致!' });
+    // }
   };
 
   const display = (
@@ -197,7 +206,7 @@ function MemberDatas() {
         <div className="mb_mar">
           <label className="mb_label">帳號:{user.email}</label>
         </div>
-        <label className="mb_label">密碼</label>
+        {/* <label className="mb_label">密碼</label>
         <div className="mb_mar">
           <input
             className="mb_password"
@@ -254,7 +263,7 @@ function MemberDatas() {
             )}
           </button>
           <span className="mb_span">{fieldErrors.doublepassword}</span>
-        </div>
+        </div> */}
         <label className="mb_label">名子</label>
         <div className="mb_mar">
           <input
@@ -281,11 +290,27 @@ function MemberDatas() {
           <span className="mb_span">{fieldErrors.phone}</span>
         </div>
         <button className="mb_button" type="submit">
-          修改
+          送出
         </button>
-        <button
-          type="button"
-          className="mb_clear"
+        <Link to={'/Member/MemberLocation'}>
+          <button
+            type="button"
+            className="mb_clear"
+            // onClick={() => {
+            //   setUser({
+            //     email: '',
+            //     password: '',
+            //     doublepassword: '',
+            //     name: '',
+            //     phone: '',
+            //   });
+            // }}
+          >
+            修改密碼
+          </button>
+        </Link>
+      </form>
+      {/* <button
           onClick={() => {
             setUser({
               email: '',
@@ -296,9 +321,8 @@ function MemberDatas() {
             });
           }}
         >
-          清空
-        </button>
-      </form>
+          修改密碼
+        </button> */}
     </div>
   );
   return (

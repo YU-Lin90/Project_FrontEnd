@@ -231,7 +231,7 @@ function OptionForm({ selectedSid, setSelectedSid }) {
                   setAmount(0);
                 }}
               >
-                <i className="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-xmark"></i>
               </div>
               <img
                 src={`http://${siteName}:3001/uploads/${data.product.src}`}

@@ -134,6 +134,7 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  margin-right: 16px;
 }
 .store-admin .search-area .search-box div {
   position: absolute;
@@ -164,9 +165,14 @@
   width: 180px;
   display: block;
   border: none;
-  padding: 8px;
+  padding: 8px 16px;
   cursor: pointer;
   background-color: rgb(238, 238, 238);
+}
+.store-admin .search-area .select-box .select p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .store-admin .search-area .select-box .select .arrow {
   position: absolute;
@@ -183,11 +189,14 @@
 .store-admin .search-area .select-box ul li p {
   display: block;
   width: 180px;
-  padding: 6px;
+  padding: 8px 16px;
   border: 1px solid rgb(204, 204, 204);
   border-top: none;
   background-color: #fff;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .store-admin h4 {
   font-size: 28px;
@@ -344,6 +353,7 @@
   width: 12.5%;
 }
 .store-admin .table .tbody .tr {
+  cursor: pointer;
   display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
   padding: 0px 30px;
@@ -361,6 +371,7 @@
   width: 12.5%;
 }
 .store-admin .table .tbody .tr-type {
+  cursor: pointer;
   display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
   padding: 0px 30px;
@@ -386,6 +397,7 @@
   margin-right: 16px;
 }
 .store-admin .table .tbody .tr-product {
+  cursor: pointer;
   display: flex;
   border-bottom: 1px solid rgb(224, 224, 224);
   justify-content: space-between;
@@ -476,6 +488,7 @@
 }
 
 .store-admin {
+  position: relative;
   font-weight: 500;
   background-color: #fff;
 }
@@ -538,6 +551,7 @@
      object-fit: cover;
 }
 .store-admin .menu-container .edit-form form .previewImg .direction {
+  width: 300px;
   text-align: justify;
   display: flex;
   flex-direction: column;
@@ -597,7 +611,7 @@
   position: absolute;
   left: 5px;
   top: 50%;
-  transform: translateY(-40%);
+  transform: translateY(-50%);
 }
 .store-admin .menu-container .edit-form form .price-box .number-input input {
   padding: 6px 0px;
@@ -772,6 +786,9 @@
 .store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .price-box .number-input div {
   transform: translateY(-46%);
 }
+.store-admin .menu-container .edit-form form .option-group-area .table .tbody tr td .price-box .number-input input {
+  padding-left: 48px;
+}
 .store-admin .top-edit-bar {
   padding-top: 32px;
   width: 100%;
@@ -780,6 +797,7 @@
   align-items: center;
 }
 .store-admin .top-edit-bar .left-btn-group div i {
+  cursor: pointer;
   font-size: 20px;
 }
 .store-admin .top-edit-bar .right-btn-group {
@@ -787,6 +805,9 @@
 }
 .store-admin .top-edit-bar .right-btn-group div {
   margin-right: 12px;
+}
+.store-admin .top-edit-bar .cancel-btn {
+  color: rgb(159, 159, 159);
 }
 
 .product-list {
@@ -852,10 +873,11 @@
   width: 100%;
 }
 .product-list .product-container .row .product-info aside .type-nav ul li {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .product-list .product-container .row .product-info aside .type-nav ul li a {
   font-size: 16px;
+  padding-bottom: 2px;
 }
 .product-list .product-container .row .product-info aside .type-nav ul li .underline {
   border-bottom: 2px solid black;
@@ -885,6 +907,7 @@
   padding-right: 16px;
 }
 .product-list .product-container .row .product-info main .product-type .product-group .product-box .product {
+  cursor: pointer;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -903,6 +926,9 @@
 .product-list .product-container .row .product-info main .product-type .product-group .product-box .product .left .product-name {
   font-size: 16px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .product-list .product-container .row .product-info main .product-type .product-group .product-box .product .left .product-note {
   font-size: 14px;
@@ -959,25 +985,28 @@
 .product-list .option-form-area .option-form-section .option-form .row .product-img img {
   display: block;
   width: 100%;
-  height: 300px;
+  height: 317px;
   -o-object-fit: cover;
      object-fit: cover;
   background-color: #ccc;
 }
 .product-list .option-form-area .option-form-section .option-form .row .product-img .back-btn {
-  width: 30px;
-  height: 30px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   top: 16px;
-  left: 16px;
+  left: auto;
+  right: 16px;
   border-radius: 50%;
-  background-color: orange;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 .product-list .option-form-area .option-form-section .option-form .row .product-img .back-btn i {
   font-size: 20px;
+  color: orange;
 }
 .product-list .option-form-area .option-form-section .option-form .row .product-info {
   width: 100%;
@@ -1018,6 +1047,7 @@
   width: 100%;
 }
 .product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label {
+  cursor: pointer;
   padding: 12px 16px;
   display: flex;
   justify-content: start;
@@ -1072,6 +1102,9 @@
 .product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
   color: rgb(237, 154, 0);
 }
+.product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive {
+  cursor: auto;
+}
 .product-list .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
   border-color: #cacaca;
 }
@@ -1092,11 +1125,13 @@
   margin-right: 12px;
 }
 .product-list .option-form-area .option-form-section .option-form .row .amount-section .left i {
+  cursor: pointer;
   color: orange;
   font-size: 20px;
 }
 .product-list .option-form-area .option-form-section .option-form .row .amount-section .left .inActive {
   color: #ccc;
+  cursor: auto;
 }
 .product-list .option-form-area .option-form-section .option-form .row .amount-section .left input {
   -webkit-appearance: none;
@@ -1323,11 +1358,13 @@
 @media screen and (max-width: 768px) {
   .product-list .product-container .row .shop-info {
     margin-bottom: 0;
+    padding: 16px;
   }
   .product-list .product-container .row .product-info {
     padding: 0;
     display: flex;
     flex-direction: column;
+    /* Hide scrollbar for IE, Edge and Firefox */
   }
   .product-list .product-container .row .product-info aside {
     top: 80px;
@@ -1350,7 +1387,19 @@
   }
   .product-list .product-container .row .product-info aside .type-nav ul li a {
     display: block;
-    padding: 8px 16px;
+    padding: 16px 16px;
+    padding-bottom: 11px;
+    border-bottom: 5px solid transparent;
+  }
+  .product-list .product-container .row .product-info aside .type-nav ul li .underline {
+    border-bottom: 5px solid orange;
+  }
+  .product-list .product-container .row .product-info aside::-webkit-scrollbar {
+    display: none;
+  }
+  .product-list .product-container .row .product-info aside {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
   .product-list .product-container .row .product-info main {
     width: 100%;
@@ -1358,6 +1407,9 @@
   }
   .product-list .product-container .row .product-info main .product-type {
     margin: 16px 0px;
+  }
+  .product-list .product-container .row .product-info main .product-type .connect-id {
+    top: -150px;
   }
   .product-list .product-container .row .product-info main .product-type h5 {
     margin-left: 16px;
@@ -1427,25 +1479,28 @@
 .option-form-area .option-form-section .option-form .row .product-img img {
   display: block;
   width: 100%;
-  height: 300px;
+  height: 317px;
   -o-object-fit: cover;
      object-fit: cover;
   background-color: #ccc;
 }
 .option-form-area .option-form-section .option-form .row .product-img .back-btn {
-  width: 30px;
-  height: 30px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   top: 16px;
-  left: 16px;
+  left: auto;
+  right: 16px;
   border-radius: 50%;
-  background-color: orange;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 .option-form-area .option-form-section .option-form .row .product-img .back-btn i {
   font-size: 20px;
+  color: orange;
 }
 .option-form-area .option-form-section .option-form .row .product-info {
   width: 100%;
@@ -1486,6 +1541,7 @@
   width: 100%;
 }
 .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label {
+  cursor: pointer;
   padding: 12px 16px;
   display: flex;
   justify-content: start;
@@ -1540,6 +1596,9 @@
 .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box label:hover p {
   color: rgb(237, 154, 0);
 }
+.option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive {
+  cursor: auto;
+}
 .option-form-area .option-form-section .option-form .row .option-section .option-box .option-list .opt-box .inActive input[type=checkbox] {
   border-color: #cacaca;
 }
@@ -1560,11 +1619,13 @@
   margin-right: 12px;
 }
 .option-form-area .option-form-section .option-form .row .amount-section .left i {
+  cursor: pointer;
   color: orange;
   font-size: 20px;
 }
 .option-form-area .option-form-section .option-form .row .amount-section .left .inActive {
   color: #ccc;
+  cursor: auto;
 }
 .option-form-area .option-form-section .option-form .row .amount-section .left input {
   -webkit-appearance: none;
@@ -1606,7 +1667,6 @@
 
 .toBottom .option-form-section .option-form {
   top: auto;
-  bottom: 0px;
   margin: 0;
 }
 
@@ -1620,5 +1680,10 @@
   }
   .option-form-area .option-form-section .option-form .row .product-img img {
     height: 180px;
+  }
+  .toBottom .option-form-section .option-form {
+    top: auto;
+    bottom: 0px;
+    margin: 0;
   }
 }/*# sourceMappingURL=style.css.map */
