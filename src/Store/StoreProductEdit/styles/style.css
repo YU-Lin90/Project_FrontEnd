@@ -117,6 +117,9 @@
   padding-left: 36px;
   font-size: 16px;
 }
+.store-admin .product-area .collapsed-area .bottom {
+  border-radius: 0;
+}
 .store-admin .collapsed {
   background-color: rgb(255, 190, 190);
 }
