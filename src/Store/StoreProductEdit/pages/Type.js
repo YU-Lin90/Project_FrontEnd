@@ -194,7 +194,7 @@ function Type() {
           {editType.type_sid === '' ? (
             <>
               <div className={`menu-container`}>
-                <div className="row">
+                <div className="row top-edit-area">
                   <div className="menu-title">
                     <h4 onClick={addDemoTypes}>類別</h4>
                     <div

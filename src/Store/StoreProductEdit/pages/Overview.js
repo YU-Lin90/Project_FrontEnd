@@ -44,9 +44,6 @@ function Overview() {
     setIsCollapsed(newIsCollapsed);
   }, [data]);
 
-  // 點擊type後展開
-  const collapseType = (e) => {};
-
   return (
     <DragDropContext>
       <div className="store-admin">

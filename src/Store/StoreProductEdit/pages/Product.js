@@ -236,7 +236,7 @@ function Product() {
         ) : (
           <>
             <div className={`menu-container`}>
-              <div className="row">
+              <div className="row top-edit-area">
                 <div className="menu-title">
                   <h4 onClick={addDemoProducts}>餐點</h4>
                   <div
