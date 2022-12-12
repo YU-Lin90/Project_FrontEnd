@@ -172,7 +172,7 @@ export default function FavoriteStore() {
 
   useEffect(() => {
     getform();
-    // setChange((v) => v + 1);
+    // setChange((v) => v + 2);
   }, [inputKeyword, change]);
 
   useEffect(() => {
