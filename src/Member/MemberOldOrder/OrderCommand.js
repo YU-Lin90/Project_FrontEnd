@@ -67,7 +67,7 @@ function OrderCommand({
           <p
             onClick={() => {
               //快速填入
-              const commandMsg = side === 2 ? '餐點有點太鹹了' : '湯都漏出來了';
+              const commandMsg = side === 2 ? '飲料是水做的嗎?' : '都漏出來了';
               const getStar = side === 2 ? 3 : 2;
               setStars(getStar);
               setCommand(commandMsg);
