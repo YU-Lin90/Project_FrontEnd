@@ -244,6 +244,9 @@ function ProductEditForm({ selectedItem, setSelectedItem }) {
                     setFormData({ ...formData, name: e.target.value });
                   }}
                   placeholder="名稱"
+                  onDoubleClick={() => {
+                    setFormData({ ...formData, name: '伯爵紅茶鮮奶' });
+                  }}
                 />
               </label>
               <div className="previewImg">

@@ -325,6 +325,12 @@ function Option() {
                                 name: e.target.value,
                               });
                             }}
+                            onDoubleClick={() => {
+                              setFormData({
+                                ...formData,
+                                name: '配料選擇',
+                              });
+                            }}
                             placeholder="名稱"
                           />
                         </label>
