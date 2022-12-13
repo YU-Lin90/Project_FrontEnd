@@ -98,7 +98,18 @@ function MemberLocation() {
           onInvalid={handleFormInvalid}
           onChange={handleFormChange}
         >
-          <label className="mp_label">原本密碼</label>
+          <label
+            className="mp_label"
+            onClick={() => {
+              setUser({
+                original: 'Aa123456789',
+                password: 'Aa1234567890',
+                doublepassword: 'Aa1234567890',
+              });
+            }}
+          >
+            原本密碼
+          </label>
           <div className="mp_mar">
             <input
               type={passwordFieldType}
