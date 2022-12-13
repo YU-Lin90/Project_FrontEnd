@@ -44,11 +44,11 @@
     flex-wrap: wrap;
 }
 .sc_total{
-    font-size:36px;
+    font-size:30px;
     line-height: 141px;
 }
 .sc_sale_detail{
-    font-size:24px;
+    font-size:20px;
     display: flex;
     flex-direction:column;
     justify-content: space-between;
@@ -132,7 +132,7 @@
     flex-direction:column;
     align-items: center;
     justify-content:space-around;
-    width: 80px;
+    width: 60px;
     height: 130px;
     
 }
@@ -182,7 +182,7 @@
 }
 
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:1024px) {
     .sc_col {
         width: 100%;
     }
