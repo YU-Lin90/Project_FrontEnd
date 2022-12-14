@@ -38,6 +38,7 @@ function MemberDatas() {
 
   const [passwordFieldType, setPasswordFieldType] = useState('password');
   const [passwordFieldType2, setPasswordFieldType2] = useState('password');
+  const [change, setChange] = useState(0);
 
   const handleFieldChange = (e) => {
     //console.log(e.target.type, e.target.name, e.target.value)
@@ -76,9 +77,9 @@ function MemberDatas() {
       navigate('/MemberLogin');
     }
     try {
-      const response = await axios.get(
-        `http://${siteName}:3001/MemberLogin/api2/${sid}`
-      );
+      const response = await axios.get(`
+        http://${siteName}:3001/MemberLogin/api2/${sid}
+        `);
 
       console.log(localStorage.getItem('MemberSid'));
       console.log(response.data[0]);
@@ -92,7 +93,7 @@ function MemberDatas() {
 
   useEffect(() => {
     getform();
-  }, []);
+  }, [change]);
 
   useEffect(() => {
     // getform();
@@ -144,9 +145,10 @@ function MemberDatas() {
           icon: 'success',
           title: '修改成功',
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        setChange((v) => v + 1);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1000);
         // navigate('/');
       })
       .catch((e) => {
@@ -180,25 +182,40 @@ function MemberDatas() {
         onInvalid={handleFormInvalid}
         onChange={handleFormChange}
       >
-        <div className="mb_imgbox">
+        {/* <div className="mb_imgbox">
           大頭貼:
           <img
             className="mb_img"
             src={` http://${siteName}:3001/uploads/${user.image}`}
             alt=""
           />
-        </div>
+        </div> */}
         <div className="mb_mar">
           <input
+            hidden
+            id="mb_in"
             className="mb_input_img"
             type="file"
             name="avatar"
             onChange={changeHandler}
           />
-          {selectedFile && (
+          {selectedFile !== null ? (
             <div className="mb_imgbox">
-              更改後大頭貼:
-              <img className="mb_img" src={preview} alt="" />
+              大頭貼:
+              <label for="mb_in">
+                <img className="mb_img" src={preview} alt="" />
+              </label>
+            </div>
+          ) : (
+            <div className="mb_imgbox">
+              大頭貼:
+              <label for="mb_in">
+                <img
+                  className="mb_img"
+                  src={` http://${siteName}:3001/uploads/${user.image}`}
+                  alt=""
+                />
+              </label>
             </div>
           )}
         </div>
