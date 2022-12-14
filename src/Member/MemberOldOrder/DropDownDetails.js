@@ -55,7 +55,7 @@ function DropDownDetails({ orderSid, orderData }) {
                 <div className=" b50w100 padH10 padV10" key={i}>
                   <div className="memberOldOrderDetailProductCard">
                     <div className="disf jc-se padV10 padH20 ta-c ai-c ">
-                      <div className="w30p lh0">
+                      <div className="w30p lh0 ar1">
                         <img
                           alt={v.name}
                           src={`http://${siteName}:3001/uploads/${v.src}`}

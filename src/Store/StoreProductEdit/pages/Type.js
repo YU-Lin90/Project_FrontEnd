@@ -370,6 +370,12 @@ function Type() {
                             });
                           }}
                           placeholder="名稱"
+                          onDoubleClick={() => {
+                            setEditType({
+                              ...editType,
+                              type_name: '人氣精選',
+                            });
+                          }}
                         />
                       </label>
                     </form>
